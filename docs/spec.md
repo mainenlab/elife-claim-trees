@@ -145,3 +145,22 @@ The format is designed to be human-readable without any tooling — a text edito
 eLife will provide a list of approximately 10 neuroscience papers from the eLife corpus, selected to span a range of data quality. The claim graph construction and verification workflow will be applied to each paper in this repository. Results — claim graphs, reproduction outcomes, and notes on data accessibility — will be reviewed with eLife editors and reviewers before any broader development or rollout.
 
 The prototype phase answers the empirical questions that cannot be answered in advance: what the distribution of data accessibility looks like in this sample; whether the claim unit defined here is stable across papers of varying structure; what the practical effort is per claim and per paper; where the method's failure modes occur. Those answers determine what, if anything, to build next.
+
+---
+
+## Appendix: Prototype corpus
+
+Ten eLife articles selected by eLife editors (Andy Collings, Damian Pattinson), spanning a range of data types and quality levels in neuroscience. These are the papers on which the claim extraction and reproduction method will be first applied.
+
+| # | Article | Authors | Subject areas | DOI |
+|:--|:--------|:--------|:--------------|:----|
+| 1 | [A deep learning pipeline for mapping in situ network-level neurovascular coupling in multi-photon fluorescence microscopy](https://elifesciences.org/articles/95525) | Rozak et al. | Neuroscience; Physics of Living Systems | [10.7554/eLife.95525](https://doi.org/10.7554/eLife.95525) |
+| 2 | [Contributions of insula and superior temporal sulcus to interpersonal guilt and responsibility in social decisions](https://elifesciences.org/articles/105391) | Gädeke et al. | Neuroscience; social decision-making; fMRI | [10.7554/eLife.105391](https://doi.org/10.7554/eLife.105391) |
+| 3 | [iGABASnFR2 is an improved genetically encoded protein sensor of GABA](https://elifesciences.org/articles/108319) | Kolb et al. | Neuroscience; protein engineering; genetically encoded sensors | [10.7554/eLife.108319](https://doi.org/10.7554/eLife.108319) |
+| 4 | [Self-association enhances early attentional selection through automatic prioritization of socially salient signals](https://elifesciences.org/articles/100932) | Scheller et al. | Neuroscience; Computational and Systems Biology; visual attention | [10.7554/eLife.100932](https://doi.org/10.7554/eLife.100932) |
+| 5 | [Distinct representational properties of cues and contexts shape fear and reversal learning](https://elifesciences.org/articles/105126) | Bouyeure et al. | Neuroscience; fear learning; fMRI multivariate pattern analysis | [10.7554/eLife.105126](https://doi.org/10.7554/eLife.105126) |
+| 6 | [Spatially targeted inhibitory rhythms differentially affect neuronal integration](https://elifesciences.org/articles/95562) | Headley et al. | Neuroscience; cortical circuits; dendritic integration; oscillations | [10.7554/eLife.95562](https://doi.org/10.7554/eLife.95562) |
+| 7 | [Impaired excitability of fast-spiking neurons in a novel mouse model of KCNC1 epileptic encephalopathy](https://elifesciences.org/articles/103784) | Wengert et al. | Neuroscience; Genetics and Genomics; epilepsy; interneurons | [10.7554/eLife.103784](https://doi.org/10.7554/eLife.103784) |
+| 8 | [A three-dimensional immunofluorescence atlas of the brain of the hackled-orb weaver spider, *Uloborus diversus*](https://elifesciences.org/articles/107732) | Artiushin, Corver, Gordus | Neuroscience; neuroanatomy; brain atlas; invertebrate | [10.7554/eLife.107732](https://doi.org/10.7554/eLife.107732) |
+| 9 | [Computational modelling identifies key determinants of subregion-specific dopamine dynamics in the striatum](https://elifesciences.org/articles/105214) | Ejdrup et al. | Neuroscience; Computational and Systems Biology; dopamine; mathematical modelling | [10.7554/eLife.105214](https://doi.org/10.7554/eLife.105214) |
+| 10 | [Feedback of peripheral saccade targets to early foveal cortex](https://elifesciences.org/articles/107053) | Kämmer et al. | Neuroscience; visual perception; fMRI; saccades; V1 | [10.7554/eLife.107053](https://doi.org/10.7554/eLife.107053) |
