@@ -20,7 +20,7 @@ A paper contains approximately 10–20 claims. Each claim is:
 
 This maps to the `ms_mat` format: a structured text file per claim, human-readable, machine-parseable, version-controllable.
 
-Tim Behrens's formulation from our initial meeting: **the unit of publication is not a figure or a statistic — it is a computer program**. A claim is a computation: inputs (data, parameters), transformation (analysis code), output (result). A paper that cannot express its claims in this form is making assertions that cannot be independently verified.
+Kenneth's formulation from our initial meeting: **the unit of publication is not a figure or a statistic — it is a computer program**. A claim is a computation: inputs (data, parameters), transformation (analysis code), output (result). A paper that cannot express its claims in this form is making assertions that cannot be independently verified.
 
 ## Why panel-level
 
