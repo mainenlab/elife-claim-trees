@@ -1,0 +1,49 @@
+# elife-claim-trees
+
+Open claim-panel infrastructure for scientific papers. A prototype built in collaboration with eLife.
+
+## What this is
+
+Scientific papers make claims. Those claims are currently embedded in prose, attached to figures that bundle multiple results, and severed from the code and data that produced them. This project builds infrastructure to extract, represent, and link claims at the panel level — where a claim is a single analysis generating a single result, tied directly to the underlying code and data.
+
+The prototype focuses on eLife neuroscience papers, spanning a range of data quality from exemplary to average. The goal is to demonstrate that panel-level claim extraction is tractable, auditable, and useful — and to build the open infrastructure for doing it at scale.
+
+## The claim unit
+
+A paper contains approximately 10–20 claims. Each claim is:
+
+- A single declarative sentence stating what was shown
+- A panel — one figure panel or analysis block — that generated the result
+- A data source (raw or processed)
+- An analysis script that transforms data into the result
+- A set of upstream claims it depends on (e.g. a calibration result that the main finding requires)
+
+This maps to the `ms_mat` format: a structured text file per claim, human-readable, machine-parseable, version-controllable.
+
+Tim Behrens's formulation from our initial meeting: **the unit of publication is not a figure or a statistic — it is a computer program**. A claim is a computation: inputs (data, parameters), transformation (analysis code), output (result). A paper that cannot express its claims in this form is making assertions that cannot be independently verified.
+
+## Why panel-level
+
+Figures are too coarse: a single figure panel contains multiple sub-results, and the figure caption conflates them. Statistics are too granular: a p-value has no interpretive context on its own. The panel — one analysis producing one result — is the natural unit of reproducible science.
+
+Existing claim-extraction approaches tend toward either sentence-level NLP (too granular, loses causal structure) or paper-level labeling (too coarse, misses the verification problem). Panel-level is the level at which reproducibility actually operates.
+
+## The claim graph
+
+Claims relate to each other via directed belongings: `supports`, `requires`, `contradicts`, `extends`. The graph is stored as plain text files — no database, no neural network required for the core structure. Each node is a claim file; each edge is a typed relation in the frontmatter. The graph is human-auditable at every level.
+
+## Status
+
+Early prototype. Paper list from eLife forthcoming. Building on approximately 10 neuroscience papers. The claim format (`docs/claim-format.md`) and workflow (`docs/method.md`) are specified here; implementation is underway.
+
+## Collaboration
+
+- Zach Mainen — Mainen Lab, Champalimaud Research, Lisbon
+- Tim Behrens — Oxford
+- Damian Pattinson, Andy Collings — eLife
+
+## Related work
+
+- Shadow Scientific Ecosystem paper (preprint forthcoming) — the theoretical argument for open, adversarial, panel-level claim infrastructure
+- Library Theorem (arXiv:2503.xxxxx) — formal grounding for the claim graph structure
+- Leo Pucter's group — complementary open approach at finer claim granularity
