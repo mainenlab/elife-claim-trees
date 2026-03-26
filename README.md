@@ -45,5 +45,5 @@ Early prototype. Paper list from eLife forthcoming. Building on approximately 10
 ## Related work
 
 - Shadow Scientific Ecosystem paper (preprint forthcoming) — the theoretical argument for open, adversarial, panel-level claim infrastructure
-- Library Theorem (arXiv:2503.xxxxx) — formal grounding for the claim graph structure
+- [Library Theorem (arXiv:2603.21272)](https://arxiv.org/abs/2603.21272) — formal grounding for the claim graph structure
 - Leo Pucter's group — complementary open approach at finer claim granularity
