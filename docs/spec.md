@@ -76,7 +76,7 @@ Ten papers is not enough to make statistical claims about reproduction rates acr
 
 ## Next steps
 
-eLife has provided the 10-paper corpus (see appendix). The prototype will be built in this repository: https://github.com/mainenlab/elife-claim-trees. Results will be reviewed with eLife before any broader rollout. The claim format specification is in `docs/claim-format.md`; the workflow is in `docs/method.md`.
+eLife has provided the 10-paper corpus (see appendix). The prototype will be built in this repository: https://github.com/zmainen/elife-claim-trees. Results will be reviewed with eLife before any broader rollout. The claim format specification is in `docs/claim-format.md`; the workflow is in `docs/method.md`.
 
 ---
 
