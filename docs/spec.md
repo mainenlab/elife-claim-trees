@@ -1,5 +1,6 @@
 **Zach Mainen** (Mainen Lab, Champalimaud Research, Lisbon)
 **Tim Behrens** (Oxford)
+**Ken Harris** (UCL)
 **Damian Pattinson, Andy Collings** (eLife)
 
 *Draft — March 2026*
