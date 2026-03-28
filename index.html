@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>elife-claim-trees</title>
+<meta name="description" content="Panel-level claim verification — a prototype built with eLife. Extracting and reproducing the claim structure of neuroscience papers.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<button id="theme-toggle" aria-label="Toggle dark mode"><span id="toggle-icon">&#9790;</span></button>
+
+<div class="wrap">
+
+<header>
+  <h1>elife-claim-trees</h1>
+  <p class="subtitle">Panel-level claim verification &mdash; a prototype built with eLife</p>
+  <p class="authors">Zach Mainen &middot; Tim Behrens &middot; Damian Pattinson &middot; Andy Collings</p>
+  <a class="github-link" href="https://github.com/zmainen/elife-claim-trees">&rarr; View on GitHub</a>
+</header>
+
+<section>
+  <p>Science is currently organized around stories. A paper is a narrative artifact: it has a beginning, an argument that builds, and a conclusion. It is designed to convince a human reader &mdash; it foregrounds the results that support the main claim, backgrounds the ones that don&rsquo;t, and embeds everything in rhetoric calibrated to a domain audience. This has been the right format for human science. Humans need to be convinced, and narrative does that.</p>
+  <p>AI is a different reader. AI doesn&rsquo;t need to be convinced; it needs structure it can reason over, verify, and connect to other structure. The problem is not that AI can&rsquo;t read papers &mdash; it can. The problem is that papers are the wrong surface for AI to land on. A science organized around claims rather than stories would be legible to AI at every level: reasoning, verification, connection, gap-finding. That science doesn&rsquo;t exist yet. This project is a step toward it.</p>
+  <p>The transition from story-based to claim-based science has two phases. In the first phase &mdash; which is where we are &mdash; existing papers are ingested and their claim structure is made explicit. Claims embedded in narrative are extracted, structured, linked to data and code, and verified. In the second phase, science is born claim-first: researchers write claims, not stories. Papers become derived artifacts &mdash; narrative summaries of claim graphs produced for human readers &mdash; rather than the primary scientific record. The prototype described here belongs to the first phase. It is designed with the second in mind.</p>
+</section>
+
+<section>
+  <h2>What a claim is</h2>
+  <p>A claim is a single declarative sentence asserting what one analysis showed, grounded in a specific panel. One analysis, one result, one data source. A paper contains approximately 10&ndash;20 such claims. Each claim carries: the proposition (one sentence, active voice, quantitative where the result is quantitative), the panel it corresponds to, a pointer to the data, the analysis script that transforms data into the result, and the upstream claims it depends on structurally &mdash; not by citation, but by logical dependency. If one claim would be invalid if another were wrong, that dependency is made explicit.</p>
+  <p>Claims relate to each other through typed directed relations: <em>supports</em>, <em>requires</em>, <em>contradicts</em>, <em>extends</em>. The result is a directed acyclic graph &mdash; the paper&rsquo;s argument made structural. Invalidity propagates downstream: a claim on which three others depend that cannot be reproduced affects all three. Independent claims stand alone. Dependent claims are only as strong as the claims they rest on. Making this structure explicit is itself a finding.</p>
+  <p>The claim sentence deserves particular attention. It should be evaluable without reading the paper: it names the phenomenon, the direction and magnitude of the result, and the key statistics. &ldquo;Serotonin neuron firing rates increased following novel stimulus presentation&rdquo; is not a claim in this sense. &ldquo;DRN serotonin neuron firing rates were elevated for 2&ndash;4 s following first exposure to a novel odor but not on subsequent presentations of the same odor (n&nbsp;=&nbsp;6 mice, p&nbsp;=&nbsp;0.003, Wilcoxon signed-rank)&rdquo; is. The difference is specificity and verifiability.</p>
+</section>
+
+<section>
+  <h2>What the prototype does</h2>
+  <p>Apply this method to 10 eLife neuroscience papers (listed in the appendix), provided by eLife editors. For each paper: extract the claim graph, locate the data and code for each claim, run the analyses, record the outcomes. The outcomes fall into three categories: <em>verified</em> (analysis runs, result matches), <em>failed</em> (analysis runs, result does not match), <em>unverified</em> (data or code not available).</p>
+  <p>The unverified cases are not a failure of the method &mdash; they are a finding about the paper. A claim that cannot be independently reproduced because the data was never made available is a fact about the scientific record. Current publishing infrastructure does not surface this fact. The claim graph does.</p>
+</section>
+
+<section>
+  <h2>What this is not</h2>
+  <p><strong>Not NLP-based claim extraction.</strong> Claims are identified by human analysts working from figures and analyses, not extracted from prose by a language model. The text of the paper is consulted as context; it is not the source.</p>
+  <p><strong>Not AI-generated science.</strong> The claims are written by humans; the format structures what humans produce. LLM assistance is used as a drafting aid &mdash; faster to correct a candidate sentence than to write from scratch &mdash; but the final claim is human-authored and human-approved.</p>
+  <p><strong>Not replication.</strong> We are asking whether the same analysis on the same data gives the same result &mdash; not whether independent data gives the same result. Replication is a harder question and a later one.</p>
+  <p><strong>Not a publishing platform.</strong> The output is structured data that can inform editorial decisions. Building systems around that data is out of scope for the prototype.</p>
+</section>
+
+<section>
+  <h2>Ontological commitments</h2>
+  <p>A claim is an entity: a proposition with a priority date, an author, and an epistemic status. The act of producing a claim &mdash; running an analysis, interpreting a result &mdash; is a situation: specific, dated, conducted by specific people under specific conditions. Reproduction is a new situation that attempts to instantiate the same result from the same inputs. This distinction matters because it clarifies what the system is tracking: not just what was claimed, but the conditions under which the claim was produced and whether those conditions can be re-enacted.</p>
+  <p>The paper is not the claim graph. The paper is a linear argument written for human readers. The claim graph is the logical structure of that argument. The two are not identical: papers contain interpretive moves, rhetorical framing, and contextual discussion that the claim graph does not capture. Both are necessary. The claim graph is not a replacement for the paper &mdash; it is what the paper contains, made visible.</p>
+</section>
+
+<section>
+  <h2>The central uncertainty</h2>
+  <p>Data accessibility cannot be predicted in advance. Analysis reproduction, given data and code, is tractable. Getting the data and code is not. Some eLife papers deposit raw data on Zenodo and provide fully runnable code; others provide processed data only; others provide neither. eLife has had a data availability requirement since 2017, but it enforces it at the level of the data availability statement, not the data itself. A paper can satisfy that requirement while providing processed data that cannot reproduce the main figures, code that does not run, or both.</p>
+  <p>The method handles this variation: failure modes are recorded explicitly, not hidden. But the distribution of outcomes across the 10 prototype papers is unknown. Discovering that distribution is one of the things the prototype is for.</p>
+</section>
+
+<section>
+  <h2>Evaluation</h2>
+  <p>Three questions:</p>
+  <p>Can we produce a complete claim graph for each paper that a domain expert judges accurate? Evaluated by author and independent review. The question is whether an expert who knew only the claim graph would have a correct understanding of what the paper claims and on what evidence.</p>
+  <p>Across claims where data and code are available, what fraction reproduce? This is the headline number, expected to vary across papers and claim types. Empirical claims in papers with fully open data and code give the most interpretable figure.</p>
+  <p>Do the claim graphs provide editorially useful information beyond what reading the paper provides? Evaluated qualitatively through structured conversations with eLife editors and reviewers who have access to both the papers and the corresponding claim graphs.</p>
+  <p>Ten papers is not enough to make statistical claims about reproduction rates across neuroscience. It is enough to develop and stress-test the method, characterize the data accessibility landscape in this sample, and produce examples concrete enough to evaluate the editorial utility question.</p>
+</section>
+
+<section>
+  <h2>Next steps</h2>
+  <p>eLife has provided the 10-paper corpus (see appendix). The prototype will be built in this repository. Results will be reviewed with eLife before any broader rollout. The claim format specification is in <a href="https://github.com/zmainen/elife-claim-trees/blob/main/docs/claim-format.md"><code>docs/claim-format.md</code></a>; the workflow is in <a href="https://github.com/zmainen/elife-claim-trees/blob/main/docs/method.md"><code>docs/method.md</code></a>.</p>
+</section>
+
+<section>
+  <h2>Appendix: Prototype corpus</h2>
+  <p style="font-size:14px; color:var(--muted); margin-bottom:24px;">Ten eLife articles selected by eLife editors (Andy Collings, Damian Pattinson), spanning a range of data types and quality levels in neuroscience.</p>
+  <ol class="corpus-list">
+    <li>
+      <span class="item-num">1.</span>
+      <a href="https://elifesciences.org/articles/95525">A deep learning pipeline for mapping in situ network-level neurovascular coupling in multi-photon fluorescence microscopy</a>
+      <span class="item-authors">Rozak et al. &middot; <a href="https://doi.org/10.7554/eLife.95525">10.7554/eLife.95525</a></span>
+    </li>
+    <li>
+      <span class="item-num">2.</span>
+      <a href="https://elifesciences.org/articles/105391">Contributions of insula and superior temporal sulcus to interpersonal guilt and responsibility in social decisions</a>
+      <span class="item-authors">G&auml;deke et al. &middot; <a href="https://doi.org/10.7554/eLife.105391">10.7554/eLife.105391</a></span>
+    </li>
+    <li>
+      <span class="item-num">3.</span>
+      <a href="https://elifesciences.org/articles/108319">iGABASnFR2 is an improved genetically encoded protein sensor of GABA</a>
+      <span class="item-authors">Kolb et al. &middot; <a href="https://doi.org/10.7554/eLife.108319">10.7554/eLife.108319</a></span>
+    </li>
+    <li>
+      <span class="item-num">4.</span>
+      <a href="https://elifesciences.org/articles/100932">Self-association enhances early attentional selection through automatic prioritization of socially salient signals</a>
+      <span class="item-authors">Scheller et al. &middot; <a href="https://doi.org/10.7554/eLife.100932">10.7554/eLife.100932</a></span>
+    </li>
+    <li>
+      <span class="item-num">5.</span>
+      <a href="https://elifesciences.org/articles/105126">Distinct representational properties of cues and contexts shape fear and reversal learning</a>
+      <span class="item-authors">Bouyeure et al. &middot; <a href="https://doi.org/10.7554/eLife.105126">10.7554/eLife.105126</a></span>
+    </li>
+    <li>
+      <span class="item-num">6.</span>
+      <a href="https://elifesciences.org/articles/95562">Spatially targeted inhibitory rhythms differentially affect neuronal integration</a>
+      <span class="item-authors">Headley et al. &middot; <a href="https://doi.org/10.7554/eLife.95562">10.7554/eLife.95562</a></span>
+    </li>
+    <li>
+      <span class="item-num">7.</span>
+      <a href="https://elifesciences.org/articles/103784">Impaired excitability of fast-spiking neurons in a novel mouse model of KCNC1 epileptic encephalopathy</a>
+      <span class="item-authors">Wengert et al. &middot; <a href="https://doi.org/10.7554/eLife.103784">10.7554/eLife.103784</a></span>
+    </li>
+    <li>
+      <span class="item-num">8.</span>
+      <a href="https://elifesciences.org/articles/107732">A three-dimensional immunofluorescence atlas of the brain of the hackled-orb weaver spider, <em>Uloborus diversus</em></a>
+      <span class="item-authors">Artiushin, Corver, Gordus &middot; <a href="https://doi.org/10.7554/eLife.107732">10.7554/eLife.107732</a></span>
+    </li>
+    <li>
+      <span class="item-num">9.</span>
+      <a href="https://elifesciences.org/articles/105214">Computational modelling identifies key determinants of subregion-specific dopamine dynamics in the striatum</a>
+      <span class="item-authors">Ejdrup et al. &middot; <a href="https://doi.org/10.7554/eLife.105214">10.7554/eLife.105214</a></span>
+    </li>
+    <li>
+      <span class="item-num">10.</span>
+      <a href="https://elifesciences.org/articles/107053">Feedback of peripheral saccade targets to early foveal cortex</a>
+      <span class="item-authors">K&auml;mmer et al. &middot; <a href="https://doi.org/10.7554/eLife.107053">10.7554/eLife.107053</a></span>
+    </li>
+  </ol>
+</section>
+
+</div>
+
+<footer>March 2026 &middot; Mainen Lab, Champalimaud Research</footer>
+
+<script>
+const btn = document.getElementById('theme-toggle');
+const icon = document.getElementById('toggle-icon');
+function applyTheme(dark) {
+  document.documentElement.setAttribute('data-theme', dark ? 'dark' : 'light');
+  icon.innerHTML = dark ? '&#9788;' : '&#9790;';
+  localStorage.setItem('ect-theme', dark ? 'dark' : 'light');
+}
+if (localStorage.getItem('ect-theme') === 'dark') applyTheme(true);
+btn.addEventListener('click', () => {
+  applyTheme(document.documentElement.getAttribute('data-theme') !== 'dark');
+});
+</script>
+</body>
+</html>
