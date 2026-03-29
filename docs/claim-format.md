@@ -1,102 +1,174 @@
-# Claim Format — ms_mat
+# Claim Format
 
-A claim is the atomic unit of a paper. Each claim is stored as a structured text file (`<panel-id>.ms_mat.md`) with YAML frontmatter and an optional prose body.
+A claim is an entity — a proposition that exists independently of any particular paper. The claim `dat-reuptake-dominates` is not a figure panel or a result; it is a proposition about the world that multiple papers might assert, that reproductions might test, and that other claims might depend on logically. Papers make assertions about claims; reproductions test those assertions. The claim itself is the stable unit.
 
-## Claim types
+The claim graph connects claim entities through typed directed relations. When claim A requires claim B, this is a statement about logical structure: A's validity depends on B's. These relations are not citations — they do not say "paper X cites paper Y." They say "proposition A would be undermined if proposition B were false." This distinction matters: it allows invalidity to propagate through the graph when a claim fails to reproduce. The format below implements this ontological model.
 
-Five types, ordered by epistemic character:
+---
+
+## 1. The claim entity
+
+**UUID** is the canonical identifier. Generated at claim creation with `python3 -c "import uuid; print(uuid.uuid4())"`, it never changes. The UUID is the identity of the claim — it survives renaming, migration across paper directories, and future citation assignment. When systems need to refer unambiguously to a claim, they use the UUID.
+
+**Slug** is the human-readable filename. It should capture the proposition in 3–5 words, lowercase and hyphenated. The slug is the working identity — how analysts and readers refer to the claim in conversation and in code. Unlike the UUID, the slug can be updated if a better one is found; the UUID absorbs the identity.
+
+**DOI** is aspirational — the future state in which claims are first-class citable units, like datasets and software already are. The field is empty for now; it is there to receive a DOI when that infrastructure exists. Do not fabricate DOIs.
+
+**Claim sentence** is one declarative sentence in active voice, quantitative where the result is quantitative. It states the proposition without hedging — hedges belong in `epistemic`. A claim sentence that requires more than one sentence to state is probably two claims.
+
+**Claim types** classify the epistemic character of the proposition:
 
 | Type | Definition |
 |:-----|:-----------|
-| **empirical** | A directly observed result from data (e.g. "firing rate increased by 40% following 5-HT stimulation") |
-| **interpretive** | An inference drawn from one or more empirical claims (e.g. "serotonin suppresses locomotion via dorsal raphe projections") |
-| **existence** | An assertion that a phenomenon or entity exists (e.g. "a subpopulation of DRN neurons responds selectively to novel stimuli") |
+| **empirical** | A directly observed result from data (e.g. "firing rate increased 40% following stimulation") |
+| **interpretive** | An inference drawn from one or more empirical claims (e.g. "reuptake, not diffusion, dominates clearance") |
+| **existence** | An assertion that a phenomenon or entity exists (e.g. "a DAT-independent clearance mechanism operates in the OFC") |
 | **synthesis** | A claim integrating results across multiple papers or datasets |
-| **assessment** | A methodological or quality claim (e.g. "recording quality was stable across sessions as verified by waveform shape") |
+| **assessment** | A methodological or quality claim (e.g. "signal-to-noise was stable across sessions as verified by waveform shape") |
 
-## Frontmatter fields
+Type is a property of the claim entity — it describes the nature of the proposition, not the figure that instantiates it in any given paper.
+
+**Epistemic** is the analyst's assessment of how strongly the claim is supported across its assertion(s): `strong`, `moderate`, `weak`, or `contested`. This should be updated when new assertions or reproductions come in. A claim that was `strong` from one paper and `failed:mismatch` in a reproduction should be moved to `contested`.
+
+---
+
+## 2. Assertions
+
+An assertion is a situation: a paper asserting a claim at a moment in time, in a specific way. The assertion records the relationship between a claim entity and a paper entity — when a paper instantiates a claim in a particular figure, with a particular analysis, using a particular dataset.
+
+The figure panel is a quality of the assertion, not a property of the claim. This is the key structural shift from the prior format. Panel `fig2a` tells you how paper `ejdrup-2026-dopamine` chose to present the claim — but the claim `dat-reuptake-dominates` could also be asserted in a different paper's supplementary figure, or in a table, or without a figure at all. The claim exists independently; the panel is how one paper chose to show it.
+
+A claim can carry multiple assertion blocks, one per paper that asserts it. Each block records:
+
+- `paper-slug` — the slug of the asserting paper, matching its directory name
+- `doi` — the paper's DOI
+- `panel` — the figure panel (or table, or analysis block) instantiating the claim in this paper
+- `analysis` — the notebook or script that generates the result from data
+- `dataset` / `dataset-doi` — the data deposit used
+- `method` — the computational or experimental method
+- `confidence` — the paper's own confidence level (strong / moderate / weak)
+
+---
+
+## 3. Reproductions
+
+A reproduction is a situation: an agent re-enacting an assertion to test whether it holds. It records who ran it, when, and what happened. A claim moves from `unverified` to `verified` (or `failed`) through reproductions.
+
+**Status vocabulary:**
+
+| Status | Meaning |
+|:-------|:--------|
+| `verified` | Ran the analysis; output matches the assertion |
+| `failed:mismatch` | Ran the analysis; output does not match — discrepancy logged in `notes` |
+| `unverified:no-data` | Data deposit not accessible; reproduction not attempted |
+| `unverified:no-code` | Code not accessible; reproduction not attempted |
+| `unverified` | Not yet attempted |
+
+When a reproduction fails with `failed:mismatch`, the discrepancy should be described in `notes` with enough precision that a future agent can diagnose the cause. "Numbers differ" is not sufficient. "Clearance rate constant is 0.31 s⁻¹ in reproduction vs 0.18 s⁻¹ in paper; suspect different initial conditions used" is.
+
+---
+
+## 4. Belongings
+
+Belongings are typed directed edges between claim entities. They express logical dependencies between propositions:
+
+| Relation | Meaning |
+|:---------|:--------|
+| `supports` | This claim provides evidence for the target claim |
+| `requires` | This claim would be invalid if the target claim were wrong — a structural dependency |
+| `contradicts` | This claim is in direct tension with the target claim |
+| `extends` | This claim builds on or refines the target claim |
+
+These are not citations. They are statements about the logical structure of a claim graph. When you mark claim A as requiring claim B, you assert that A's validity depends on B's validity. Invalidity propagates: if B fails to reproduce, that failure has downstream consequences for every claim that requires B. The graph makes these dependencies explicit and auditable.
+
+The `target` field takes the slug of the target claim. If the target claim lives in a different paper directory, use its slug — slugs are globally unique across the claim graph.
+
+---
+
+## 5. Naming conventions
+
+Slugs should be:
+- Lowercase, hyphenated
+- 3–6 words
+- A verb phrase that captures the proposition
+
+Good examples: `dat-reuptake-dominates`, `d2-autoreceptors-suppress-tonic`, `phasic-release-saturates-clearance`, `novelty-drives-drn-firing`.
+
+Avoid:
+- Figure references: `fig2a-result` (the panel is an assertion quality, not the claim identity)
+- Paper-specific language: `ejdrup-main-finding` (claims are independent of papers)
+- Vague terms: `dopamine-result-1` (not meaningful to a domain expert without context)
+
+The slug should be meaningful to a domain expert who has not read any specific paper. It should summarize the proposition in terms of the underlying phenomenon.
+
+---
+
+## 6. Directory structure
+
+```
+claims/
+  <paper-slug>/
+    index.md              # paper metadata: title, DOI, authors, abstract, GitHub, data deposit
+    <claim-slug>.md       # one file per claim registered from this paper
+    ...
+```
+
+Claims are registered into a paper-slug directory as the ingest point. For the prototype, this organization is fine and allows claims to be discovered alongside their primary paper. As the claim graph grows and claims are asserted by multiple papers, individual claim files can migrate to a flat `claims/` namespace — the UUID ensures identity survives migration, and the slug provides continuity.
+
+---
+
+## 7. Generating UUIDs
+
+At claim creation, generate a UUID4:
+
+```bash
+python3 -c "import uuid; print(uuid.uuid4())"
+```
+
+Paste the output directly into the `uuid` frontmatter field. This happens once, at creation. It never changes after that.
+
+---
+
+## 8. Full example
 
 ```yaml
 ---
-panel: fig2c                        # figure panel identifier (fig, table, or analysis block)
-claim-type: empirical               # one of: empirical, interpretive, existence, synthesis, assessment
-claim: >                            # single declarative sentence — what was shown
-  Optogenetic activation of DRN serotonin neurons suppressed ongoing locomotion
-  within 500 ms in 8 of 9 mice.
-concepts:                           # key terms for indexing
-  - serotonin
-  - dorsal raphe nucleus
-  - locomotion
-  - optogenetics
-upstream:                           # claim IDs this claim depends on
-  - fig1b                           # e.g. the calibration that validates the opsin expression
-  - fig2a
-data: data/locomotion-traces/       # path or DOI to input data
-analysis: scripts/locomotion_suppression.py   # script that generates the result
-figure: figures/fig2c.pdf           # rendered output
-stats:                              # key statistics
-  n: 9
-  responders: 8
-  latency_ms: 500
-  p: 0.004
-  test: Wilcoxon signed-rank
-epistemic: strong                   # one of: strong, moderate, weak, contested
-status: verified                    # one of: verified, unverified, reproduced, failed
----
-
-## Notes
-
-Optional prose elaborating the claim — caveats, alternative interpretations, links to contradicting claims.
-```
-
-## Field notes
-
-- **`claim`**: One sentence, active voice, quantitative where possible. Avoid hedges in the sentence itself — use `epistemic` for that.
-- **`upstream`**: These are structural dependencies, not citations. If this claim would be invalid if `fig1b` were wrong, list it.
-- **`data`**: Point to the raw or minimally processed data, not the figure source files.
-- **`analysis`**: The script must be runnable and reproduce `figure` from `data`. This is the verification commitment.
-- **`epistemic`**: Your assessment of how strongly this claim is supported by the evidence in this paper alone.
-- **`status`**: `verified` = we ran the script and got the same result; `reproduced` = verified on independent data.
-
-## Three-stage pipeline
-
-```
-data/ → [analyze] → stats/ → [panel function] → figures/ → [assemble] → ms_mat/
-```
-
-1. **Analyze**: Raw data → summary statistics (CSV, HDF5, or JSON). One script per claim.
-2. **Panel function**: Statistics → rendered figure panel. Separating these stages means the figure can be regenerated from cached stats without re-running the full analysis.
-3. **Assemble**: All claim files + figures → the paper's claim graph.
-
-## Example claim block
-
-A plausible claim from a serotonin-novelty paper:
-
-```yaml
----
-panel: fig3b
-claim-type: empirical
+uuid: 3f7a2b1c-8e4d-4f9a-b2c1-7d3e5f8a9b0c
+slug: dat-reuptake-dominates
+doi: ~        # assigned when claims become formally citable; empty for now
 claim: >
-  DRN serotonin neuron firing rates were elevated for 2–4 s following first exposure
-  to a novel odor, but not on subsequent presentations of the same odor (n = 6 mice,
-  p = 0.003, Wilcoxon signed-rank).
+  DAT-mediated reuptake is the dominant mechanism of dopamine clearance
+  in the dorsal striatum under physiological stimulation conditions.
+claim-type: interpretive
 concepts:
-  - serotonin
-  - novelty
-  - olfaction
-  - DRN
-upstream:
-  - fig2a   # confirms fiber placement in DRN
-  - fig2c   # confirms GCaMP expression in TPH2+ neurons
-data: data/fiber-photometry/novel-odor-sessions/
-analysis: scripts/novelty_response_analysis.py
-figure: figures/fig3b.pdf
-stats:
-  n_mice: 6
-  window_s: [2, 4]
-  p: 0.003
-  test: Wilcoxon signed-rank
-epistemic: strong
-status: verified
+  - dopamine transporter
+  - dopamine clearance
+  - dorsal striatum
+priority: 2026-03-29   # date this claim was first registered
+epistemic: strong       # strong | moderate | weak | contested
+
+belongings:
+  - relation: supports       # supports | requires | contradicts | extends
+    target: tonic-dopamine-sets-baseline
+  - relation: requires
+    target: dat-expression-confirmed
+
+assertions:
+  - paper-slug: ejdrup-2026-dopamine
+    doi: 10.7554/eLife.105214
+    panel: fig2a               # quality of the assertion, not the claim identity
+    analysis: notebooks/fig2_dat_kinetics.ipynb
+    dataset: https://zenodo.org/record/XXXXXXX
+    dataset-doi: 10.5281/zenodo.XXXXXXX
+    method: mathematical modelling
+    confidence: strong
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-29
+    status: unverified    # verified | failed:mismatch | unverified:no-data | unverified:no-code | unverified
+    notes: ~
 ---
+
+Optional prose body — caveats, alternative interpretations, pointers to contradicting claims in other papers. Use this for any reasoning that cannot be compressed into frontmatter: e.g., a known boundary condition where the claim may not hold, or a note that an earlier preprint version reported a different value.
 ```
