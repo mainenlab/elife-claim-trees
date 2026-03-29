@@ -46,6 +46,24 @@ reproductions:
       script (Figure 4-Fig 4a-e and g-i-Source code.py) requires sim_result_*.npy and
       steady_state_DAT_*.csv from Zenodo. Verification would require either downloading
       Zenodo data or running on a compute cluster. Code was not assessed for correctness.
+  - agent: mainen-z
+    date: 2026-03-26
+    status: partial:zenodo-data-downloaded
+    notes: >
+      Zenodo deposit (DOI 10.5281/zenodo.17664800, latest record 18046987) downloaded
+      2026-03-26. The deposit contains: 5 × sim_result_*.npy (9.1 GB each — 45 GB
+      total, not feasible to download); 5 × steady_state_DAT_*.csv (12.5 kB each,
+      downloaded); DAT_sim_gradient.csv, DAT_sim_conc_surface.csv (downloaded);
+      DAT_clustering.csv (194 bytes, downloaded); dSTORM zip archives (1.3 GB + 966 MB).
+      The burst clearance claim (400 ms vs 200 ms from 100 nM) is in Fig 4h and requires
+      sim_result_*.npy — these were not downloaded. The 400 vs 200 ms numbers therefore
+      remain unverified. The steady_state_DAT_*.csv files (Fig 4g, equilibrium [DA]) were
+      successfully plotted: 20nm clusters reach 29.5 nM tonic equilibrium vs 15.4 nM for
+      unclustered DAT — a 1.9× elevation consistent with the directional claim of slower
+      effective clearance. The plotting script requires additional CSVs
+      (DAT_sim_conc.csv, DAT_sim_rel_time.csv, DAT_sim_dist.csv, DAT_sim_DA_diff*.csv)
+      not present in the Zenodo deposit — these correspond to an older simulation format
+      and their absence prevents running the full script. Output: /tmp/ejdrup-2026/outputs/fig4/
 ---
 
 The mechanism is physically intuitive: when DAT molecules are concentrated into nanoclusters rather than distributed uniformly across the membrane, DA arriving at the membrane surface rapidly depletes local [DA] at the cluster to near zero, reducing the concentration gradient that drives further uptake. This is analogous to enzyme saturation at a local level — even though total Vmax is held constant, the effective clearance rate is lower because substrates must diffuse to the cluster location. The ~2× slower clearance (400 vs 200 ms) is the quantitative result. This claim is scoped to the varicosity-scale model and cannot be directly translated to tissue-scale predictions without the formal coupling that the assessment node (`nanoclustering-model-varicosity-scale`) identifies as absent.

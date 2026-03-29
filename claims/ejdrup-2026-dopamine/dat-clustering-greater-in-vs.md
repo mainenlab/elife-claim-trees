@@ -6,6 +6,9 @@ claim: >
   Super-resolution dSTORM imaging shows DAT is significantly more nanoclustered in VS than DS
   (p=0.012, Welch's two-sample t-test, n=12 DS, n=13 VS), consistent across cluster sizes
   20–200 nm.
+claim-note: >
+  p-value and sample sizes disputed by Zenodo data (record 18046987): n=13 DS, n=12 VS,
+  Welch p=0.029 two-tailed. Direction confirmed. See reproduction entry 2026-03-26.
 claim-type: empirical
 concepts:
   - DAT nanoclustering
@@ -35,6 +38,23 @@ reproductions:
     date: 2026-03-29
     status: unverified:no-data
     notes: dSTORM localisation data deposited in Zenodo (Figure 4 data deposit); reproduction would require running DBSCAN cluster analysis on raw localization files.
+  - agent: mainen-z
+    date: 2026-03-26
+    status: failed:mismatch
+    notes: >
+      DAT_clustering.csv downloaded from Zenodo (record 18046987). Contains 13 DS values
+      and 12 VS values (semicolon-delimited, comma as decimal separator). Running Welch's
+      two-sample t-test: DS mean=29.89%, VS mean=43.22%, t=-2.326, p=0.0292 (two-tailed).
+      The claim states p=0.012, n=12 DS, n=13 VS. Both are wrong: (1) the sample sizes
+      are reversed (n=13 DS, n=12 VS in the data); (2) p=0.029 two-tailed, p=0.015
+      one-tailed — neither matches p=0.012. Mann-Whitney gives p=0.018 (two-sided) or
+      p=0.009 (one-sided). No combination of standard tests reproduces p=0.012 exactly.
+      The discrepancy in sample sizes and p-value suggests either the claim was transcribed
+      with an error from the paper text, or the CSV represents a subset/different version
+      of the data analyzed in the paper. The direction of the effect (VS > DS) is confirmed:
+      VS mean 43.2% vs DS mean 29.9%, statistically significant by all tests (p<0.05).
+      Raw data: /tmp/ejdrup-2026/zenodo-data/DAT_clustering.csv.
+      Plot: /tmp/ejdrup-2026/outputs/fig4/fig4m_dat_clustering_dstorm.png.
 ---
 
 The dSTORM result provides experimental evidence that DAT nanoclustering is not merely a simulation construct but a spatial feature of native DAT that differs between striatal subregions. The significance (p=0.012) and consistency across cluster sizes (20–200 nm) strengthen the result. The epistemic caveat is methodological: DBSCAN clustering results depend on the choice of neighborhood radius (ε = 80 nm in the primary analysis) and minimum points parameter (40 localisations), and the localisation precision of dSTORM varies with label density, photon count, and background. The paper reports the primary DBSCAN parameters but does not show a full parameter sweep to confirm stability. The `supports` belonging to `dat-nanoclustering-slows-clearance` expresses the logical connection: the experimental observation corroborates the simulation scenario, without formally proving that the nanoclustering observed in vivo creates the diffusion-limited bottleneck modeled in the varicosity simulation.
