@@ -1,0 +1,39 @@
+---
+uuid: 2ac9b38d-8f72-436d-905a-b98b7e8dc3ba
+slug: ds-lacks-pervasive-tonic-da
+doi: ~
+claim: >
+  During 4 Hz pacemaker activity, the dorsal striatum produces partially segregated DA hotspots
+  with large fractions of the simulated volume devoid of DA — there is no pervasive tonic
+  baseline.
+claim-type: empirical
+concepts:
+  - dorsal striatum
+  - tonic dopamine
+  - spatial dynamics
+  - pacemaker firing
+priority: 2026-03-29
+epistemic: moderate
+
+belongings:
+  - relation: requires
+    target: ds-vs-vmax-ratio-assumed
+
+assertions:
+  - paper-slug: ejdrup-2026-dopamine
+    doi: 10.7554/eLife.105214
+    panel: fig1D, fig1E, fig1F
+    analysis: Figure 1-Fig 1a, d, e, f-Source code.py
+    dataset: https://zenodo.org/record/17664800
+    dataset-doi: 10.5281/zenodo.17664800
+    method: mathematical modelling
+    confidence: moderate
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-29
+    status: unverified
+    notes: ~
+---
+
+This is the foundational spatial result for the dorsal striatum. The high-Vmax uptake environment (DS = 6 µM·s⁻¹) confines DA to a halo around active terminals during 4 Hz pacemaker firing; between terminals, [DA] falls to near zero. The result depends on the assumed 3:1 Vmax ratio between DS and VS but is consistent with earlier experimental observations of restricted diffusion in dorsal striatum. The "no pervasive tonic baseline" framing is qualitative; the quantitative picture is that median [DA] across voxels is low but not uniform — Figure 1E shows the distribution. Epistemic status is moderate rather than strong because the Vmax assumption is imported from prior work rather than independently measured in this study.

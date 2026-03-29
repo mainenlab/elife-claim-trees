@@ -1,0 +1,39 @@
+---
+uuid: e3b92961-38ad-41b2-a66f-65e328d33a2e
+slug: vs-low-active-fraction-resembles-ds-distribution
+doi: ~
+claim: >
+  VS at 5% active terminals produces a spatial DA distribution resembling DS at 100% active
+  terminals, demonstrating VS operates in a low-focality high-coverage regime while DS requires
+  dense terminal participation for equivalent spatial reach.
+claim-type: empirical
+concepts:
+  - active terminal fraction
+  - spatial DA distribution
+  - focality
+  - dopamine coverage
+priority: 2026-03-29
+epistemic: moderate
+
+belongings:
+  - relation: requires
+    target: vs-maintains-pervasive-tonic-da
+
+assertions:
+  - paper-slug: ejdrup-2026-dopamine
+    doi: 10.7554/eLife.105214
+    panel: fig3B
+    analysis: Figure 3-Fig 3b, c, e-g-Source code.py
+    dataset: https://zenodo.org/record/17664800
+    dataset-doi: 10.5281/zenodo.17664800
+    method: mathematical modelling
+    confidence: moderate
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-29
+    status: unverified
+    notes: ~
+---
+
+The visual comparison of VS (5% active terminals) versus DS (100% active terminals) maps makes the qualitative point about regime difference concrete: despite sparse release in VS, the lower uptake capacity allows DA to diffuse broadly, producing spatial coverage comparable to dense release in the high-uptake DS environment. This regime interpretation is mechanistically coherent and is a clean conceptual result from Figure 3B. The "resembling" language in the claim is appropriately qualitative — the paper makes a visual comparison rather than a formal statistical similarity test. Epistemic is moderate because the comparison is descriptive and depends on the Vmax assumption setting the scale of the uptake regimes.

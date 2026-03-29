@@ -1,0 +1,41 @@
+---
+uuid: 1ef1d1ae-1c10-4951-bd72-5fe9e3df202d
+slug: vs-maintains-pervasive-tonic-da
+doi: ~
+claim: >
+  With DAT Vmax reduced to 33% of DS and terminal density at 90%, VS produces a diffuse
+  tonic-like DA level throughout the simulated volume rather than segregated hotspots during
+  4 Hz pacemaker activity.
+claim-type: empirical
+concepts:
+  - ventral striatum
+  - tonic dopamine
+  - spatial dynamics
+  - DAT Vmax
+priority: 2026-03-29
+epistemic: moderate
+
+belongings:
+  - relation: requires
+    target: ds-lacks-pervasive-tonic-da
+  - relation: requires
+    target: ds-vs-vmax-ratio-assumed
+
+assertions:
+  - paper-slug: ejdrup-2026-dopamine
+    doi: 10.7554/eLife.105214
+    panel: fig2A, fig2B, fig2C
+    analysis: Figure 2-Fig 2a-f-Source code.py
+    dataset: https://zenodo.org/record/17664800
+    dataset-doi: 10.5281/zenodo.17664800
+    method: mathematical modelling
+    confidence: moderate
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-29
+    status: unverified
+    notes: ~
+---
+
+The pervasive tonic DA in VS is the complement of the DS result and follows mechanistically from the same model with reduced uptake capacity. The two parameters changed between DS and VS are Vmax (6 → 2 µM·s⁻¹) and terminal density (100% → 90% active). The density change is small and the Vmax change dominates. Figure 2A shows volumetric DA maps analogous to Figure 1D, now displaying broad coverage rather than isolated hotspots. This is the founding VS result on which the regional receptor occupancy, FSCV, and parameter sweep claims all depend. Epistemic is moderate because both the Vmax ratio and the terminal density assumption are inherited from prior literature.
