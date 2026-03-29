@@ -83,11 +83,19 @@ dat-immunostaining-dorsoventral-gradient
 
 ## Reproduction status
 
-| Status | Count |
-|:-------|:------|
-| unverified | 16 |
-| unverified:no-data | 4 (immunostaining, dSTORM raw localizations) |
-| verified | 0 |
-| failed | 0 |
+Verification run: 2026-03-29, agent: mainen-z. Scripts executed from [GitHub repo](https://github.com/Gether-Lab/striatal-dopamine-model); simulation data from [Zenodo](https://doi.org/10.5281/zenodo.17664800).
+
+| Status | Count | Claims |
+|:-------|:------|:-------|
+| verified | 5 | low-burst-no-spillover-high-burst-does, d1r-tracks-da-50ms-delay, d2r-integrates-over-seconds, d2r-insensitive-to-brief-pauses, vmax-only-parameter-driving-regional-difference, vmax-modulation-larger-impact-in-vs |
+| unverified:code-error | 3 | ds-lacks-pervasive-tonic-da, vs-maintains-pervasive-tonic-da, vs-lowest-percentiles-above-10nm (matplotlib 3.8 API breakage: `w_xaxis` removed) |
+| unverified:compute-infeasible | 1 | dat-nanoclustering-slows-clearance (varicosity-scale sim ~43 hr runtime; requires Zenodo pre-computed arrays) |
+| unverified:no-data | 3 | vmat2-gradient-absent, dat-immunostaining-dorsoventral-gradient, dat-clustering-greater-in-vs (raw imaging data not in Zenodo deposit) |
+| unverified | 4 | fscv-matches-may-wightman-1989, d2r-occupancy-higher-in-vs, vs-low-active-fraction-resembles-ds-distribution (Fig3b script timed out), d2r-initialization-unjustified, nanoclustering-model-varicosity-scale, nanoclustering-constant-vmax-constraint, ds-vs-vmax-ratio-assumed |
+| failed | 0 | — |
+
+**Blocker for unverified:code-error claims:** fix `Axes3D.w_xaxis` → `Axes3D.xaxis` (and y/z) in Fig1a and Fig2a–f source scripts. One-line fix; simulation code is correct.
+
+**Blocker for dat-nanoclustering-slows-clearance:** download Zenodo Figure 4 `.npy` arrays and run plotting script; do not re-run simulation from scratch.
 
 Code available at [GitHub](https://github.com/Gether-Lab/striatal-dopamine-model). Simulation data for Figure 4 deposited at [Zenodo](https://doi.org/10.5281/zenodo.17664800). Raw imaging data (Figures 2—supplement 1, 4M–N) not in public deposit.
