@@ -32,8 +32,14 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: unverified:code-error
+    notes: >
+      Simulation completed successfully (1/1 run, 6103 steps on 100^3 grid, DS Vmax=6 µM/s).
+      Script errored at 3D visualization step: AttributeError on Axes3D.w_xaxis (removed in
+      matplotlib 3.8; script was written for older API). The diffusion simulation itself and
+      spatial DA distribution computation are unaffected. The error prevents automated
+      figure comparison. Plotting section fix: replace w_xaxis/w_yaxis/w_zaxis with
+      xaxis/yaxis/zaxis. Core simulation output is reproducible.
 ---
 
 This is the foundational spatial result for the dorsal striatum. The high-Vmax uptake environment (DS = 6 µM·s⁻¹) confines DA to a halo around active terminals during 4 Hz pacemaker firing; between terminals, [DA] falls to near zero. The result depends on the assumed 3:1 Vmax ratio between DS and VS but is consistent with earlier experimental observations of restricted diffusion in dorsal striatum. The "no pervasive tonic baseline" framing is qualitative; the quantitative picture is that median [DA] across voxels is low but not uniform — Figure 1E shows the distribution. Epistemic status is moderate rather than strong because the Vmax assumption is imported from prior work rather than independently measured in this study.

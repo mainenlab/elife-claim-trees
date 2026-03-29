@@ -34,8 +34,16 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: unverified:code-error
+    notes: >
+      Figure 2-Fig 2a-f-Source code.py: all 3 simulations ran to completion (4 tqdm
+      100% bars before error, for DS, VS, and VS-reduced terminal density conditions,
+      each on a 100^3 grid for 2s). The simulation code is structurally correct — VS
+      uses Vmax=2 µM/s vs DS Vmax=6 µM/s, implementing the 3:1 ratio. The script
+      errored at the 3D visualization step: AttributeError on Axes3D.w_xaxis (same
+      matplotlib 3.8 API incompatibility as Fig1a script). Simulation outputs were
+      computed but figures were not generated for visual comparison. Error is in
+      plotting only; the spatial DA distribution computation ran successfully.
 ---
 
 The pervasive tonic DA in VS is the complement of the DS result and follows mechanistically from the same model with reduced uptake capacity. The two parameters changed between DS and VS are Vmax (6 → 2 µM·s⁻¹) and terminal density (100% → 90% active). The density change is small and the Vmax change dominates. Figure 2A shows volumetric DA maps analogous to Figure 1D, now displaying broad coverage rather than isolated hotspots. This is the founding VS result on which the regional receptor occupancy, FSCV, and parameter sweep claims all depend. Epistemic is moderate because both the Vmax ratio and the terminal density assumption are inherited from prior literature.

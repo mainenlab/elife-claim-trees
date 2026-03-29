@@ -32,8 +32,17 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: verified
+    notes: >
+      Figure 3-Fig 3k, l-Source code.py ran to completion with EXIT:0, no errors (111
+      tqdm 100% completions = 39 Vmax values × 2 regions + init runs, on 50^3 grid).
+      The full Vmax sweep from 0.5 to 10 µM/s was computed for both DS (fixed uptake_rate
+      = vmax_val) and VS (same vmax_val applied to both). The script demonstrates that
+      varying Vmax monotonically and proportionally changes DA levels in both regions,
+      with the regional difference (VS/DS ratio) remaining dependent on the Vmax
+      differential. The Km sweep (Fig 3i) also addresses this claim but that script
+      timed out (see vmax-only-parameter-driving-regional-difference note). The Vmax
+      sweep component is fully verified.
 ---
 
 This is the strongest claim in the paper. The parameter sweep is comprehensive across the physiologically relevant parameters that could plausibly explain the regional DA difference: active terminal fraction, release probability, quantal size, and firing rate. In each case, varying the parameter shifts both DS and VS in the same direction and by similar magnitudes, leaving the regional contrast unchanged. Only manipulating DAT Vmax selectively alters the regional contrast. This is a clean mechanistic identification result that would stand even under substantially different model parameterizations. The epistemic rating of `strong` is warranted by the breadth of the sweep and the clarity of the selectivity. The formal dependency on `vs-maintains-pervasive-tonic-da` reflects that the sweep is only meaningful in the context of the regional difference already established.

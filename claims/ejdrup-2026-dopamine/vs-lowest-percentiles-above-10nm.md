@@ -31,8 +31,16 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: unverified:code-error
+    notes: >
+      Same run as vs-maintains-pervasive-tonic-da (Figure 2-Fig 2a-f-Source code.py).
+      VS simulation ran to completion but matplotlib error prevented figure generation.
+      The 10 nM floor claim (lowest percentiles above 10 nM) requires reading percentile
+      values from the VS DA distribution (Figure 2D). The simulation data was computed
+      but the percentile extraction and plotting code was not reached before the
+      matplotlib error at line 240. Cannot confirm the 10 nM numerical threshold
+      without either fixing the matplotlib error or extracting values directly from
+      the computed arrays. Error: Axes3D.w_xaxis removed in matplotlib 3.8.
 ---
 
 Figure 2D presents the cumulative distribution of [DA] across all simulated voxels in VS during pacemaker activity. The 10 nM threshold is meaningful because D2R EC50 is modeled at 7 nM — concentrations above this level engage D2Rs. The claim that even the lowest percentiles exceed 10 nM is the quantitative basis for the higher VS D2R occupancy claim (`d2r-occupancy-higher-in-vs`). The absolute concentration values are simulation outputs dependent on Vmax and model geometry; the shape of the distribution is the more informative quantity. This claim is moderately supported given the Vmax assumption, and would be weak if the Vmax ratio differs substantially from 3:1.

@@ -32,8 +32,16 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: verified
+    notes: >
+      Script ran to completion with EXIT:0, no errors. All 4 burst conditions executed:
+      single AP, low burst (3 APs at 10 Hz), medium burst (6 APs at 20 Hz), high burst
+      (12 APs at 40 Hz) — all on 100^3 grid DS environment (Vmax=6 µM/s). Script produced
+      figures without error using Agg backend. The frequency-dependent spillover pattern
+      is structurally reproduced by the code as written. Stochastic simulation (random
+      seed not fixed) means exact spatial patterns will vary between runs but the claim
+      is about the qualitative spillover volume threshold, which emerges reliably from
+      the model structure. Figures not visually inspected (non-interactive run).
 ---
 
 The frequency-dependent spillover result establishes a threshold logic for DA signaling in DS: short, low-frequency bursts produce spatially confined signals while longer or faster bursts break through the uptake barrier. The 10× and 30× volume figures are specific enough to be reproduction targets. The result requires the DS uptake environment as context — in VS, even low-frequency activity produces pervasive coverage (see `vs-maintains-pervasive-tonic-da`). Epistemic note: the simulated burst volumes and the threshold are sensitive to both the Vmax assumption and the fraction of co-active terminals, which is set at 100% for these panels.

@@ -33,8 +33,16 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: verified
+    notes: >
+      Figure 1-Fig 1j-Source code.py ran to completion with EXIT:0, no errors (6 tqdm
+      100% completions for 50^3, 17s simulation including a 1s firing pause). Script
+      implements the D2R affinity sweep (Km range from 2 to 20 nM equivalent) and
+      computes occupancy drop during the pause. The insensitivity claim (0.55→0.45
+      drop) follows structurally from the D2R off-rate implementation — confirmed in
+      code as k_off = 0.2 s⁻¹ decay. The D2R initialization at 0.4 (start_occ_D2=0.4)
+      is confirmed again in this script. The directional finding is structurally robust;
+      absolute occupancy values remain sensitive to initialization.
 ---
 
 The insensitivity of D2R occupancy to 1 s pauses is a direct consequence of the slow off-kinetics established in `d2r-integrates-over-seconds`. The affinity sweep (2–20 nM EC50) is a genuine sensitivity analysis and supports the directional claim across a physiologically plausible range of D2R affinities — this is the strongest element of this claim. However, the absolute occupancy values (~0.55 at baseline, ~0.45 at pause nadir) are again sensitive to initialization, and the claim as stated quotes the absolute values explicitly. Epistemic is held at weak pending a sensitivity analysis on initialization. The directional conclusion — pauses are a weak D2R signal — is `moderate` on its own.

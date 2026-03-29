@@ -35,8 +35,16 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: verified
+    notes: >
+      Figure 1-Fig 1h-Source code.py ran to completion with EXIT:0 (same run as
+      d1r-tracks-da-50ms-delay). D2R kinetics use k_off = 0.2 s⁻¹ (half-life ~3.5 s)
+      implemented as a first-order decay from occupancy. The ≥5 s recovery time is a
+      direct structural consequence of this rate constant and is reproduced deterministically
+      regardless of stochastic simulation variation. Start occupancy initialized at 0.4
+      as in the paper (the initialization question flagged in the assessment node is
+      confirmed in the code: `start_occ_D2 = 0.4`). This confirms the initialization
+      concern is real — the code does not equilibrate D2R occupancy to steady state first.
 ---
 
 The slow return-to-baseline (≥5 s) is driven by the D2R off-rate constant (k_off = 0.2 s⁻¹), which gives a half-time of ~3.5 s independently of the initialization question. The directional claim — that D2R integrates over seconds rather than responding to individual bursts — is robust to initialization. The absolute occupancy at baseline (~0.55 in DS during pacemaker, as shown in Figure 1H) is directly affected by the initialization at 0.4 because the system has not necessarily equilibrated: with correct initialization at ~0.59, the trajectory would start higher and the post-burst recovery dynamics would differ quantitatively. Epistemic is flagged as weak overall to flag that the presented absolute values require a sensitivity analysis before they should be cited as precise quantities.

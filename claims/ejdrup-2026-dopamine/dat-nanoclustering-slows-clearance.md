@@ -34,8 +34,18 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: unverified:compute-infeasible
+    notes: >
+      Figure 4-Fig 4 simulations-Source code.py: computationally infeasible as written.
+      The nanoclustering simulation uses dx=0.02 µm (varicosity scale), producing a
+      90×90×352 grid (2.85M voxels) with dt=1.31×10⁻⁷ s and 3,052,000 steps for a
+      0.4s simulation — estimated runtime ~43 hours at observed throughput (~19 it/s).
+      The script timed out at 240s, completing <0.01% of steps. This is why the paper
+      deposits pre-computed Zenodo data (https://doi.org/10.5281/zenodo.17664800):
+      the simulation itself is not designed to be re-run from scratch. The plotting
+      script (Figure 4-Fig 4a-e and g-i-Source code.py) requires sim_result_*.npy and
+      steady_state_DAT_*.csv from Zenodo. Verification would require either downloading
+      Zenodo data or running on a compute cluster. Code was not assessed for correctness.
 ---
 
 The mechanism is physically intuitive: when DAT molecules are concentrated into nanoclusters rather than distributed uniformly across the membrane, DA arriving at the membrane surface rapidly depletes local [DA] at the cluster to near zero, reducing the concentration gradient that drives further uptake. This is analogous to enzyme saturation at a local level — even though total Vmax is held constant, the effective clearance rate is lower because substrates must diffuse to the cluster location. The ~2× slower clearance (400 vs 200 ms) is the quantitative result. This claim is scoped to the varicosity-scale model and cannot be directly translated to tissue-scale predictions without the formal coupling that the assessment node (`nanoclustering-model-varicosity-scale`) identifies as absent.
