@@ -85,7 +85,60 @@ The `target` field takes the slug of the target claim. If the target claim lives
 
 ---
 
-## 5. Naming conventions
+## 5. Conditionality as graph structure
+
+Conditionalities are not annotations — they are claims. When a result claim depends on a model parameter, a methodological choice, or an assumption that carries uncertainty, that dependency is represented as a formal `requires` relation pointing at an **assessment claim** that is itself a node in the graph.
+
+An assessment claim registers a parameter or assumption as an explicit entity: its value, its source, its uncertainty, and whether it has been sensitivity-tested. Example:
+
+```yaml
+---
+uuid: [uuid4]
+slug: d2r-initialization-unjustified
+claim: >
+  D2 receptor occupancy is initialized at 0.4 in the simulation without derivation
+  from steady state; at EC50 = 7 nM and tonic [DA] ~10 nM, equilibrium occupancy
+  would be approximately 0.59. No sensitivity analysis over this parameter is reported.
+claim-type: assessment
+concepts:
+  - D2 receptor
+  - initial conditions
+  - model assumption
+priority: 2026-03-29
+epistemic: weak
+assertions:
+  - paper-slug: ejdrup-2026-dopamine
+    doi: 10.7554/eLife.105214
+    panel: 1H
+    method: code inspection
+    confidence: weak
+reproductions: []
+---
+```
+
+The result claim then carries a `requires` relation:
+
+```yaml
+belongings:
+  - relation: requires
+    target: d2r-initialization-unjustified
+```
+
+This is how the graph carries conditionality structurally. The epistemic status of a claim is bounded by the weakest claim it requires. If `d2r-initialization-unjustified` is `weak`, every claim that requires it inherits that weakness — not by annotation, but by graph traversal.
+
+**Three types of conditionality that should always be ontologized this way:**
+
+1. **Model parameter assumptions** — when a simulation result depends on a parameter assumed from literature rather than measured in the paper. Register the parameter as an assessment claim: its value, citation, and whether uncertainty was tested.
+
+2. **Model scope** — when a simulation operates at a different scale or architecture from the paper's primary model. Register the scope separation as an assessment claim that simulation-derived claims require. Add a `scope` field to the assertion block (e.g., `scope: varicosity-scale`, `scope: tissue-scale`, `scope: in-vivo`, `scope: ex-vivo`).
+
+3. **Methodological assumptions** — when a key result depends on a choice (initialization, boundary condition, cluster detection threshold) that is not sensitivity-tested. Register the choice as an assessment claim with epistemic: weak.
+
+**What this means for verification:** the reproduction step (Step 8) must also run assessment claims. Verifying an assessment claim means checking whether the paper acknowledges, justifies, or sensitivity-tests the assumption. If it does, the assessment claim's epistemic status rises. If not, it stays weak — and propagates weakness to every claim that requires it.
+
+---
+
+## 6. Naming conventions
 
 Slugs should be:
 - Lowercase, hyphenated
@@ -103,7 +156,7 @@ The slug should be meaningful to a domain expert who has not read any specific p
 
 ---
 
-## 6. Directory structure
+## 7. Directory structure
 
 ```
 claims/
@@ -117,7 +170,7 @@ Claims are registered into a paper-slug directory as the ingest point. For the p
 
 ---
 
-## 7. Generating UUIDs
+## 8. Generating UUIDs
 
 At claim creation, generate a UUID4:
 
@@ -129,7 +182,7 @@ Paste the output directly into the `uuid` frontmatter field. This happens once, 
 
 ---
 
-## 8. Full example
+## 9. Full example
 
 ```yaml
 ---
@@ -157,6 +210,7 @@ assertions:
   - paper-slug: ejdrup-2026-dopamine
     doi: 10.7554/eLife.105214
     panel: fig2a               # quality of the assertion, not the claim identity
+    scope: tissue-scale        # varicosity-scale | tissue-scale | in-vivo | ex-vivo | in-vitro
     analysis: notebooks/fig2_dat_kinetics.ipynb
     dataset: https://zenodo.org/record/XXXXXXX
     dataset-doi: 10.5281/zenodo.XXXXXXX
