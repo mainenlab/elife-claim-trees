@@ -343,10 +343,9 @@
       "claimCount": 22,
       "statusCounts": {
         "verified:partial": 4,
-        "unverified": 12,
+        "unverified": 13,
         "verified": 4,
-        "unverified:no-code": 1,
-        "unknown": 1
+        "unverified:no-code": 1
       },
       "claims": [
         {
@@ -694,21 +693,21 @@
           "method": "RSA searchlight, item-stability measure, cluster FWE 10k permutations (p<0.025 threshold)"
         },
         {
-          "uuid": null,
+          "uuid": "2ff7f5ea-efaf-408e-9ef3-ab46fe395e74",
           "slug": "pfc-context-specificity-predicts-renewal",
           "paper": "bouyeure-2026-fear-rsa",
-          "panel": "",
-          "claim": "",
-          "epistemic": "unknown",
-          "status": "unknown",
+          "panel": "fig5",
+          "claim": "Prefrontal cortex context-specificity during reversal learning predicts subsequent fear renewal at test, linking context-specific neural coding to behavioral expression of fear.",
+          "epistemic": "moderate",
+          "status": "unverified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "",
-          "dataset": null,
-          "analysis": null,
-          "method": null
+          "notes": "R analysis scripts. Not yet executed.",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "roi_lme_analysis.R, master_stats.R",
+          "method": "correlation: RSA context specificity × behavioral fear renewal"
         },
         {
           "uuid": "db8f67a5-9139-44fb-89c1-b30613fbadf5",
@@ -3511,9 +3510,8 @@
     "unverified:no-data": 46,
     "verified": 55,
     "verified:partial": 6,
-    "unverified": 36,
+    "unverified": 37,
     "unverified:no-code": 2,
-    "unknown": 1,
     "unverified:compute-infeasible": 20,
     "failed:mismatch": 1,
     "partial:zenodo-data-downloaded": 1,
