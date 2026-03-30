@@ -36,11 +36,13 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified
     notes: >
-      The capacity increase (2.6 Hz) has HDI crossing zero (-1.7 to 6.8), which weakens
-      the claim. The self-associated rate increase (2.1 Hz, HDI: 0.13 to 4.1) is more
-      decisive. Not yet executed.
+      Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Group-level
+      ΔC_µ^{perceptual} = 0.0026/ms = 2.60 Hz (claim: 2.6 Hz, exact match). v_p change
+      from baseline: +2.07 Hz (claim: 2.1 Hz). v_r (other) change: +0.53 Hz (claim: 0.53 Hz,
+      exact match). Total capacity verified by summing v_p + v_r per condition. HDI bounds
+      from group summary CSV confirm HDI crosses zero for ΔC ([-1.4, 6.7]) as claimed.
 ---
 
 The capacity increase in the perceptual decision condition is the mechanistic core of the model comparison result: if total capacity C increases specifically for self-associated conditions, the brain is mobilizing more resources for self-relevant stimuli rather than simply reallocating a fixed budget. The wide HDI means the effect size is uncertain, but the direction is consistent with the model selection result (condition-specific C fits better than single C).

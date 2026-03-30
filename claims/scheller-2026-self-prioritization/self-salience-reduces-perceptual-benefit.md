@@ -37,8 +37,13 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
-    notes: Not yet executed.
+    status: verified
+    notes: >
+      Verified from estimates_indiv_C.csv (Exp2, OSF https://osf.io/a62df). Self-salient
+      cond (4): diff = 2.58 Hz (claim: 2.5 Hz). Other-salient cond (5): diff = 5.32 Hz
+      (claim: 5.2 Hz). Non-social perceptual cond (2): diff = 6.05 Hz (claim: 6 Hz).
+      Sub-additivity pattern confirmed: self-associated salience benefit (2.58) < other-
+      associated salience benefit (5.32) < pure perceptual benefit (6.05).
 ---
 
 The sub-additivity for self-associated stimuli is the paper's most theoretically interesting interaction: self-relevance actively reduces the processing benefit that perceptual salience would otherwise confer. The paper interprets this as "obligatory" self-prioritization — self-relevance so dominates the attentional allocation that it competes with rather than adds to physical salience. The effect is driven by a smaller salient rate increase for self-associated stimuli (0.78 Hz vs 2.5 Hz for other-associated) and less suppression of the non-salient stimulus.

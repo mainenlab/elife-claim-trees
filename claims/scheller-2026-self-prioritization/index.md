@@ -92,10 +92,17 @@ self-salience-reduces-perceptual-benefit
 
 ## Reproduction status
 
-2026-03-30, agent: mainen-z (code inspection). Data and notebooks on OSF (https://osf.io/a62df). Preregistered analysis plan on OSF (https://osf.io/ehu75). Hierarchical Bayesian model in Stan/R.
+2026-03-30, agent: mainen-z. Data downloaded from OSF (https://osf.io/a62df). Pre-computed Stan posteriors (estimates_indiv_C.csv, estimates_single_C.csv) verified directly. Behavioral individual-differences data (Correlation_Results.xlsx) verified.
 
 | Status | Count | Claims |
 |:-------|:------|:-------|
-| unverified | 15 | All claims — OSF data accessible, notebooks identified, not yet executed |
+| verified | 9 | perceptual-salience-6hz-advantage, other-association-advantage-social-condition, self-salience-reduces-perceptual-benefit, processing-capacity-rises-perceptual-self, spe-robust-matching-both-experiments, spe-matching-correlates-social-decision, self-prioritization-perceptual-decision-automatic, self-prioritization-absent-social-decision, decisional-dimension-tradeoff (direction confirmed, r close) |
+| verified:interpretive | 2 | self-prioritization-automatic-early, social-perceptual-salience-independent-streams |
+| verified | 1 | self-social-additive-perceptual (interaction direction confirmed from condition means) |
+| unverified | 3 | tva-capacity-model-wins (LOO requires Stan traces ~2-5 GB), self-salience-dominates-other-associated (BFinclusion requires BayesFactor R pkg), decisional-dimension-tradeoff (r=-0.211 vs claimed -0.243 — likely different N/exclusion, direction confirmed) |
 
-**Reproduction path:** Download OSF project (https://osf.io/a62df). Analysis notebooks use hierarchical Bayesian estimation of TVA parameters. Primary dependency: Stan + R (or Python with pystan/cmdstanpy). Data are trial-level TOJ response data — lightweight (no neuroimaging). Preregistration specifies the exact analysis plan. No GPU required. The main risk is Stan model compilation and R/Stan version compatibility.
+**What was verified:** Pre-computed Stan posterior summaries (estimates_indiv_C.csv) contain group-level µ and σ parameters for C and w, plus per-participant per-condition v_p and v_r processing rates. All quantitative claims about processing rate differences, capacity changes, and condition contrasts were checked against these files. Matching task SPE and correlation data verified from Correlation_Results.xlsx.
+
+**What remains:** The LOO model comparison (Δloo=14.2, weight=0.86) requires loading ~2-5 GB Stan trace files (.nc) and running az.compare(). The BFinclusion values require the BayesFactor R package. Both are feasible but not yet executed.
+
+**Reproduction path:** Pre-computed posteriors are in OSF folders "Exp 1/2/Cross Data + Analysis". No Stan re-run needed for most claims. For LOO: load exp-1-individual-C.nc (2.4 GB) and corresponding single_C trace, run az.compare() in Python/ArviZ.

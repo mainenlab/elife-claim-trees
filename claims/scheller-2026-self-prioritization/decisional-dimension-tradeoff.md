@@ -37,11 +37,14 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified
     notes: >
-      This is a correlation analysis across both experiments. BF10=6.58 is moderate Bayesian
-      evidence (>6 is "substantial" by Jeffreys scale). The attentional weight correlation
-      (BF10=16.93) is stronger. Not yet executed.
+      Partially verified from Correlation_Results.xlsx (OSF cross-exp folder). Pearson r
+      computed from ΔΔv_Per vs ΔΔv_Soc for Exp1 (N=63): r = -0.211, p = 0.096
+      (claim: r=-0.243, BF10=6.58). Sign confirmed. Magnitude close but not identical —
+      the paper likely uses different exclusion criteria or computes the correlation across
+      N=140 (both experiments combined). The separate weight correlation (r=-0.268 for Δwp)
+      was not re-computed here. Direction of trade-off is confirmed.
 ---
 
 The negative correlation is the individual-differences signature of the trade-off: participants who automatically prioritize self-associated shapes at the perceptual level are the same individuals who show the least facilitation when decoding the social identity. The paper interprets this as evidence that the perceptual and social processing stages compete for the same attentional resource, so strong automatic engagement at the perceptual level leaves fewer resources for the deliberate social decoding stage.

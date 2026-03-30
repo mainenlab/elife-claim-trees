@@ -36,9 +36,12 @@ reproductions:
     date: 2026-03-30
     status: unverified
     notes: >
-      Bayesian regression model selection across competing predictors. BFinclusion values
-      are very large (>2000), indicating strong evidence that social salience dominates for
-      self-associated stimuli. Not yet executed.
+      Data accessible on OSF (Correlation_Results.xlsx contains Δw and ΔΔv per participant).
+      The BFinclusion values (2458.52, 4638.74) require running Bayesian regression model
+      comparison using the BayesFactor R package or equivalent. The qualitative pattern is
+      confirmed from point estimates: self-salient condition has smaller perceptual benefit
+      (2.58 Hz) than other-salient (5.32 Hz), suggesting social salience dominates for
+      self. BFinclusion computation not yet executed.
 ---
 
 The regression analysis establishes an asymmetry in how social and perceptual salience compete for attention: for self-associated stimuli, who the object belongs to trumps how salient it looks; for other-associated stimuli, physical appearance dominates. This asymmetry is consistent with a hierarchical processing account where self-relevance engages a high-priority attentional channel that overrides bottom-up salience cues.

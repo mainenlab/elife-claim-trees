@@ -33,9 +33,13 @@ reproductions:
     date: 2026-03-30
     status: unverified
     notes: >
-      Data and notebooks on OSF (https://osf.io/a62df). Model comparison requires running
-      Stan models on the TOJ data. LOO-CV implemented via loo R package (Vehtari et al. 2017).
-      Not yet executed. Preregistered analysis plan at https://osf.io/ehu75.
+      Data and pre-computed posteriors accessible on OSF (https://osf.io/a62df).
+      The Δloo value (14.2) and weight (0.86) require loading the Stan posterior trace
+      files (.nc, ~2-5 GB each) and running az.compare() or loo::loo_compare() on the
+      two model objects. The estimates_single_C.csv and estimates_indiv_C.csv confirm
+      both models ran and converged (r_hat < 1.01 throughout). The indiv_C model has
+      more parameters and produces the quantitative results verified in other claims.
+      LOO comparison itself not yet executed — requires Stan posterior samples.
 ---
 
 This model comparison is methodologically central: it determines the mechanism underlying the behavioral effect. A relative-weight-only model would imply that the brain redistributes fixed attentional resources toward self-associated stimuli; the capacity model implies that self-association actually mobilizes additional processing resources. The Bayesian model comparison result (weight=0.86 for the capacity model) is strong but not definitive — 14% probability remains for the simpler model. The distinction matters for theory: enhanced capacity (rather than mere weighting) suggests a link to arousal or motivational systems.

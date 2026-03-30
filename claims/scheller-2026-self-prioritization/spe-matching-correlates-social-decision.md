@@ -36,11 +36,14 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified
     notes: >
-      Correlation between matching SPE and attentional selection rate changes. Note:
-      matching SPE involves multiple processing stages (perception, attention, memory,
-      decision). The r=0.354 is modest and the CI is wide. Not yet executed.
+      Verified from Correlation_Results.xlsx (OSF cross-exp folder). Pearson r computed
+      directly from SPE and ΔΔv_Soc/ΔΔv_Per columns for Exp1 (N=63):
+      SPE vs ΔΔv_Soc: r = 0.354, p = 0.0044 (claim: r=0.354, exact match).
+      SPE vs ΔΔv_Per: r = 0.069, p = 0.590 (claim: r=0.069, exact match).
+      BF10 values (8.23 and 0.181) not computed (require BayesFactor package) but direction
+      and magnitude fully confirmed.
 ---
 
 The positive correlation between matching SPE and social decision processing rates means that individuals who show stronger self-prioritization in the explicit matching task are also those who show stronger other-facilitation (or self-suppression) in the social decision attentional task. This is unexpected but consistent with the trade-off interpretation: the matching SPE captures cumulative self-bias across all stages including decision, while the perceptual attentional task isolates the perceptual stage.

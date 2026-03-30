@@ -38,8 +38,12 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
-    notes: Not yet executed.
+    status: verified
+    notes: >
+      Verified from estimates_indiv_C.csv (Exp2, OSF https://osf.io/a62df). Condition 3
+      (social decision, no perceptual salience): v_p(self) = 23.55 Hz, v_r(other) = 24.91 Hz,
+      diff = -1.36 Hz (claim: -1.6 Hz [HDI: -3 to -0.26]). Point estimate within the claimed
+      HDI range. Sign confirmed: other processed faster than self in social decision context.
 ---
 
 The replication of the other-advantage in the social decision condition (Experiment 2) strengthens the claim that this is a genuine effect rather than a single-study artifact. The self-associated rate decreases by 1.3 Hz while other-associated stays approximately flat (+0.17 Hz). Critically, the HDI for the -1.6 Hz difference (−3 to −0.26) does not include zero, making this the most decisive self-vs-other comparison in the dataset.

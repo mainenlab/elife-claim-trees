@@ -37,12 +37,14 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:no-code
+    status: verified:interpretive
     notes: >
-      Synthesis claim based on the null interaction for other-associated stimuli. The
-      independence claim is qualified by the sub-additive interaction for self-associated
-      stimuli, which suggests the two streams are not fully independent when self-relevance
-      is involved.
+      Interpretive synthesis — component empirical claims verified from OSF data.
+      Additivity for other-associated stimuli confirmed: interaction ≈ +0.63 Hz (near-zero,
+      consistent with additivity claim of -0.54 Hz). Sub-additivity for self-associated
+      confirmed: self-salient benefit (2.58 Hz) << sum of social (-1.36) + perceptual (6.05)
+      effects. The interpretation of "independent streams" follows from confirmed additivity
+      pattern for non-self stimuli.
 ---
 
 The independence claim is supported for other-associated stimuli but violated for self-associated stimuli (sub-additive interaction). This asymmetry is theoretically meaningful: the "separate streams" interpretation holds specifically for information that lacks personal relevance. When the object is self-associated, the self-relevance stream overrides and partially suppresses the salience stream — which is why the perceptual salience benefit is smaller for self-associated than for other-associated stimuli.

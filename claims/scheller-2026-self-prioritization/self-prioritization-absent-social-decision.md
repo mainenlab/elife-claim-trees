@@ -38,12 +38,13 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified
     notes: >
-      Experiment 1 social decision condition. The finding that self-advantage disappears (or
-      reverses) in the social decision condition is counterintuitive and the primary unexpected
-      result of the study. Replication across N=71 in Experiment 2 confirms the pattern.
-      Not yet executed.
+      Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Social condition
+      (cond 2): v_p(self) = 30.07 Hz, v_r(other) = 31.27 Hz, diff = -1.20 Hz (claim: other
+      advantage 1.2 Hz, exact match). Replication in Exp2 cond 3: diff = -1.36 Hz (claim:
+      -1.6 Hz). The absence or reversal of self-advantage in social decision condition is
+      robustly confirmed across both experiments.
 ---
 
 This result is counterintuitive: when participants explicitly decode the social identity (whose shape?), there is no self-processing advantage and possibly an other-advantage. The paper interprets this as evidence for a trade-off: active social decoding diverts resources away from the perceptual feature that carries self-relevance, reducing or eliminating the automatic prioritization. This result challenges a naive reading of "self-prioritization" — the effect is specific to the level of processing at which the decision is made.

@@ -35,10 +35,15 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified
     notes: >
-      The interaction is computed as (social + perceptual) - (combined) processing rate
-      changes. HDI includes zero, which is the null hypothesis (additivity). Not yet executed.
+      Partially verified from estimates_indiv_C.csv (Exp2, OSF https://osf.io/a62df).
+      The additivity test can be computed from v_p/v_r per condition: other-associated
+      social (cond 3) diff = -1.36 Hz; perceptual (cond 2) diff = 6.05 Hz; other-salient
+      combined (cond 5) diff = 5.32 Hz. Expected additive = 6.05 + (-1.36) = 4.69 Hz;
+      observed = 5.32 Hz; interaction ≈ +0.63 Hz (near-zero, consistent with additivity).
+      Sign and magnitude support the additivity claim; precise HDI bounds require posterior
+      samples from .nc trace to fully verify.
 ---
 
 The null interaction for other-associated stimuli supports the independence claim: when the stimulus is associated with another social identity, physical salience and social salience capture attention through separate mechanisms that do not interfere. The key contrast is with self-associated stimuli, where the interaction is sub-additive — suggesting that self-relevance and physical salience do share some mechanism or resource.

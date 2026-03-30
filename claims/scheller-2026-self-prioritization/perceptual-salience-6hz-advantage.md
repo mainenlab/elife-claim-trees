@@ -36,11 +36,15 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified
     notes: >
-      The 6 Hz perceptual salience advantage (HDI: 4.6 to 7.3) is the cleanest quantitative
-      result in the paper — HDI entirely above zero, large effect. Strong epistemic status.
-      Not yet executed.
+      Verified from pre-computed model estimates (estimates_indiv_C.csv, Exp2 folder,
+      OSF https://osf.io/a62df). Exp2 condition 2 (perceptual salience, no social association):
+      v_p = 27.24 Hz, v_r = 21.20 Hz, diff = 6.05 Hz (claim: 6 Hz). Condition assignment
+      confirmed by checking capacity and weight change structure. Self-salient condition (cond 4)
+      diff = 2.58 Hz (claim: 2.5 Hz); other-salient (cond 5) diff = 5.32 Hz (claim: 5.2 Hz).
+      HDI bounds not directly checkable from summary CSV (require posterior samples from .nc trace)
+      but point estimates match within rounding throughout.
 ---
 
 The 6 Hz perceptual salience advantage is substantially larger than the social salience effects (1.5 Hz perceptual self-advantage, -1.6 Hz social other-advantage). This size difference is important: physical salience captures attention more strongly than arbitrary self-association in this task, despite the robust SPE in the matching task. The bidirectional nature of the perceptual salience effect (salient goes up, non-salient goes down) is consistent with a reallocation of fixed capacity between the two stimuli.
