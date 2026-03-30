@@ -312,7 +312,7 @@ function DAGInner({ claims, paperSlug }: Props) {
                   {selected.requires.map(r => (
                     <a
                       key={r}
-                      href={`/papers/${paperSlug}/${r}`}
+                      href={`${import.meta.env.BASE_URL}papers/${paperSlug}/${r}`}
                       className="text-xs text-blue-600 hover:underline truncate"
                     >{r}</a>
                   ))}
@@ -327,7 +327,7 @@ function DAGInner({ claims, paperSlug }: Props) {
                   {selected.supports.map(s => (
                     <a
                       key={s}
-                      href={`/papers/${paperSlug}/${s}`}
+                      href={`${import.meta.env.BASE_URL}papers/${paperSlug}/${s}`}
                       className="text-xs text-green-700 hover:underline truncate"
                     >{s}</a>
                   ))}
@@ -343,7 +343,7 @@ function DAGInner({ claims, paperSlug }: Props) {
             )}
 
             <a
-              href={`/papers/${paperSlug}/${selected.slug}`}
+              href={`${import.meta.env.BASE_URL}papers/${paperSlug}/${selected.slug}`}
               className="block text-xs text-center py-1.5 px-3 border border-gray-200 rounded hover:bg-gray-50 text-gray-600 no-underline"
             >
               View full claim →

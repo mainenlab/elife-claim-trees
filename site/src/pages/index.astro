@@ -3,6 +3,7 @@ import Layout from '../layouts/Layout.astro';
 import corpus from '../data/claims.json';
 
 const { papers, totalClaims, statusCounts } = corpus;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
 const statusGroups = [
   { key: 'verified', label: 'Verified', color: '#22c55e' },
@@ -39,10 +40,10 @@ const verifiedPct = Math.round((verifiedCount / totalClaims) * 100);
         </p>
       </div>
       <div class="mt-6 flex gap-3 flex-wrap">
-        <a href="/papers" class="inline-flex items-center gap-1.5 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-700 no-underline">
+        <a href={`${base}/papers`} class="inline-flex items-center gap-1.5 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-700 no-underline">
           Browse papers →
         </a>
-        <a href="/method" class="inline-flex items-center gap-1.5 px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 no-underline">
+        <a href={`${base}/method`} class="inline-flex items-center gap-1.5 px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 no-underline">
           Read method
         </a>
         <a href="https://github.com/zmainen/elife-claim-trees" class="inline-flex items-center gap-1.5 px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 no-underline" target="_blank">
@@ -106,7 +107,7 @@ const verifiedPct = Math.round((verifiedCount / totalClaims) * 100);
           const verified = p.statusCounts['verified'] ?? 0;
           const pct = Math.round((verified / p.claimCount) * 100);
           return (
-            <a href={`/papers/${p.slug}`} class="block border border-gray-200 rounded-xl p-5 hover:border-gray-400 hover:shadow-sm transition-all no-underline group">
+            <a href={`${base}/papers/${p.slug}`} class="block border border-gray-200 rounded-xl p-5 hover:border-gray-400 hover:shadow-sm transition-all no-underline group">
               <div class="flex items-start justify-between gap-2 mb-2">
                 <h3 class="text-sm font-medium text-gray-900 leading-snug group-hover:text-blue-700 transition-colors">{p.title}</h3>
               </div>
