@@ -230,7 +230,7 @@ The embedded widget is what this document asks for. It is also where the convers
 
 ## 9. The Website
 
-A website at [https://github.com/zmainen/elife-claim-trees](https://github.com/zmainen/elife-claim-trees) presents browsable claim graphs for all 10 papers. Each paper has an index page with the claim table, the dependency graph, and the reproduction status for each claim. Individual claim pages record the proposition, the panel, the data pointer, the code pointer, and the reproduction status with notes.
+A website at [https://zmainen.github.io/elife-claim-trees/](https://zmainen.github.io/elife-claim-trees/) presents browsable claim graphs for all 10 papers. Each paper has an index page with the claim table, the dependency graph, and the reproduction status for each claim. Individual claim pages record the proposition, the panel, the data pointer, the code pointer, and the reproduction status with notes.
 
 We would welcome eLife sharing the site with the 10 corresponding authors and inviting their responses. Authors are the people best positioned to identify errors in the claim extraction — a claim assigned to the wrong panel, a dependency edge that is incorrect, a reproduction status that mischaracterizes what the deposit enables. They are also the people most likely to have views on whether the claim graph adds information they think a reader should have, or whether it misrepresents the paper in ways the narrative format would not. Author feedback on their own claim graphs is the next most valuable data point after the corpus run itself.
 
