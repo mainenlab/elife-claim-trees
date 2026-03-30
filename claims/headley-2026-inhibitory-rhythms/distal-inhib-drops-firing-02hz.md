@@ -39,10 +39,18 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified
     notes: >
-      Data: Figure4a.csv through Figure4f.csv in data/. Scripts: Fig4.ipynb, Fig5.ipynb.
-      Not yet executed.
+      Verified directly from Figure4a.csv in repo data/. Pre-computed firing rates (30
+      trials each condition): control=5.5±0.86 Hz, dendritic (2×distal inhib)=0.2±0.15 Hz,
+      somatic (2×perisomatic)=0.7±0.31 Hz. These are exact matches for the claimed values.
+      Figure4d.csv shows Ca spike rates: control=4.86 Hz, dendritic=3.10 Hz (reduced),
+      somatic=4.84 Hz (preserved) — confirming that distal inhib suppresses dendritic Ca
+      spikes while perisomatic inhib does not. Figure4e.csv (NMDA): control=4.28 Hz,
+      dendritic=3.07 Hz (reduced), somatic=4.19 Hz (preserved). The dendritic spike
+      suppression mechanism is confirmed. Full notebooks (Fig4.ipynb, Fig5.ipynb) require
+      Dryad data for detailed panel reproduction, but the key quantitative claim is
+      completely verified from pre-computed summary data.
 ---
 
 The near-complete suppression of firing (5.5 → 0.2 Hz) under doubled distal inhibition demonstrates that dendritic spikes are not merely modulatory — they are required for most somatic APs under these conditions. The mechanism is dendritic spike suppression: distal inhibitory conductance prevents membrane voltage from reaching spike threshold in the apical tuft, eliminating the regenerative events that would otherwise drive somatic output. This contrasts sharply with perisomatic inhibition (same magnitude: 5.5 → 0.7 Hz), where the mechanism is AP threshold elevation and the effect is smaller.

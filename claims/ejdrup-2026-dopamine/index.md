@@ -83,19 +83,18 @@ dat-immunostaining-dorsoventral-gradient
 
 ## Reproduction status
 
-Verification run: 2026-03-29, agent: mainen-z. Updated: 2026-03-30. Scripts executed from [GitHub repo](https://github.com/Gether-Lab/striatal-dopamine-model); simulation data from [Zenodo](https://doi.org/10.5281/zenodo.17664800).
+Verification run: 2026-03-29, agent: mainen-z. Updated: 2026-03-30 (matplotlib fix + re-run). Scripts executed from [GitHub repo](https://github.com/Gether-Lab/striatal-dopamine-model); simulation data from [Zenodo](https://doi.org/10.5281/zenodo.17664800).
 
 | Status | Count | Claims |
 |:-------|:------|:-------|
-| verified | 10 | low-burst-no-spillover-high-burst-does, d1r-tracks-da-50ms-delay, d2r-integrates-over-seconds, d2r-insensitive-to-brief-pauses, vmax-only-parameter-driving-regional-difference, vmax-modulation-larger-impact-in-vs, d2r-initialization-unjustified, nanoclustering-model-varicosity-scale, nanoclustering-constant-vmax-constraint, ds-vs-vmax-ratio-assumed |
-| unverified:code-error | 3 | ds-lacks-pervasive-tonic-da, vs-maintains-pervasive-tonic-da, vs-lowest-percentiles-above-10nm (matplotlib 3.8 API breakage: `w_xaxis` → `xaxis`) |
+| verified | 13 | low-burst-no-spillover-high-burst-does, d1r-tracks-da-50ms-delay, d2r-integrates-over-seconds, d2r-insensitive-to-brief-pauses, vmax-only-parameter-driving-regional-difference, vmax-modulation-larger-impact-in-vs, d2r-initialization-unjustified, nanoclustering-model-varicosity-scale, nanoclustering-constant-vmax-constraint, ds-vs-vmax-ratio-assumed, **ds-lacks-pervasive-tonic-da**, **vs-maintains-pervasive-tonic-da**, **vs-lowest-percentiles-above-10nm** |
 | unverified:compute-infeasible | 4 | dat-nanoclustering-slows-clearance (~43 hr varicosity sim), fscv-matches-may-wightman-1989, d2r-occupancy-higher-in-vs, vs-low-active-fraction-resembles-ds-distribution (all: tissue-scale simulation timed out; require Zenodo pre-computed arrays) |
 | unverified:no-data | 3 | vmat2-gradient-absent, dat-immunostaining-dorsoventral-gradient, dat-clustering-greater-in-vs (raw dSTORM/immunostaining data not in Zenodo deposit) |
 | failed | 0 | — |
 
 **Notes on assessment claims:** The 4 assessment claims (d2r-initialization-unjustified, nanoclustering-model-varicosity-scale, nanoclustering-constant-vmax-constraint, ds-vs-vmax-ratio-assumed) are verified by code inspection; their reproduction status is `verified` because inspection confirmed the structural property each claim asserts.
 
-**Blocker for unverified:code-error claims:** replace `Axes3D.w_xaxis` / `w_yaxis` / `w_zaxis` with `xaxis` / `yaxis` / `zaxis` in Fig1a and Fig2a–f source scripts (matplotlib 3.8 removed the `w_` prefix). One-line fixes; the simulation code upstream is correct.
+**Resolved (2026-03-30):** matplotlib `w_xaxis`/`w_yaxis`/`w_zaxis` → `xaxis`/`yaxis`/`zaxis` fix applied to Fig1a and Fig2a–f scripts. Both simulations re-ran to completion; all 3 claims verified numerically. DS: median 5.4 nM with hotspot distribution (max 8788 nM). VS: minimum 8.1 nM, P0.5+=11 nM, median 20.9 nM — pervasive coverage confirmed.
 
 **Blocker for unverified:compute-infeasible claims:** download Zenodo deposit (zenodo.17664800) and check for pre-computed `.npy` arrays per figure (fig2g, fig2h, fig3b). If present, run the plotting-only section of each source script. For dat-nanoclustering-slows-clearance, Figure 4 `.npy` arrays are the required input.
 

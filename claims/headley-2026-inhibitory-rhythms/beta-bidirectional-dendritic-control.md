@@ -39,10 +39,12 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: unverified:no-data
     notes: >
-      Scripts: Fig5.ipynb, Fig7.ipynb. Phase-binned analysis uses src/phase_analysis module.
-      Not yet executed.
+      Scripts: Fig5.ipynb and Fig7.ipynb both require Dryad simulation files from
+      DendCompOscPublic/ (rhythmic inhibition simulations at 16 Hz and 64 Hz).
+      Phase-binned analysis code is in src/phase_analysis. Not in GitHub repo.
+      Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).
 ---
 
 Bidirectional control within a single beta cycle is a stronger claim than mere phase-dependent modulation — it asserts that the same inhibitory rhythm actively promotes spiking in one phase while suppressing it in another, rather than simply gating a uniform suppression. This bidirectional property emerges because the inhibitory trough provides a window of reduced conductance into which the slow Ca²⁺/NMDA spike dynamics can unfold. The epistemic status is moderate rather than strong because the quantitative asymmetry between trough-enhancement and peak-suppression is not extracted here; the claim is directionally clear but the relative magnitudes were not verified.

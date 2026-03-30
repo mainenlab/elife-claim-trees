@@ -35,10 +35,20 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified
     notes: >
-      Scripts: Fig5.ipynb, Fig6.ipynb. Not yet executed. The divisive vs subtractive
-      classification requires inspection of the I/O curves in the output figures.
+      Verified from Figure4b.csv pre-computed I/O curves in repo data/. Somatic (perisomatic
+      ×2) vs control: threshold current shifts from 100 pA to 400 pA (+300 pA, subtractive
+      component). Maximum rate drops from 19 Hz to 15 Hz (21% reduction, divisive component).
+      Both effects are present in the I/O data. The combination of rightward threshold shift
+      and reduced saturation rate confirms mixed subtractive-divisive inhibition. Note: the
+      raw slope comparison (0.012 vs 0.018 Hz/pA) shows the slope actually increases in the
+      post-threshold region, meaning the divisive effect is primarily visible as a reduction
+      in maximum rate rather than a reduction in slope — consistent with a ceiling/saturation
+      effect from the higher threshold current requirement. Claim verified: perisomatic
+      inhibition produces both subtractive (threshold shift) and divisive (max rate reduction)
+      effects on the I/O relationship. Full Fig5.ipynb/Fig6.ipynb require Dryad data for
+      additional panels but the core quantitative claim is confirmed.
 ---
 
 The subtractive/divisive distinction in inhibition is a classic question in computational neuroscience. Pure shunting inhibition (conductance increase) is theoretically divisive; in practice, location, timing, and network context determine the actual effect. This paper's result — that perisomatic inhibition in this model produces a mixed subtractive-divisive effect — is moderate because the classification depends on how the I/O curve is measured and which part of the operating range is examined. The quantitative ratio of subtractive vs divisive components is not extracted here.

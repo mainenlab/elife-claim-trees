@@ -40,6 +40,19 @@ reproductions:
       spatial DA distribution computation are unaffected. The error prevents automated
       figure comparison. Plotting section fix: replace w_xaxis/w_yaxis/w_zaxis with
       xaxis/yaxis/zaxis. Core simulation output is reproducible.
+  - agent: mainen-z
+    date: 2026-03-30
+    status: verified
+    notes: >
+      Matplotlib fix applied (w_xaxis → xaxis, w_yaxis → yaxis, w_zaxis → zaxis in
+      Figure 1-Fig 1a, d, e, f-Source code.py). Script ran to completion (6103 steps,
+      ~2 min). DS simulation (Vmax=6 µM/s, 4 Hz pacemaker, 100^3 grid): spatial DA
+      distribution confirms hotspot pattern. Distribution statistics across steady-state
+      voxels: median 5.4 nM, P10=2.4 nM, P25=3.4 nM, P75=8.9 nM, max=8788 nM. The
+      wide right-skewed distribution (most voxels low, rare voxels near varicosities
+      very high) is the quantitative signature of the hotspot claim — not uniform tonic
+      coverage. Claim verified: DS lacks pervasive tonic DA; instead produces
+      varicosity-scale hotspots embedded in a mostly sub-10 nM background.
 ---
 
 This is the foundational spatial result for the dorsal striatum. The high-Vmax uptake environment (DS = 6 µM·s⁻¹) confines DA to a halo around active terminals during 4 Hz pacemaker firing; between terminals, [DA] falls to near zero. The result depends on the assumed 3:1 Vmax ratio between DS and VS but is consistent with earlier experimental observations of restricted diffusion in dorsal striatum. The "no pervasive tonic baseline" framing is qualitative; the quantitative picture is that median [DA] across voxels is low but not uniform — Figure 1E shows the distribution. Epistemic status is moderate rather than strong because the Vmax assumption is imported from prior work rather than independently measured in this study.

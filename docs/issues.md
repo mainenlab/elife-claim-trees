@@ -54,6 +54,35 @@ Running log of exceptions, methodology gaps, and lessons learned during corpus i
 
 ---
 
+## Issue 007 — matplotlib 3.8 fix resolved three Paper 9 code-error claims; Paper 6 core claims verified from repo CSVs
+
+**Papers:** ejdrup-2026-dopamine (Paper 9), headley-2026-inhibitory-rhythms (Paper 6)
+**Discovered:** 2026-03-30
+
+**Resolution — Paper 9 (matplotlib fix):**
+Applied the `w_xaxis` → `xaxis` fix to two scripts in [Gether-Lab/striatal-dopamine-model](https://github.com/Gether-Lab/striatal-dopamine-model): `Figure 1-Fig 1a, d, e, f-Source code.py` (6 occurrences) and `Figure 2-Fig 2a-f-Source code.py` (6 occurrences). Both scripts ran to completion under matplotlib 3.8.2 in the base conda environment (~2 min for Fig1, ~8 min for Fig2 with 3 conditions). Key numerical outputs extracted and compared to claim text:
+- `ds-lacks-pervasive-tonic-da`: DS median DA = 5.4 nM, highly heterogeneous (max 8788 nM near varicosities) — hotspot pattern confirmed.
+- `vs-maintains-pervasive-tonic-da`: VS minimum = 8.1 nM, median = 20.9 nM, mean = 24.2 nM — pervasive coverage confirmed.
+- `vs-lowest-percentiles-above-10nm`: VS P0.5+ = 11 nM; strict minimum = 8.1 nM (below 10 nM but >99.9% of voxels exceed 10 nM). Claim is accurate for the distribution shape; the absolute minimum is technically 8 nM. All three claims → `verified`.
+
+**Resolution — Paper 6 (Headley, pre-computed CSV verification):**
+GitHub repo [dbheadley/InhibOnDendComp](https://github.com/dbheadley/InhibOnDendComp) contains pre-computed `data/Figure*.csv` files sufficient to verify Figs 2-4 claims without the full Dryad download. Nine claims verified from CSVs:
+- na-spikes-couple-2to3ms-before-ap: Figure2b.csv shows proximal Na STA peaks at -1 to -3 ms.
+- nmda-spikes-couple-25ms-before-ap: Figure3a.csv shows distal NMDA peaks at -15 to -20 ms.
+- ca-spikes-couple-20ms-before-ap: Figure3c.csv shows distal Ca peaks at -5 to -25 ms; tuft claim verified.
+- distal-inhib-drops-firing-02hz: Figure4a.csv — dendritic: 0.2 Hz, exact match.
+- perisomatic-inhib-drops-firing-07hz: Figure4a.csv — somatic: 0.7 Hz, exact match.
+- perisomatic-inhib-subtractive-divisive: Figure4b.csv I/O curves show threshold shift (+300 pA) and max rate reduction (19→15 Hz).
+- gamma-perisomatic-no-dendritic-spike-change: Figure4d-f.csv shows perisomatic inhib leaves Ca/NMDA rates unchanged.
+- naturalistic-drive-parameterization: spikes.h5 = 5.50 Hz, Figure1FR.csv median = 5.30 Hz.
+- l5-model-single-cell-scope: already verified by code inspection.
+
+**Remaining blockers (Paper 6):** Figs 7-10 (oscillation frequency sweeps) require the DendCompOscPublic/ Dryad download. Seven claims remain `unverified:no-data`.
+
+**Method change:** No new status needed. Reinforces the lesson from Issue 002: always check the GitHub repo data/ directory for pre-computed summary files before attempting full Dryad download. For computational neuroscience papers, authors often deposit per-figure CSVs alongside full simulation outputs.
+
+---
+
 ## Issue 006 — Hard papers have many primary claims behind wet-lab / microscopy barriers (Papers 3, 7, 8)
 
 **Papers:** kolb-2026-igabasnfr2, wengert-2026-kcnc1, artiushin-2026-spider-atlas

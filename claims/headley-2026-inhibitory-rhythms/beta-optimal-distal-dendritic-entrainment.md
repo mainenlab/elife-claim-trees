@@ -39,9 +39,12 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: unverified:no-data
     notes: >
-      Script: Fig7.ipynb. Not yet executed. PPC analysis is implemented in src/ modules.
+      Script: Fig7.ipynb requires Dryad simulation files from DendCompOscPublic/
+      (frequency sweep simulations across 0.5–80 Hz distal inhibition conditions).
+      These are not in the GitHub repo. PPC analysis code is implemented in src/ modules.
+      Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).
 ---
 
 The beta optimum at ~20 Hz is mechanistically interpretable: the beta cycle period (~50 ms) matches the temporal window over which Ca²⁺ and NMDA spikes build to threshold (Ca²⁺ ~20 ms, NMDA ~25 ms lead before APs, from Figures 2–3). Slower rhythms allow multiple spikes per cycle; faster rhythms truncate the integration window. The beta optimum emerges from this temporal matching between the rhythm period and the intrinsic spike dynamics, not from an arbitrary parametric choice. Epistemic status is strong because the frequency sweep result is a systematic parametric scan with an unambiguous peak.

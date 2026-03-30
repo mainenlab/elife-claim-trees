@@ -39,9 +39,11 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: unverified:no-data
     notes: >
-      Script: Fig8.ipynb. Not yet executed.
+      Script: Fig8.ipynb requires Dryad simulation files from DendCompOscPublic/
+      (11-frequency perisomatic sweep, 0.5–80 Hz). Not in GitHub repo.
+      Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).
 ---
 
 The gamma optimum for perisomatic AP threshold modulation has a different mechanistic basis than the beta/distal optimum. At gamma frequencies (~40–80 Hz), the inhibitory cycle is brief (~12–25 ms), which efficiently gates the fast Na+ spike process that underlies axonal AP initiation. The perisomatic location means the inhibitory conductance directly modulates the axon initial segment depolarization window. Slower frequencies allow recovery between cycles; faster frequencies would produce sustained suppression rather than phase-specific modulation.

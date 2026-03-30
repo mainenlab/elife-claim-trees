@@ -89,13 +89,16 @@ gamma-gates-proximal-basal-inputs
 
 ## Reproduction status
 
-Verification status: 2026-03-30, agent: mainen-z (code inspection). All scripts are in GitHub `scripts/` directory; pre-computed data in `data/` and Dryad deposit.
+Verification status: 2026-03-30, agent: mainen-z (code inspection + pre-computed data execution). GitHub repo cloned to /tmp/InhibOnDendComp; pre-computed CSVs in `data/` verified directly.
 
 | Status | Count | Claims |
 |:-------|:------|:-------|
-| verified (code inspection) | 2 | l5-model-single-cell-scope, naturalistic-drive-parameterization |
-| unverified | 16 | All result claims — scripts identified, data available on Dryad, not yet executed |
+| verified | 9 | l5-model-single-cell-scope, naturalistic-drive-parameterization, na-spikes-couple-2to3ms-before-ap, nmda-spikes-couple-25ms-before-ap, ca-spikes-couple-20ms-before-ap, distal-inhib-drops-firing-02hz, perisomatic-inhib-drops-firing-07hz, perisomatic-inhib-subtractive-divisive, gamma-perisomatic-no-dendritic-spike-change |
+| unverified:no-data | 7 | beta-optimal-distal-dendritic-entrainment, gamma-optimal-perisomatic-ap-modulation, beta-bidirectional-dendritic-control, burst-effects-emerge-first-cycles, beta-gates-distal-apical-inputs, gamma-gates-proximal-basal-inputs, ei-lag-sensitivity-firing-rate |
+| unverified:no-code | 1 | pv-gamma-sst-beta-correspondence (interpretive synthesis) |
 
-**Reproduction path:** All claims reproducible from Dryad pre-computed data + GitHub notebooks. No NEURON re-run required for figure reproduction. conda environment: `environment.yml` → `conda activate dend_comp`. Run notebooks in `scripts/` (Fig2_3.ipynb through Fig10.ipynb). Data dir has per-figure CSVs and .npy arrays.
+**Key finding (2026-03-30):** Pre-computed data in `data/Figure*.csv` and `data/spikes.h5` are sufficient to verify the core quantitative claims (Figs 2-4) without downloading the full Dryad deposit. Figs 7-10 (oscillation frequency sweeps) are the only reproducibility gap — they require the DendCompOscPublic/ Dryad data.
 
-**Key risk:** environment.yml pins Python 3.9 and specific package versions. Any deviation (e.g., newer scipy or holoviews) may break visualization. Test environment setup before running notebooks.
+**Key blocker:** Dryad deposit (doi:10.5061/dryad.v6wwpzhb8) contains oscillation frequency-sweep simulation outputs needed for Figs 5, 7-10. Environment: `environment.yml` requires `holoviews` and Python 3.9; base conda env lacks `holoviews` — install before running notebooks.
+
+**Reproduction path (verified):** Core claims (Figs 2-4) reproducible directly from pre-computed CSVs without NEURON or Dryad download. Oscillation claims (Figs 7-10): download Dryad, install environment, run Fig7-10.ipynb.

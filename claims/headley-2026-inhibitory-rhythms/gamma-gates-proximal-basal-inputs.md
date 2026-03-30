@@ -39,10 +39,11 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: unverified:no-data
     notes: >
-      Script: Fig10.ipynb. Not yet executed. Same script as beta-gates-distal-apical-inputs —
-      Figure 10 tests both input streams.
+      Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5). Same blocker as
+      beta-gates-distal-apical-inputs. Blocked pending Dryad download
+      (doi:10.5061/dryad.v6wwpzhb8).
 ---
 
 The gamma/proximal gating result is the counterpart to the beta/distal gating: together they establish that the two inhibitory streams independently gate two different input pathways. Gamma perisomatic inhibition modulates AP threshold timing without suppressing dendritic spikes, so it controls which proximal/basal depolarizations cross threshold at the axon initial segment. The distal dendritic inputs (top-down) are relatively spared by perisomatic gamma because the Ca²⁺/NMDA spikes initiated in distal compartments are not directly controlled by perisomatic conductances.

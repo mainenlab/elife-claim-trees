@@ -38,10 +38,17 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified
     notes: >
-      Data: Figure4a.csv through Figure4f.csv in data/. Script: Fig4.ipynb, Fig5.ipynb.
-      Not yet executed.
+      Verified directly from Figure4a.csv in repo data/ (30 trials/condition). Somatic
+      (perisomatic ×2) firing rate: 0.7±0.31 Hz vs control 5.5±0.86 Hz. Exact match to
+      claim. Figure4d.csv (Na spike freq): somatic=2.27 vs control=2.12 (essentially
+      unchanged). Figure4e.csv (NMDA freq): somatic=4.19 vs control=4.28 (unchanged).
+      Figure4f.csv (Ca freq): somatic=4.84 vs control=4.86 (unchanged). AP threshold
+      (Figure4c.csv): control=120.6, somatic=392.0, dendritic=270.8 mV·µm. The
+      near-tripling of the threshold cost under perisomatic condition confirms the threshold-
+      elevation mechanism while dendritic spike rates are preserved. Claim fully verified:
+      perisomatic doubling → 0.7 Hz via threshold elevation, not dendritic spike suppression.
 ---
 
 The 5.5 → 0.7 Hz reduction under perisomatic doubling is substantially less than the distal effect (5.5 → 0.2 Hz), and the mechanism is different: perisomatic inhibition imposes a shunting conductance near the soma that raises the AP threshold for axonal initiation. Dendritic spikes can still occur; they are less likely to propagate to APs because the threshold is higher, not because the dendritic events are eliminated. This distinction — threshold vs. spike-suppression — is the paper's central mechanistic claim about differential computation.

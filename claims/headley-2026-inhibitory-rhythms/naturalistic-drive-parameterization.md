@@ -35,10 +35,11 @@ reproductions:
     status: verified
     notes: >
       Figure 1A inset shows distribution of simulated firing rates across independent runs
-      clustering around 5.3 Hz. Figure1FR.csv in data/ directory contains firing rate data
-      consistent with this description. Methods state synapse counts (~26,000 excitatory,
-      ~4,500 inhibitory) and parameter sources from literature. Assessment confirmed by
-      code/data inspection.
+      clustering around 5.3 Hz. Figure1FR.csv in data/ directory contains firing rate data:
+      10 trials, mean 4.81 Hz, median 5.30 Hz (range 3.04–6.27 Hz). spikes.h5 (Poisson
+      excitation simulation): 825 spikes over 150 s → 5.50 Hz for single trial. Methods
+      state synapse counts (~26,000 excitatory, ~4,500 inhibitory) and parameter sources
+      from literature. Assessment confirmed by code/data inspection.
 ---
 
 The ~5.3 Hz baseline is the foundation for all firing rate suppression results (0.2 Hz with distal inhibition doubling, 0.7 Hz with perisomatic doubling). The absolute magnitude of suppression depends on this baseline, which in turn depends on the synaptic parameterization. The parameterization is well-justified by literature, but the absence of a sensitivity analysis means we cannot assess how robust the 0.2/0.7 Hz values are to variation in synaptic parameters. This is a standard limitation of biophysically detailed single-cell models.
