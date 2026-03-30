@@ -1,0 +1,41 @@
+---
+uuid: a26a42bf-23a3-4c8c-a8da-981b1b317381
+slug: guilt-signature-no-individual-difference
+doi: ~
+claim: >
+  Individual dot-product values between participants' guilt-related BOLD responses and
+  the Yu & Koban neural guilt signature do not correlate with individual behavioral
+  guilt effect scores (Spearman's Rho=−0.058, p=0.725), indicating the neural signature
+  does not track individual differences in guilt sensitivity as measured behaviorally.
+claim-type: empirical
+concepts:
+  - guilt signature
+  - individual differences
+  - neural-behavioral correlation
+  - null result
+  - insula
+priority: 2026-03-30
+epistemic: moderate
+
+belongings:
+  - relation: extends
+    target: insula-guilt-replicates-yu-koban-signature
+
+assertions:
+  - paper-slug: gadeke-2026-guilt-insula
+    doi: 10.7554/eLife.105391
+    panel: fig4 (supplement, text)
+    analysis: f_apply_YuKoban_guilt_signature_map.m
+    dataset: https://openneuro.org/datasets/ds005588
+    dataset-doi: 10.18112/openneuro.ds005588.v1.0.0
+    method: Spearman correlation between dot products and behavioural guilt effect
+    confidence: moderate
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-30
+    status: unverified
+    notes: ~
+---
+
+The null individual-difference correlation is a negative finding that qualifies the positive group-level signature match. The group-level result (mean dot product positive, p=0.017) suggests the pattern is present on average, but the absence of individual correlation (Rho=−0.058) means the signature's magnitude does not track who feels more behaviorally guilty. This could reflect limited power (N=40 fMRI participants) or a genuine dissociation between average neural pattern match and individual behavioral sensitivity. The authors report the null without extensive discussion.
