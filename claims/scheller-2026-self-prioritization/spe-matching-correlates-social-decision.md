@@ -38,6 +38,7 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/scheller-2026-self-prioritization/verify.py
+    figure: verification/scheller-2026-self-prioritization/figures/fig-spe-social-correlation.png
     notes: >
       Verified from Correlation_Results.xlsx (OSF cross-exp folder). Pearson r computed
       directly from SPE and ΔΔv_Soc/ΔΔv_Per columns for Exp1 (N=63):

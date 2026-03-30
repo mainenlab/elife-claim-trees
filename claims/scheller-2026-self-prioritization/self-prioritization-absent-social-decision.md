@@ -40,6 +40,7 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/scheller-2026-self-prioritization/verify.py
+    figure: verification/scheller-2026-self-prioritization/figures/fig-social-decision-inversion.png
     notes: >
       Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Social condition
       (cond 2): v_p(self) = 30.07 Hz, v_r(other) = 31.27 Hz, diff = -1.20 Hz (claim: other
