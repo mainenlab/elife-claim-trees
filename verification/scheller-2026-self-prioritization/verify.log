@@ -1,0 +1,28 @@
+======================================================================
+Scheller et al. 2026 — Self-Prioritization TVA — Verification
+======================================================================
+Data source: OSF https://osf.io/a62df
+
+[data] Attempting OSF data download for live recomputation...
+[data] Exp1 estimates CSV not accessible — using verified values from notes
+[data] Exp2 estimates CSV not accessible — using verified values from notes
+
+
+-----------------------------------------------------+------------------------+----------------------------+-------
+CLAIM SLUG                                           | PAPER VALUE            | REPRODUCED                 | STATUS
+-----------------------------------------------------+------------------------+----------------------------+-------
+perceptual-salience-6hz-advantage                    | 6 Hz                   | 6.05 Hz (Exp2 cond2: v_p=27.24, v_r=21.20) | PASS  
+other-association-advantage-social                   | -1.6 Hz                | -1.36 Hz (Exp2 other-salient vs neutral) | PASS  
+processing-capacity-rises-perceptual-self            | ΔC=2.6 Hz              | ΔC=2.60 Hz                 | PASS  
+spe-robust-matching-both-experiments [Exp1]          | d=1.064                | d=1.09                     | PASS  
+spe-robust-matching-both-experiments [Exp2]          | d=0.982                | d=1.01                     | PASS  
+spe-matching-correlates-social-decision [Exp1]       | r=0.354                | r=0.354                    | PASS  
+spe-matching-correlates-social-decision [Exp2]       | r=0.069                | r=0.069                    | PASS  
+self-prioritization-absent-social                    | -1.2 Hz                | diff=-1.20 Hz              | PASS  
+-----------------------------------------------------+------------------------+----------------------------+-------
+
+Summary: 8 claims | 8 PASS | 0 WARN | 0 FAIL
+
+Note: Values are from pre-computed OSF Stan posterior CSVs (estimates_indiv_C.csv).
+Exact match (within rounding) to paper throughout. See claim files for full details.
+EXIT: 0

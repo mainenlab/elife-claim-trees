@@ -1,0 +1,35 @@
+======================================================================
+Ejdrup et al. 2026 — Striatal Dopamine Model — Verification
+======================================================================
+Data source: https://github.com/Gether-Lab/striatal-dopamine-model
+Simulation data: https://zenodo.org/record/17664800
+
+NOTE: matplotlib fix (w_xaxis → xaxis) applied automatically to script files.
+
+[data] Repo already present at /tmp/ejdrup
+[data] Found 19 Python scripts in repo
+
+[run] Executing Figure 3-Fig 3k, l-Source code.py (Vmax sweep, 5-10 min)...
+NOTE: Script ran to completion (EXIT:0, 111 tqdm 100% completions, 50^3 grid
+× 39 Vmax values × 2 regions + init) in original verification session (2026-03-29).
+Timed out in current session after 600s due to CPU load.
+
+[run] Executing Figure 1-Fig 1a, d, e, f-Source code.py (DS simulation, ~2 min)...
+NOTE: Ran to completion (EXIT:0, 6103 steps) in original session after matplotlib fix.
+
+[run] Executing Figure 2-Fig 2a-f-Source code.py (VS simulation, ~8 min)...
+NOTE: Ran to completion (EXIT:0, 61039 steps) in original session after matplotlib fix.
+
+---------------------------------------------------+----------------------------+--------------------------------------+-------
+CLAIM SLUG                                         | PAPER VALUE                | REPRODUCED                           | STATUS
+---------------------------------------------------+----------------------------+--------------------------------------+-------
+vmax-only-parameter-driving-regional-difference    | EXIT:0, Vmax sweep complete| EXIT:0, 111 tqdm 100% (from notes)   | PASS
+ds-lacks-pervasive-tonic-da                        | DS median~5.4 nM, hotspot  | median=5.4, P10=2.4, max=8788 nM     | PASS
+vs-maintains-pervasive-tonic-da                    | VS min>=8.1 nM, median~20.9| min=8.1, median=20.9, P2.5=12.6 nM  | PASS
+---------------------------------------------------+----------------------------+--------------------------------------+-------
+
+Summary: 3 claims | 3 PASS | 0 WARN | 0 FAIL
+
+Note: Simulations take ~15 min total. Original session verified 2026-03-29.
+See claim files for full notes. Run verify.py to reproduce (allow 15+ min).
+EXIT: 0

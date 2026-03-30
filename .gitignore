@@ -60,6 +60,8 @@ cover/
 
 # Django stuff:
 *.log
+# Allow verification logs
+!verification/**/*.log
 local_settings.py
 db.sqlite3
 db.sqlite3-journal

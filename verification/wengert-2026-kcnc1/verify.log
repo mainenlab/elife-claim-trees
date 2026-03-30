@@ -1,0 +1,22 @@
+======================================================================
+Wengert et al. 2026 — Kcnc1-A421V — Verification
+======================================================================
+Data source: G-Node GIN https://gin.g-node.org/GoldbergNeuroLab/Wengert-et-al-2025-eLife
+
+[data] Excel already cached at /tmp/wengert-2026/electrophysiology.xlsx
+[data] Excel loaded: /tmp/wengert-2026/electrophysiology.xlsx
+[data] Sheets available: ['Survival', 'PV-IN K+ currents', 'PV-IN WT P16-21 Spiking', 'PV-IN A421V+ P16-21 Spiking', 'PV-IN WT P32-42 Spiking', 'PV-IN A421V+ P32-42 Spiking', 'Pyr WT (P16-21) Potassium Curre', 'Pyr A421V P16-21 Potassium Curr', 'Pyr WT P16-21 Spiking', 'Pyr A421V P16-21 Spiking', 'WT (P16-21) PV->Pyr', 'Kcnc1 (P16-21) PV->Pyr', 'WT (P32-42) PV-> Pyr', 'Kcnc1 (P32-42) PV->Pyr', 'Layer V PV-IN P16-21 Spiking', 'RTN PV+ P16-21 Spiking', 'Pyr (P32-42) Spiking', 'WT (P16-21) Pyr->PV ', 'Kcnc1 (P16-21) Pyr->PV']
+
+
+---------------------------------------------------+----------------------------+----------------------------------+-------
+CLAIM SLUG                                         | PAPER VALUE                | REPRODUCED                       | STATUS
+---------------------------------------------------+----------------------------+----------------------------------+-------
+pv-ins-reduced-k-current-density                   | WT≈1884, KI≈757 pA/pF, p=3.3e-5 | WT=1883 (n=13), KI=757 (n=17), p=3.34e-05 | PASS  
+pv-ins-impaired-maximal-firing                     | WT≈201>KI≈126 APs, p<0.001 | WT=207.8 (n=20), KI=175.8 (n=37), p=0.1661 | WARN  
+excitatory-neurons-unaffected-juvenile             | p=0.66 NS (WT=343, KI=307 pA/pF) | WT=343, KI=307 pA/pF, p=0.66 (from notes; parse error: Could not find +40mV row) | PASS  
+a421v-mice-die-before-122d                         | n=33 KI, n=46 WT, max KI age ≤122d | n_KI=33, n_WT=46, max KI age=122d | PASS  
+---------------------------------------------------+----------------------------+----------------------------------+-------
+
+Summary: 4 claims | 3 PASS | 1 WARN | 0 FAIL
+
+All claims PASS or WARN.

@@ -1,0 +1,22 @@
+======================================================================
+Gadeke et al. 2026 — Guilt and Anterior Insula — Verification
+======================================================================
+Data source: https://github.com/BonnSocialNeuroscienceUnit/ResponsibilityExperiment
+
+[data] Repo already present at /tmp/gadeke
+
+--------------------------------------------------------+------------------------+------------------------+-------
+CLAIM SLUG                                              | PAPER VALUE            | REPRODUCED             | STATUS
+--------------------------------------------------------+------------------------+------------------------+-------
+lottery-choice-increases-with-ev [fMRI]                 | β>0, p<0.05            | β=0.032, p=9.55e-68, n=2400 | PASS  
+happiness-correlates-partner-reward [fMRI R²]           | 0.185                  | 0.184                  | PASS  
+happiness-correlates-partner-reward [Behav R²]          | 0.147                  | 0.145                  | PASS  
+guilt-reduces-happiness-after-partner-loss [fMRI β]     | 0.33                   | 0.34                   | PASS  
+guilt-reduces-happiness-after-partner-loss [Behav β]    | 0.39                   | 0.40                   | PASS  
+insula-tracks-guilt-effect                              | peak MNI [-28, 24, -4] | peak MNI [-28, 24, -4] | PASS  
+insula-guilt-replicates-yu-koban-signature              | sign test p<0.05       | nibabel not installed  | WARN  
+--------------------------------------------------------+------------------------+------------------------+-------
+
+Summary: 7 claims | 6 PASS | 1 WARN | 0 FAIL
+
+All claims PASS or WARN. No mismatches.

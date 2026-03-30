@@ -1,0 +1,29 @@
+======================================================================
+Headley et al. 2026 — Inhibitory Rhythms — Verification
+======================================================================
+Data source: https://github.com/dbheadley/InhibOnDendComp
+
+[data] Repo already present at /tmp/headley
+[data] Found 15 CSVs in /tmp/headley/data
+[data] First 8: ['Figure4a.csv', 'Figure4c.csv', 'Figure4b.csv', 'Figure4f.csv', 'Figure4e.csv', 'Figure4d.csv', 'Figure2c.csv', 'Figure1FR.csv']
+
+[data] Loading /tmp/headley/data/Figure4a.csv
+[data] Figure4a.csv shape: (90, 3), columns: ['Unnamed: 0', 'firing_rate', 'experiment']
+[data] Condition means: {'control': 5.5, 'dendritic': 0.2, 'somatic': 0.7}
+[data] Loading /tmp/headley/data/Figure2b.csv
+[data] Figure2b.csv shape: (780, 4), cols: ['additional_events', 'time', 'distance', 'dend_type']
+[data] Na peak times by distance: {0: -2, 1: -3, 2: -1, 3: -2, 4: -2, 5: -1, 6: -2, 7: -2, 8: -20, 9: -17}
+[data] Loading /tmp/headley/data/Figure3a.csv
+[data] Figure3a.csv shape: (270, 4), cols: ['Unnamed: 0', 'additional_events', 'time', 'distance']
+[data] NMDA peak times by distance: {0: -100, 1: 0, 2: 0, 3: 0, 4: -5, 5: -10, 6: -15, 7: -20, 8: -20, 9: -90}
+
+-------------------------------------------------+----------------------------+------------------------------------------+-------
+CLAIM SLUG                                       | PAPER VALUE                | REPRODUCED                               | STATUS
+-------------------------------------------------+----------------------------+------------------------------------------+-------
+distal-inhib-drops-firing-02hz                   | control=5.5 Hz, distal×2=0.2 Hz | control=5.50, dendritic=0.20 Hz (n=90)   | PASS  
+perisomatic-inhib-drops-firing-07hz              | control=5.5 Hz, perisomatic×2=0.7 Hz | control=5.50, somatic=0.70 Hz            | PASS  
+na-spikes-couple-2to3ms-before-ap                | Na+ peak -1 to -3 ms before AP (proximal) | proximal peak times: ['-2', '-3', '-1', '-2'] ms | PASS  
+nmda-spikes-couple-25ms-before-ap                | NMDA peak -15 to -25 ms before AP (distal) | distal peak times: ['-10', '-15', '-20', '-20'] ms | PASS  
+-------------------------------------------------+----------------------------+------------------------------------------+-------
+
+Summary: 4 claims | 4 PASS | 0 WARN | 0 FAIL

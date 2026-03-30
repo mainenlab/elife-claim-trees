@@ -1,0 +1,24 @@
+======================================================================
+Kolb et al. 2026 — iGABASnFR2 Crystal Structure — Verification
+======================================================================
+Data source: RCSB PDB 9D57 — https://files.rcsb.org/download/9D57.pdb
+
+[data] Downloading https://files.rcsb.org/download/9D57.pdb ...
+[data] Downloaded 4029 KB
+[pdb] Header: HEADER    FLUORESCENT PROTEIN                     13-AUG-24   9D57
+[pdb] Title: IGABASNFR2 FLUORESCENT GABA SENSOR IN COMPLEX WITH GABA
+[pdb] Method: X-RAY DIFFRACTION
+[pdb] Resolution line: REMARK   2 RESOLUTION.    2.60 ANGSTROMS.
+[pdb] Chains: ['A', 'B', 'C', 'D', 'E', 'F']
+[pdb] ABU (GABA) atoms: 42, residues: ['600']
+[pdb] CRO (chromophore) atoms: 132
+[pdb] HETNAM: ['HETNAM     CRO {2-[(1R,2R)-1-AMINO-2-HYDROXYPROPYL]-4-(4-', 'HETNAM   2 CRO  HYDROXYBENZYLIDENE)-5-OXO-4,5-DIHYDRO-1H-IMIDAZOL-1-', 'HETNAM   3 CRO  YL}ACETIC ACID']
+
+
+-------------------------------------------+--------------------------------+--------------------------------------------------+-------
+CLAIM SLUG                                 | PAPER VALUE                    | REPRODUCED                                       | STATUS
+-------------------------------------------+--------------------------------+--------------------------------------------------+-------
+crystal-structure-pdb-9d57                 | 9D57 exists, X-RAY 2.60Å, iGABASnFR2+GABA, ABU@600 | title='IGABASNFR2 FLUORESCENT GABA SENSOR IN CO...'; method=X-RAY; res=ANGSTROMS | PASS  
+-------------------------------------------+--------------------------------+--------------------------------------------------+-------
+
+Summary: 1 claims | 1 PASS | 0 WARN | 0 FAIL
