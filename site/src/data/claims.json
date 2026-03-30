@@ -37,7 +37,8 @@
           "notes": "Fig12 is the primary evidence panel, showing 9 antibody targets each in ventral and dorsal views of the arcuate body. Results text systematically describes each transmitter pattern in each sublayer. The four-sublayer nomenclature (posABv, antABv, posABd, antABd) is introduced in Fig11C. BIL atlas inspection required for all channels.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "immunofluorescence, multi-antibody panel, confocal atlas"
+          "method": "immunofluorescence, multi-antibody panel, confocal atlas",
+          "script": null
         },
         {
           "uuid": "eb91b6b6-92c0-483d-8f88-d75708ac94c6",
@@ -54,7 +55,8 @@
           "notes": "Observational claim. BIL data required. Not yet executed.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "immunofluorescence, multi-channel confocal"
+          "method": "immunofluorescence, multi-channel confocal",
+          "script": null
         },
         {
           "uuid": "d4e4b107-1540-4bf3-b4af-4dca938e0d06",
@@ -71,7 +73,8 @@
           "notes": "Confirmed by corpus-assessment.md: claims are descriptive/observational. Reproduction difficulty rated Hard (9/10). Primary barrier is large TIFF volumes on BIL.",
           "dataset": null,
           "analysis": "code inspection",
-          "method": "code inspection + corpus-assessment"
+          "method": "code inspection + corpus-assessment",
+          "script": null
         },
         {
           "uuid": "9cfe689f-623e-43b7-bd49-f7075865ae4c",
@@ -88,7 +91,8 @@
           "notes": "Claims grounded in Results text: \"most abundantly innervated by serotonergic as well as TDC2+ immunoreactivity.\" The adjacent medial region with overlapping TDC2/5-HT/AstA signal is marked with arrows in Fig4E subpanels iii, v. BIL atlas inspection at z400 required.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "immunofluorescence, anti-5-HT / anti-TDC2 / anti-AstA, confocal atlas"
+          "method": "immunofluorescence, anti-5-HT / anti-TDC2 / anti-AstA, confocal atlas",
+          "script": null
         },
         {
           "uuid": "e2b21b80-fbbc-43ea-81ee-b6631c951e16",
@@ -108,7 +112,8 @@
           "notes": "Confirmed by direct quotation in Results: \"GABAergic expression pattern (anti-GAD) is aligned and reported, but of a more limited utility as the antibody signal penetration is limited to the periphery of the tissue.\" This is an explicit author-acknowledged methodological limitation, not an inference. Verified by text reading; no data access required.",
           "dataset": null,
           "analysis": "code inspection + text reading",
-          "method": "text reading"
+          "method": "text reading",
+          "script": null
         },
         {
           "uuid": "01384854-d4e5-4e8c-bf0b-239409c22675",
@@ -127,7 +132,8 @@
           "notes": "Results: \"We find the cluster of cells closely associated with the MB heads is revealed by ChAT immunoreactivity, and to a lesser extent by GAD immunoreactivity, suggesting they represent cholinergic and GABAergic populations.\" Fig7H shows ChAT putative globuli cells with DAPI; Fig7I shows GAD potential innervation. BIL atlas required.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "immunofluorescence, anti-ChAT / anti-GAD, confocal atlas"
+          "method": "immunofluorescence, anti-ChAT / anti-GAD, confocal atlas",
+          "script": null
         },
         {
           "uuid": "7498d258-3c0e-4a77-bd98-49b7deff2950",
@@ -144,7 +150,8 @@
           "notes": "Results text: \"The hagstone neuropil is essentially completely filled with serotonergic immunoreactivity, matching the outline defined in the anti-synapsin channel.\" The circular 5-HT tract is visible at z540 (Fig6B). Standard brain z-range approximately 540-615. BIL TIFF required.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "immunofluorescence, anti-5-HT, confocal atlas"
+          "method": "immunofluorescence, anti-5-HT, confocal atlas",
+          "script": null
         },
         {
           "uuid": "a527b1e4-3c93-4579-9e3f-4e079a34a78f",
@@ -163,7 +170,8 @@
           "notes": "Observational anatomical claim — requires inspecting z-planes 160-190 of the standard brain atlas at BIL. The bilateral void pattern is described clearly in Results and visible in Fig2Bi dotted boundary. BIL TIFF download required.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "immunofluorescence, anti-5-HT, confocal atlas"
+          "method": "immunofluorescence, anti-5-HT, confocal atlas",
+          "script": null
         },
         {
           "uuid": "b7856315-9b56-4c97-97c7-4f3e2e2a785d",
@@ -180,7 +188,8 @@
           "notes": "Fig2 in paper. BIL data required. Not yet executed.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "comparative anatomy across leg neuropils"
+          "method": "comparative anatomy across leg neuropils",
+          "script": null
         },
         {
           "uuid": "80deef22-24b8-4140-8141-276873993f34",
@@ -197,7 +206,8 @@
           "notes": "Results: \"we surprisingly did not see co-expression with most of our specific neurosignaling molecule antibodies... only anti-allatostatin A staining showed co-expression throughout the MB.\" MBs visible as most strongly immunoreactive structure in Fig7B (max intensity projection of synapsin). Fig7E shows AstA in MB haft. BIL inspection required.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "immunofluorescence, anti-AstA / anti-synapsin, confocal atlas"
+          "method": "immunofluorescence, anti-AstA / anti-synapsin, confocal atlas",
+          "script": null
         },
         {
           "uuid": "a7565a82-5c41-40d9-a3d3-5e9194904515",
@@ -214,7 +224,8 @@
           "notes": "The ladder-like structure in the TDC2 channel is described at z-planes 415-425 and 448-465 of the standard brain (Fig3B, C). The perimeter tract arrows and brace annotations are explicit in figure legend. BIL atlas inspection required.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "immunofluorescence, anti-TDC2, confocal atlas"
+          "method": "immunofluorescence, anti-TDC2, confocal atlas",
+          "script": null
         },
         {
           "uuid": "0f8cb9fa-41a6-4a5d-8634-d8b670609fe8",
@@ -231,7 +242,8 @@
           "notes": "Results text directly states: \"Immunoreactivity for ChAT (acetylcholine) and TDC2 (octopamine/tyramine) is strongest among the antisera tested for the PdN.\" Optical slice z275. BIL atlas inspection required.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "immunofluorescence, anti-ChAT / anti-TDC2, confocal atlas"
+          "method": "immunofluorescence, anti-ChAT / anti-TDC2, confocal atlas",
+          "script": null
         },
         {
           "uuid": "b8667945-1d0c-4f6d-973b-b64bb9972ea0",
@@ -248,7 +260,8 @@
           "notes": "Weak epistemic status: homology claim requires comparative anatomy expertise and is based on morphological/neurochemical similarity. BIL data required. Not yet executed.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas inspection + comparative anatomy",
-          "method": "comparative neuroanatomy, immunostaining pattern"
+          "method": "comparative neuroanatomy, immunostaining pattern",
+          "script": null
         },
         {
           "uuid": "42987256-31b8-4f7d-b81f-8f6976a904f0",
@@ -267,7 +280,8 @@
           "notes": "Results: \"Comparing further neuronal subtype preparations reveals that the PCB has a layered structure.\" Layer-by-layer description is in the Results prose for this section. Fig10B shows paired ventral (z722) and dorsal (z730) optical sections. BIL atlas required.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "immunofluorescence, multi-antibody panel, confocal atlas"
+          "method": "immunofluorescence, multi-antibody panel, confocal atlas",
+          "script": null
         },
         {
           "uuid": "7fe2b8d9-167a-4743-93af-6795c3c4f34c",
@@ -284,7 +298,8 @@
           "notes": "Observational anatomical claim — requires inspecting the 3D atlas volumes. BIL data required. Not yet executed.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas inspection",
-          "method": "immunofluorescence atlasing"
+          "method": "immunofluorescence atlasing",
+          "script": null
         },
         {
           "uuid": "6060326d-de93-44c9-a073-379eb2cefb75",
@@ -303,7 +318,8 @@
           "notes": "Results: \"resemble a division of compartments, most notably in the ovoid regions where serotonin is found in an internal, core pattern, with octopaminergic/tyraminergic signal as a shell.\" Fig9C shows ventral (z682) and dorsal (z700) views with 5 antibody channels. BIL atlas inspection required. Both z-planes available in standard brain.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
-          "method": "immunofluorescence, anti-5-HT / anti-TDC2 / anti-proctolin / anti-AstA, confocal atlas"
+          "method": "immunofluorescence, anti-5-HT / anti-TDC2 / anti-proctolin / anti-AstA, confocal atlas",
+          "script": null
         },
         {
           "uuid": "ea4408d1-ec9e-491f-83d8-47edc01122d5",
@@ -320,7 +336,8 @@
           "notes": "BIL TIFF stacks are large (likely tens of GB). elastix registration pipeline on GitHub. Computationally intensive. Not yet executed.",
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "GordusLab/Artiushin-elastix-eLife (GitHub)",
-          "method": "confocal microscopy, elastix image registration"
+          "method": "confocal microscopy, elastix image registration",
+          "script": null
         }
       ]
     },
@@ -367,7 +384,8 @@
           "notes": "Behavioral data downloaded from OSF (behaviordata_final.csv, n=24, 12288 rows). CS type hierarchy confirmed: overall means CS++(2.62) > CS+-(2.38) > CS-+(2.23) > CS--(1.58), matching the paper's ordering exactly. LME with exact model from deposited R script (roi_lme_analysis.R): lmer(rating ~ cs_type * phase + (1|subject)) yields F(cs_type)=448.75 [paper claims 479.35], F(phase)=210.09 [paper claims 125.6], interaction p<0.0001 [paper claims p<0.001]. All effects significant and directionally correct. The exact F values differ from the paper's reported values: F(cs_type) 448 vs 479, F(phase) 210 vs 126. The direction discrepancy on phase F is large (210 vs 126). This likely reflects a different phase coding or data subsetting in the \"behavioral_expectancy_clean.csv\" (not deposited on OSF) vs behaviordata_final.csv we used. The qualitative claim (CS++ > CS+- > CS-+ > CS--, p<0.0001, all phases significant) is fully reproduced.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "master_stats.R",
-          "method": "linear mixed effects model (lme4/lmerTest, Satterthwaite df, Bonferroni-corrected post-hoc Wilcoxon)"
+          "method": "linear mixed effects model (lme4/lmerTest, Satterthwaite df, Bonferroni-corrected post-hoc Wilcoxon)",
+          "script": null
         },
         {
           "uuid": "4dbc065d-daa5-45e9-96d6-9012b33cb24c",
@@ -386,7 +404,8 @@
           "notes": "Not yet executed.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "fear_rsa_exploratory.py",
-          "method": "RSA context specificity measure (within-context minus between-context similarity), cluster FWE 10k permutations"
+          "method": "RSA context specificity measure (within-context minus between-context similarity), cluster FWE 10k permutations",
+          "script": null
         },
         {
           "uuid": "7ca6bb4e-6e66-47c1-bf7c-52c64d17d80d",
@@ -407,7 +426,8 @@
           "notes": "n=22-24; small sample for an individual-differences LME with interaction; effect sizes not reported",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "roi_lme_analysis.R, master_stats.R",
-          "method": "LME with context specificity × CS type interaction predicting generalized reinstatement; FDR correction within ROI pairs"
+          "method": "LME with context specificity × CS type interaction predicting generalized reinstatement; FDR correction within ROI pairs",
+          "script": null
         },
         {
           "uuid": "d0bcf69c-c791-4b94-9d82-92a43bccc4ed",
@@ -426,7 +446,8 @@
           "notes": "",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "roi_lme_analysis.R, master_stats.R",
-          "method": "LME with context specificity × CS type interaction predicting item reinstatement in MTG during test_new"
+          "method": "LME with context specificity × CS type interaction predicting item reinstatement in MTG during test_new",
+          "script": null
         },
         {
           "uuid": "711a9296-c951-4455-b0bb-99e3d48ab36e",
@@ -447,7 +468,8 @@
           "notes": "",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "roi_lme_analysis.R, master_stats.R",
-          "method": "LME with context specificity × CS type interaction predicting item reinstatement; FDR correction within ROI pairs"
+          "method": "LME with context specificity × CS type interaction predicting item reinstatement; FDR correction within ROI pairs",
+          "script": null
         },
         {
           "uuid": "364302b6-4c41-4591-8df9-7800a8c674ff",
@@ -466,7 +488,8 @@
           "notes": "NeuroVault map downloaded (CSplus-minus_TFCE_nlog10p.nii.gz, collection 23032). Map stores -log10(p) values (TFCE corrected), threshold at 1.301 for p<0.05. 5544 significant voxels. Peak at MNI (8.5, 15.0, 39.0), -log10(p)=4.0 (p<0.0001). dACC/SFG (X: -15 to 15, Y: 5-40, Z: 20-55): 948 sig voxels, peak at MNI (6,15,39) — CONFIRMED. Caudate (X: -20 to 20, Y: 0-18, Z: -5 to 20): 216 sig voxels, peak at MNI (6,5,-1) — CONFIRMED but peak is at caudate/putamen/accumbens boundary, Y=5 which is consistent with caudate head. MTG (|X|>40, Y: -65 to -25, Z: -15 to 12): 0 significant voxels — NOT FOUND in deposited map. The claimed MTG activation cannot be confirmed from the NeuroVault TFCE map. This could reflect a more lenient threshold used in the paper's figure, a subthreshold result not surviving FWE correction, or a labeling issue. The paper's core claim (dACC/SFG) is confirmed; caudate is borderline-confirmed; MTG is not confirmed in the corrected map.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
-          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)"
+          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)",
+          "script": null
         },
         {
           "uuid": "e645b7b4-05c4-4b37-b75f-3e47c0d585b2",
@@ -485,7 +508,8 @@
           "notes": "NeuroVault map downloaded (s1r1_CSplus_s1r1_between_vs_CSminus_s1r1_between_logpmax_size025.nii.gz). This is the searchlight cue-generalization (between-item RSA) map for session 1 run 1 (acquisition). 2283 significant voxels. Max -log10(p)=2.959. Peaks at MNI (-12,10,44), (-4,30,42), (6,28,59) — all in dACC/SFG territory. dACC/SFG (medial frontal): 286 sig voxels, max=2.959 — CONFIRMED. Insula: L=38, R=16 sig voxels — CONFIRMED. Caudate: 44 sig voxels, max -log10(p)=1.419 (borderline). The claim says \"dACC, SFG, caudate, insula\" — three of four confirmed, caudate borderline. NOTE: This map is labeled \"s1r1\" (session 1 run 1 only), so it reflects early acquisition only. The full acquisition cue-generalization result in fig3A may pool across both acquisition runs, which would change the threshold and cluster sizes. This is a partial verification of the acquisition cue-generalization spatial claim.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py, fear_rsa_core.py",
-          "method": "RSA searchlight + ROI analysis (BrainIAK), permutation testing (10k, cluster FWE)"
+          "method": "RSA searchlight + ROI analysis (BrainIAK), permutation testing (10k, cluster FWE)",
+          "script": null
         },
         {
           "uuid": "411ed78e-2542-4340-b896-bca7522579ae",
@@ -504,7 +528,8 @@
           "notes": "",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py, fear_rsa_core.py",
-          "method": "RSA searchlight, cue generalization measure, cluster FWE 10k permutations (Bonferroni-corrected alpha p<0.0125)"
+          "method": "RSA searchlight, cue generalization measure, cluster FWE 10k permutations (Bonferroni-corrected alpha p<0.0125)",
+          "script": null
         },
         {
           "uuid": "0fce9813-0814-4bb8-86fd-12cd0c33bd98",
@@ -523,7 +548,8 @@
           "notes": "NeuroVault map downloaded (run2_currentvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032). 7473 significant voxels (threshold -log10(p)>1.301, p<0.05 FWE). Peak at MNI (-9,10,42), -log10(p)=4.0. dACC/SFG: 1023 sig voxels, max -log10(p)=4.0 — CONFIRMED. Striatum/Caudate: 152 sig voxels, max -log10(p)=3.155 — CONFIRMED. Multiple fear-network peaks confirmed: (-9,10,42) dACC, (6,-28,-11) possible brainstem/STN, (6,10,49) SFG, (11,35,32) dMPFC. This is the largest activated map (7473 voxels vs 5544 in acquisition), consistent with the paper's claim that reversal produces robust fear-network activation for currently-threatening cues.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
-          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)"
+          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)",
+          "script": null
         },
         {
           "uuid": "ebc27c8f-666b-474f-8980-f41e0d25843c",
@@ -544,7 +570,8 @@
           "notes": "n=261; ROI derived from searchlight clusters (circular concern as in IFG claim)",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "roi_lme_analysis.R, master_stats.R",
-          "method": "ROI-based LME, Wilcoxon post-hoc (FDR-corrected within ROI)"
+          "method": "ROI-based LME, Wilcoxon post-hoc (FDR-corrected within ROI)",
+          "script": null
         },
         {
           "uuid": "6ea9d399-1100-4329-8a02-ac61dd04e3d1",
@@ -561,7 +588,8 @@
           "notes": "Interpretive synthesis. No single script. Not yet executed.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": null,
-          "method": "synthesis across RSA measures"
+          "method": "synthesis across RSA measures",
+          "script": null
         },
         {
           "uuid": "ae9a914a-11de-40a8-a291-bfd61d51a787",
@@ -578,7 +606,8 @@
           "notes": "Not yet executed.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
-          "method": "RSA cue generalization measure"
+          "method": "RSA cue generalization measure",
+          "script": null
         },
         {
           "uuid": "bcf69f08-b30f-4571-9ecd-69ea60d15414",
@@ -599,7 +628,8 @@
           "notes": "ROI derived from searchlight-significant clusters (circular design; see assessment claim rsa-roi-derived-from-searchlight)",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "roi_lme_analysis.R, master_stats.R",
-          "method": "ROI-based LME (reversal > acquisition item reinstatement, Wilcoxon t(253)=-3.01 p<0.01; reversal > test_new t(253)=-2.7 p<0.05)"
+          "method": "ROI-based LME (reversal > acquisition item reinstatement, Wilcoxon t(253)=-3.01 p<0.01; reversal > test_new t(253)=-2.7 p<0.05)",
+          "script": null
         },
         {
           "uuid": "500caa5d-b636-4776-98fe-422b618f8e02",
@@ -620,7 +650,8 @@
           "notes": "",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py, fear_rsa_core.py",
-          "method": "RSA searchlight, item-stability measure, cluster FWE 10k permutations (p<0.0125)"
+          "method": "RSA searchlight, item-stability measure, cluster FWE 10k permutations (p<0.0125)",
+          "script": null
         },
         {
           "uuid": "aa1a7bc0-0051-4dc7-bbba-2f96300645e0",
@@ -637,7 +668,8 @@
           "notes": "Searchlight analysis. NeuroVault group maps deposited. Not yet executed.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py, fear_rsa_core.py",
-          "method": "RSA searchlight, item-stability measure"
+          "method": "RSA searchlight, item-stability measure",
+          "script": null
         },
         {
           "uuid": "9c4f7718-812e-45ec-aecd-3218135a1e4b",
@@ -654,7 +686,8 @@
           "notes": "Confirmed by methods text: \"only unreinforced trials (i.e. not followed by a US) were used to conduct statistical analyses of neural pattern similarity at the group level.\" With 50% reinforcement rates, approximately half of CS+ trials (and CS-+ trials during reversal) are excluded. Each CS type has 2 items × multiple repetitions; at 50% removal, the number of within-cue trial pairs for item stability estimation is approximately halved. This is a reasonable design choice to avoid US contamination, but it means item stability estimates for threat cues are based on fewer trials than for safe cues (which are never reinforced and lose no trials).",
           "dataset": null,
           "analysis": "methods inspection",
-          "method": "code inspection (methods section)"
+          "method": "code inspection (methods section)",
+          "script": null
         },
         {
           "uuid": "e5023cc6-f631-4d2b-b768-ed36dbef9edb",
@@ -673,7 +706,8 @@
           "notes": "",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
-          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)"
+          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)",
+          "script": null
         },
         {
           "uuid": "60dc4ad3-7400-4bd9-bf23-dfc403bdea39",
@@ -692,7 +726,8 @@
           "notes": "",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py, fear_rsa_core.py",
-          "method": "RSA searchlight, item-stability measure, cluster FWE 10k permutations (p<0.025 threshold)"
+          "method": "RSA searchlight, item-stability measure, cluster FWE 10k permutations (p<0.025 threshold)",
+          "script": null
         },
         {
           "uuid": "2ff7f5ea-efaf-408e-9ef3-ab46fe395e74",
@@ -709,7 +744,8 @@
           "notes": "R analysis scripts. Not yet executed.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "roi_lme_analysis.R, master_stats.R",
-          "method": "correlation: RSA context specificity × behavioral fear renewal"
+          "method": "correlation: RSA context specificity × behavioral fear renewal",
+          "script": null
         },
         {
           "uuid": "db8f67a5-9139-44fb-89c1-b30613fbadf5",
@@ -730,7 +766,8 @@
           "notes": "NeuroVault map downloaded (run2_previousvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032). Only 36 significant voxels survive FWE correction (threshold -log10(p)>1.301). Max -log10(p)=1.670 (p≈0.021, barely significant). Single cluster peak at MNI (-14, -90, -11) — this is posterior cortex / occipital region, NOT a canonical fear network region (dACC, amygdala, insula). The paper's claim of \"fear network activation\" for prior-threat cues is NOT confirmed by the deposited map: the only surviving cluster is in occipital/posterior cortex, not in any region named as a fear-network constituent. The claim was already rated epistemic:weak. This further weakens it — the deposited map shows the activation is (a) barely surviving correction at all, and (b) not in the claimed anatomical territory. Status: verified:partial — the existence of SOME activation is confirmed, but the fear-network location claim is not.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
-          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)"
+          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)",
+          "script": null
         },
         {
           "uuid": "7d932232-9c15-45f3-8296-958d3fe84d2a",
@@ -752,7 +789,8 @@
           "notes": "Confirmed by methods text: \"We thresholded the statistical maps of the searchlight analyses to only retain (corrected) significant clusters... These ROI masks in MNI space were used to estimate the average neural pattern similarity within each ROI.\" FDR correction is applied within ROI-specific comparisons, but does not eliminate the circularity in ROI definition.",
           "dataset": null,
           "analysis": "methods inspection",
-          "method": "code inspection (methods section)"
+          "method": "code inspection (methods section)",
+          "script": null
         },
         {
           "uuid": "d903f2eb-e683-43c7-8feb-1bc1ee72597b",
@@ -769,7 +807,8 @@
           "notes": "Code inspection confirms trace conditioning procedure. Literature assumption, not independently verified in this study. Assessment claim confirmed by methods reading.",
           "dataset": null,
           "analysis": null,
-          "method": "design assumption from prior literature"
+          "method": "design assumption from prior literature",
+          "script": null
         }
       ]
     },
@@ -818,7 +857,8 @@
           "notes": "Figure 1-Fig 1h-Source code.py ran to completion with EXIT:0, no errors (7 tqdm 100% completions for the 50^3, 17-second simulation). Script computes D1R and D2R occupancy using Hill equation kinetics during a 6 AP/20 Hz burst in DS (Vmax=6 µM/s). The ~50 ms D1R delay claim is a structural consequence of D1R association kinetics (k_on × Bmax × dt integration) which the simulation implements correctly. Figure produced without error. Stochastic elements (release site placement, firing) mean exact traces vary; the delay is a systematic property, not a single-run artifact.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 1-Fig 1h-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "006a2982-b056-4c8c-b1f5-6c9819c1eaff",
@@ -835,7 +875,8 @@
           "notes": "Code inspection confirmed: Figure 1-Fig 1h-Source code.py initializes D2R occupancy at occ_D2 = 0.4. No sensitivity sweep over this parameter appears in any notebook or supplementary script. Calculation from paper's own EC50 (7 nM) and DS tonic [DA] (~10 nM) gives equilibrium occupancy ≈ 0.59 via Hill equation with n=1. Assessment claim confirmed by direct code reading.",
           "dataset": null,
           "analysis": "Figure 1-Fig 1h-Source code.py",
-          "method": "code inspection"
+          "method": "code inspection",
+          "script": null
         },
         {
           "uuid": "06c675dd-5a37-4e64-8af8-f02b15870215",
@@ -855,7 +896,8 @@
           "notes": "Figure 1-Fig 1j-Source code.py ran to completion with EXIT:0, no errors (6 tqdm 100% completions for 50^3, 17s simulation including a 1s firing pause). Script implements the D2R affinity sweep (Km range from 2 to 20 nM equivalent) and computes occupancy drop during the pause. The insensitivity claim (0.55→0.45 drop) follows structurally from the D2R off-rate implementation — confirmed in code as k_off = 0.2 s⁻¹ decay. The D2R initialization at 0.4 (start_occ_D2=0.4) is confirmed again in this script. The directional finding is structurally robust; absolute occupancy values remain sensitive to initialization.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 1-Fig 1j-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "d6a177f1-603e-4318-a7e0-3ec10fe39da9",
@@ -875,7 +917,8 @@
           "notes": "Figure 1-Fig 1h-Source code.py ran to completion with EXIT:0 (same run as d1r-tracks-da-50ms-delay). D2R kinetics use k_off = 0.2 s⁻¹ (half-life ~3.5 s) implemented as a first-order decay from occupancy. The ≥5 s recovery time is a direct structural consequence of this rate constant and is reproduced deterministically regardless of stochastic simulation variation. Start occupancy initialized at 0.4 as in the paper (the initialization question flagged in the assessment node is confirmed in the code: `start_occ_D2 = 0.4`). This confirms the initialization concern is real — the code does not equilibrate D2R occupancy to steady state first.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 1-Fig 1h-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "db68e131-734a-4471-a7e6-e027f38048ac",
@@ -895,7 +938,8 @@
           "notes": "D2R occupancy panel (fig2G) is generated by Figure 2-Fig 2g, h-Source code.py, which also generates the FSCV comparison. Both panels share a script that requires full tissue-scale simulation to complete; execution timed out. Additionally, the D2R occupancy result depends on the initialization at 0.4 (see d2r-initialization-unjustified) so absolute values (0.55 DS, 0.8 VS) would shift under correct initialization. Directional claim (VS > DS) would survive. Workaround: pre-computed Zenodo arrays for fig2G, if available, would allow plotting-only reproduction.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 2-Fig 2g, h-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "498bf1d1-2d0f-42d4-bdf7-c9996ed5af78",
@@ -914,7 +958,8 @@
           "notes": "dSTORM localisation data deposited in Zenodo (Figure 4 data deposit); reproduction would require running DBSCAN cluster analysis on raw localization files.\n\nDAT_clustering.csv downloaded from Zenodo (record 18046987). Contains 13 DS values and 12 VS values (semicolon-delimited, comma as decimal separator). Running Welch's two-sample t-test: DS mean=29.89%, VS mean=43.22%, t=-2.326, p=0.0292 (two-tailed). The claim states p=0.012, n=12 DS, n=13 VS. Both are wrong: (1) the sample sizes are reversed (n=13 DS, n=12 VS in the data); (2) p=0.029 two-tailed, p=0.015 one-tailed — neither matches p=0.012. Mann-Whitney gives p=0.018 (two-sided) or p=0.009 (one-sided). No combination of standard tests reproduces p=0.012 exactly. The discrepancy in sample sizes and p-value suggests either the claim was transcribed with an error from the paper text, or the CSV represents a subset/different version of the data analyzed in the paper. The direction of the effect (VS > DS) is confirmed: VS mean 43.2% vs DS mean 29.9%, statistically significant by all tests (p<0.05). Raw data: /tmp/ejdrup-2026/zenodo-data/DAT_clustering.csv. Plot: /tmp/ejdrup-2026/outputs/fig4/fig4m_dat_clustering_dstorm.png.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": null,
-          "method": "dSTORM super-resolution microscopy"
+          "method": "dSTORM super-resolution microscopy",
+          "script": null
         },
         {
           "uuid": "c714f46f-4715-4d61-90d8-fdac5fffa159",
@@ -933,7 +978,8 @@
           "notes": "Raw immunostaining data not in Zenodo deposit; reproduction would require original tissue samples.",
           "dataset": null,
           "analysis": null,
-          "method": "immunostaining"
+          "method": "immunostaining",
+          "script": null
         },
         {
           "uuid": "dba3c7b4-0a96-48cb-97d4-9aca0edbe90f",
@@ -953,7 +999,8 @@
           "notes": "Figure 4-Fig 4 simulations-Source code.py: computationally infeasible as written. The nanoclustering simulation uses dx=0.02 µm (varicosity scale), producing a 90×90×352 grid (2.85M voxels) with dt=1.31×10⁻⁷ s and 3,052,000 steps for a 0.4s simulation — estimated runtime ~43 hours at observed throughput (~19 it/s). The script timed out at 240s, completing <0.01% of steps. This is why the paper deposits pre-computed Zenodo data (https://doi.org/10.5281/zenodo.17664800): the simulation itself is not designed to be re-run from scratch. The plotting script (Figure 4-Fig 4a-e and g-i-Source code.py) requires sim_result_*.npy and steady_state_DAT_*.csv from Zenodo. Verification would require either downloading Zenodo data or running on a compute cluster. Code was not assessed for correctness.\n\n\nZenodo deposit (DOI 10.5281/zenodo.17664800, latest record 18046987) downloaded 2026-03-26. The deposit contains: 5 × sim_result_*.npy (9.1 GB each — 45 GB total, not feasible to download); 5 × steady_state_DAT_*.csv (12.5 kB each, downloaded); DAT_sim_gradient.csv, DAT_sim_conc_surface.csv (downloaded); DAT_clustering.csv (194 bytes, downloaded); dSTORM zip archives (1.3 GB + 966 MB). The burst clearance claim (400 ms vs 200 ms from 100 nM) is in Fig 4h and requires sim_result_*.npy — these were not downloaded. The 400 vs 200 ms numbers therefore remain unverified. The steady_state_DAT_*.csv files (Fig 4g, equilibrium [DA]) were successfully plotted: 20nm clusters reach 29.5 nM tonic equilibrium vs 15.4 nM for unclustered DAT — a 1.9× elevation consistent with the directional claim of slower effective clearance. The plotting script requires additional CSVs (DAT_sim_conc.csv, DAT_sim_rel_time.csv, DAT_sim_dist.csv, DAT_sim_DA_diff*.csv) not present in the Zenodo deposit — these correspond to an older simulation format and their absence prevents running the full script. Output: /tmp/ejdrup-2026/outputs/fig4/",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 4-Fig 4 simulations-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "2ac9b38d-8f72-436d-905a-b98b7e8dc3ba",
@@ -972,7 +1019,8 @@
           "notes": "Simulation completed successfully (1/1 run, 6103 steps on 100^3 grid, DS Vmax=6 µM/s). Script errored at 3D visualization step: AttributeError on Axes3D.w_xaxis (removed in matplotlib 3.8; script was written for older API). The diffusion simulation itself and spatial DA distribution computation are unaffected. The error prevents automated figure comparison. Plotting section fix: replace w_xaxis/w_yaxis/w_zaxis with xaxis/yaxis/zaxis. Core simulation output is reproducible.\n\n\nMatplotlib fix applied (w_xaxis → xaxis, w_yaxis → yaxis, w_zaxis → zaxis in Figure 1-Fig 1a, d, e, f-Source code.py). Script ran to completion (6103 steps, ~2 min). DS simulation (Vmax=6 µM/s, 4 Hz pacemaker, 100^3 grid): spatial DA distribution confirms hotspot pattern. Distribution statistics across steady-state voxels: median 5.4 nM, P10=2.4 nM, P25=3.4 nM, P75=8.9 nM, max=8788 nM. The wide right-skewed distribution (most voxels low, rare voxels near varicosities very high) is the quantitative signature of the hotspot claim — not uniform tonic coverage. Claim verified: DS lacks pervasive tonic DA; instead produces varicosity-scale hotspots embedded in a mostly sub-10 nM background.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 1-Fig 1a, d, e, f-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "c3130ba5-465d-4f1a-a851-6796e72a1d72",
@@ -989,7 +1037,8 @@
           "notes": "Code inspection confirmed: sim_functions.py sets Vmax_DS = 6.0 µM/s and Vmax_VS = 2.0 µM/s as fixed parameters. No derivation from first principles appears in any notebook. The ratio is cited to prior voltammetry literature (Kennedy et al., Cragg & Rice). The Figure 2—supplement 1 immunostaining supports a DS > VS protein gradient (p=0.0021) but does not quantify functional Vmax. Assessment claim confirmed by direct code and methods reading.",
           "dataset": null,
           "analysis": "Figure 2-Fig 2a-f-Source code.py",
-          "method": "code inspection + literature"
+          "method": "code inspection + literature",
+          "script": null
         },
         {
           "uuid": "cc992651-67bd-4d1b-9237-fa13d9f9ec94",
@@ -1009,7 +1058,8 @@
           "notes": "The FSCV simulation (Figure 2-Fig 2g, h-Source code.py) requires running the full tissue-scale model for 10, 30, and 60 Hz stimulation conditions in both DS and VS. Script execution timed out during the simulation runs. The Fig2g/h script uses the same matplotlib w_xaxis API (not confirmed broken here, but VS simulation runs upstream). Pre-computed output arrays for Fig 2g/h were not found in the Zenodo deposit for this specific panel. Workaround: download zenodo.17664800 and check for fig2_fscv_* .npy arrays; if present, plotting section can run immediately.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 2-Fig 2g, h-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "961ce4c4-5809-4b6b-aaa4-c5f52373612c",
@@ -1028,7 +1078,8 @@
           "notes": "Script ran to completion with EXIT:0, no errors. All 4 burst conditions executed: single AP, low burst (3 APs at 10 Hz), medium burst (6 APs at 20 Hz), high burst (12 APs at 40 Hz) — all on 100^3 grid DS environment (Vmax=6 µM/s). Script produced figures without error using Agg backend. The frequency-dependent spillover pattern is structurally reproduced by the code as written. Stochastic simulation (random seed not fixed) means exact spatial patterns will vary between runs but the claim is about the qualitative spillover volume threshold, which emerges reliably from the model structure. Figures not visually inspected (non-interactive run).",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 1-Fig 1g-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "5b351222-ab85-46be-a673-b05a6f104f80",
@@ -1045,7 +1096,8 @@
           "notes": "Code inspection confirmed: Figure 4-Fig 4 simulations-Source code.py includes a normalization step that scales per-voxel DAT rates by cluster area fraction so total integrated Vmax remains constant across clustered and unclustered conditions. The constraint is explicit in the code. No parameter sweep tests the case where nanoclustering co-occurs with increased total Vmax. Assessment claim confirmed by direct code reading.",
           "dataset": null,
           "analysis": "Figure 4-Fig 4 simulations-Source code.py",
-          "method": "code inspection"
+          "method": "code inspection",
+          "script": null
         },
         {
           "uuid": "8300c7dc-9386-4a06-9763-c3b681b5c282",
@@ -1062,7 +1114,8 @@
           "notes": "Code inspection confirmed: Figure 4-Fig 4 simulations-Source code.py uses domain dimensions 1.8 × 1.8 µm with 0.02 µm voxels, architecturally distinct from the tissue-scale model in Figures 1–3 (100 µm domain, 1 µm voxels). No code pathway couples effective Vmax from the varicosity simulation to the tissue simulation inputs. Architecture gap confirmed by structural reading of sim_functions.py and the Figure 4 source code.",
           "dataset": null,
           "analysis": "Figure 4-Fig 4 simulations-Source code.py",
-          "method": "code inspection"
+          "method": "code inspection",
+          "script": null
         },
         {
           "uuid": "73da2169-c0ce-4ae2-85b2-42fb821ec872",
@@ -1079,7 +1132,8 @@
           "notes": "Raw immunostaining data not in Zenodo deposit; reproduction would require original tissue samples.",
           "dataset": null,
           "analysis": null,
-          "method": "immunostaining"
+          "method": "immunostaining",
+          "script": null
         },
         {
           "uuid": "59c0aba5-a0e0-41d8-8961-fa5e927d83e7",
@@ -1099,7 +1153,8 @@
           "notes": "Figure 3-Fig 3k, l-Source code.py ran to completion with EXIT:0. The script computes vmax_percentiles_DS[1,:] (50th percentile [DA]) and vmax_percentiles_VS[1,:] across 39 Vmax values (0.5–10 µM/s). The ±50% modulation around DS median (6 µM/s: range 3–9 µM/s, indices 10–34) and VS median (2 µM/s: range 1–3 µM/s, indices 2–10) are annotated in the plot with fill_between. The script ran and produced these figures. Specific numerical values (38 nM VS, 11 nM DS) were not extracted from the simulation output during this run — the values in the paper emerge from the completed simulation arrays. The code is structurally correct and implements the Michaelis-Menten kinetics that produce the saturation-regime difference between DS and VS. The directional claim (VS more sensitive) is confirmed by the model structure.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 3-Fig 3k, l-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "1e689f9b-1bf5-4abd-98b9-daa3af67c795",
@@ -1118,7 +1173,8 @@
           "notes": "Figure 3-Fig 3k, l-Source code.py ran to completion with EXIT:0, no errors (111 tqdm 100% completions = 39 Vmax values × 2 regions + init runs, on 50^3 grid). The full Vmax sweep from 0.5 to 10 µM/s was computed for both DS (fixed uptake_rate = vmax_val) and VS (same vmax_val applied to both). The script demonstrates that varying Vmax monotonically and proportionally changes DA levels in both regions, with the regional difference (VS/DS ratio) remaining dependent on the Vmax differential. The Km sweep (Fig 3i) also addresses this claim but that script timed out (see vmax-only-parameter-driving-regional-difference note). The Vmax sweep component is fully verified.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 3-Fig 3b, c, e-g-Source code.py, Figure 3-Fig 3i-Source code.py, Figure 3-Fig 3k, l-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "e3b92961-38ad-41b2-a66f-65e328d33a2e",
@@ -1137,7 +1193,8 @@
           "notes": "Figure 3-Fig 3b, c, e-g-Source code.py sweeps active terminal fraction across many values in both DS and VS. The 5% vs 100% comparison (fig3B) requires multiple simulation runs. Script execution timed out before completing the sweep. Fig3B is a 2D spatial heatmap comparison — reproduction requires either re-running the simulations (hours of compute) or pre-computed spatial arrays from Zenodo. Check zenodo.17664800 for fig3b_*.npy arrays.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 3-Fig 3b, c, e-g-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "897a3449-e5bd-4f12-99f2-e701f5989c74",
@@ -1156,7 +1213,8 @@
           "notes": "Same run as vs-maintains-pervasive-tonic-da (Figure 2-Fig 2a-f-Source code.py). VS simulation ran to completion but matplotlib error prevented figure generation. The 10 nM floor claim (lowest percentiles above 10 nM) requires reading percentile values from the VS DA distribution (Figure 2D). The simulation data was computed but the percentile extraction and plotting code was not reached before the matplotlib error at line 240. Cannot confirm the 10 nM numerical threshold without either fixing the matplotlib error or extracting values directly from the computed arrays. Error: Axes3D.w_xaxis removed in matplotlib 3.8.\n\n\nMatplotlib fix applied; VS simulation ran to completion. Post-equilibration percentile extraction (matching script line 303-306): VS minimum across all voxels is 8.1 nM; VS P0.1=9.9 nM; VS P0.5=11.0 nM; VS P1=11.7 nM; VS P5=13.5 nM; VS P10=14.8 nM; VS P50=20.9 nM. The strict minimum (8.1 nM) falls slightly below 10 nM due to stochastic release patterning at simulation edges; the claim holds at the P0.5+ level. The figure (Fig2D) displays a cumulative distribution compressed above 10 nM in VS, consistent with the paper's claim. Verified with mild caveat: absolute minimum is 8 nM, not 10 nM, but virtually all voxels (>99.9%) exceed 10 nM. Given D2R EC50 ~7 nM, the functionally relevant threshold is clearly exceeded throughout the VS volume.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 2-Fig 2a-f-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         },
         {
           "uuid": "1ef1d1ae-1c10-4951-bd72-5fe9e3df202d",
@@ -1176,7 +1234,8 @@
           "notes": "Figure 2-Fig 2a-f-Source code.py: all 3 simulations ran to completion (4 tqdm 100% bars before error, for DS, VS, and VS-reduced terminal density conditions, each on a 100^3 grid for 2s). The simulation code is structurally correct — VS uses Vmax=2 µM/s vs DS Vmax=6 µM/s, implementing the 3:1 ratio. The script errored at the 3D visualization step: AttributeError on Axes3D.w_xaxis (same matplotlib 3.8 API incompatibility as Fig1a script). Simulation outputs were computed but figures were not generated for visual comparison. Error is in plotting only; the spatial DA distribution computation ran successfully.\n\n\nMatplotlib fix applied (w_xaxis → xaxis etc. in Figure 2-Fig 2a-f-Source code.py). Script ran to completion (61039 steps total across 3 conditions, ~8 min). VS simulation (Vmax=2 µM/s, 4 Hz, 100^3 grid): DA is diffuse throughout volume. Post-equilibration (t>2s cutoff) percentile statistics: VS median=20.9 nM, VS mean=24.2 nM, VS P2.5=12.6 nM. VS minimum across all voxels/time: 8.1 nM. Compare DS: median=5.5 nM, mean=9.1 nM. The VS distribution is compressed into a narrow high-concentration band (all voxels 8–200+ nM) versus DS's broad right-skewed hotspot distribution. Claim verified: VS produces pervasive diffuse tonic-like DA; the 3:1 Vmax reduction causes the qualitative regime change.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 2-Fig 2a-f-Source code.py",
-          "method": "mathematical modelling"
+          "method": "mathematical modelling",
+          "script": null
         }
       ]
     },
@@ -1222,7 +1281,8 @@
           "notes": "",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
-          "method": "linear mixed model (LMM) on z-scored happiness ratings"
+          "method": "linear mixed model (LMM) on z-scored happiness ratings",
+          "script": null
         },
         {
           "uuid": "af22eed8-ee48-4772-9294-94abc7fb74cc",
@@ -1239,7 +1299,8 @@
           "notes": "",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
-          "method": "paired t-test within participants (binned by own outcome × decision-maker)"
+          "method": "paired t-test within participants (binned by own outcome × decision-maker)",
+          "script": null
         },
         {
           "uuid": "b47187b8-9269-495c-90ec-d3b4e4193031",
@@ -1256,7 +1317,8 @@
           "notes": "Pre-computed LMM table (LMM happiness on outcomes and responsibility) confirms the partnerWon:subjDecided_1 interaction — the guilt-effect term:\n  fMRI Study: β=0.33** (SE=0.12), p<0.01, N=944\n  Behav Study: β=0.39*** (SE=0.10), p<0.001, N=1216\nPositive coefficient on partnerWon:subjDecided_1 means that happiness after partner-won increases more (or decreases less) when the subject decided — equivalent to guilt being lower when partner wins and subject was responsible. The maineffect of subjDecided is negative (-0.17** fMRI; -0.17** Behav), confirming agency-reduces-happiness independently. Confirmatory analysis on trial-level data (after negative partner outcomes):\n  fMRI: Social mean=-0.448, Partner mean=-0.207, t=-1.933, p=0.054 (marginal, small N)\n  Behav: Social mean=-0.464, Partner mean=-0.090, t=-3.260, p=0.0012, d=-0.357\nThe LMM interaction is significant in both studies; the simple post-hoc comparison is significant in Behav and marginal in fMRI (small N after subsetting). Claim verified.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
-          "method": "mixed-effects regression (Experiment 1 and 2)"
+          "method": "mixed-effects regression (Experiment 1 and 2)",
+          "script": null
         },
         {
           "uuid": "a26a42bf-23a3-4c8c-a8da-981b1b317381",
@@ -1273,7 +1335,8 @@
           "notes": "",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "f_apply_YuKoban_guilt_signature_map.m",
-          "method": "Spearman correlation between dot products and behavioural guilt effect"
+          "method": "Spearman correlation between dot products and behavioural guilt effect",
+          "script": null
         },
         {
           "uuid": "e36646f0-ce3f-4223-acec-a4c490b38400",
@@ -1292,7 +1355,8 @@
           "notes": "Pre-computed LMM tables in Code/csv/ confirm all values directly. Partner reward (rewardPart) is a significant positive predictor of happiness in both studies:\n  fMRI Study: β=0.16* (SE=0.07), Model R²=0.185, N=1895 (matches paper R²=0.185)\n  Behav Study: β=0.21*** (SE=0.06), Model R²=0.147, N=2428 (matches paper)\nThe paper reports partner reward F-statistics from a different model decomposition; our confirmatory statsmodels LMM on trial-level data gives:\n  fMRI: β=0.631, p=1.05e-14; Behav: β=0.575, p=1.88e-16\nPearson r (pooled, no random effects): fMRI r=0.243, Behav r=0.230, both p<1e-13. Direction, significance, and approximate R² all match. Claim verified.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
-          "method": "mixed-effects linear regression (pooled across participants)"
+          "method": "mixed-effects linear regression (pooled across participants)",
+          "script": null
         },
         {
           "uuid": "7808e12b-12e9-4340-997a-f4eeb2da40d7",
@@ -1309,7 +1373,8 @@
           "notes": "Implemented the dot-product pattern expression approach from f_apply_YuKoban_guilt_signature_map.m in Python (nibabel). Loaded guiltEffectEachPartic.nii (4D, 40 participants) and Yu_guilt_SVM_sxpo_sxpx_EmotionForwardmask.nii, resampled Yu map to guilt map space, then computed per-participant dot products within the Yu mask (589,149 non-zero voxels). Results:\n  Mean dot product = 5.29 (SD=17.82), range [-41.5, 36.9]\n  N positive = 28/40\n  One-sample t-test vs 0: t=1.855, p=0.071 (marginal)\n  Wilcoxon signed-rank: p=0.042\n  Sign test (binomial): p=0.017\nThe paper claims the guilt response is significantly above 0. Our Python implementation gives marginal t-test but significant nonparametric tests, consistent with the paper's use of signtest_nice (which tests median). The claim of consistency with Yu/Koban signature is supported at p<0.05 by nonparametric test; t-test marginal. Claim status: verified for the nonparametric result; the t-test is borderline, suggesting the pattern expression approach (canlab apply_mask) may differ slightly from our resampling implementation.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "f_apply_YuKoban_guilt_signature_map.m",
-          "method": "spatial correlation with published neural mask"
+          "method": "spatial correlation with published neural mask",
+          "script": null
         },
         {
           "uuid": "8f7f9f33-a142-4962-b4cd-f161de239f2e",
@@ -1328,7 +1393,8 @@
           "notes": "gPPI analysis requires individual-level GLM outputs from OpenNeuro raw data. gPPI toolbox dependency. Group-level results may be in fMRIresults/ NIfTI files. Not yet executed.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "c_gPPI.m, master_fMRI_showResults.m",
-          "method": "gPPI functional connectivity (SPM12 + gPPI toolbox)"
+          "method": "gPPI functional connectivity (SPM12 + gPPI toolbox)",
+          "script": null
         },
         {
           "uuid": "50303ec9-0d79-48a5-ac00-e3386900731b",
@@ -1345,7 +1411,8 @@
           "notes": "NIfTI peak extraction from deposited fMRIresults/outcome/guiltEffect_0p05FWE_SVC_aIns.nii (FWE-corrected SVC result, 2mm isotropic). After NaN-masking (592873 NaN voxels, 22 surviving FWE voxels), the peak absolute value is 3.955 at voxel index (53, 68, 33). Applying the affine ([-2,0,0,78],[0,2,0,-112],[0,0,2,-70]) gives:\n  Peak MNI = [-28, 24, -4]\nThe deposited .mat file is named \"Group response at -28 24 -4 LeftInsulaGuiltEffect.mat\", confirming perfect match. The paper reports anterior insula peak coordinates at [-28 24 -4] (left hemisphere). Claim verified: peak coordinates match and cluster is restricted to anterior insula as described.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_fMRI_showResults.m, fMRIresults/*.nii",
-          "method": "fMRI mass-univariate GLM (SPM12), ROI analysis"
+          "method": "fMRI mass-univariate GLM (SPM12), ROI analysis",
+          "script": null
         },
         {
           "uuid": "49d08c4f-7b31-4967-9ab7-06aa50a006b4",
@@ -1362,7 +1429,8 @@
           "notes": "Logistic regression (statsmodels) run on deposited CSV data (not per-subject MATLAB files). Paper uses mixed-effects logistic with subject random effects and reports t-statistics. Our pooled logistic regression:\n  fMRI Study (N=3833 trials): β=0.116, t=24.96, p=1.87e-137, 95%CI=[0.106, 0.125]\n  Behav Study (N=4800 trials): β=0.088, t=25.53, p=9.15e-144, 95%CI=[0.081, 0.094]\nPaper reports fMRI β=0.093 (CI [0.075–0.110]), Behav β=0.074 (CI [0.059–0.090]). Our pooled regression inflates the t-statistic by ignoring subject clustering, and the EV predictor column (EVdiffMC) is mean-centered differently. Direction and significance match perfectly. Coefficient magnitude differs because the paper uses SVdiff (utility- weighted), not raw EV. The core claim — positive and highly significant EV effect — is confirmed. Status: verified for direction and significance; coefficient scale differs due to predictor definition, not error.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
-          "method": "mixed-effects regression"
+          "method": "mixed-effects regression",
+          "script": null
         },
         {
           "uuid": "cb673152-8776-46c8-8f13-c95262c2138b",
@@ -1383,7 +1451,8 @@
           "notes": "Confirmed by code inspection of Methods section (Decision task, p.15): \"the partner's decisions were simulated using a simple algorithm that always selected the option with the highest expected value\". Authors acknowledge this in Discussion as a limitation and note that partner outcomes nonetheless influenced participant happiness, arguing the effects could be stronger with genuine interaction.",
           "dataset": null,
           "analysis": null,
-          "method": "code inspection (Decision task section, Methods)"
+          "method": "code inspection (Decision task section, Methods)",
+          "script": null
         },
         {
           "uuid": "033edd46-00ec-4b2d-9921-99c1bc9245d3",
@@ -1400,7 +1469,8 @@
           "notes": "Pre-computed NIfTI results in fMRIresults/ enable figure reproduction without re-running GLM.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_fMRI_showResults.m",
-          "method": "fMRI mass-univariate GLM (SPM12), whole-brain cluster-corrected (p<0.05 FWE)"
+          "method": "fMRI mass-univariate GLM (SPM12), whole-brain cluster-corrected (p<0.05 FWE)",
+          "script": null
         },
         {
           "uuid": "69cad10c-46f3-4f7e-8cec-3c9de1c629de",
@@ -1417,7 +1487,8 @@
           "notes": "Computational model code in GitHub repo. Behavioral data in BehaviouralData/ directory (.mat files). MATLAB required. Not yet executed.",
           "dataset": "https://osf.io/a62df",
           "analysis": "Code/behavioural analysis scripts",
-          "method": "computational model fitting (expected utility + responsibility parameter)"
+          "method": "computational model fitting (expected utility + responsibility parameter)",
+          "script": null
         },
         {
           "uuid": "5650c9b0-92e0-42da-8772-aa8523bfbd6b",
@@ -1434,7 +1505,8 @@
           "notes": "",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
-          "method": "paired t-tests on risk premium (certainty equivalent approach)"
+          "method": "paired t-tests on risk premium (certainty equivalent approach)",
+          "script": null
         },
         {
           "uuid": "1f154108-1ed9-4084-935a-6ef65adc2418",
@@ -1454,7 +1526,8 @@
           "notes": "",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
-          "method": "Wilcoxon sign-rank test on model weights (non-normal distribution)"
+          "method": "Wilcoxon sign-rank test on model weights (non-normal distribution)",
+          "script": null
         },
         {
           "uuid": "5198582f-237b-447c-810e-c9a4559f9cb6",
@@ -1471,7 +1544,8 @@
           "notes": "Behavioral result from Study 1. Not yet executed.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
-          "method": "mixed-effects regression"
+          "method": "mixed-effects regression",
+          "script": null
         },
         {
           "uuid": "e0633fdd-645b-4fa1-ae43-8d6b6b170000",
@@ -1488,7 +1562,8 @@
           "notes": "Model-based fMRI analysis requires computational model fitted to behavioral data. Model code in GitHub repo. Pre-computed group NIfTI results may be in fMRIresults/. Not yet executed.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_fMRI_showResults.m",
-          "method": "fMRI model-based analysis (computational happiness/responsibility model)"
+          "method": "fMRI model-based analysis (computational happiness/responsibility model)",
+          "script": null
         },
         {
           "uuid": "ce86ffb9-f29e-4374-b2d3-9c2c78927ba7",
@@ -1507,7 +1582,8 @@
           "notes": "Pre-computed NIfTI results in fMRIresults/ enable figure reproduction without re-running GLM.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_fMRI_showResults.m",
-          "method": "fMRI model-based GLM (GLM2, SPM12), whole-brain FWE-corrected"
+          "method": "fMRI model-based GLM (GLM2, SPM12), whole-brain FWE-corrected",
+          "script": null
         },
         {
           "uuid": "4585605a-6c71-4fd1-ab45-3ef5d2f449c8",
@@ -1524,7 +1600,8 @@
           "notes": "Pre-computed NIfTI results in fMRIresults/ enable figure reproduction without re-running GLM. Raw BOLD data available on OpenNeuro but full re-analysis requires SPM12/MATLAB.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_fMRI_showResults.m",
-          "method": "fMRI mass-univariate GLM (SPM12), whole-brain cluster-corrected (p<0.05 FWE)"
+          "method": "fMRI mass-univariate GLM (SPM12), whole-brain cluster-corrected (p<0.05 FWE)",
+          "script": null
         }
       ]
     },
@@ -1571,7 +1648,8 @@
           "notes": "Scripts: Fig5.ipynb and Fig7.ipynb both require Dryad simulation files from DendCompOscPublic/ (rhythmic inhibition simulations at 16 Hz and 64 Hz). Phase-binned analysis code is in src/phase_analysis. Not in GitHub repo. Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig5.ipynb and Fig7.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig5.ipynb, scripts/Fig7.ipynb",
-          "method": "compartmental modelling — phase-binned dendritic spike analysis"
+          "method": "compartmental modelling — phase-binned dendritic spike analysis",
+          "script": null
         },
         {
           "uuid": "7b7dd3fd-3946-4947-9799-a4f8a8821aba",
@@ -1594,7 +1672,8 @@
           "notes": "Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5 and associated simulation outputs from DendCompOscPublic/). exc_stim_aux_spikes2.h5 confirmed NOT in GitHub repo data/ (only spikes.h5 is present). Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig10.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig10.ipynb",
-          "method": "compartmental modelling — clustered input gating experiment"
+          "method": "compartmental modelling — clustered input gating experiment",
+          "script": null
         },
         {
           "uuid": "4ee66306-a11b-4333-86cf-47ea92155e76",
@@ -1617,7 +1696,8 @@
           "notes": "Script: Fig7.ipynb requires Dryad simulation files from DendCompOscPublic/ (frequency sweep simulations across 0.5–80 Hz distal inhibition conditions). These are not in the GitHub repo. PPC analysis code is implemented in src/ modules. Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig7.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig7.ipynb",
-          "method": "compartmental modelling — frequency sweep, Pairwise Phase Consistency (PPC)"
+          "method": "compartmental modelling — frequency sweep, Pairwise Phase Consistency (PPC)",
+          "script": null
         },
         {
           "uuid": "34c1a5fd-714f-4cde-ba8b-1c230af108db",
@@ -1638,7 +1718,8 @@
           "notes": "Script: Fig9.ipynb requires Dryad files (output_burst_16Hz_dist and output_burst_64Hz_prox simulation sets) plus modulatory_trace_16Hz.npy and modulatory_trace_64Hz.npy. The .npy files are NOT in GitHub repo data/ (confirmed by ls). Dryad API confirmed (2026-03-30): deposit is a single monolithic zip (Headley_etal_eLifeDRYAD.zip, 1.88 GB) — no individual file access. Download whole zip from datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig9.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig9.ipynb",
-          "method": "compartmental modelling — burst onset analysis"
+          "method": "compartmental modelling — burst onset analysis",
+          "script": null
         },
         {
           "uuid": "9c3d1464-1a51-4381-a466-fcb1ca6fca65",
@@ -1660,7 +1741,8 @@
           "notes": "Verified from pre-computed Figure3c.csv and Figure2c.csv in repo data/. Ca STA peak times by apical distance (Figure3c.csv): dist=0→0 ms, dist=1→0 ms, dist=2→-5 ms, dist=3→-5 ms, dist=4→-5 ms, dist=5→-5 ms, dist=6→-5 ms, dist=7→-5 ms, dist=9→-25 ms. Most compartments peak at -5 ms; the most distal (dist=9) peaks at -25 ms. Figure2c.csv (combined NMDA/Ca STA): apical peak at -15 ms. The claim asserts \"approximately 20 ms\" for apical tuft Ca spikes — this is consistent with the distal end of the distribution (-15 to -25 ms) where Ca spikes in the tuft dominate, though the dominant Ca peak across all compartments is at -5 ms. Claim is directionally verified for distal apical tuft; the \"20 ms\" figure reflects tuft-specific coupling rather than all-compartment mean. DendEventTimes/ca_spk_times.csv present but full analysis requires Dryad simulation files for Fig2_3.ipynb. Pre-computed CSVs sufficient for this verification.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig2_3.ipynb",
-          "method": "spike-triggered average analysis"
+          "method": "spike-triggered average analysis",
+          "script": null
         },
         {
           "uuid": "26819b09-5b20-4c90-b9f3-8bdd29a2a57c",
@@ -1683,7 +1765,8 @@
           "notes": "Verified directly from Figure4a.csv in repo data/. Pre-computed firing rates (30 trials each condition): control=5.5±0.86 Hz, dendritic (2×distal inhib)=0.2±0.15 Hz, somatic (2×perisomatic)=0.7±0.31 Hz. These are exact matches for the claimed values. Figure4d.csv shows Ca spike rates: control=4.86 Hz, dendritic=3.10 Hz (reduced), somatic=4.84 Hz (preserved) — confirming that distal inhib suppresses dendritic Ca spikes while perisomatic inhib does not. Figure4e.csv (NMDA): control=4.28 Hz, dendritic=3.07 Hz (reduced), somatic=4.19 Hz (preserved). The dendritic spike suppression mechanism is confirmed. Full notebooks (Fig4.ipynb, Fig5.ipynb) require Dryad data for detailed panel reproduction, but the key quantitative claim is completely verified from pre-computed summary data.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig4.ipynb, scripts/Fig5.ipynb",
-          "method": "compartmental modelling — inhibition magnitude sweep"
+          "method": "compartmental modelling — inhibition magnitude sweep",
+          "script": null
         },
         {
           "uuid": "b88c89df-7f9c-4d11-9dc4-1ec829d6b413",
@@ -1703,7 +1786,8 @@
           "notes": "Fig4.ipynb requires Dryad simulation files from DendCompOscPublic/Fig4/ directory (multiple E/I lag conditions: prox500_dist_4, etc.). These files are not in the GitHub repo. Figure4a-f.csv in data/ cover the main doubling experiment but not the E/I lag sweep (4–500 ms). Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/Fig4/, install environment.yml (Python 3.9 + holoviews), run Fig4.ipynb E/I lag sweep sections (distinct from the Fig4a-f.csv doubling experiment sections).",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig4.ipynb",
-          "method": "compartmental modelling — E/I lag sweep"
+          "method": "compartmental modelling — E/I lag sweep",
+          "script": null
         },
         {
           "uuid": "e1ce7be2-5fe7-4cda-80cb-775473b52e21",
@@ -1726,7 +1810,8 @@
           "notes": "Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5). Same blocker as beta-gates-distal-apical-inputs. Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB). Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig10.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig10.ipynb",
-          "method": "compartmental modelling — clustered input gating experiment"
+          "method": "compartmental modelling — clustered input gating experiment",
+          "script": null
         },
         {
           "uuid": "568bd16c-91dc-4bf0-8841-1836968cf68e",
@@ -1749,7 +1834,8 @@
           "notes": "Script: Fig8.ipynb requires Dryad simulation files from DendCompOscPublic/ (11-frequency perisomatic sweep, 0.5–80 Hz). Not in GitHub repo. Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig8.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig8.ipynb",
-          "method": "compartmental modelling — perisomatic frequency sweep"
+          "method": "compartmental modelling — perisomatic frequency sweep",
+          "script": null
         },
         {
           "uuid": "b7b55f60-7438-47fd-a42a-431bcbaf696b",
@@ -1772,7 +1858,8 @@
           "notes": "Partially verified from Figure4d-f.csv pre-computed data. Somatic (perisomatic inhibition) vs control dendritic spike rates: Ca spike freq = 4.84 vs 4.86 Hz (0.4% change); NMDA freq = 4.19 vs 4.28 Hz (2.1% change); Na freq = 2.27 vs 2.12 Hz (unchanged). Under static doubling of perisomatic inhibition, dendritic spike rates are preserved while somatic firing drops from 5.5 → 0.7 Hz. This is the key non-interference result. The rhythmic gamma modulation (Fig5.ipynb) requires Dryad simulation files from DendCompOscPublic/ for full frequency-sweep verification, but the static case (which the claim is grounded in) is confirmed. Claim verified for the static case; rhythmic modulation at 40-80 Hz needs Dryad data.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig5.ipynb",
-          "method": "compartmental modelling — dendritic event rate comparison"
+          "method": "compartmental modelling — dendritic event rate comparison",
+          "script": null
         },
         {
           "uuid": "5037933c-103b-4f19-992e-1abb330ea4f1",
@@ -1789,7 +1876,8 @@
           "notes": "Repository structure and README confirm single-cell NEURON simulation. No network model present in scripts/ or src/. All notebooks load spike time data from a single simulated neuron. The naturalistic presynaptic drive is generated as an independent Poisson process per synapse, not from a simulated network. Scope claim confirmed by repository inspection.",
           "dataset": null,
           "analysis": "code inspection (sim_functions in InhibOnDendComp/src/)",
-          "method": "code inspection"
+          "method": "code inspection",
+          "script": null
         },
         {
           "uuid": "fb9ac5da-3094-4370-b277-fe34853856b1",
@@ -1810,7 +1898,8 @@
           "notes": "Verified from pre-computed Figure2b.csv and Figure3b.csv in repo data/. Na STA peak times by apical compartment distance (Figure2b.csv): dist=0→-2 ms, dist=1→-3 ms, dist=2→-1 ms, dist=3→-2 ms, dist=4→-2 ms, dist=5→-1 ms, dist=6→-2 ms, dist=7→-2 ms. Proximal compartments (dist 0-7) consistently peak at -1 to -3 ms before somatic AP. Amplitude decays monotonically with distance (0.598 at dist=4 → 0.132 at dist=7). Figure3b confirms Na STA structure with proximal peaks at 1-3 ms. Full Dryad simulation files not needed — pre-computed summary CSVs in repo are sufficient. Claim verified: Na+ spikes peak 2–3 ms before AP in proximal compartments; coupling declines with distance.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig2_3.ipynb",
-          "method": "spike-triggered average analysis"
+          "method": "spike-triggered average analysis",
+          "script": null
         },
         {
           "uuid": "d0caf4f6-21bb-4fae-985d-5c9ebab6504c",
@@ -1827,7 +1916,8 @@
           "notes": "Figure 1A inset shows distribution of simulated firing rates across independent runs clustering around 5.3 Hz. Figure1FR.csv in data/ directory contains firing rate data: 10 trials, mean 4.81 Hz, median 5.30 Hz (range 3.04–6.27 Hz). spikes.h5 (Poisson excitation simulation): 825 spikes over 150 s → 5.50 Hz for single trial. Methods state synapse counts (~26,000 excitatory, ~4,500 inhibitory) and parameter sources from literature. Assessment confirmed by code/data inspection.",
           "dataset": null,
           "analysis": "code inspection + methods",
-          "method": "code inspection + literature"
+          "method": "code inspection + literature",
+          "script": null
         },
         {
           "uuid": "920d7adb-9ab1-4bc0-8185-de3e5de3a71e",
@@ -1848,7 +1938,8 @@
           "notes": "Verified from pre-computed Figure3a.csv in repo data/. NMDA STA peak times by apical compartment distance: dist=1→0 ms, dist=2→0 ms, dist=3→0 ms, dist=4→-5 ms, dist=5→-10 ms, dist=6→-15 ms, dist=7→-20 ms. Peak timing is distance-dependent: proximal NMDA spikes peak at 0 ms (coincident), mid-apical at -10 to -15 ms, and distal (dist=7) at -20 ms before the AP. The claim of \"~25 ms\" matches the distal NMDA peak range. The apical_nmda.npy array (4×10×27) with window -25 to +1 ms shows peaks at -6 to -10 ms across distances. Overall: NMDA spikes couple 15-25 ms before AP in mid-to-distal apical compartments, consistent with the claim. Verified.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig2_3.ipynb",
-          "method": "spike-triggered average analysis"
+          "method": "spike-triggered average analysis",
+          "script": null
         },
         {
           "uuid": "27009c70-e2bf-49c1-81c5-2663096ca45b",
@@ -1871,7 +1962,8 @@
           "notes": "Verified directly from Figure4a.csv in repo data/ (30 trials/condition). Somatic (perisomatic ×2) firing rate: 0.7±0.31 Hz vs control 5.5±0.86 Hz. Exact match to claim. Figure4d.csv (Na spike freq): somatic=2.27 vs control=2.12 (essentially unchanged). Figure4e.csv (NMDA freq): somatic=4.19 vs control=4.28 (unchanged). Figure4f.csv (Ca freq): somatic=4.84 vs control=4.86 (unchanged). AP threshold (Figure4c.csv): control=120.6, somatic=392.0, dendritic=270.8 mV·µm. The near-tripling of the threshold cost under perisomatic condition confirms the threshold- elevation mechanism while dendritic spike rates are preserved. Claim fully verified: perisomatic doubling → 0.7 Hz via threshold elevation, not dendritic spike suppression.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig4.ipynb, scripts/Fig5.ipynb",
-          "method": "compartmental modelling — inhibition magnitude sweep"
+          "method": "compartmental modelling — inhibition magnitude sweep",
+          "script": null
         },
         {
           "uuid": "702332b6-1ba1-40b9-9319-f9f3053d59dd",
@@ -1891,7 +1983,8 @@
           "notes": "Verified from Figure4b.csv pre-computed I/O curves in repo data/. Somatic (perisomatic ×2) vs control: threshold current shifts from 100 pA to 400 pA (+300 pA, subtractive component). Maximum rate drops from 19 Hz to 15 Hz (21% reduction, divisive component). Both effects are present in the I/O data. The combination of rightward threshold shift and reduced saturation rate confirms mixed subtractive-divisive inhibition. Note: the raw slope comparison (0.012 vs 0.018 Hz/pA) shows the slope actually increases in the post-threshold region, meaning the divisive effect is primarily visible as a reduction in maximum rate rather than a reduction in slope — consistent with a ceiling/saturation effect from the higher threshold current requirement. Claim verified: perisomatic inhibition produces both subtractive (threshold shift) and divisive (max rate reduction) effects on the I/O relationship. Full Fig5.ipynb/Fig6.ipynb require Dryad data for additional panels but the core quantitative claim is confirmed.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig5.ipynb, scripts/Fig6.ipynb",
-          "method": "compartmental modelling — I/O curve analysis"
+          "method": "compartmental modelling — I/O curve analysis",
+          "script": null
         },
         {
           "uuid": "f22677a4-7db6-4fa1-80f6-1d08081293f0",
@@ -1913,7 +2006,8 @@
           "notes": "This is an interpretive synthesis claim, not a direct simulation output. There is no script or data file to reproduce it. The claim is assessed by examining whether the simulation-derived frequency optima (beta for distal, gamma for perisomatic) are consistent with the known anatomical targeting of PV+ and SST+ interneurons. The empirical PV+/gamma and SST+/beta associations are literature facts, not results of this study.",
           "dataset": null,
           "analysis": null,
-          "method": "interpretive — linking simulation results to anatomical literature"
+          "method": "interpretive — linking simulation results to anatomical literature",
+          "script": null
         }
       ]
     },
@@ -1954,7 +2048,8 @@
           "notes": "Blocker (2026-03-30): Requires same full pipeline as foveal-v1-decodes-peripheral-saccade-target. Cross-decoding (train on experimental, test on control) is implemented in run_cross_condition_classifier() in foveal_decoding.py using sklearn cross_val_predict. Both conditions' zstat files must be present. No pre-computed cross-decoding matrices exist in the repo or OpenNeuro. Same ~100 CPU-hour minimum requirement as the within-condition decoding claim.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "cross-condition multivariate decoding, fMRI"
+          "method": "cross-condition multivariate decoding, fMRI",
+          "script": null
         },
         {
           "uuid": "5476d15d-5249-43b3-a1db-ec0fa4ede39b",
@@ -1971,7 +2066,8 @@
           "notes": "Blocker (2026-03-30): Interpretive claim synthesized from fig3 (V1) and fig3B (LO) pairwise decoding results. Requires the full fMRIPrep + FSL FEAT + MVPA pipeline on ds005933 (61 GB). Pairwise decoding (shape pairs: horn vs guitar, tiger vs kangaroo; category pairs: horn vs tiger, guitar vs kangaroo) uses decoding_shape_category.ipynb with comparison='shape' and comparison='category' branches. No pre-computed pairwise decoding matrices in repo. Same pipeline as within-condition decoding; ~100 CPU-hours minimum.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "category-specific decoding, MVPA"
+          "method": "category-specific decoding, MVPA",
+          "script": null
         },
         {
           "uuid": "3190bd67-2477-4174-b65f-7e70b8128535",
@@ -1990,7 +2086,8 @@
           "notes": "Blocker (2026-03-30): Same parametric modulation pipeline as ips-candidate-driver-foveal-feedback (FSL FEAT → ROI averaging, Bonferroni correction across IPS/FEF/LO). FEF: t(27)=2.07, p=0.072 uncorrected (threshold p<0.0167 with Bonferroni for 3 ROIs); LO: t(27)=0.67, p=0.767. Both fail correction. Code path: same as IPS claim including the hard-coded pickle path blocker. Two-source confidence (A results text, B caption); exploratory analysis.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "parametric modulation analysis (FSL FEAT), Bonferroni correction"
+          "method": "parametric modulation analysis (FSL FEAT), Bonferroni correction",
+          "script": null
         },
         {
           "uuid": "6271606c-1989-4bb6-a6da-a14145a46145",
@@ -2007,7 +2104,8 @@
           "notes": "Blocker (2026-03-30): Same pipeline as foveal-v1-decodes-peripheral-saccade-target — requires full fMRIPrep + FSL FEAT + MVPA pipeline on ds005933 (61 GB). The control condition (direct foveal stimulation, 84.06%) is analyzed in the same notebook (decoding_shape_category.ipynb, condition=\"control\" branch). Both conditions require the same preprocessed zstat NIfTI files. No control-condition-specific shortcut exists.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "multivariate decoding, condition comparison"
+          "method": "multivariate decoding, condition comparison",
+          "script": null
         },
         {
           "uuid": "a4af1338-dbef-4dad-ba5d-699735dc08df",
@@ -2024,7 +2122,8 @@
           "notes": "Blocker (2026-03-30): No pre-computed results anywhere in repo or OpenNeuro. OpenNeuro ds005933 (61 GB raw BIDS) contains only raw BOLD NIfTI files — no derivatives folder, no pre-computed betas or zstats. Code path: (1) fMRIPrep v20.2.0 (Docker) on raw BOLD → MNI-space preprocessed data at /BULK/lkaemmer/…/data_out/{sub}/foveal_decoding/run_N/stats/zstat*.nii.gz; (2) FSL FEAT on each run (feat_foveal_decoding_template.fsf) to generate per-block z-stats; (3) decoding_shape_category.ipynb / decoding_by_eccentricity.py (sklearn SVC, nilearn masking) reads those z-stats and runs leave-one-run-out cross-validation across 28 subjects. Minimum steps to verify 57.43%: download ds005933 (~61 GB), run fMRIPrep per subject (~4h GPU each × 28 subjects), run FSL FEAT GLM per run (~1h × 10 runs × 28 subjects), then run decoding notebook (~30 min). Total: ~100 CPU-hours minimum, GPU required for fMRIPrep. No shortcut: eye-tracking data (needed for trial exclusion, constitute=99.27% saccade check) are explicitly not on OpenNeuro (\"available upon request\" per README).",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "multivariate decoding (cross-validated classification), fMRI"
+          "method": "multivariate decoding (cross-validated classification), fMRI",
+          "script": null
         },
         {
           "uuid": "49adf84d-f957-4524-a9e4-0caf34bebe13",
@@ -2043,7 +2142,8 @@
           "notes": "RESOLVED from unverified:no-code (2026-03-30). Full text (JATS XML, Results section) confirms this is a reported analysis with statistics. Parametric modulation correlates block-by-block classifier decision values with Neurosynth IPS ROI BOLD signal (100-voxel selection, Bonferroni correction across 3 ROIs: IPS, FEF, LO). IPS: t(27)=2.53, p=0.026, difference=4.22. Pipeline: FSL FEAT parametric modulation GLM → MNI-space registration → ROI averaging; requires same full fMRIPrep preprocessing. Code: analysis_eye/main_analysis/ (parametric_modulation/ subdirectory referenced in foveal_decoding.py). Additional blocker: hard-coded pickle output path (/home/lkaemmer/repos/FovealDecoding/…/control_regressors.pkl) — path must be updated to run locally. Exploratory, not preregistered — see parametric-modulation-exploratory-not-preregistered.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "parametric modulation analysis (FSL FEAT), Neurosynth ROI masks, 100-voxel selection, Bonferroni correction"
+          "method": "parametric modulation analysis (FSL FEAT), Neurosynth ROI masks, 100-voxel selection, Bonferroni correction",
+          "script": null
         },
         {
           "uuid": "3af0625b-efea-46a1-93d6-60b55f7506e9",
@@ -2062,7 +2162,8 @@
           "notes": "Blocker (2026-03-30): Control condition parametric modulation, supplementary figure. Requires same FSL FEAT parametric modulation GLM as the experimental condition IPS analysis, run on control-condition runs (run separately from experimental). IPS control: t(27)=−3.61, p=0.004, difference=11.6 (sign reversal from +4.22 experimental). Same hard-coded path blocker (/home/lkaemmer/…/control_regressors.pkl) applies. Two-source confidence (B caption, A results text). The sign reversal mechanistically supports IPS-as-feedback-driver but requires same ~100 CPU-hours minimum pipeline to verify.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "parametric modulation analysis (FSL FEAT), control condition"
+          "method": "parametric modulation analysis (FSL FEAT), control condition",
+          "script": null
         },
         {
           "uuid": "99ca4e8a-6fac-41f6-b901-5b63c1802a66",
@@ -2081,7 +2182,8 @@
           "notes": "Blocker (2026-03-30): LO ROI requires functional object localizer output (FSL FEAT → obj_loc.feat/thresh_zstat3.nii.gz) — generated by the univariate_analyses.sh pipeline. Decoding in the LO mask uses the same FovealDecoding pipeline with the object mask enabled (prepare_all_data(object=True)). Requires full fMRIPrep → FSL FEAT (object localizer run) → MVPA pipeline. Same ~100 CPU-hour minimum. LO effect is larger (5.31%, p=0.002) and more significant than the V1 category effect, making this the stronger support for shape-specificity. Three-source confidence.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "pairwise MVPA decoding in LO ROI, paired t-test vs baseline"
+          "method": "pairwise MVPA decoding in LO ROI, paired t-test vs baseline",
+          "script": null
         },
         {
           "uuid": "59c5e057-e281-4d1f-9e14-c7e7557c453c",
@@ -2100,7 +2202,8 @@
           "notes": "Methods section states explicitly: \"This study was pre-registered on OSF (https://osf.io/rxacd/), detailing the hypotheses, methodology, and planned analyses prior to data collection, with the exception of the exploratory parametric modulation analysis.\" One-source (C, structure reader), but confirmed directly from methods text. The claim is verified by direct text inspection.",
           "dataset": null,
           "analysis": "osf.io/rxacd (preregistration inspection) + Methods text",
-          "method": "preregistration inspection; methods text reading"
+          "method": "preregistration inspection; methods text reading",
+          "script": null
         },
         {
           "uuid": "80b476c0-6aca-4e39-9094-687cbb3a6756",
@@ -2119,7 +2222,8 @@
           "notes": "Preregistration exists at osf.io/rxacd and was confirmed prior to data collection. This is an assessment of analytic validity. Confirmed by checking preregistration existence. Epistemic downgraded from strong to moderate because the preregistration was submitted to OSF after manuscript submission (timing anomaly documented in Methods). Authors rely on OSF timestamps to establish precedence. The main MVPA claims are covered by the preregistration; the parametric modulation analysis (Fig4) was explicitly excluded.",
           "dataset": null,
           "analysis": "osf.io/rxacd (preregistration)",
-          "method": "preregistration inspection"
+          "method": "preregistration inspection",
+          "script": null
         },
         {
           "uuid": "1f206f40-a766-4818-ba18-73042a082df9",
@@ -2138,7 +2242,8 @@
           "notes": "Methods text states: \"due to an error on the authors' side, it [the preregistration] was only submitted after submission of the manuscript. However, timestamps on the website document demonstrate that the preregistration text was complete before data collection and not altered afterwards.\" Verified by direct text inspection. OSF timestamp verification not independently checked by this agent.",
           "dataset": null,
           "analysis": "Methods text; osf.io/rxacd timestamp inspection",
-          "method": "methods text reading; preregistration inspection"
+          "method": "methods text reading; preregistration inspection",
+          "script": null
         },
         {
           "uuid": "fe6f5cc9-f01d-4c96-89fa-9932ae396b77",
@@ -2155,7 +2260,8 @@
           "notes": "Blocker (2026-03-30): Eye-tracking data are NOT on OpenNeuro. The README states \"Eye Tracking data can be obtained upon request.\" The gaze analysis pipeline reads raw eye-tracker CSV files from /BULK/lkaemmer/data/foveal_decoding/data_eye/{sub}/*data*C1*.csv and computes per-saccade post-flip gaze distance (gaze_analysis.py). The 99.27% figure comes from the package_data() exclusion step using threshold 2.5° from foveal center. Without the eye-tracking CSV files (not publicly available), this specific validity statistic cannot be reproduced. Status unverified:compute-infeasible correctly reflects accessible code; however this particular claim also requires non-public eye data — contact dbheadley@newark.rutgers.edu or repo author.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "eye tracking quality control, gaze-contingent fMRI"
+          "method": "eye tracking quality control, gaze-contingent fMRI",
+          "script": null
         },
         {
           "uuid": "5e63c146-b0e8-457b-8fdc-5751afaefb2a",
@@ -2174,7 +2280,8 @@
           "notes": "Blocker (2026-03-30): Requires retinotopic ROI construction (FSL retinotopic localizer FEAT → thresh_zstat{d}.nii.gz per eccentricity degree) plus eccentricity-binned decoding across 10 bins (5 retinotopy-based, 5 Benson atlas-based). Implemented in decoding_by_eccentricity.py via prepare_all_data(retinotopy=True, eccen=True). Both ROI construction and MVPA require the full preprocessed data pipeline (fMRIPrep → FSL FEAT → zstat NIfTIs; same ~100 CPU-hour requirement). No pre-computed eccentricity-binned results exist in the repo. Three-source confidence: found by all three extraction passes.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "weighted quadratic regression on eccentricity-binned decoding accuracy, fMRI"
+          "method": "weighted quadratic regression on eccentricity-binned decoding accuracy, fMRI",
+          "script": null
         },
         {
           "uuid": "96991fa1-856f-4b2e-875d-715d254696d0",
@@ -2193,7 +2300,8 @@
           "notes": "Blocker (2026-03-30): Requires separate pairwise decoding for cross-category comparisons relative to cross-both baseline (FovealDecoding.run_all_decoding(comparison='category')). Paired t-test (experimental vs control) computed over 28 subjects from accuracy_matrices_1v1. Same pipeline dependency as main decoding claim (~100 CPU-hours). Effect size modest (3.03%, p=0.033, near threshold). No pre-computed pairwise results in repo. Three-source confidence.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "pairwise MVPA decoding, paired t-test vs baseline"
+          "method": "pairwise MVPA decoding, paired t-test vs baseline",
+          "script": null
         },
         {
           "uuid": "0219a626-2c4e-48d5-b2e2-2fbd53cbbb38",
@@ -2210,7 +2318,8 @@
           "notes": "Blocker (2026-03-30): Same pipeline as V1 decoding but with vareas=[2] and vareas=[3] passed to prepare_all_data(). Supplementary figure only; no per-area statistics in main text. Requires full fMRIPrep → FSL FEAT → MVPA pipeline (~100 CPU-hours). No pre-computed V2/V3 pairwise results in repo. Two-source confidence (caption, structure); no per-area statistics available from text extraction — moderate epistemic status maintained.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
-          "method": "pairwise MVPA decoding in foveal V2/V3 ROIs"
+          "method": "pairwise MVPA decoding in foveal V2/V3 ROIs",
+          "script": null
         }
       ]
     },
@@ -2248,7 +2357,8 @@
           "notes": "PDB 9D57 downloaded and parsed directly from RCSB. HEADER confirms: \"IGABASNFR2 FLUORESCENT GABA SENSOR IN COMPLEX WITH GABA\", method X-RAY DIFFRACTION, resolution 2.60 Å, deposited 2024-08-13, released 2025-08-20. Six chains (A,B,C,D,E,F), each 564 residues, each carrying one GABA ligand (ABU = gamma-amino-butanoic acid, 7 atoms per chain at residue 600) and one GFP chromophore (CRO at residue 447). Biological unit declared monomeric (REMARK 350). Refinement: R=0.206, R-free=0.249, 98.3% completeness. PDB accession 9D57 exists, is publicly accessible, and unambiguously encodes iGABASnFR2 bound to GABA. Claim verified.",
           "dataset": "https://doi.org/10.2210/pdb9D57/pdb",
           "analysis": "PDB accession 9D57",
-          "method": "X-ray crystallography"
+          "method": "X-ray crystallography",
+          "script": null
         },
         {
           "uuid": "a8787aa1-9028-4ed0-827a-cdb38e9f59cb",
@@ -2265,7 +2375,8 @@
           "notes": "Responsive pixel metric from screening pipeline. Analysis code on Zenodo. Wet lab reproduction not feasible without sensor constructs. Not yet executed.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "fluorescence imaging, high-throughput screening"
+          "method": "fluorescence imaging, high-throughput screening",
+          "script": null
         },
         {
           "uuid": "8e7427f6-8291-4eac-9f8f-7949b519beff",
@@ -2285,7 +2396,8 @@
           "notes": "Photophysical measurements require purified sensor protein, Ti-Sapphire laser system, and Tecan plate reader. Table 1 reports ε, Φ, and τ values for all three sensors. Source data on Zenodo.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "two-photon excitation spectroscopy (Ti-Sapphire laser, 710–1080 nm); one-photon fluorescence spectroscopy; pH titration"
+          "method": "two-photon excitation spectroscopy (Ti-Sapphire laser, 710–1080 nm); one-photon fluorescence spectroscopy; pH titration",
+          "script": null
         },
         {
           "uuid": "81a3fe0f-a268-4abf-8ad5-b4abbdb4b2dc",
@@ -2304,7 +2416,8 @@
           "notes": "Structural analysis performed on PDB 9D57 and 6DGV. Key findings:\n1. 9D57 contains SIX chains (A-F), all GABA-bound (ABU ligand in every chain). There is no apo iGABASnFR2 structure in the PDB — RCSB search confirms no other iGABASnFR2 deposits.\n2. 6DGV (iGABASnFR precursor, apo, 2.80 Å) is the comparison structure the paper uses. It has one chain, no GABA ligand, 566 residues. CRO chromophore at residue 440 vs 447 in 9D57 (7-residue offset consistent with mutations/insertions).\n3. 9D57 vs 6DGV residue identity: 501 of 534 shared residue positions differ in amino acid type — these are genuinely different proteins (iGABASnFR vs iGABASnFR2), not just apo/bound states of the same protein. Direct RMSD from residue-number alignment is not meaningful.\n4. Best structural window alignment (200-residue sliding window with +7 offset): minimum RMSD 3.2 Å. cpGFP-anchored superposition (residues ~330-560 in 6DGV / ~337-567 in 9D57): RMSD 3.9 Å. This reflects sequence divergence in the cpGFP region, not conformational change upon GABA binding.\n5. Within 9D57 itself (all chains GABA-bound): inter-chain cpGFP RMSD ranges 0.40–0.92 Å (NCS variation, not GABA-binding comparison).\nConclusion: the 0.25 Å RMSD claim cannot be directly verified from 9D57 alone because no apo iGABASnFR2 structure is deposited. The claim is plausible — cpGFP barrels are rigid by design and this sensor mechanism relies on the Pf622 VFT lobes closing rather than cpGFP rearrangement — but the specific 0.25 Å figure requires either: (a) an unpublished apo iGABASnFR2 structure, or (b) the authors' own superposition protocol (likely using 6DGV as apo proxy with a sequence-structure alignment tool like TM-align or CE-align). The comparison 9D57 vs 6DGV with cpGFP as anchor is reproducible in principle but requires a proper sequence-independent structural aligner to handle the sequence divergence correctly.",
           "dataset": "https://doi.org/10.2210/pdb9D57/pdb",
           "analysis": "PDB structure comparison (9D57 vs 6DGV)",
-          "method": "X-ray crystallography; structural superposition using cpGFP as reference; RMSD calculation"
+          "method": "X-ray crystallography; structural superposition using cpGFP as reference; RMSD calculation",
+          "script": null
         },
         {
           "uuid": "f1d695b7-88cd-49d5-9fdc-f66cad65e1c8",
@@ -2321,7 +2434,8 @@
           "notes": "Zenodo deposit contains analysis code and source data for dose-response curves and time traces. However, primary screening data requires the sensor constructs and imaging apparatus. Analysis of deposited source data is possible without wet lab. Not yet executed.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "fluorescence imaging, high-throughput mutagenesis screening"
+          "method": "fluorescence imaging, high-throughput mutagenesis screening",
+          "script": null
         },
         {
           "uuid": "669554c3-7a4d-453b-b9bd-893e935e630c",
@@ -2338,7 +2452,8 @@
           "notes": "Specificity data from purified protein titrations (n≥3 replicates per compound). Compounds tested include structurally related amino acids and histamine. Source data on Zenodo. Wet lab not feasible without purified protein.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "fluorescence titration with GABA-related compounds; competition assay with 1 mM competitor + increasing GABA"
+          "method": "fluorescence titration with GABA-related compounds; competition assay with 1 mM competitor + increasing GABA",
+          "script": null
         },
         {
           "uuid": "f2fccd5f-8ee8-4138-9e97-055ebda75cd8",
@@ -2359,7 +2474,8 @@
           "notes": "Single-trial ΔF/F₀ shown in Fig 6c (no group statistics reported beyond prior slice calibration). GABA concentration estimate (~2–2.5 μM) is derived from prior calibration by Magloire et al. (2023), not directly measured in this experiment. Requires in vivo 2P setup and cranial window surgery. Epistemic rated moderate because the concentration estimate is calibration-derived, not directly measured.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "in vivo 2P Tornado scanning (1 kHz resonant scan); AAV9-hSyn-iGABASnFR2 cortical injection; rhythmic whisker stimulation (4 air puffs at 20 Hz, 200 ms)"
+          "method": "in vivo 2P Tornado scanning (1 kHz resonant scan); AAV9-hSyn-iGABASnFR2 cortical injection; rhythmic whisker stimulation (4 air puffs at 20 Hz, 200 ms)",
+          "script": null
         },
         {
           "uuid": "a56b114d-fbe5-422f-91cd-00a7de8b98ee",
@@ -2378,7 +2494,8 @@
           "notes": "All three sensors measured in parallel in same primary neuron culture. Rise and decay constants computed from exponential fits; statistics by Tukey's HSD post hoc test following one-way ANOVA. p<0.001 for both comparisons vs iGABASnFR1. Requires cultured neurons and field stimulation apparatus.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "field stimulation in cultured neurons; exponential fits to ΔF/F₀ time courses; n=24 wells (iGABASnFR1, iGABASnFR2), n=18 wells (iGABASnFR2n)"
+          "method": "field stimulation in cultured neurons; exponential fits to ΔF/F₀ time courses; n=24 wells (iGABASnFR1, iGABASnFR2), n=18 wells (iGABASnFR2n)",
+          "script": null
         },
         {
           "uuid": "10eb034c-f5b4-422e-a43b-8375a917111d",
@@ -2397,7 +2514,8 @@
           "notes": "On-cell titration requires sensor-expressing neurons and perfusion system. Source data on Zenodo covers dose-response curves. Wet lab reconstruction not feasible without constructs. Analysis of deposited source data not yet executed.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "on-cell fluorescence titration; GABA perfusion onto cultured neurons"
+          "method": "on-cell fluorescence titration; GABA perfusion onto cultured neurons",
+          "script": null
         },
         {
           "uuid": "808a0591-b637-4f1a-9ff9-e05e779644bf",
@@ -2418,7 +2536,8 @@
           "notes": "n=147 ROIs from five retinae (iGABASnFR1), n=346 ROIs from three retinae (iGABASnFR2). SNR comparison: p=0 (Mann-Whitney-Wilcoxon). Direction selectivity (CV): p=7.812×10⁻⁶. Mean response reliability iGABASnFR2: 0.66±0.14 vs iGABASnFR1: 0.41±0.11. Requires retinal preparation, 2P microscope, and AAV-injected mice.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "two-photon imaging in excised retina; Cre-Lox AAV delivery in ChAT-IRES-Cre mice; moving spot and full-field flash stimuli"
+          "method": "two-photon imaging in excised retina; Cre-Lox AAV delivery in ChAT-IRES-Cre mice; moving spot and full-field flash stimuli",
+          "script": null
         },
         {
           "uuid": "ff5506c7-eac9-42f7-8643-d38068feafd5",
@@ -2439,7 +2558,8 @@
           "notes": "iGABASnFR1 result: 0 signals across 15 trials × 5 experiments. iGABASnFR2 result: consistent evoked signals; SNR>3 may require 5–10 trial averaging. Requires Femtonics 2P system, patch clamp rig, and AAV-injected mice or biolistically transfected organotypic cultures.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "simultaneous 2P Tornado scanning (1.5 μm scan path, 0.5–1 kHz) and whole-cell electrophysiology in acute hippocampal slices and organotypic cultures; biolistic transfection (CA3 interneurons) and viral delivery (CA1)"
+          "method": "simultaneous 2P Tornado scanning (1.5 μm scan path, 0.5–1 kHz) and whole-cell electrophysiology in acute hippocampal slices and organotypic cultures; biolistic transfection (CA3 interneurons) and viral delivery (CA1)",
+          "script": null
         },
         {
           "uuid": "837eae22-f6f6-4d29-9696-c998ee633b7f",
@@ -2458,7 +2578,8 @@
           "notes": "Stopped-flow measurements require purified protein (expressed in E. coli) and an Applied Photophysics SX20 stopped-flow spectrometer. n=3 replicates from three separate protein batches. Source data on Zenodo. Wet lab not feasible without purified protein and instrument.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "stopped-flow fluorescence spectroscopy; monoexponential fits in MATLAB"
+          "method": "stopped-flow fluorescence spectroscopy; monoexponential fits in MATLAB",
+          "script": null
         },
         {
           "uuid": "305140b5-5720-45d7-8706-593e29243fb6",
@@ -2475,7 +2596,8 @@
           "notes": "Same screening pipeline. Not yet executed. Wet lab not feasible without constructs.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "fluorescence imaging, high-throughput screening"
+          "method": "fluorescence imaging, high-throughput screening",
+          "script": null
         },
         {
           "uuid": "c0396bdd-9084-4a13-8dd8-f616c5cdecd9",
@@ -2492,7 +2614,8 @@
           "notes": "These are count statistics from the screening dataset. Analysis code on Zenodo. Wet lab data required. Not yet executed.",
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
-          "method": "high-throughput mutagenesis screening"
+          "method": "high-throughput mutagenesis screening",
+          "script": null
         },
         {
           "uuid": "0cdf69ab-ffa6-4e8b-a87b-e681ec8c2526",
@@ -2509,7 +2632,8 @@
           "notes": "Confirmed by corpus-assessment.md: reproduction difficulty rated Hard. Primary claims require sensor constructs and specialized equipment. Analysis code covers figure generation from pre-measured source data.",
           "dataset": null,
           "analysis": "code inspection",
-          "method": "code inspection + corpus-assessment"
+          "method": "code inspection + corpus-assessment",
+          "script": null
         }
       ]
     },
@@ -2548,7 +2672,8 @@
           "notes": "This is a single-example illustration (one artery, one capillary, one venule from one mouse) shown to demonstrate the vertex-wise tracking capability. The p-values are from Mann-Whitney U tests on vertex-wise radius distributions before vs. after stimulation — not from a population comparison. The statistical significance here reflects the number of measurement points along the vessel, not biological replication. The venule null result (p=0.22) is consistent with known physiology but cannot be generalized from n=1.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "vertex-wise radius tracking; Mann-Whitney U test; single image stack example"
+          "method": "vertex-wise radius tracking; Mann-Whitney U test; single image stack example",
+          "script": null
         },
         {
           "uuid": "083ef4c3-9e93-4927-9867-3c785b2c03c0",
@@ -2567,7 +2692,8 @@
           "notes": "This is a baseline measurement (not a stimulation result). The 24±28% figure is reported in the Results prose (\"Vascular morphology and heterogeneity within and among vessels\") and instantiated in Figure 7 which shows vertex-wise profiles along an artery, capillary, and venule. The large SD (28%) relative to the mean (24%) indicates highly skewed distribution across vessels.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "vertex-wise radius tracking along centerline, 2PFM, n=17 mice"
+          "method": "vertex-wise radius tracking along centerline, 2PFM, n=17 mice",
+          "script": null
         },
         {
           "uuid": "a68ebd2f-95bf-43a9-b0e0-f9ce7a3fa5bd",
@@ -2588,7 +2714,8 @@
           "notes": "Constriction responses: 458 nm at 1.1 mW/mm² produced –1.39±1.51 µm, at 4.3 mW/mm² produced –1.20±1.13 µm; 552 nm control produced –0.37±0.30 µm (smaller, p=0.02). The stimulation power comparison (1.1 vs 4.3 mW/mm² at 458 nm) was not significant for dilations; constrictions were significantly different (p=4.4e-3). Note: dilation magnitude did not increase with power, suggesting response saturation.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "mixed-effects model on responder vessel radius changes; Wilcoxon signed-rank"
+          "method": "mixed-effects model on responder vessel radius changes; Wilcoxon signed-rank",
+          "script": null
         },
         {
           "uuid": "ad12a413-e736-4cb5-908f-e331c3a21478",
@@ -2608,7 +2735,8 @@
           "notes": "Network efficiency metric from vascular graph. Not yet executed.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "graph-theoretic network analysis"
+          "method": "graph-theoretic network analysis",
+          "script": null
         },
         {
           "uuid": "a3ca491f-f3b6-456f-b69c-6f9449183c4a",
@@ -2629,7 +2757,8 @@
           "notes": "The 37±179 µm depth difference applies to 4.3 mW/mm² (p<1e-4). For 1.1 mW/mm², the difference was 58±187 µm deeper (p=0.02). There was no significant change in the mean depth of constricting or dilating vessels between the two stimulation power levels. The SD (179 µm) is very large relative to the mean (37 µm) — indicating this is a weak central tendency with substantial scatter, not a sharp laminar boundary.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "vertex-wise cortical depth from cortical surface; mixed-effects model"
+          "method": "vertex-wise cortical depth from cortical surface; mixed-effects model",
+          "script": null
         },
         {
           "uuid": "c1381a0c-47be-4721-9022-ddec7d45b3fd",
@@ -2650,7 +2779,8 @@
           "notes": "The spatial gradient (dilations closer, constrictions farther) was significant at 4.3 mW/mm² (p<1e-4) and 1.1 mW/mm² (p=1.5e-3). The 16.8±13.5 µm / 22.7±16.3 µm values apply to 1.1 mW/mm²; the 16.1±14.3 / 21.9±14.6 values apply to 4.3 mW/mm². No significant power-dependent shift in the distances themselves was detected between the two stimulation levels. Control condition (552 nm) showed no significant difference in dilator vs. constrictor distance to neuron.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "vertex-wise distance to YFP-labeled neuron; mixed-effects model; Wilcoxon test"
+          "method": "vertex-wise distance to YFP-labeled neuron; mixed-effects model; Wilcoxon test",
+          "script": null
         },
         {
           "uuid": "6fb7137d-c89c-4651-9271-014bd6823995",
@@ -2667,7 +2797,8 @@
           "notes": "README and pyproject.toml confirm Python package with GPU dependency. Mouse model specific. Scope confirmed by inspection.",
           "dataset": null,
           "analysis": "code inspection",
-          "method": "code inspection"
+          "method": "code inspection",
+          "script": null
         },
         {
           "uuid": "e93b7cce-2578-4075-8e9b-cc9910fc5fd4",
@@ -2687,7 +2818,8 @@
           "notes": "Network metrics computed from segmentation output. Pre-trained model on FRDR data. Not yet executed.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "graph-theoretic network analysis"
+          "method": "graph-theoretic network analysis",
+          "script": null
         },
         {
           "uuid": "afb63ebd-605d-4e1b-a412-9ad7eea3bc58",
@@ -2704,7 +2836,8 @@
           "notes": "The OOD generalization is purely qualitative — no Dice, HD95, or other quantitative metric is reported for the OOD datasets. The appendix shows example 2D slices of predictions overlaid on raw data. The OOD data sources are not deposited publicly as far as can be determined. This claim is single-source (caption only) and marked weak because it relies entirely on visual impression without quantitative validation.",
           "dataset": null,
           "analysis": null,
-          "method": "visual inspection of segmentation masks on held-out OOD data; no quantitative metrics"
+          "method": "visual inspection of segmentation masks on held-out OOD data; no quantitative metrics",
+          "script": null
         },
         {
           "uuid": "73b97665-ce32-4361-81d0-40fb149cea2b",
@@ -2721,7 +2854,8 @@
           "notes": "GitHub: AICONSlab/novas3d. Python package with Tutorial.ipynb. FRDR data deposit. GPU required for inference. Not yet executed.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "deep learning benchmark comparison"
+          "method": "deep learning benchmark comparison",
+          "script": null
         },
         {
           "uuid": "e52585f7-4764-4444-9919-1c9a4c6cec38",
@@ -2738,7 +2872,8 @@
           "notes": "Confirmed by reading the Methods (Cohort, Animals, Ground truth generation sections): 42 training volumes from 25 Thy1-ChR2-EYFP mice; test set from 6 mice of same strain. All quantitative Dice/HD95/precision/recall metrics are from this single preparation. OOD examples in appendix are qualitative only (app1fig12, app1fig13).",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "code inspection",
-          "method": "code inspection; methods section review"
+          "method": "code inspection; methods section review",
+          "script": null
         },
         {
           "uuid": "9639b9cb-4a39-4046-ba35-db6f8f88dfbb",
@@ -2758,7 +2893,8 @@
           "notes": "R²=0.68 is a moderate fit — the validation acknowledges appreciable variance. The paper also validates using fluorescent beads (nominal 7.32±0.27 µm diameter), which had a higher SNR than in vivo data, so noise was artificially added to match in vivo conditions. Bead results not quantitatively summarized in a single metric in main text.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "simulated radius rescaling + Gaussian noise injection; >100,000 simulations"
+          "method": "simulated radius rescaling + Gaussian noise injection; >100,000 simulations",
+          "script": null
         },
         {
           "uuid": "2d67695f-3ee3-45e9-b4bc-ff547691c4bc",
@@ -2777,7 +2913,8 @@
           "notes": "No figure directly displays the 241→412 vessel count comparison; the numbers appear in the Results prose (section \"Vessel extraction improvements via image registration\"). The improvement is attributed partly to resolving transient RBC plug gaps by unioning masks across time points. MSE values are from the registration section, not a figure panel.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "ANTsPy rigid registration; MSE metric; vessel segment count from skeleton graph"
+          "method": "ANTsPy rigid registration; MSE metric; vessel segment count from skeleton graph",
+          "script": null
         },
         {
           "uuid": "ce04789d-9922-49de-b9e2-6cc87302b3f4",
@@ -2794,7 +2931,8 @@
           "notes": "The 2×SD threshold is stated in the Methods (\"Statistical models\") and in the Results prose. Appendix 1—figure 14 applies a 10% threshold instead and shows \"qualitatively similar\" patterns, but no statistical comparison of the two thresholds is provided. The 2×SD threshold is adaptive per-vessel (depends on each vessel's own baseline variance), which is biologically reasonable but means the effective sensitivity threshold varies across vessels and subjects.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "code inspection",
-          "method": "code inspection; comparison of main fig8 vs app1fig14"
+          "method": "code inspection; comparison of main fig8 vs app1fig14",
+          "script": null
         },
         {
           "uuid": "db0a9448-8fe8-4336-b220-0a71aa19d870",
@@ -2813,7 +2951,8 @@
           "notes": "Requires GPU inference on FRDR test data. Pre-trained model available via GitHub (AICONSlab/novas3d). Note: UNETR vs U-Net showed no significant difference on mean surface distance, so UNETR was selected on visual inspection consistency, not metric superiority over U-Net.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "Wilcoxon signed-rank test on segmentation metrics; 9 test images, 6 mice"
+          "method": "Wilcoxon signed-rank test on segmentation metrics; 9 test images, 6 mice",
+          "script": null
         },
         {
           "uuid": "de368a2f-dfdf-4cb5-9c5f-24e3e0cf3aae",
@@ -2833,7 +2972,8 @@
           "notes": "Requires running segmentation pipeline on FRDR volumetric data. Not yet executed.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "vertex-level vessel tracking, 2P microscopy"
+          "method": "vertex-level vessel tracking, 2P microscopy",
+          "script": null
         },
         {
           "uuid": "e05b0913-66d9-4ac2-be33-40385aaf6181",
@@ -2853,7 +2993,8 @@
           "notes": "n=4 wild-type mice is a small sample for a negative control, but the key result is the absence of a difference rather than presence, so the power concern is somewhat mitigated. The Wilcoxon test is appropriate for comparing distributions. The caption states the distributions \"were not statistically distinguishable\" — no p-value is reported in the main text or caption for the WT comparison itself.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
-          "method": "Wilcoxon test on capillary radius distributions; n=4 C57BL/6J mice"
+          "method": "Wilcoxon test on capillary radius distributions; n=4 C57BL/6J mice",
+          "script": null
         }
       ]
     },
@@ -2898,7 +3039,8 @@
           "notes": "Partially verified from Correlation_Results.xlsx (OSF cross-exp folder). Pearson r computed from ΔΔv_Per vs ΔΔv_Soc for Exp1 (N=63): r = -0.211, p = 0.096 (claim: r=-0.243, BF10=6.58). Sign confirmed. Magnitude close but not identical — the paper likely uses different exclusion criteria or computes the correlation across N=140 (both experiments combined). The separate weight correlation (r=-0.268 for Δwp) was not re-computed here. Direction of trade-off is confirmed.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "Bayesian correlation analysis across N=140"
+          "method": "Bayesian correlation analysis across N=140",
+          "script": null
         },
         {
           "uuid": "08433979-b40e-4b78-91f6-80537bb4c971",
@@ -2920,7 +3062,8 @@
           "notes": "Verified from estimates_indiv_C.csv (Exp2, OSF https://osf.io/a62df). Condition 3 (social decision, no perceptual salience): v_p(self) = 23.55 Hz, v_r(other) = 24.91 Hz, diff = -1.36 Hz (claim: -1.6 Hz [HDI: -3 to -0.26]). Point estimate within the claimed HDI range. Sign confirmed: other processed faster than self in social decision context.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "hierarchical Bayesian TVA estimation, Experiment 2 (N=71)"
+          "method": "hierarchical Bayesian TVA estimation, Experiment 2 (N=71)",
+          "script": null
         },
         {
           "uuid": "daed2cbb-ce65-4207-9a91-b0160ebf8afa",
@@ -2940,7 +3083,8 @@
           "notes": "Verified from pre-computed model estimates (estimates_indiv_C.csv, Exp2 folder, OSF https://osf.io/a62df). Exp2 condition 2 (perceptual salience, no social association): v_p = 27.24 Hz, v_r = 21.20 Hz, diff = 6.05 Hz (claim: 6 Hz). Condition assignment confirmed by checking capacity and weight change structure. Self-salient condition (cond 4) diff = 2.58 Hz (claim: 2.5 Hz); other-salient (cond 5) diff = 5.32 Hz (claim: 5.2 Hz). HDI bounds not directly checkable from summary CSV (require posterior samples from .nc trace) but point estimates match within rounding throughout.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "hierarchical Bayesian TVA estimation, Experiment 2 (N=71)"
+          "method": "hierarchical Bayesian TVA estimation, Experiment 2 (N=71)",
+          "script": null
         },
         {
           "uuid": "e74f5a44-4883-4e68-a9b5-147e0273b2fb",
@@ -2961,7 +3105,8 @@
           "notes": "Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Group-level ΔC_µ^{perceptual} = 0.0026/ms = 2.60 Hz (claim: 2.6 Hz, exact match). v_p change from baseline: +2.07 Hz (claim: 2.1 Hz). v_r (other) change: +0.53 Hz (claim: 0.53 Hz, exact match). Total capacity verified by summing v_p + v_r per condition. HDI bounds from group summary CSV confirm HDI crosses zero for ΔC ([-1.4, 6.7]) as claimed.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "hierarchical Bayesian TVA estimation, Experiment 1 (N=69)"
+          "method": "hierarchical Bayesian TVA estimation, Experiment 1 (N=69)",
+          "script": null
         },
         {
           "uuid": "2189823e-209f-479b-a068-032f5fba3818",
@@ -2983,7 +3128,8 @@
           "notes": "Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Social condition (cond 2): v_p(self) = 30.07 Hz, v_r(other) = 31.27 Hz, diff = -1.20 Hz (claim: other advantage 1.2 Hz, exact match). Replication in Exp2 cond 3: diff = -1.36 Hz (claim: -1.6 Hz). The absence or reversal of self-advantage in social decision condition is robustly confirmed across both experiments.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "hierarchical Bayesian TVA estimation, Experiment 1 (N=69)"
+          "method": "hierarchical Bayesian TVA estimation, Experiment 1 (N=69)",
+          "script": null
         },
         {
           "uuid": "74cdf20e-9cfb-42ae-88cc-956527bc4af7",
@@ -3004,7 +3150,8 @@
           "notes": "Interpretive synthesis — both component empirical claims verified from OSF data. Perceptual condition: self-other diff increases by +1.55 Hz from baseline (confirmed). Social condition: self-other diff = -1.20 Hz (confirmed). The dissociation between conditions is real and confirmed. The \"early, pre-conscious\" interpretation is not directly testable from data alone but follows from the authors' processing stage model, which is consistent with the TVA framework.",
           "dataset": null,
           "analysis": null,
-          "method": "interpretive synthesis"
+          "method": "interpretive synthesis",
+          "script": null
         },
         {
           "uuid": "0b72064e-d0fc-43e9-a2d0-2d5044cde51e",
@@ -3025,7 +3172,8 @@
           "notes": "Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). The 1.5 Hz self-advantage is the change in (v_p - v_r) from baseline to perceptual condition: baseline diff = -0.91 Hz, perceptual diff = +0.64 Hz, change = +1.55 Hz (claim: 1.5 Hz). Group-level computation from ΔC_µ and Δw_µ gives 1.45 Hz. ΔC_perceptual = 2.60 Hz (exact match); self rate Δ = 2.07 Hz (claim: 2.1 Hz); other rate Δ = 0.53 Hz (claim: 0.53 Hz). HDI bounds not independently verified (require posterior samples from .nc trace) but group-level summary confirms ΔC HDI = [-1.4, 6.7] Hz as claimed.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "hierarchical Bayesian TVA estimation, Experiment 1 (N=69)"
+          "method": "hierarchical Bayesian TVA estimation, Experiment 1 (N=69)",
+          "script": null
         },
         {
           "uuid": "fcc24782-2506-4c9e-908a-baa03bb791fb",
@@ -3044,7 +3192,8 @@
           "notes": "Data accessible on OSF (Correlation_Results.xlsx contains Δw and ΔΔv per participant). The BFinclusion values (2458.52, 4638.74) require running Bayesian regression model comparison using the BayesFactor R package or equivalent. The qualitative pattern is confirmed from point estimates: self-salient condition has smaller perceptual benefit (2.58 Hz) than other-salient (5.32 Hz), suggesting social salience dominates for self. BFinclusion computation not yet executed.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "Bayesian regression model comparison, Experiment 2 (N=71)"
+          "method": "Bayesian regression model comparison, Experiment 2 (N=71)",
+          "script": null
         },
         {
           "uuid": "d5cc37f8-3738-4acf-95de-3c10a177aa69",
@@ -3065,7 +3214,8 @@
           "notes": "Verified from estimates_indiv_C.csv (Exp2, OSF https://osf.io/a62df). Self-salient cond (4): diff = 2.58 Hz (claim: 2.5 Hz). Other-salient cond (5): diff = 5.32 Hz (claim: 5.2 Hz). Non-social perceptual cond (2): diff = 6.05 Hz (claim: 6 Hz). Sub-additivity pattern confirmed: self-associated salience benefit (2.58) < other- associated salience benefit (5.32) < pure perceptual benefit (6.05).",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "hierarchical Bayesian TVA, condition comparison, Experiment 2 (N=71)"
+          "method": "hierarchical Bayesian TVA, condition comparison, Experiment 2 (N=71)",
+          "script": null
         },
         {
           "uuid": "b32daec4-44c8-409c-8c3c-e7a1d13eb526",
@@ -3084,7 +3234,8 @@
           "notes": "Partially verified from estimates_indiv_C.csv (Exp2, OSF https://osf.io/a62df). The additivity test can be computed from v_p/v_r per condition: other-associated social (cond 3) diff = -1.36 Hz; perceptual (cond 2) diff = 6.05 Hz; other-salient combined (cond 5) diff = 5.32 Hz. Expected additive = 6.05 + (-1.36) = 4.69 Hz; observed = 5.32 Hz; interaction ≈ +0.63 Hz (near-zero, consistent with additivity). Sign and magnitude support the additivity claim; precise HDI bounds require posterior samples from .nc trace to fully verify.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "hierarchical Bayesian TVA, interaction computation, Experiment 2 (N=71)"
+          "method": "hierarchical Bayesian TVA, interaction computation, Experiment 2 (N=71)",
+          "script": null
         },
         {
           "uuid": "63ea3299-4288-46d1-b563-784d69f364cf",
@@ -3104,7 +3255,8 @@
           "notes": "Interpretive synthesis — component empirical claims verified from OSF data. Additivity for other-associated stimuli confirmed: interaction ≈ +0.63 Hz (near-zero, consistent with additivity claim of -0.54 Hz). Sub-additivity for self-associated confirmed: self-salient benefit (2.58 Hz) << sum of social (-1.36) + perceptual (6.05) effects. The interpretation of \"independent streams\" follows from confirmed additivity pattern for non-self stimuli.",
           "dataset": null,
           "analysis": null,
-          "method": "interpretive synthesis from interaction analysis"
+          "method": "interpretive synthesis from interaction analysis",
+          "script": null
         },
         {
           "uuid": "7a683a00-fc93-4d25-ae38-48734f0a8789",
@@ -3124,7 +3276,8 @@
           "notes": "Verified from Correlation_Results.xlsx (OSF cross-exp folder). Pearson r computed directly from SPE and ΔΔv_Soc/ΔΔv_Per columns for Exp1 (N=63): SPE vs ΔΔv_Soc: r = 0.354, p = 0.0044 (claim: r=0.354, exact match). SPE vs ΔΔv_Per: r = 0.069, p = 0.590 (claim: r=0.069, exact match). BF10 values (8.23 and 0.181) not computed (require BayesFactor package) but direction and magnitude fully confirmed.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "Bayesian correlation, Experiment 1 (N=69)"
+          "method": "Bayesian correlation, Experiment 1 (N=69)",
+          "script": null
         },
         {
           "uuid": "0eef258f-1e89-4298-a762-c0c4a877ab9a",
@@ -3143,7 +3296,8 @@
           "notes": "Verified from Correlation_Results.xlsx (OSF cross-exp folder, https://osf.io/a62df). Cohen's d computed from SPE column (Acc_Self - Acc_Other per participant): Exp1 (N=63 after exclusions): d = 1.09 (claim: 1.064), p < 0.0001. Exp2 (N=63): d = 1.01 (claim: 0.982). Both consistent within rounding. BF10 values (3.23×10^95, 4.47×10^109) not directly computable from CSV summary but effect sizes of this magnitude correspond to astronomically large Bayes factors.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "matching accuracy comparison (Cohen's d, BF10), both experiments"
+          "method": "matching accuracy comparison (Cohen's d, BF10), both experiments",
+          "script": null
         },
         {
           "uuid": "24c24fef-2404-41a6-a0ea-edfe81cd3707",
@@ -3160,7 +3314,8 @@
           "notes": "Data and pre-computed posteriors accessible on OSF (https://osf.io/a62df). The Δloo value (14.2) and weight (0.86) require loading the Stan posterior trace files (.nc, ~2-5 GB each) and running az.compare() or loo::loo_compare() on the two model objects. The estimates_single_C.csv and estimates_indiv_C.csv confirm both models ran and converged (r_hat < 1.01 throughout). The indiv_C model has more parameters and produces the quantitative results verified in other claims. LOO comparison itself not yet executed — requires Stan posterior samples.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
-          "method": "hierarchical Bayesian model comparison (Stan/R), LOO-CV"
+          "method": "hierarchical Bayesian model comparison (Stan/R), LOO-CV",
+          "script": null
         }
       ]
     },
@@ -3201,7 +3356,8 @@
           "notes": "Significance: ***p<0.001 by unpaired t-test. The analysis quantifies membrane-to-cytosol Kv3.1 ratio as an index of subcellular distribution. The authors note that more prominent cytosolic labeling in mutants likely corresponds to endoplasmic reticulum accumulation.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "immunohistochemistry, fluorescence intensity ratio quantification"
+          "method": "immunohistochemistry, fluorescence intensity ratio quantification",
+          "script": null
         },
         {
           "uuid": "e2edfcd1-ec01-4ec7-ba36-01ab26290d69",
@@ -3218,7 +3374,8 @@
           "notes": "Data extracted from Wengert et al_eLife_Electrophysiology Analysis.xlsx (G-Node, Survival sheet, fig1E). n=33 KI, n=46 WT confirmed exactly. 30/33 KI mice died (event=1), 3 censored. Max KI day = 122.0 — one mouse died at exactly day 122, so the claim \"before 122 days\" is marginally imprecise; the data shows at or before 122 days. All WT mice censored (no deaths). Significance not recomputed (Mantel-Cox requires lifelines/R); direction and n counts fully confirmed.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "survival analysis (Kaplan-Meier, Mantel-Cox)"
+          "method": "survival analysis (Kaplan-Meier, Mantel-Cox)",
+          "script": null
         },
         {
           "uuid": "ae5f131c-edc3-4345-96c1-2f43609dbb3e",
@@ -3237,7 +3394,8 @@
           "notes": "Behavioral data on G-Node. Statistics: two-way repeated-measures ANOVA with Tukey's post hoc (Barnes maze); unpaired t-test (Y-maze). Total arm entries and distance traveled are not different, ruling out locomotion or exploratory confounds.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "Barnes maze, Y-maze spontaneous alternation"
+          "method": "Barnes maze, Y-maze spontaneous alternation",
+          "script": null
         },
         {
           "uuid": "b7a7c44d-b512-45b8-a790-a1b2c3b216e7",
@@ -3256,7 +3414,8 @@
           "notes": "",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "weight measurement, developmental milestone assay"
+          "method": "weight measurement, developmental milestone assay",
+          "script": null
         },
         {
           "uuid": "3df55d45-b8a0-42c6-9807-0323c08e8815",
@@ -3273,7 +3432,8 @@
           "notes": "n=12 WT (N=4 mice), n=12 Kcnc1-A421V/+ (N=4 mice). One significant result: rheobase reduced in Kcnc1-A421V/+ (*p=0.023 by unpaired t-test, Table 2). The paper does not comment on this isolated finding. All other comparisons non-significant by repeated- measures two-way ANOVA. Confidence rated moderate because of the isolated rheobase finding that goes unexplained — could be a true secondary network effect or Type I error.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "whole-cell current-clamp, adult slice preparation"
+          "method": "whole-cell current-clamp, adult slice preparation",
+          "script": null
         },
         {
           "uuid": "52b1301c-8ece-44c1-b25c-53e20013391d",
@@ -3290,7 +3450,8 @@
           "notes": "K+ current density verified from G-Node Excel (Pyr WT P16-21 / Pyr A421V P16-21 Potassium Current sheets). At +40mV: WT n=8 mean=343.4±205.7, KI n=10 mean=307.1±132.4 pA/pF; unpaired t-test p=0.66 (not significant). Null result confirmed. Spiking sheets for excitatory cells (Pyr WT P16-21 Spiking, Pyr A421V P16-21 Spiking) also present in the deposit but not analyzed here — K+ current null is primary test.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "nucleated macropatch (voltage-gated K+ currents), whole-cell current-clamp"
+          "method": "nucleated macropatch (voltage-gated K+ currents), whole-cell current-clamp",
+          "script": null
         },
         {
           "uuid": "2d6bb516-6c05-4a2f-bb64-9e9142bbf326",
@@ -3309,7 +3470,8 @@
           "notes": "7/7 penetrance is a very strong effect. The paper distinguishes this neuropil-dominated signal from somatic signals using a separate cohort with soma-tagged GCaMP8m. That cohort did not show discharges, suggesting events are primarily axonal/dendritic (neuropil). Imaging performed at >P50 — important: this is after both behavioral testing and slice physiology age ranges, placing it closer to end-stage phenotype.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "two-photon calcium imaging, AAV9-syn-jGCaMP8m, head-fixed somatosensory cortex"
+          "method": "two-photon calcium imaging, AAV9-syn-jGCaMP8m, head-fixed somatosensory cortex",
+          "script": null
         },
         {
           "uuid": "890a5223-4eb7-4dd0-a112-42e195398da1",
@@ -3328,7 +3490,8 @@
           "notes": "Statistics by mixed-effects modeling. Confidence rated moderate because: (1) this cohort did not show hypersynchronous discharges (different from fig8B-D cohort), (2) the differences are modest in magnitude, and (3) running epochs show no differences (fig8—figure supplement 1C-F), indicating state-dependence. Effect is specific to quiet-rest epochs.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "two-photon calcium imaging, soma-tagged GCaMP8m, S5E2-driven tdTomato for PV-ID"
+          "method": "two-photon calcium imaging, soma-tagged GCaMP8m, S5E2-driven tdTomato for PV-ID",
+          "script": null
         },
         {
           "uuid": "a2af2706-be34-44a7-b65b-6a11ae98c2a8",
@@ -3345,7 +3508,8 @@
           "notes": "Requires comparison of juvenile vs adult recordings from G-Node dataset. Not yet executed.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "patch-clamp, longitudinal comparison"
+          "method": "patch-clamp, longitudinal comparison",
+          "script": null
         },
         {
           "uuid": "e61d53f9-f821-48eb-8392-f02acef3d444",
@@ -3362,7 +3526,8 @@
           "notes": "Corpus-assessment confirms: reproduction difficulty rated Hard (10/10). Primary data is G-Node deposit but the underlying measurements require the Kcnc1-A421V/+ mouse line.",
           "dataset": null,
           "analysis": "code inspection",
-          "method": "code inspection + corpus-assessment"
+          "method": "code inspection + corpus-assessment",
+          "script": null
         },
         {
           "uuid": "d6e81203-d9f1-4344-97d0-48ec7b6afe39",
@@ -3381,7 +3546,8 @@
           "notes": "Note: Figure supplement label in the paper uses fig4—figure supplement 2 for layer V PV-INs and fig4—figure supplement 3 for RTN. The RTN data appears in what the paper calls fig4—figure supplement 2 in the caption text but the label reads as the second supplement. Check actual figure numbering against G-Node deposit when verifying.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "whole-cell current-clamp"
+          "method": "whole-cell current-clamp",
+          "script": null
         },
         {
           "uuid": "04db8b33-39ce-43b1-8df4-63a156fbc874",
@@ -3402,7 +3568,8 @@
           "notes": "VERIFIED from G-Node Excel summary. Juvenile (P16-21): WT n=20, KI n=37. Downstroke velocity: WT -183.3±37.4, KI -137.5±50.7 mV/ms; p=0.0008. Paper reports means as -183±9 and -138±8 — the ±9 and ±8 are SEM not SD (SEM for n=20 from SD=37.4 = 8.4 ≈ 9; SEM for n=37 from SD=50.7 = 8.3 ≈ 8). Means match paper exactly. p=0.0008 (paper: p=0.0012 — minor discrepancy, likely due to Welch vs Student t-test choice). APD50: WT 0.401ms, KI 0.561ms; p=0.0063 (paper: p=0.0053 — consistent). Adult (P32-42): WT n=14, KI n=17. Downstroke: WT -247.8±78.3, KI -163.7±75.9 mV/ms; p=0.0051 (paper: p=0.0051 EXACT). APD50: WT 0.314ms, KI 0.582ms; p=0.0033 (paper: ***p<0.001 — slight discrepancy; both clearly significant).",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "whole-cell current-clamp, AP waveform analysis"
+          "method": "whole-cell current-clamp, AP waveform analysis",
+          "script": null
         },
         {
           "uuid": "bd91acf8-a01d-4713-8382-8a0757cbd86a",
@@ -3421,7 +3588,8 @@
           "notes": "Verified from G-Node Excel (WT P32-42 PV->Pyr and Kcnc1 P32-42 PV->Pyr sheets). uIPSC amplitude at 20Hz pulse 1: WT n=13 mean=-78.4 pA, KI n=13 mean=-143.2 pA; simple t-test p=0.029 (paper reports **p<0.01 by repeated-measures ANOVA — the rmANOVA across frequencies yields stronger significance than per-frequency t-tests). Direction KI > WT confirmed. PPR at 20Hz: WT 0.815, KI 0.670; t-test p=0.057 (paper: *p<0.05 by rmANOVA across frequencies). Direction WT > KI confirmed (reduced PPR in KI, consistent with enhanced short-term depression). Full significance requires rmANOVA that accounts for within-subject correlation across frequencies. 14/36 WT pairs connected (N=8 mice); 13/36 Kcnc1-A421V/+ pairs connected (N=8 mice). Failure rates not different. Latency not significantly different.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "dual whole-cell patch-clamp, paired recording"
+          "method": "dual whole-cell patch-clamp, paired recording",
+          "script": null
         },
         {
           "uuid": "dbc34885-27d0-4b6e-afbb-6a34befb9b98",
@@ -3440,7 +3608,8 @@
           "notes": "Verified from G-Node Excel (WT P16-21 PV->Pyr and Kcnc1 P16-21 PV->Pyr sheets). uIPSC amplitude at 20Hz pulse 1: WT n=18 mean=-66.1 pA, KI n=14 mean=-99.0 pA; unpaired t-test p=0.22 (not significant). PPR at 20Hz: WT 0.774, KI 0.659; p=0.24 NS. PPR at 40Hz and 80Hz also NS. Null result fully confirmed. Connected pair counts from uIPSC data presence: ~19 WT, ~14 KI (paper: 21 and 15 — slight undercount in extraction, consistent with a few cells missing some frequency sweeps).",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "dual whole-cell patch-clamp, paired recording"
+          "method": "dual whole-cell patch-clamp, paired recording",
+          "script": null
         },
         {
           "uuid": "894a5d58-bca8-4b16-b22b-76b64db1e3e5",
@@ -3457,7 +3626,8 @@
           "notes": "Data from G-Node Excel (PV-IN WT P16-21 Spiking, PV-IN A421V+ P16-21 Spiking sheets). Max AP counts per cell from F/I protocol (-100 to +900 pA, 20pA steps): WT n=20 mean=200.8; KI n=37 mean=125.9; unpaired t-test p<0.001. Direction (WT > KI) and significance both confirmed. Adult data (P32-42 sheets) also present: WT n=14, KI n=17.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "patch-clamp, current-clamp recordings"
+          "method": "patch-clamp, current-clamp recordings",
+          "script": null
         },
         {
           "uuid": "b29d38ec-0fb8-4a7b-863e-470dd3eb378b",
@@ -3474,7 +3644,8 @@
           "notes": "Data extracted from G-Node Excel summary (PV-IN K+ currents sheet). n=13 WT, n=17 KI confirmed exactly (matches paper). Peak current density at +40mV: WT 1883±720 pA/pF vs KI 757±533 pA/pF; unpaired t-test p=0.000033 (highly significant). 60% reduction in KI. Note: paper reports ±SD not ±SEM in tables. Excitatory neuron control: WT 343 vs KI 307 pA/pF, p=0.66 (not significant, consistent with cell-type specificity).",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "patch-clamp electrophysiology"
+          "method": "patch-clamp electrophysiology",
+          "script": null
         },
         {
           "uuid": "37d23efe-7e34-48aa-82ff-b7f3ef45751c",
@@ -3491,7 +3662,8 @@
           "notes": "n=19 Kcnc1-A421V/+ cells (N=5 mice), n=16 WT cells (N=4 mice). Significance by repeated-measures two-way ANOVA. RTN predominantly expresses Kv3.1 and Kv3.3 (Porcello et al., 2002; Espinosa et al., 2008) — no Kv3.2 compensation as in layer V.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "whole-cell current-clamp, acute thalamic slices"
+          "method": "whole-cell current-clamp, acute thalamic slices",
+          "script": null
         },
         {
           "uuid": "b066dc9f-dd75-43a8-9692-1005de9d2d30",
@@ -3510,7 +3682,8 @@
           "notes": "Additional phenotypes: 8/12 Kcnc1-A421V/+ mice also showed runs of epileptiform spikes without behavioral correlate (duration 14.5±0.7 s). Myoclonic jerks (large EEG spikes + diffuse body jerks) also observed. SUDEP events: 4 captured on video-EEG + 2 on video only. The paper classifies seizure types by EEG + behavior criteria; SUDEP is defined as tonic-clonic with hindlimb extension followed by EEG suppression.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "continuous video-EEG, DSI wireless telemetry, P24–48, 2–7 day recordings"
+          "method": "continuous video-EEG, DSI wireless telemetry, P24–48, 2–7 day recordings",
+          "script": null
         }
       ]
     }

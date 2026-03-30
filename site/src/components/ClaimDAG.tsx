@@ -100,13 +100,13 @@ function ClaimNode({ data }: { data: any }) {
 
 const nodeTypes: NodeTypes = { claimNode: ClaimNode as any };
 
-const NODE_WIDTH = 160;
-const NODE_HEIGHT = 36;
+const NODE_WIDTH = 180;
+const NODE_HEIGHT = 60;
 
 function layoutGraph(claims: Claim[]): { nodes: Node[]; edges: Edge[] } {
   const g = new dagre.graphlib.Graph();
   g.setDefaultEdgeLabel(() => ({}));
-  g.setGraph({ rankdir: 'LR', nodesep: 24, ranksep: 70, marginx: 24, marginy: 24 });
+  g.setGraph({ rankdir: 'LR', ranksep: 80, nodesep: 40, edgesep: 20, marginx: 20, marginy: 20 });
 
   for (const c of claims) {
     g.setNode(c.slug, { width: NODE_WIDTH, height: NODE_HEIGHT });
