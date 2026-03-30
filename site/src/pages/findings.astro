@@ -1,0 +1,138 @@
+---
+import Layout from '../layouts/Layout.astro';
+import corpus from '../data/claims.json';
+import { STATUS_TAILWIND, STATUS_LABEL, nodeColor } from '../lib/status';
+
+const { papers, totalClaims, statusCounts } = corpus;
+
+// Compute cross-paper stats
+const verifiedCount = statusCounts['verified'] ?? 0;
+const failedCount = statusCounts['failed'] ?? 0;
+const noDataCount = (statusCounts['unverified:no-data'] ?? 0) + (statusCounts['unverified:no-code'] ?? 0);
+const codeErrorCount = (statusCounts['unverified:code-error'] ?? 0) + (statusCounts['unverified:compute-infeasible'] ?? 0);
+
+const verifiedPct = ((verifiedCount / totalClaims) * 100).toFixed(0);
+const noDataPct = ((noDataCount / totalClaims) * 100).toFixed(0);
+const codeErrorPct = ((codeErrorCount / totalClaims) * 100).toFixed(0);
+
+// Papers ranked by verified %
+const ranked = [...papers].sort((a, b) => {
+  const av = (a.statusCounts['verified'] ?? 0) / a.claimCount;
+  const bv = (b.statusCounts['verified'] ?? 0) / b.claimCount;
+  return bv - av;
+});
+
+// Assessment vs result claims
+const assessmentCount = papers.flatMap(p => p.claims).filter(c => c.isAssessment).length;
+const resultCount = totalClaims - assessmentCount;
+---
+
+<Layout title="Findings">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+    <h1 class="text-2xl font-semibold text-gray-900 mb-2">Cross-corpus findings</h1>
+    <p class="text-gray-500 mb-10">Synthesis across all 10 papers and {totalClaims} claims.</p>
+
+    <!-- Summary stats -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-12">
+      <div class="bg-green-50 rounded-xl p-5">
+        <div class="text-3xl font-semibold text-green-700">{verifiedPct}%</div>
+        <div class="text-sm text-gray-600 mt-1">claims verified</div>
+        <div class="text-xs text-gray-400">{verifiedCount} of {totalClaims}</div>
+      </div>
+      <div class="bg-gray-50 rounded-xl p-5">
+        <div class="text-3xl font-semibold text-gray-700">{noDataPct}%</div>
+        <div class="text-sm text-gray-600 mt-1">blocked by data</div>
+        <div class="text-xs text-gray-400">{noDataCount} claims</div>
+      </div>
+      <div class="bg-orange-50 rounded-xl p-5">
+        <div class="text-3xl font-semibold text-orange-700">{codeErrorPct}%</div>
+        <div class="text-sm text-gray-600 mt-1">code / compute</div>
+        <div class="text-xs text-gray-400">{codeErrorCount} claims</div>
+      </div>
+      {failedCount > 0 ? (
+        <div class="bg-red-50 rounded-xl p-5">
+          <div class="text-3xl font-semibold text-red-700">{failedCount}</div>
+          <div class="text-sm text-gray-600 mt-1">failed</div>
+          <div class="text-xs text-gray-400">result didn't match</div>
+        </div>
+      ) : (
+        <div class="bg-gray-50 rounded-xl p-5">
+          <div class="text-3xl font-semibold text-gray-500">0</div>
+          <div class="text-sm text-gray-600 mt-1">failed</div>
+          <div class="text-xs text-gray-400">where we could check</div>
+        </div>
+      )}
+    </div>
+
+    <!-- Key findings -->
+    <div class="mb-12 space-y-6">
+      <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest">Key patterns</h2>
+
+      <div class="border-l-4 border-blue-400 pl-5">
+        <h3 class="font-semibold text-gray-800 mb-1">Where it worked, it worked cleanly.</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Of the {verifiedCount} verified claims, most matched the paper's reported result on first run.
+          Computational papers with well-structured repositories and pre-computed arrays on Zenodo were the
+          most tractable. The failure rate where code and data were both available was zero.
+        </p>
+      </div>
+
+      <div class="border-l-4 border-gray-400 pl-5">
+        <h3 class="font-semibold text-gray-800 mb-1">Data availability is the dominant blocker.</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          {noDataPct}% of claims could not be verified because the underlying data — raw imaging,
+          electrophysiology recordings, or immunostaining scans — was not in any public deposit.
+          Code was typically available; data was not.
+        </p>
+      </div>
+
+      <div class="border-l-4 border-orange-400 pl-5">
+        <h3 class="font-semibold text-gray-800 mb-1">API breakage was the most common code issue.</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          The most common reproducibility failure was deprecated library APIs (e.g., matplotlib 3.8 removing
+          <code class="bg-gray-100 px-1 rounded text-xs">w_xaxis</code>). These are one-line fixes that
+          prevent automated figure comparison but do not affect the underlying computation.
+        </p>
+      </div>
+
+      <div class="border-l-4 border-purple-400 pl-5">
+        <h3 class="font-semibold text-gray-800 mb-1">Observational claims need a different verification model.</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Anatomical atlas papers (e.g., Artiushin spider brain atlas) contain claims whose "reproduction"
+          means inspecting the deposited volume, not re-computing a statistic. The claim graph method
+          surfaces this explicitly: these claims are valid but require a different reproduction pathway.
+        </p>
+      </div>
+
+      <div class="border-l-4 border-green-400 pl-5">
+        <h3 class="font-semibold text-gray-800 mb-1">Assessment claims are the most tractable layer.</h3>
+        <p class="text-sm text-gray-600 leading-relaxed">
+          Of {assessmentCount} assessment claims (model scope, assumptions, methodological constraints),
+          nearly all could be verified by code inspection alone — no data required. Making these explicit
+          is itself a contribution: the assumptions are in the code, not the paper prose.
+        </p>
+      </div>
+    </div>
+
+    <!-- Per-paper ranking -->
+    <div>
+      <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">Verification rate by paper</h2>
+      <div class="space-y-2">
+        {ranked.map(p => {
+          const v = p.statusCounts['verified'] ?? 0;
+          const pct = Math.round((v / p.claimCount) * 100);
+          return (
+            <div class="flex items-center gap-3">
+              <a href={`/papers/${p.slug}`} class="flex-1 min-w-0 text-sm text-gray-800 hover:text-blue-700 truncate">{p.title}</a>
+              <div class="flex-shrink-0 w-32 bg-gray-100 rounded-full h-2 overflow-hidden">
+                <div class="h-full bg-green-500 rounded-full" style={{ width: `${pct}%` }} />
+              </div>
+              <span class="text-xs text-gray-500 w-10 text-right">{pct}%</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+
+  </div>
+</Layout>

@@ -1,0 +1,19 @@
+@import "tailwindcss";
+
+@layer base {
+  html {
+    font-family: Inter, system-ui, -apple-system, sans-serif;
+    @apply bg-white text-gray-900 antialiased;
+  }
+}
+
+.react-flow__edge-path {
+  stroke-width: 1.5;
+}
+
+.claim-tooltip {
+  position: fixed;
+  z-index: 9999;
+  max-width: 320px;
+  pointer-events: none;
+}

@@ -152,7 +152,7 @@ venv.bak/
 .ropeproject
 
 # mkdocs documentation
-/site
+# /site  — Astro site lives here
 
 # mypy
 .mypy_cache/

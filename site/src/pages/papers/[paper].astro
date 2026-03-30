@@ -1,0 +1,109 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import ClaimDAG from '../../components/ClaimDAG.tsx';
+import corpus from '../../data/claims.json';
+import { STATUS_TAILWIND, EPISTEMIC_TAILWIND, STATUS_LABEL, nodeColor } from '../../lib/status';
+
+export function getStaticPaths() {
+  return corpus.papers.map(p => ({ params: { paper: p.slug } }));
+}
+
+const { paper: paperSlug } = Astro.params;
+const paperData = corpus.papers.find(p => p.slug === paperSlug)!;
+
+const statusOrder = ['verified', 'unverified:code-error', 'unverified:compute-infeasible', 'unverified', 'unverified:no-data', 'unverified:no-code', 'failed', 'unknown'];
+
+const statusGroups = [
+  { key: 'verified', label: 'Verified', color: '#22c55e' },
+  { key: 'failed', label: 'Failed', color: '#ef4444' },
+  { key: 'unverified:code-error', label: 'Code error', color: '#f97316' },
+  { key: 'unverified:compute-infeasible', label: 'Compute-infeasible', color: '#f97316' },
+  { key: 'unverified:no-data', label: 'No data', color: '#9ca3af' },
+  { key: 'unverified:no-code', label: 'No code', color: '#9ca3af' },
+  { key: 'unverified', label: 'Unverified', color: '#9ca3af' },
+];
+---
+
+<Layout title={paperData.title}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+    <!-- Header -->
+    <div class="mb-8">
+      <div class="text-xs text-gray-500 mb-2">
+        <a href="/papers" class="hover:underline">Papers</a> /
+      </div>
+      <h1 class="text-xl font-semibold text-gray-900 leading-snug mb-3">{paperData.title}</h1>
+      <div class="text-sm text-gray-600 mb-4">
+        {paperData.authors.join(', ')}
+      </div>
+      <div class="flex flex-wrap gap-3 text-xs">
+        {paperData.doi && (
+          <a href={`https://doi.org/${paperData.doi}`} target="_blank" class="text-blue-600 hover:underline">
+            DOI: {paperData.doi} ↗
+          </a>
+        )}
+        {paperData.github && (
+          <a href={paperData.github} target="_blank" class="text-gray-600 hover:underline">
+            GitHub ↗
+          </a>
+        )}
+      </div>
+    </div>
+
+    <!-- Status summary -->
+    <div class="mb-8 flex flex-wrap gap-3">
+      {statusGroups.filter(g => (paperData.statusCounts[g.key] ?? 0) > 0).map(g => (
+        <div class="flex items-center gap-1.5 text-sm">
+          <span style={{ width: 10, height: 10, borderRadius: 3, background: g.color, display: 'inline-block' }} />
+          <span class="text-gray-700 font-medium">{paperData.statusCounts[g.key]}</span>
+          <span class="text-gray-500">{g.label}</span>
+        </div>
+      ))}
+      <div class="ml-auto text-sm text-gray-500">{paperData.claimCount} claims total</div>
+    </div>
+
+    <!-- DAG (interactive) -->
+    <div class="border border-gray-200 rounded-xl overflow-hidden mb-10" style="height: 520px;">
+      <ClaimDAG
+        client:only="react"
+        claims={paperData.claims}
+        paperSlug={paperSlug}
+      />
+    </div>
+
+    <!-- Claims table -->
+    <div>
+      <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-4">All claims</h2>
+      <div class="space-y-2">
+        {paperData.claims.map(c => (
+          <a
+            href={`/papers/${paperSlug}/${c.slug}`}
+            class="flex items-start gap-3 p-3 border border-gray-100 rounded-lg hover:border-gray-300 hover:bg-gray-50 no-underline transition-colors group"
+          >
+            <span
+              class="inline-block mt-1 flex-shrink-0"
+              style={{ width: 8, height: 8, borderRadius: 2, background: nodeColor(c.status) }}
+            />
+            <div class="flex-1 min-w-0">
+              <div class="flex items-center gap-2 flex-wrap mb-0.5">
+                <span class="text-xs font-medium text-gray-700 group-hover:text-blue-700">{c.slug}</span>
+                {c.isAssessment && (
+                  <span class="text-xs text-purple-600 bg-purple-50 px-1.5 py-0.5 rounded">assessment</span>
+                )}
+                <span class={`text-xs px-1.5 py-0.5 rounded ${STATUS_TAILWIND[c.status] ?? 'bg-gray-50 text-gray-500'}`}>
+                  {STATUS_LABEL[c.status] ?? c.status}
+                </span>
+                <span class={`text-xs px-1.5 py-0.5 rounded ${EPISTEMIC_TAILWIND[c.epistemic] ?? 'bg-gray-50 text-gray-500'}`}>
+                  {c.epistemic}
+                </span>
+              </div>
+              <p class="text-xs text-gray-600 leading-relaxed line-clamp-2">{c.claim}</p>
+            </div>
+            {c.panel && (
+              <span class="text-xs text-gray-400 flex-shrink-0">{c.panel}</span>
+            )}
+          </a>
+        ))}
+      </div>
+    </div>
+  </div>
+</Layout>

@@ -1,0 +1,29 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+
+// Read method.md at build time
+const methodMd = readFileSync(join(process.cwd(), '../docs/method.md'), 'utf8');
+
+// Simple markdown to HTML converter for the method page
+function mdToHtml(md: string): string {
+  return md
+    .replace(/^# (.+)$/gm, '<h1 class="text-2xl font-semibold text-gray-900 mt-0 mb-6">$1</h1>')
+    .replace(/^## (.+)$/gm, '<h2 class="text-lg font-semibold text-gray-800 mt-10 mb-3">$1</h2>')
+    .replace(/^### (.+)$/gm, '<h3 class="text-base font-semibold text-gray-700 mt-6 mb-2">$1</h3>')
+    .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.+?)\*/g, '<em>$1</em>')
+    .replace(/`([^`]+)`/g, '<code class="bg-gray-100 px-1 py-0.5 rounded text-xs font-mono">$1</code>')
+    .replace(/^- (.+)$/gm, '<li class="ml-4 list-disc text-gray-700">$1</li>')
+    .replace(/^(\d+)\. (.+)$/gm, '<li class="ml-4 list-decimal text-gray-700">$2</li>')
+    .replace(/\n\n/g, '</p><p class="text-gray-700 leading-relaxed mb-4">')
+    .replace(/^(?!<[h|l|p])(.+)$/gm, '<p class="text-gray-700 leading-relaxed mb-4">$1</p>');
+}
+---
+
+<Layout title="Method">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-12">
+    <div class="prose prose-gray max-w-none text-sm" set:html={mdToHtml(methodMd)} />
+  </div>
+</Layout>

@@ -1,0 +1,55 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import corpus from '../../data/claims.json';
+
+const { papers } = corpus;
+
+const statusGroups = [
+  { key: 'verified', color: '#22c55e' },
+  { key: 'failed', color: '#ef4444' },
+  { key: 'unverified:code-error', color: '#f97316' },
+  { key: 'unverified:compute-infeasible', color: '#f97316' },
+  { key: 'unverified:no-data', color: '#9ca3af' },
+  { key: 'unverified:no-code', color: '#9ca3af' },
+  { key: 'unverified', color: '#9ca3af' },
+];
+---
+
+<Layout title="Papers">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-12">
+    <h1 class="text-2xl font-semibold text-gray-900 mb-8">Papers</h1>
+    <div class="space-y-3">
+      {papers.map(p => {
+        const verified = p.statusCounts['verified'] ?? 0;
+        const pct = Math.round((verified / p.claimCount) * 100);
+        return (
+          <a href={`/papers/${p.slug}`} class="flex items-start gap-4 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group">
+            <!-- Status bar -->
+            <div class="flex-shrink-0 w-1.5 self-stretch rounded-full overflow-hidden flex flex-col">
+              {statusGroups.map(g => {
+                const count = p.statusCounts[g.key] ?? 0;
+                const spct = (count / p.claimCount) * 100;
+                return spct > 0 ? (
+                  <div style={{ flex: spct, background: g.color, minHeight: 2 }} />
+                ) : null;
+              })}
+            </div>
+            <div class="flex-1 min-w-0">
+              <h2 class="text-sm font-medium text-gray-900 group-hover:text-blue-700 mb-1 leading-snug">{p.title}</h2>
+              <div class="text-xs text-gray-500 mb-2">
+                {p.authors.slice(0, 3).join(', ')}{p.authors.length > 3 ? ' et al.' : ''} · {p.journal} · DOI: {p.doi}
+              </div>
+              <div class="flex gap-4 text-xs text-gray-500">
+                <span>{p.claimCount} claims</span>
+                <span style={{ color: '#22c55e' }}>{verified} verified ({pct}%)</span>
+                {(p.statusCounts['failed'] ?? 0) > 0 && (
+                  <span style={{ color: '#ef4444' }}>{p.statusCounts['failed']} failed</span>
+                )}
+              </div>
+            </div>
+          </a>
+        );
+      })}
+    </div>
+  </div>
+</Layout>
