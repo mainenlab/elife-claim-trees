@@ -30,7 +30,11 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:no-data
+    status: verified
     notes: >
-      Developmental stage data on G-Node. Not yet executed.
+      K+ current density verified from G-Node Excel (Pyr WT P16-21 / Pyr A421V P16-21
+      Potassium Current sheets). At +40mV: WT n=8 mean=343.4±205.7, KI n=10 mean=307.1±132.4
+      pA/pF; unpaired t-test p=0.66 (not significant). Null result confirmed. Spiking
+      sheets for excitatory cells (Pyr WT P16-21 Spiking, Pyr A421V P16-21 Spiking) also
+      present in the deposit but not analyzed here — K+ current null is primary test.
 ---

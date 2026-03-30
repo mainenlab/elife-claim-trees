@@ -29,7 +29,11 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:no-data
+    status: verified
     notes: >
-      Wet lab data on G-Node. Not yet executed.
+      Data from G-Node Excel (PV-IN WT P16-21 Spiking, PV-IN A421V+ P16-21 Spiking sheets).
+      Max AP counts per cell from F/I protocol (-100 to +900 pA, 20pA steps):
+      WT n=20 mean=200.8; KI n=37 mean=125.9; unpaired t-test p<0.001.
+      Direction (WT > KI) and significance both confirmed. Adult data (P32-42 sheets)
+      also present: WT n=14, KI n=17.
 ---

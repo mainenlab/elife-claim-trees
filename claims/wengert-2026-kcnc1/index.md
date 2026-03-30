@@ -20,19 +20,19 @@ This paper generates and characterizes the Kcnc1-A421V/+ heterozygous knock-in m
 | Slug | Panel | Type | Epistemic | Status |
 |:-----|:------|:-----|:----------|:-------|
 | [kcnc1-wet-lab-primary-claims](kcnc1-wet-lab-primary-claims.md) | all (assessment) | assessment | strong | verified (code inspection) |
-| [a421v-mice-die-before-122d](a421v-mice-die-before-122d.md) | fig1E | empirical | strong | unverified:no-data |
+| [a421v-mice-die-before-122d](a421v-mice-die-before-122d.md) | fig1E | empirical | strong | verified:with-nuance |
 | [a421v-weight-reduced-milestones-normal](a421v-weight-reduced-milestones-normal.md) | fig1-supp2 | empirical | strong | unverified:no-data |
 | [a421v-spatial-learning-working-memory-impaired](a421v-spatial-learning-working-memory-impaired.md) | fig2 | empirical | strong | unverified:no-data |
-| [pv-ins-reduced-k-current-density](pv-ins-reduced-k-current-density.md) | fig3B-E | empirical | strong | unverified:no-data |
+| [pv-ins-reduced-k-current-density](pv-ins-reduced-k-current-density.md) | fig3B-E | empirical | strong | verified |
 | [a421v-kv31-membrane-trafficking-impaired](a421v-kv31-membrane-trafficking-impaired.md) | fig3H-I | empirical | strong | unverified:no-data |
-| [pv-ins-impaired-maximal-firing](pv-ins-impaired-maximal-firing.md) | fig4B-D, fig4G-I | empirical | strong | unverified:no-data |
-| [pv-in-ap-waveform-altered-downstroke-apd50](pv-in-ap-waveform-altered-downstroke-apd50.md) | fig4E, fig4J, Tables 1-2 | empirical | strong | unverified:no-data |
+| [pv-ins-impaired-maximal-firing](pv-ins-impaired-maximal-firing.md) | fig4B-D, fig4G-I | empirical | strong | verified |
+| [pv-in-ap-waveform-altered-downstroke-apd50](pv-in-ap-waveform-altered-downstroke-apd50.md) | fig4E, fig4J, Tables 1-2 | empirical | strong | verified |
 | [layer-v-pv-ins-subtle-impairment](layer-v-pv-ins-subtle-impairment.md) | fig4-supp2 | empirical | strong | unverified:no-data |
 | [rtn-neurons-impaired-excitability](rtn-neurons-impaired-excitability.md) | fig4-supp3 | empirical | strong | unverified:no-data |
-| [excitatory-neurons-unaffected-juvenile](excitatory-neurons-unaffected-juvenile.md) | fig5 | empirical | moderate | unverified:no-data |
+| [excitatory-neurons-unaffected-juvenile](excitatory-neurons-unaffected-juvenile.md) | fig5 | empirical | moderate | verified |
 | [excitatory-neurons-unaffected-adult](excitatory-neurons-unaffected-adult.md) | fig5-supp1 | empirical | moderate | unverified:no-data |
-| [pv-in-inhibitory-synapse-intact-juvenile](pv-in-inhibitory-synapse-intact-juvenile.md) | fig6F-L | empirical | strong | unverified:no-data |
-| [pv-in-inhibitory-synapse-altered-adult](pv-in-inhibitory-synapse-altered-adult.md) | fig7F-I | empirical | strong | unverified:no-data |
+| [pv-in-inhibitory-synapse-intact-juvenile](pv-in-inhibitory-synapse-intact-juvenile.md) | fig6F-L | empirical | strong | verified |
+| [pv-in-inhibitory-synapse-altered-adult](pv-in-inhibitory-synapse-altered-adult.md) | fig7F-I | empirical | strong | verified:direction-and-trend |
 | [inhibitory-dysfunction-progresses-to-adulthood](inhibitory-dysfunction-progresses-to-adulthood.md) | figs 4, 6, 7 | interpretive | moderate | unverified:no-data |
 | [in-vivo-hypersynchronous-discharges-mutant-only](in-vivo-hypersynchronous-discharges-mutant-only.md) | fig8B-D | empirical | strong | unverified:no-data |
 | [in-vivo-pv-minus-transient-frequency-increased](in-vivo-pv-minus-transient-frequency-increased.md) | fig8G-J | empirical | moderate | unverified:no-data |
@@ -66,10 +66,14 @@ This paper generates and characterizes the Kcnc1-A421V/+ heterozygous knock-in m
 
 | Status | Count | Claims |
 |:-------|:------|:-------|
-| verified | 1 | kcnc1-wet-lab-primary-claims (assessment, code inspection) |
-| unverified:no-data | 16 | All result claims — G-Node data accessible but requires GIN client |
+| verified | 6 | kcnc1-wet-lab-primary-claims; pv-ins-reduced-k-current-density; pv-ins-impaired-maximal-firing; pv-in-ap-waveform-altered-downstroke-apd50; excitatory-neurons-unaffected-juvenile; pv-in-inhibitory-synapse-intact-juvenile |
+| verified:with-nuance | 1 | a421v-mice-die-before-122d (one mouse at exactly 122d) |
+| verified:direction-and-trend | 1 | pv-in-inhibitory-synapse-altered-adult (rmANOVA not reproduced; direction confirmed) |
+| unverified:no-data | 9 | a421v-weight-reduced-milestones-normal; a421v-spatial-learning-working-memory-impaired; a421v-kv31-membrane-trafficking-impaired; layer-v-pv-ins-subtle-impairment; rtn-neurons-impaired-excitability; excitatory-neurons-unaffected-adult; inhibitory-dysfunction-progresses-to-adulthood; in-vivo-hypersynchronous-discharges-mutant-only; in-vivo-pv-minus-transient-frequency-increased; spontaneous-seizures-and-sudep-kcnc1 |
 
-**Primary blocker:** All primary claims require the Kcnc1-A421V/+ knock-in mouse. G-Node deposit contains raw electrophysiology data enabling reproduction of statistical summaries from deposited traces, but the traces themselves came from this specific model. G-Node access requires GIN client.
+**Data source:** G-Node deposit `GoldbergNeuroLab/Wengert-et-al-2025-eLife` is publicly accessible without GIN client via HTTPS. The key file `Wengert et al_eLife_Electrophysiology Analysis.xlsx` (1.8 MB) contains all analyzed electrophysiology data for figs 3-7. Verified 2026-03-30 by direct download from `https://gin.g-node.org/doi/Wengert-et-al-2025-eLife/raw/master/`.
+
+**Remaining blockers:** Behavioral data (fig2), immunohistochemistry (fig3H-I), layer V/RTN supplements, in-vivo calcium imaging (fig8), and video-EEG (fig9) require the full 68 GiB ZIP or raw ABF files — not in the Excel summary. The Excel covers only whole-cell patch-clamp intrinsic excitability and synaptic physiology.
 
 ## Extraction notes
 

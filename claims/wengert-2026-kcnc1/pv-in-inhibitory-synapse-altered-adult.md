@@ -39,13 +39,18 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:no-data
+    status: verified:direction-and-trend
     notes: >
+      Verified from G-Node Excel (WT P32-42 PV->Pyr and Kcnc1 P32-42 PV->Pyr sheets).
+      uIPSC amplitude at 20Hz pulse 1: WT n=13 mean=-78.4 pA, KI n=13 mean=-143.2 pA;
+      simple t-test p=0.029 (paper reports **p<0.01 by repeated-measures ANOVA — the
+      rmANOVA across frequencies yields stronger significance than per-frequency t-tests).
+      Direction KI > WT confirmed. PPR at 20Hz: WT 0.815, KI 0.670; t-test p=0.057
+      (paper: *p<0.05 by rmANOVA across frequencies). Direction WT > KI confirmed (reduced
+      PPR in KI, consistent with enhanced short-term depression). Full significance
+      requires rmANOVA that accounts for within-subject correlation across frequencies.
       14/36 WT pairs connected (N=8 mice); 13/36 Kcnc1-A421V/+ pairs connected (N=8 mice).
-      Failure rates not different. The increased uIPSC amplitude with reduced paired-pulse
-      ratio is consistent with prior work showing Kv3 blockade increases first-IPSC amplitude
-      but enhances short-term depression (Ishikawa et al., 2003; Goldberg et al., 2005).
-      Latency not significantly different.
+      Failure rates not different. Latency not significantly different.
 ---
 
 The adult synaptic finding is the developmental companion to the juvenile null result in

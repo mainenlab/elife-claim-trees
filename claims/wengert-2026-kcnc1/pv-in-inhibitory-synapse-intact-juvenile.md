@@ -38,13 +38,14 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:no-data
+    status: verified
     notes: >
-      All comparisons by repeated-measures two-way ANOVA or unpaired t-test; none reach
-      significance. This is a genuine null result — not underpowered, as connection rates
-      and cell counts are substantial. The paper notes that inhibitory transmission will
-      be *secondarily* impaired via abnormal spike generation, even though direct synaptic
-      function per spike is preserved.
+      Verified from G-Node Excel (WT P16-21 PV->Pyr and Kcnc1 P16-21 PV->Pyr sheets).
+      uIPSC amplitude at 20Hz pulse 1: WT n=18 mean=-66.1 pA, KI n=14 mean=-99.0 pA;
+      unpaired t-test p=0.22 (not significant). PPR at 20Hz: WT 0.774, KI 0.659; p=0.24 NS.
+      PPR at 40Hz and 80Hz also NS. Null result fully confirmed. Connected pair counts
+      from uIPSC data presence: ~19 WT, ~14 KI (paper: 21 and 15 — slight undercount in
+      extraction, consistent with a few cells missing some frequency sweeps).
 ---
 
 Note: the `contradicts` relation here is intentionally nuanced — this claim both supports

@@ -29,7 +29,12 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:no-data
+    status: verified:with-nuance
     notes: >
-      Raw data on G-Node (requires GIN client). Analysis code co-deposited. Not yet executed.
+      Data extracted from Wengert et al_eLife_Electrophysiology Analysis.xlsx (G-Node,
+      Survival sheet, fig1E). n=33 KI, n=46 WT confirmed exactly. 30/33 KI mice died
+      (event=1), 3 censored. Max KI day = 122.0 — one mouse died at exactly day 122,
+      so the claim "before 122 days" is marginally imprecise; the data shows at or before
+      122 days. All WT mice censored (no deaths). Significance not recomputed (Mantel-Cox
+      requires lifelines/R); direction and n counts fully confirmed.
 ---

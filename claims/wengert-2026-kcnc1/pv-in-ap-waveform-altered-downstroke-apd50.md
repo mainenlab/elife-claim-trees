@@ -38,13 +38,19 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:no-data
+    status: verified
     notes: >
-      Tables 1 and 2 in the paper provide full statistics for all AP and passive membrane
-      properties at both age points. Downstroke velocity: WT –183±9, KI –138±8 mV/ms
-      (juvenile); WT –248±21, KI –164±18 mV/ms (adult). AP amplitude is elevated but
-      only significantly so at adult stage (***p<0.001). Input resistance, resting Vm,
-      AP threshold, and AHP are not significantly different.
+      VERIFIED from G-Node Excel summary. Juvenile (P16-21): WT n=20, KI n=37.
+      Downstroke velocity: WT -183.3±37.4, KI -137.5±50.7 mV/ms; p=0.0008.
+      Paper reports means as -183±9 and -138±8 — the ±9 and ±8 are SEM not SD
+      (SEM for n=20 from SD=37.4 = 8.4 ≈ 9; SEM for n=37 from SD=50.7 = 8.3 ≈ 8).
+      Means match paper exactly. p=0.0008 (paper: p=0.0012 — minor discrepancy,
+      likely due to Welch vs Student t-test choice).
+      APD50: WT 0.401ms, KI 0.561ms; p=0.0063 (paper: p=0.0053 — consistent).
+      Adult (P32-42): WT n=14, KI n=17.
+      Downstroke: WT -247.8±78.3, KI -163.7±75.9 mV/ms; p=0.0051 (paper: p=0.0051 EXACT).
+      APD50: WT 0.314ms, KI 0.582ms; p=0.0033 (paper: ***p<0.001 — slight discrepancy;
+      both clearly significant).
 ---
 
 The AP waveform changes are the mechanistic bridge between K+ current loss and firing

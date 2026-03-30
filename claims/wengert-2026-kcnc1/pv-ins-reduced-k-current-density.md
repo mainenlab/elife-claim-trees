@@ -29,7 +29,12 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:no-data
+    status: verified
     notes: >
-      Raw electrophysiology traces on G-Node. Analysis requires GIN client and MATLAB/Python. Not yet executed.
+      Data extracted from G-Node Excel summary (PV-IN K+ currents sheet). n=13 WT,
+      n=17 KI confirmed exactly (matches paper). Peak current density at +40mV:
+      WT 1883±720 pA/pF vs KI 757±533 pA/pF; unpaired t-test p=0.000033 (highly
+      significant). 60% reduction in KI. Note: paper reports ±SD not ±SEM in tables.
+      Excitatory neuron control: WT 343 vs KI 307 pA/pF, p=0.66 (not significant,
+      consistent with cell-type specificity).
 ---
