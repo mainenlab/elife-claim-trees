@@ -3,6 +3,8 @@ import Layout from '../../layouts/Layout.astro';
 import corpus from '../../data/claims.json';
 
 const { papers } = corpus;
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const url = (path: string) => `${base}${path}/`;
 
 const statusGroups = [
   { key: 'verified', color: '#22c55e' },
@@ -34,7 +36,7 @@ const badgeConfig: Record<string, BadgeInfo> = {
         const pct = Math.round((verified / p.claimCount) * 100);
         const badge = badgeConfig[(p as any).badge ?? 'pending'] ?? badgeConfig.pending;
         return (
-          <a href={`/papers/${p.slug}`} class="flex items-start gap-4 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group">
+          <a href={url(`/papers/${p.slug}`)} class="flex items-start gap-4 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group">
             <!-- Status bar -->
             <div class="flex-shrink-0 w-1.5 self-stretch rounded-full overflow-hidden flex flex-col">
               {statusGroups.map(g => {

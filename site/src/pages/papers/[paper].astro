@@ -23,6 +23,7 @@ const badgeConfig: Record<string, BadgeInfo> = {
 
 const badge = badgeConfig[(paperData as any).badge ?? 'pending'] ?? badgeConfig.pending;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const url = (path: string) => `${base}${path}/`;
 
 const statusOrder = ['verified', 'unverified:code-error', 'unverified:compute-infeasible', 'unverified', 'unverified:no-data', 'unverified:no-code', 'failed', 'unknown'];
 
@@ -42,7 +43,7 @@ const statusGroups = [
     <!-- Header -->
     <div class="mb-8">
       <div class="text-xs text-gray-500 mb-2">
-        <a href={`${base}/papers`} class="hover:underline">Papers</a> /
+        <a href={url('/papers')} class="hover:underline">Papers</a> /
       </div>
       <div class="flex items-start gap-4 mb-3">
         <h1 class="text-xl font-semibold text-gray-900 leading-snug flex-1">{paperData.title}</h1>
@@ -95,7 +96,7 @@ const statusGroups = [
       <div class="space-y-2">
         {paperData.claims.map(c => (
           <a
-            href={`${base}/papers/${paperSlug}/${c.slug}`}
+            href={url(`/papers/${paperSlug}/${c.slug}`)}
             class="flex items-start gap-3 p-3 border border-gray-100 rounded-lg hover:border-gray-300 hover:bg-gray-50 no-underline transition-colors group"
           >
             <span

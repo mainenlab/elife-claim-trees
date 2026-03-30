@@ -7,6 +7,7 @@ interface Props {
 }
 const { title, description = 'Panel-level claim graphs for reproducibility — eLife Claim Trees' } = Astro.props;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const url = (path: string) => `${base}${path}/`;
 ---
 <!doctype html>
 <html lang="en">
@@ -43,10 +44,10 @@ const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 <body class="min-h-screen bg-white">
   <nav class="border-b border-gray-100 bg-white sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-12 flex items-center gap-6">
-      <a href={`${base}/`} class="font-semibold text-gray-900 no-underline hover:text-gray-700 text-sm">eLife Claim Trees</a>
-      <a href={`${base}/papers`} class="text-sm text-gray-500 no-underline hover:text-gray-700">Papers</a>
-      <a href={`${base}/method`} class="text-sm text-gray-500 no-underline hover:text-gray-700">Method</a>
-      <a href={`${base}/findings`} class="text-sm text-gray-500 no-underline hover:text-gray-700">Findings</a>
+      <a href={url('')} class="font-semibold text-gray-900 no-underline hover:text-gray-700 text-sm">eLife Claim Trees</a>
+      <a href={url('/papers')} class="text-sm text-gray-500 no-underline hover:text-gray-700">Papers</a>
+      <a href={url('/method')} class="text-sm text-gray-500 no-underline hover:text-gray-700">Method</a>
+      <a href={url('/findings')} class="text-sm text-gray-500 no-underline hover:text-gray-700">Findings</a>
     </div>
   </nav>
   <main>
