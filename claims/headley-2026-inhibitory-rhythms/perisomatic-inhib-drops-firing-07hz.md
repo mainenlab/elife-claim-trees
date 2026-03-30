@@ -41,7 +41,7 @@ reproductions:
     status: verified
     script: verification/headley-2026-inhibitory-rhythms/verify.py
     original_figure: verification/originals/headley-2026-inhibitory-rhythms/fig4.jpg
-    figure: verification/headley-2026-inhibitory-rhythms/figures/fig4a-firing-rates.png
+    figure: verification/headley-2026-inhibitory-rhythms/fig4a-firing-rates.png
     notes: >
       Verified directly from Figure4a.csv in repo data/ (30 trials/condition). Somatic
       (perisomatic ×2) firing rate: 0.7±0.31 Hz vs control 5.5±0.86 Hz. Exact match to

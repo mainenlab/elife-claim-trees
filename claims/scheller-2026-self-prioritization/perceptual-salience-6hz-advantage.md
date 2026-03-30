@@ -39,7 +39,7 @@ reproductions:
     status: verified
     script: verification/scheller-2026-self-prioritization/verify.py
     original_figure: verification/originals/scheller-2026-self-prioritization/fig6.jpg
-    figure: verification/scheller-2026-self-prioritization/figures/fig-tva-rates-exp1.png
+    figure: verification/scheller-2026-self-prioritization/fig-tva-rates-exp1.png
     notes: >
       Verified from pre-computed model estimates (estimates_indiv_C.csv, Exp2 folder,
       OSF https://osf.io/a62df). Exp2 condition 2 (perceptual salience, no social association):

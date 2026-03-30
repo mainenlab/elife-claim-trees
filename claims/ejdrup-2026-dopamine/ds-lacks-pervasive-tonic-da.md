@@ -46,7 +46,7 @@ reproductions:
     status: verified
     script: verification/ejdrup-2026-dopamine/verify.py
     original_figure: verification/originals/ejdrup-2026-dopamine/fig1.jpg
-    figure: verification/ejdrup-2026-dopamine/figures/fig1-ds-spatial.png
+    figure: verification/ejdrup-2026-dopamine/fig1-ds-spatial.png
     notes: >
       Matplotlib fix applied (w_xaxis → xaxis, w_yaxis → yaxis, w_zaxis → zaxis in
       Figure 1-Fig 1a, d, e, f-Source code.py). Script ran to completion (6103 steps,

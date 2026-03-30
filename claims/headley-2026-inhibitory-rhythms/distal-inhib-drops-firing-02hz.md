@@ -42,7 +42,7 @@ reproductions:
     status: verified
     script: verification/headley-2026-inhibitory-rhythms/verify.py
     original_figure: verification/originals/headley-2026-inhibitory-rhythms/fig4.jpg
-    figure: verification/headley-2026-inhibitory-rhythms/figures/fig4a-firing-rates.png
+    figure: verification/headley-2026-inhibitory-rhythms/fig4a-firing-rates.png
     notes: >
       Verified directly from Figure4a.csv in repo data/. Pre-computed firing rates (30
       trials each condition): control=5.5±0.86 Hz, dendritic (2×distal inhib)=0.2±0.15 Hz,

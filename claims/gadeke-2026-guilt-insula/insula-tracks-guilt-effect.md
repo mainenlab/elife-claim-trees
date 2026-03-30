@@ -33,7 +33,7 @@ reproductions:
     status: verified
     script: verification/gadeke-2026-guilt-insula/verify.py
     original_figure: verification/originals/gadeke-2026-guilt-insula/fig4.jpg
-    figure: verification/gadeke-2026-guilt-insula/figures/fig-insula-peak.png
+    figure: verification/gadeke-2026-guilt-insula/fig-insula-peak.png
     notes: >
       NIfTI peak extraction from deposited fMRIresults/outcome/guiltEffect_0p05FWE_SVC_aIns.nii
       (FWE-corrected SVC result, 2mm isotropic). After NaN-masking (592873 NaN voxels, 22

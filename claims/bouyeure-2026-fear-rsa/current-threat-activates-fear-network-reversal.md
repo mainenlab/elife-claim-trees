@@ -38,7 +38,7 @@ reproductions:
     status: verified
     script: verification/bouyeure-2026-fear-rsa/verify.py
     original_figure: verification/originals/bouyeure-2026-fear-rsa/fig2.jpg
-    figure: verification/bouyeure-2026-fear-rsa/figures/fig-current-threat-verified.png
+    figure: verification/bouyeure-2026-fear-rsa/fig-current-threat-verified.png
     notes: >
       NeuroVault map downloaded (run2_currentvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032).
       7473 significant voxels (threshold -log10(p)>1.301, p<0.05 FWE). Peak at MNI (-9,10,42),

@@ -50,7 +50,7 @@ reproductions:
     status: verified
     script: verification/ejdrup-2026-dopamine/verify.py
     original_figure: verification/originals/ejdrup-2026-dopamine/fig2.jpg
-    figure: verification/ejdrup-2026-dopamine/figures/fig2-ds-vs-spatial.png
+    figure: verification/ejdrup-2026-dopamine/fig2-ds-vs-spatial.png
     notes: >
       Matplotlib fix applied (w_xaxis → xaxis etc. in Figure 2-Fig 2a-f-Source code.py).
       Script ran to completion (61039 steps total across 3 conditions, ~8 min). VS

@@ -421,7 +421,7 @@
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "master_stats.R",
           "method": "linear mixed effects model (lme4/lmerTest, Satterthwaite df, Bonferroni-corrected post-hoc Wilcoxon)",
-          "script": null
+          "script": "verification/bouyeure-2026-fear-rsa/verify.py"
         },
         {
           "uuid": "4dbc065d-daa5-45e9-96d6-9012b33cb24c",
@@ -535,7 +535,7 @@
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
           "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)",
-          "script": null
+          "script": "verification/bouyeure-2026-fear-rsa/verify.py"
         },
         {
           "uuid": "e645b7b4-05c4-4b37-b75f-3e47c0d585b2",
@@ -596,12 +596,12 @@
             "generalized-pattern-cs-minus-plus-reversal"
           ],
           "notes": "NeuroVault map downloaded (run2_currentvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032). 7473 significant voxels (threshold -log10(p)>1.301, p<0.05 FWE). Peak at MNI (-9,10,42), -log10(p)=4.0. dACC/SFG: 1023 sig voxels, max -log10(p)=4.0 — CONFIRMED. Striatum/Caudate: 152 sig voxels, max -log10(p)=3.155 — CONFIRMED. Multiple fear-network peaks confirmed: (-9,10,42) dACC, (6,-28,-11) possible brainstem/STN, (6,10,49) SFG, (11,35,32) dMPFC. This is the largest activated map (7473 voxels vs 5544 in acquisition), consistent with the paper's claim that reversal produces robust fear-network activation for currently-threatening cues.",
-          "figure": "verification/bouyeure-2026-fear-rsa/figures/fig-current-threat-verified.png",
+          "figure": "verification/bouyeure-2026-fear-rsa/fig-current-threat-verified.png",
           "original_figure": "verification/originals/bouyeure-2026-fear-rsa/fig2.jpg",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
           "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)",
-          "script": null
+          "script": "verification/bouyeure-2026-fear-rsa/verify.py"
         },
         {
           "uuid": "ebc27c8f-666b-474f-8980-f41e0d25843c",
@@ -836,12 +836,12 @@
             "dual-strategy-reversal-generalize-plus-specify"
           ],
           "notes": "NeuroVault map downloaded (run2_previousvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032). Only 36 significant voxels survive FWE correction (threshold -log10(p)>1.301). Max -log10(p)=1.670 (p≈0.021, barely significant). Single cluster peak at MNI (-14, -90, -11) — this is posterior cortex / occipital region, NOT a canonical fear network region (dACC, amygdala, insula). The paper's claim of \"fear network activation\" for prior-threat cues is NOT confirmed by the deposited map: the only surviving cluster is in occipital/posterior cortex, not in any region named as a fear-network constituent. The claim was already rated epistemic:weak. This further weakens it — the deposited map shows the activation is (a) barely surviving correction at all, and (b) not in the claimed anatomical territory. Status: verified:partial — the existence of SOME activation is confirmed, but the fear-network location claim is not.",
-          "figure": "verification/bouyeure-2026-fear-rsa/figures/fig-prior-threat-mismatch.png",
+          "figure": "verification/bouyeure-2026-fear-rsa/fig-prior-threat-mismatch.png",
           "original_figure": "verification/originals/bouyeure-2026-fear-rsa/fig2.jpg",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
           "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)",
-          "script": null
+          "script": "verification/bouyeure-2026-fear-rsa/verify.py"
         },
         {
           "uuid": "7d932232-9c15-45f3-8296-958d3fe84d2a",
@@ -1116,7 +1116,7 @@
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 1-Fig 1a, d, e, f-Source code.py",
           "method": "mathematical modelling",
-          "script": null
+          "script": "verification/ejdrup-2026-dopamine/verify.py"
         },
         {
           "uuid": "c3130ba5-465d-4f1a-a851-6796e72a1d72",
@@ -1286,7 +1286,7 @@
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 3-Fig 3b, c, e-g-Source code.py, Figure 3-Fig 3i-Source code.py, Figure 3-Fig 3k, l-Source code.py",
           "method": "mathematical modelling",
-          "script": null
+          "script": "verification/ejdrup-2026-dopamine/verify.py"
         },
         {
           "uuid": "e3b92961-38ad-41b2-a66f-65e328d33a2e",
@@ -1353,7 +1353,7 @@
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 2-Fig 2a-f-Source code.py",
           "method": "mathematical modelling",
-          "script": null
+          "script": "verification/ejdrup-2026-dopamine/verify.py"
         }
       ]
     },
@@ -1442,7 +1442,7 @@
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
           "method": "mixed-effects regression (Experiment 1 and 2)",
-          "script": null
+          "script": "verification/gadeke-2026-guilt-insula/verify.py"
         },
         {
           "uuid": "a26a42bf-23a3-4c8c-a8da-981b1b317381",
@@ -1479,12 +1479,12 @@
             "guilt-reduces-happiness-after-partner-loss"
           ],
           "notes": "Pre-computed LMM tables in Code/csv/ confirm all values directly. Partner reward (rewardPart) is a significant positive predictor of happiness in both studies:\n  fMRI Study: β=0.16* (SE=0.07), Model R²=0.185, N=1895 (matches paper R²=0.185)\n  Behav Study: β=0.21*** (SE=0.06), Model R²=0.147, N=2428 (matches paper)\nThe paper reports partner reward F-statistics from a different model decomposition; our confirmatory statsmodels LMM on trial-level data gives:\n  fMRI: β=0.631, p=1.05e-14; Behav: β=0.575, p=1.88e-16\nPearson r (pooled, no random effects): fMRI r=0.243, Behav r=0.230, both p<1e-13. Direction, significance, and approximate R² all match. Claim verified.",
-          "figure": "verification/gadeke-2026-guilt-insula/figures/fig-happiness-partner-reward.png",
+          "figure": "verification/gadeke-2026-guilt-insula/fig-happiness-partner-reward.png",
           "original_figure": "verification/originals/gadeke-2026-guilt-insula/fig3.jpg",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
           "method": "mixed-effects linear regression (pooled across participants)",
-          "script": null
+          "script": "verification/gadeke-2026-guilt-insula/verify.py"
         },
         {
           "uuid": "7808e12b-12e9-4340-997a-f4eeb2da40d7",
@@ -1504,7 +1504,7 @@
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "f_apply_YuKoban_guilt_signature_map.m",
           "method": "spatial correlation with published neural mask",
-          "script": null
+          "script": "verification/gadeke-2026-guilt-insula/verify.py"
         },
         {
           "uuid": "8f7f9f33-a142-4962-b4cd-f161de239f2e",
@@ -1541,12 +1541,12 @@
           "requires": [],
           "supports": [],
           "notes": "NIfTI peak extraction from deposited fMRIresults/outcome/guiltEffect_0p05FWE_SVC_aIns.nii (FWE-corrected SVC result, 2mm isotropic). After NaN-masking (592873 NaN voxels, 22 surviving FWE voxels), the peak absolute value is 3.955 at voxel index (53, 68, 33). Applying the affine ([-2,0,0,78],[0,2,0,-112],[0,0,2,-70]) gives:\n  Peak MNI = [-28, 24, -4]\nThe deposited .mat file is named \"Group response at -28 24 -4 LeftInsulaGuiltEffect.mat\", confirming perfect match. The paper reports anterior insula peak coordinates at [-28 24 -4] (left hemisphere). Claim verified: peak coordinates match and cluster is restricted to anterior insula as described.",
-          "figure": "verification/gadeke-2026-guilt-insula/figures/fig-insula-peak.png",
+          "figure": "verification/gadeke-2026-guilt-insula/fig-insula-peak.png",
           "original_figure": "verification/originals/gadeke-2026-guilt-insula/fig4.jpg",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_fMRI_showResults.m, fMRIresults/*.nii",
           "method": "fMRI mass-univariate GLM (SPM12), ROI analysis",
-          "script": null
+          "script": "verification/gadeke-2026-guilt-insula/verify.py"
         },
         {
           "uuid": "49d08c4f-7b31-4967-9ab7-06aa50a006b4",
@@ -1561,12 +1561,12 @@
           "requires": [],
           "supports": [],
           "notes": "Logistic regression (statsmodels) run on deposited CSV data (not per-subject MATLAB files). Paper uses mixed-effects logistic with subject random effects and reports t-statistics. Our pooled logistic regression:\n  fMRI Study (N=3833 trials): β=0.116, t=24.96, p=1.87e-137, 95%CI=[0.106, 0.125]\n  Behav Study (N=4800 trials): β=0.088, t=25.53, p=9.15e-144, 95%CI=[0.081, 0.094]\nPaper reports fMRI β=0.093 (CI [0.075–0.110]), Behav β=0.074 (CI [0.059–0.090]). Our pooled regression inflates the t-statistic by ignoring subject clustering, and the EV predictor column (EVdiffMC) is mean-centered differently. Direction and significance match perfectly. Coefficient magnitude differs because the paper uses SVdiff (utility- weighted), not raw EV. The core claim — positive and highly significant EV effect — is confirmed. Status: verified for direction and significance; coefficient scale differs due to predictor definition, not error.",
-          "figure": "verification/gadeke-2026-guilt-insula/figures/fig-lottery-choice-ev.png",
+          "figure": "verification/gadeke-2026-guilt-insula/fig-lottery-choice-ev.png",
           "original_figure": "verification/originals/gadeke-2026-guilt-insula/fig2.jpg",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
           "method": "mixed-effects regression",
-          "script": null
+          "script": "verification/gadeke-2026-guilt-insula/verify.py"
         },
         {
           "uuid": "cb673152-8776-46c8-8f13-c95262c2138b",
@@ -1927,12 +1927,12 @@
             "beta-gates-distal-apical-inputs"
           ],
           "notes": "Verified directly from Figure4a.csv in repo data/. Pre-computed firing rates (30 trials each condition): control=5.5±0.86 Hz, dendritic (2×distal inhib)=0.2±0.15 Hz, somatic (2×perisomatic)=0.7±0.31 Hz. These are exact matches for the claimed values. Figure4d.csv shows Ca spike rates: control=4.86 Hz, dendritic=3.10 Hz (reduced), somatic=4.84 Hz (preserved) — confirming that distal inhib suppresses dendritic Ca spikes while perisomatic inhib does not. Figure4e.csv (NMDA): control=4.28 Hz, dendritic=3.07 Hz (reduced), somatic=4.19 Hz (preserved). The dendritic spike suppression mechanism is confirmed. Full notebooks (Fig4.ipynb, Fig5.ipynb) require Dryad data for detailed panel reproduction, but the key quantitative claim is completely verified from pre-computed summary data.",
-          "figure": "verification/headley-2026-inhibitory-rhythms/figures/fig4a-firing-rates.png",
+          "figure": "verification/headley-2026-inhibitory-rhythms/fig4a-firing-rates.png",
           "original_figure": "verification/originals/headley-2026-inhibitory-rhythms/fig4.jpg",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig4.ipynb, scripts/Fig5.ipynb",
           "method": "compartmental modelling — inhibition magnitude sweep",
-          "script": null
+          "script": "verification/headley-2026-inhibitory-rhythms/verify.py"
         },
         {
           "uuid": "b88c89df-7f9c-4d11-9dc4-1ec829d6b413",
@@ -2077,7 +2077,7 @@
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig2_3.ipynb",
           "method": "spike-triggered average analysis",
-          "script": null
+          "script": "verification/headley-2026-inhibitory-rhythms/verify.py"
         },
         {
           "uuid": "d0caf4f6-21bb-4fae-985d-5c9ebab6504c",
@@ -2116,12 +2116,12 @@
             "beta-optimal-distal-dendritic-entrainment"
           ],
           "notes": "Verified from pre-computed Figure3a.csv in repo data/. NMDA STA peak times by apical compartment distance: dist=1→0 ms, dist=2→0 ms, dist=3→0 ms, dist=4→-5 ms, dist=5→-10 ms, dist=6→-15 ms, dist=7→-20 ms. Peak timing is distance-dependent: proximal NMDA spikes peak at 0 ms (coincident), mid-apical at -10 to -15 ms, and distal (dist=7) at -20 ms before the AP. The claim of \"~25 ms\" matches the distal NMDA peak range. The apical_nmda.npy array (4×10×27) with window -25 to +1 ms shows peaks at -6 to -10 ms across distances. Overall: NMDA spikes couple 15-25 ms before AP in mid-to-distal apical compartments, consistent with the claim. Verified.",
-          "figure": "verification/headley-2026-inhibitory-rhythms/figures/fig3a-nmda-coupling.png",
+          "figure": "verification/headley-2026-inhibitory-rhythms/fig3a-nmda-coupling.png",
           "original_figure": "verification/originals/headley-2026-inhibitory-rhythms/fig3.jpg",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig2_3.ipynb",
           "method": "spike-triggered average analysis",
-          "script": null
+          "script": "verification/headley-2026-inhibitory-rhythms/verify.py"
         },
         {
           "uuid": "27009c70-e2bf-49c1-81c5-2663096ca45b",
@@ -2142,12 +2142,12 @@
             "gamma-perisomatic-no-dendritic-spike-change"
           ],
           "notes": "Verified directly from Figure4a.csv in repo data/ (30 trials/condition). Somatic (perisomatic ×2) firing rate: 0.7±0.31 Hz vs control 5.5±0.86 Hz. Exact match to claim. Figure4d.csv (Na spike freq): somatic=2.27 vs control=2.12 (essentially unchanged). Figure4e.csv (NMDA freq): somatic=4.19 vs control=4.28 (unchanged). Figure4f.csv (Ca freq): somatic=4.84 vs control=4.86 (unchanged). AP threshold (Figure4c.csv): control=120.6, somatic=392.0, dendritic=270.8 mV·µm. The near-tripling of the threshold cost under perisomatic condition confirms the threshold- elevation mechanism while dendritic spike rates are preserved. Claim fully verified: perisomatic doubling → 0.7 Hz via threshold elevation, not dendritic spike suppression.",
-          "figure": "verification/headley-2026-inhibitory-rhythms/figures/fig4a-firing-rates.png",
+          "figure": "verification/headley-2026-inhibitory-rhythms/fig4a-firing-rates.png",
           "original_figure": "verification/originals/headley-2026-inhibitory-rhythms/fig4.jpg",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig4.ipynb, scripts/Fig5.ipynb",
           "method": "compartmental modelling — inhibition magnitude sweep",
-          "script": null
+          "script": "verification/headley-2026-inhibitory-rhythms/verify.py"
         },
         {
           "uuid": "702332b6-1ba1-40b9-9319-f9f3053d59dd",
@@ -2578,7 +2578,7 @@
           "dataset": "https://doi.org/10.2210/pdb9D57/pdb",
           "analysis": "PDB accession 9D57",
           "method": "X-ray crystallography",
-          "script": null
+          "script": "verification/kolb-2026-igabasnfr2/verify.py"
         },
         {
           "uuid": "a8787aa1-9028-4ed0-827a-cdb38e9f59cb",
@@ -3349,7 +3349,7 @@
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian TVA estimation, Experiment 2 (N=71)",
-          "script": null
+          "script": "verification/scheller-2026-self-prioritization/verify.py"
         },
         {
           "uuid": "daed2cbb-ce65-4207-9a91-b0160ebf8afa",
@@ -3367,12 +3367,12 @@
             "social-perceptual-salience-independent-streams"
           ],
           "notes": "Verified from pre-computed model estimates (estimates_indiv_C.csv, Exp2 folder, OSF https://osf.io/a62df). Exp2 condition 2 (perceptual salience, no social association): v_p = 27.24 Hz, v_r = 21.20 Hz, diff = 6.05 Hz (claim: 6 Hz). Condition assignment confirmed by checking capacity and weight change structure. Self-salient condition (cond 4) diff = 2.58 Hz (claim: 2.5 Hz); other-salient (cond 5) diff = 5.32 Hz (claim: 5.2 Hz). HDI bounds not directly checkable from summary CSV (require posterior samples from .nc trace) but point estimates match within rounding throughout.",
-          "figure": "verification/scheller-2026-self-prioritization/figures/fig-tva-rates-exp1.png",
+          "figure": "verification/scheller-2026-self-prioritization/fig-tva-rates-exp1.png",
           "original_figure": "verification/originals/scheller-2026-self-prioritization/fig6.jpg",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian TVA estimation, Experiment 2 (N=71)",
-          "script": null
+          "script": "verification/scheller-2026-self-prioritization/verify.py"
         },
         {
           "uuid": "e74f5a44-4883-4e68-a9b5-147e0273b2fb",
@@ -3396,7 +3396,7 @@
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian TVA estimation, Experiment 1 (N=69)",
-          "script": null
+          "script": "verification/scheller-2026-self-prioritization/verify.py"
         },
         {
           "uuid": "2189823e-209f-479b-a068-032f5fba3818",
@@ -3416,12 +3416,12 @@
             "decisional-dimension-tradeoff"
           ],
           "notes": "Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Social condition (cond 2): v_p(self) = 30.07 Hz, v_r(other) = 31.27 Hz, diff = -1.20 Hz (claim: other advantage 1.2 Hz, exact match). Replication in Exp2 cond 3: diff = -1.36 Hz (claim: -1.6 Hz). The absence or reversal of self-advantage in social decision condition is robustly confirmed across both experiments.",
-          "figure": "verification/scheller-2026-self-prioritization/figures/fig-social-decision-inversion.png",
+          "figure": "verification/scheller-2026-self-prioritization/fig-social-decision-inversion.png",
           "original_figure": "verification/originals/scheller-2026-self-prioritization/fig5.jpg",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian TVA estimation, Experiment 1 (N=69)",
-          "script": null
+          "script": "verification/scheller-2026-self-prioritization/verify.py"
         },
         {
           "uuid": "74cdf20e-9cfb-42ae-88cc-956527bc4af7",
@@ -3578,12 +3578,12 @@
           ],
           "supports": [],
           "notes": "Verified from Correlation_Results.xlsx (OSF cross-exp folder). Pearson r computed directly from SPE and ΔΔv_Soc/ΔΔv_Per columns for Exp1 (N=63): SPE vs ΔΔv_Soc: r = 0.354, p = 0.0044 (claim: r=0.354, exact match). SPE vs ΔΔv_Per: r = 0.069, p = 0.590 (claim: r=0.069, exact match). BF10 values (8.23 and 0.181) not computed (require BayesFactor package) but direction and magnitude fully confirmed.",
-          "figure": "verification/scheller-2026-self-prioritization/figures/fig-spe-social-correlation.png",
+          "figure": "verification/scheller-2026-self-prioritization/fig-spe-social-correlation.png",
           "original_figure": "verification/originals/scheller-2026-self-prioritization/fig9.jpg",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "Bayesian correlation, Experiment 1 (N=69)",
-          "script": null
+          "script": "verification/scheller-2026-self-prioritization/verify.py"
         },
         {
           "uuid": "0eef258f-1e89-4298-a762-c0c4a877ab9a",
@@ -3605,7 +3605,7 @@
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "matching accuracy comparison (Cohen's d, BF10), both experiments",
-          "script": null
+          "script": "verification/scheller-2026-self-prioritization/verify.py"
         },
         {
           "uuid": "24c24fef-2404-41a6-a0ea-edfe81cd3707",
@@ -3684,12 +3684,12 @@
           "requires": [],
           "supports": [],
           "notes": "Data extracted from Wengert et al_eLife_Electrophysiology Analysis.xlsx (G-Node, Survival sheet, fig1E). n=33 KI, n=46 WT confirmed exactly. 30/33 KI mice died (event=1), 3 censored. Max KI day = 122.0 — one mouse died at exactly day 122, so the claim \"before 122 days\" is marginally imprecise; the data shows at or before 122 days. All WT mice censored (no deaths). Significance not recomputed (Mantel-Cox requires lifelines/R); direction and n counts fully confirmed.",
-          "figure": "verification/wengert-2026-kcnc1/figures/fig-survival.png",
+          "figure": "verification/wengert-2026-kcnc1/fig-survival.png",
           "original_figure": "verification/originals/wengert-2026-kcnc1/fig1.jpg",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "survival analysis (Kaplan-Meier, Mantel-Cox)",
-          "script": null
+          "script": "verification/wengert-2026-kcnc1/verify.py"
         },
         {
           "uuid": "ae5f131c-edc3-4345-96c1-2f43609dbb3e",
@@ -3773,7 +3773,7 @@
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "nucleated macropatch (voltage-gated K+ currents), whole-cell current-clamp",
-          "script": null
+          "script": "verification/wengert-2026-kcnc1/verify.py"
         },
         {
           "uuid": "2d6bb516-6c05-4a2f-bb64-9e9142bbf326",
@@ -3967,7 +3967,7 @@
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "patch-clamp, current-clamp recordings",
-          "script": null
+          "script": "verification/wengert-2026-kcnc1/verify.py"
         },
         {
           "uuid": "b29d38ec-0fb8-4a7b-863e-470dd3eb378b",
@@ -3982,12 +3982,12 @@
           "requires": [],
           "supports": [],
           "notes": "Data extracted from G-Node Excel summary (PV-IN K+ currents sheet). n=13 WT, n=17 KI confirmed exactly (matches paper). Peak current density at +40mV: WT 1883±720 pA/pF vs KI 757±533 pA/pF; unpaired t-test p=0.000033 (highly significant). 60% reduction in KI. Note: paper reports ±SD not ±SEM in tables. Excitatory neuron control: WT 343 vs KI 307 pA/pF, p=0.66 (not significant, consistent with cell-type specificity).",
-          "figure": "verification/wengert-2026-kcnc1/figures/fig-k-current-density.png",
+          "figure": "verification/wengert-2026-kcnc1/fig-k-current-density.png",
           "original_figure": "verification/originals/wengert-2026-kcnc1/fig2.jpg",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "patch-clamp electrophysiology",
-          "script": null
+          "script": "verification/wengert-2026-kcnc1/verify.py"
         },
         {
           "uuid": "37d23efe-7e34-48aa-82ff-b7f3ef45751c",
