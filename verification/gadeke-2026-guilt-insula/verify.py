@@ -391,6 +391,26 @@ def verify_yu_koban():
             f"ERROR: {e}", "FAIL")
         return 0
 
+# ── Figure generation ──────────────────────────────────────────────────────────
+
+def generate_figures():
+    """Produce reproduced figure panels as PNG images."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    fig_script = os.path.join(here, "figures", "generate_figures.py")
+    if not os.path.exists(fig_script):
+        print("[figures] generate_figures.py not found — skipping figure generation.")
+        return
+    print(f"\n[figures] Running {fig_script} ...")
+    result = subprocess.run([sys.executable, fig_script], capture_output=True, text=True)
+    if result.stdout:
+        print(result.stdout.rstrip())
+    if result.returncode != 0:
+        print(f"[figures] WARNING: figure generation exited with code {result.returncode}")
+        if result.stderr:
+            print(result.stderr[:500])
+    else:
+        print("[figures] Figure generation complete.")
+
 # ── Main ───────────────────────────────────────────────────────────────────────
 
 def main():
@@ -408,6 +428,8 @@ def main():
     passes += verify_guilt_happiness()
     passes += verify_insula_peak()
     passes += verify_yu_koban()
+
+    generate_figures()
 
     print_table()
 

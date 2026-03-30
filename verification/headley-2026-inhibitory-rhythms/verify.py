@@ -240,6 +240,26 @@ def verify_nmda_spikes():
         "PASS" if in_range else "FAIL")
     return 1 if in_range else 0
 
+# ── Figure generation ──────────────────────────────────────────────────────────
+
+def generate_figures():
+    """Produce reproduced figure panels as PNG images."""
+    here = os.path.dirname(os.path.abspath(__file__))
+    fig_script = os.path.join(here, "figures", "generate_figures.py")
+    if not os.path.exists(fig_script):
+        print("[figures] generate_figures.py not found — skipping figure generation.")
+        return
+    print(f"\n[figures] Running {fig_script} ...")
+    result = subprocess.run([sys.executable, fig_script], capture_output=True, text=True)
+    if result.stdout:
+        print(result.stdout.rstrip())
+    if result.returncode != 0:
+        print(f"[figures] WARNING: figure generation exited with code {result.returncode}")
+        if result.stderr:
+            print(result.stderr[:500])
+    else:
+        print("[figures] Figure generation complete.")
+
 # ── Main ───────────────────────────────────────────────────────────────────────
 
 def main():
@@ -279,6 +299,8 @@ def main():
     passes += verify_figure4a()
     passes += verify_na_spikes()
     passes += verify_nmda_spikes()
+
+    generate_figures()
 
     print_table()
 

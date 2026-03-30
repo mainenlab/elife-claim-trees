@@ -35,6 +35,7 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/gadeke-2026-guilt-insula/verify.py
+    figure: verification/gadeke-2026-guilt-insula/figures/fig-happiness-partner-reward.png
     notes: >
       Pre-computed LMM tables in Code/csv/ confirm all values directly. Partner reward (rewardPart)
       is a significant positive predictor of happiness in both studies:
