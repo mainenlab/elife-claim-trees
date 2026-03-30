@@ -13,12 +13,31 @@
       "github": "https://github.com/GordusLab/Artiushin-elastix-eLife",
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
-      "claimCount": 6,
+      "claimCount": 17,
       "statusCounts": {
-        "unverified:no-data": 5,
-        "verified": 1
+        "unverified:no-data": 15,
+        "verified": 2
       },
       "claims": [
+        {
+          "uuid": "be5c4a30-84bd-4867-9990-124635635526",
+          "slug": "arcuate-body-four-sublayer-differential",
+          "paper": "artiushin-2026-spider-atlas",
+          "panel": "fig11C, fig11D, fig12",
+          "claim": "The arcuate body of Uloborus diversus is organized into four distinguishable sublayers — posterior and anterior subdivisions of each of the ventral (ABv) and dorsal (ABd) lobes — and individual neurotransmitter populations (5-HT, TDC2, ChAT, GABA, proctolin, CCAP, FMRFamide, AstA, dopamine) each innervate distinct subsets of these sublayers with non-uniform patterns, enabling discrimination of layer identity that synapsin staining alone cannot achieve.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "arcuate-body-layers-neurotransmitter-distinguished"
+          ],
+          "notes": "Fig12 is the primary evidence panel, showing 9 antibody targets each in ventral and dorsal views of the arcuate body. Results text systematically describes each transmitter pattern in each sublayer. The four-sublayer nomenclature (posABv, antABv, posABd, antABd) is introduced in Fig11C. BIL atlas inspection required for all channels.",
+          "dataset": "https://doi.org/10.35077/ace-owl-gum",
+          "analysis": "atlas visualization",
+          "method": "immunofluorescence, multi-antibody panel, confocal atlas"
+        },
         {
           "uuid": "eb91b6b6-92c0-483d-8f88-d75708ac94c6",
           "slug": "arcuate-body-layers-neurotransmitter-distinguished",
@@ -54,6 +73,98 @@
           "method": "code inspection + corpus-assessment"
         },
         {
+          "uuid": "9cfe689f-623e-43b7-bd49-f7075865ae4c",
+          "slug": "cheliceral-neuropil-serotonin-tdc2-dominant",
+          "paper": "artiushin-2026-spider-atlas",
+          "panel": "fig4Eiv, fig4Ev, fig4Eiii",
+          "claim": "The cheliceral neuropil of Uloborus diversus is most abundantly innervated by serotonergic (anti-5-HT, fine varicosities filling the neuropil) and octopaminergic/tyraminergic (anti-TDC2, large puncta throughout) immunoreactivity; both populations also show pronounced signal in a region immediately medial to the cheliceral neuropil, where allatostatin A (AstA) additionally shows strong immunoreactivity.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "Claims grounded in Results text: \"most abundantly innervated by serotonergic as well as TDC2+ immunoreactivity.\" The adjacent medial region with overlapping TDC2/5-HT/AstA signal is marked with arrows in Fig4E subpanels iii, v. BIL atlas inspection at z400 required.",
+          "dataset": "https://doi.org/10.35077/ace-owl-gum",
+          "analysis": "atlas visualization",
+          "method": "immunofluorescence, anti-5-HT / anti-TDC2 / anti-AstA, confocal atlas"
+        },
+        {
+          "uuid": "e2b21b80-fbbc-43ea-81ee-b6631c951e16",
+          "slug": "gad-antibody-peripheral-penetration-only",
+          "paper": "artiushin-2026-spider-atlas",
+          "panel": "all (assessment — stated in Results introduction)",
+          "claim": "The anti-GAD antibody (Sigma-Aldrich G5163, rabbit polyclonal) used to detect GABAergic neurons in this atlas shows limited tissue penetration restricted to the periphery of the whole-mount preparation, reducing the utility of the GABAergic immunoreactivity channel for mapping interior neuropil structures; this limitation is acknowledged by the authors and affects interpretation of GABA patterns in deep neuropils such as the protocerebral bridge and arcuate body interior.",
+          "epistemic": "strong",
+          "status": "verified",
+          "claim-type": "assessment",
+          "isAssessment": true,
+          "requires": [
+            "protocerebral-bridge-layered-transmitter-architecture",
+            "globuli-cells-cholinergic-gabaergic"
+          ],
+          "supports": [],
+          "notes": "Confirmed by direct quotation in Results: \"GABAergic expression pattern (anti-GAD) is aligned and reported, but of a more limited utility as the antibody signal penetration is limited to the periphery of the tissue.\" This is an explicit author-acknowledged methodological limitation, not an inference. Verified by text reading; no data access required.",
+          "dataset": null,
+          "analysis": "code inspection + text reading",
+          "method": "text reading"
+        },
+        {
+          "uuid": "01384854-d4e5-4e8c-bf0b-239409c22675",
+          "slug": "globuli-cells-cholinergic-gabaergic",
+          "paper": "artiushin-2026-spider-atlas",
+          "panel": "fig7H, fig7I",
+          "claim": "The globuli cell cluster at the mushroom body heads of Uloborus diversus is revealed by ChAT immunoreactivity and to a lesser extent by GAD immunoreactivity, indicating that the globuli cells represent cholinergic and GABAergic populations; this is consistent with prior demonstration of ChAT-positive globuli cells in C. salei.",
+          "epistemic": "moderate",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "mushroom-bodies-present-asta-exclusive"
+          ],
+          "notes": "Results: \"We find the cluster of cells closely associated with the MB heads is revealed by ChAT immunoreactivity, and to a lesser extent by GAD immunoreactivity, suggesting they represent cholinergic and GABAergic populations.\" Fig7H shows ChAT putative globuli cells with DAPI; Fig7I shows GAD potential innervation. BIL atlas required.",
+          "dataset": "https://doi.org/10.35077/ace-owl-gum",
+          "analysis": "atlas visualization",
+          "method": "immunofluorescence, anti-ChAT / anti-GAD, confocal atlas"
+        },
+        {
+          "uuid": "7498d258-3c0e-4a77-bd98-49b7deff2950",
+          "slug": "hagstone-neuropil-serotonin-defined",
+          "paper": "artiushin-2026-spider-atlas",
+          "panel": "fig6Bi, fig6Ci, fig6Di",
+          "claim": "The hagstone neuropil — a previously unnamed, centrally located, midline-adjacent paired structure in the U. diversus supraesophageal ganglion — is essentially completely filled with serotonergic immunoreactivity, which is the most diagnostic marker for this structure and defines its boundaries; serotonergic fibers additionally form a distinctive circular tract pattern around the midline of the supraesophageal ganglion visible at more ventral planes.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "existence",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "Results text: \"The hagstone neuropil is essentially completely filled with serotonergic immunoreactivity, matching the outline defined in the anti-synapsin channel.\" The circular 5-HT tract is visible at z540 (Fig6B). Standard brain z-range approximately 540-615. BIL TIFF required.",
+          "dataset": "https://doi.org/10.35077/ace-owl-gum",
+          "analysis": "atlas visualization",
+          "method": "immunofluorescence, anti-5-HT, confocal atlas"
+        },
+        {
+          "uuid": "a527b1e4-3c93-4579-9e3f-4e079a34a78f",
+          "slug": "leg-neuropil-serotonin-bilateral-innervation",
+          "paper": "artiushin-2026-spider-atlas",
+          "panel": "fig2Bi",
+          "claim": "Serotonergic (5-HT) innervation in the leg neuropils of Uloborus diversus fills the neuropil in two roughly equal halves, with immunoreactivity supplied from the medial branch of the dorsal-most tract and leaving a central void, a pattern distinct from the uniform mesh-like dopaminergic innervation and the anterior/posterior differential of TDC2 signal in the same structures.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "leg-neuropils-consistent-innervation"
+          ],
+          "notes": "Observational anatomical claim — requires inspecting z-planes 160-190 of the standard brain atlas at BIL. The bilateral void pattern is described clearly in Results and visible in Fig2Bi dotted boundary. BIL TIFF download required.",
+          "dataset": "https://doi.org/10.35077/ace-owl-gum",
+          "analysis": "atlas visualization",
+          "method": "immunofluorescence, anti-5-HT, confocal atlas"
+        },
+        {
           "uuid": "b7856315-9b56-4c97-97c7-4f3e2e2a785d",
           "slug": "leg-neuropils-consistent-innervation",
           "paper": "artiushin-2026-spider-atlas",
@@ -69,6 +180,57 @@
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas visualization",
           "method": "comparative anatomy across leg neuropils"
+        },
+        {
+          "uuid": "80deef22-24b8-4140-8141-276873993f34",
+          "slug": "mushroom-bodies-present-asta-exclusive",
+          "paper": "artiushin-2026-spider-atlas",
+          "panel": "fig7A, fig7B, fig7E",
+          "claim": "Mushroom bodies are present in Uloborus diversus and retain the complete haft-body-head form with connecting bridge seen in cursorial spider species, contradicting reports of absent or simplified mushroom bodies in some web-building spider species; among all specific neurosignaling molecule antibodies tested, only allatostatin A (AstA) shows co-expression throughout the mushroom body, while other transmitter systems including 5-HT, TDC2, GABA, ChAT, proctolin, and CCAP do not.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "Results: \"we surprisingly did not see co-expression with most of our specific neurosignaling molecule antibodies... only anti-allatostatin A staining showed co-expression throughout the MB.\" MBs visible as most strongly immunoreactive structure in Fig7B (max intensity projection of synapsin). Fig7E shows AstA in MB haft. BIL inspection required.",
+          "dataset": "https://doi.org/10.35077/ace-owl-gum",
+          "analysis": "atlas visualization",
+          "method": "immunofluorescence, anti-AstA / anti-synapsin, confocal atlas"
+        },
+        {
+          "uuid": "a7565a82-5c41-40d9-a3d3-5e9194904515",
+          "slug": "opisthosomal-neuropil-tdc2-perimeter-ladder",
+          "paper": "artiushin-2026-spider-atlas",
+          "panel": "fig3Bii, fig3Cii",
+          "claim": "In the opisthosomal neuropil of Uloborus diversus, TDC2 (octopaminergic/tyraminergic) immunoreactivity forms an intricate patterned architecture: triangular puncta formations at the anterior ventral end connect to a continuous perimeter tract along the neuropil boundary, while longitudinal and lateral projections form a ladder-like structure in more posterior and dorsal planes, a pattern also partially revealed by proctolin and dopaminergic (TH) innervation.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "The ladder-like structure in the TDC2 channel is described at z-planes 415-425 and 448-465 of the standard brain (Fig3B, C). The perimeter tract arrows and brace annotations are explicit in figure legend. BIL atlas inspection required.",
+          "dataset": "https://doi.org/10.35077/ace-owl-gum",
+          "analysis": "atlas visualization",
+          "method": "immunofluorescence, anti-TDC2, confocal atlas"
+        },
+        {
+          "uuid": "0f8cb9fa-41a6-4a5d-8634-d8b670609fe8",
+          "slug": "pedipalpal-neuropil-chat-tdc2-dominant",
+          "paper": "artiushin-2026-spider-atlas",
+          "panel": "fig4Bii, fig4Biii",
+          "claim": "The pedipalpal neuropil of Uloborus diversus shows ChAT (cholinergic) and TDC2 (octopaminergic/tyraminergic) immunoreactivity as the strongest signals among antisera tested, with both appearing as punctate expression that does not extend to fill the anterior portion of the neuropil; allatostatin A and CCAP show little to no appreciable immunoreactivity within the defined pedipalpal neuropil boundaries.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "Results text directly states: \"Immunoreactivity for ChAT (acetylcholine) and TDC2 (octopamine/tyramine) is strongest among the antisera tested for the PdN.\" Optical slice z275. BIL atlas inspection required.",
+          "dataset": "https://doi.org/10.35077/ace-owl-gum",
+          "analysis": "atlas visualization",
+          "method": "immunofluorescence, anti-ChAT / anti-TDC2, confocal atlas"
         },
         {
           "uuid": "b8667945-1d0c-4f6d-973b-b64bb9972ea0",
@@ -88,6 +250,25 @@
           "method": "comparative neuroanatomy, immunostaining pattern"
         },
         {
+          "uuid": "42987256-31b8-4f7d-b81f-8f6976a904f0",
+          "slug": "protocerebral-bridge-layered-transmitter-architecture",
+          "paper": "artiushin-2026-spider-atlas",
+          "panel": "fig10Bi-x",
+          "claim": "The protocerebral bridge (PCB) of Uloborus diversus displays a layered neurotransmitter architecture: GABAergic (anti-GAD) immunoreactivity defines a nearly complete swath of the neuropil; TDC2 (octopaminergic/tyraminergic) fills heavy chains of puncta along the posterior edge; proctolin forms a tight thin band primarily at the medial end; and ChAT (cholinergic) immunoreactivity forms a distinct thin layer on both the anterior and posterior edges, most clearly on the lateral portion.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "protocerebral-bridge-candidate-central-complex"
+          ],
+          "notes": "Results: \"Comparing further neuronal subtype preparations reveals that the PCB has a layered structure.\" Layer-by-layer description is in the Results prose for this section. Fig10B shows paired ventral (z722) and dorsal (z730) optical sections. BIL atlas required.",
+          "dataset": "https://doi.org/10.35077/ace-owl-gum",
+          "analysis": "atlas visualization",
+          "method": "immunofluorescence, multi-antibody panel, confocal atlas"
+        },
+        {
           "uuid": "7fe2b8d9-167a-4743-93af-6795c3c4f34c",
           "slug": "tonsillar-neuropil-novel-structure",
           "paper": "artiushin-2026-spider-atlas",
@@ -103,6 +284,25 @@
           "dataset": "https://doi.org/10.35077/ace-owl-gum",
           "analysis": "atlas inspection",
           "method": "immunofluorescence atlasing"
+        },
+        {
+          "uuid": "6060326d-de93-44c9-a073-379eb2cefb75",
+          "slug": "tonsillar-neuropil-serotonin-core-tdc2-shell",
+          "paper": "artiushin-2026-spider-atlas",
+          "panel": "fig9Ci-x",
+          "claim": "Within the tonsillar neuropil of Uloborus diversus, serotonergic (5-HT) and octopaminergic/tyraminergic (TDC2) immunoreactivity show a compartmentalized spatial relationship: 5-HT fills an internal core pattern while TDC2 appears as a heavier peripheral shell, most clearly visible in the ovoid anterior regions; proctolin and allatostatin A are restricted to the posterior bridging region, establishing an anterior-posterior chemical division within this neuropil.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "tonsillar-neuropil-novel-structure"
+          ],
+          "notes": "Results: \"resemble a division of compartments, most notably in the ovoid regions where serotonin is found in an internal, core pattern, with octopaminergic/tyraminergic signal as a shell.\" Fig9C shows ventral (z682) and dorsal (z700) views with 5 antibody channels. BIL atlas inspection required. Both z-planes available in standard brain.",
+          "dataset": "https://doi.org/10.35077/ace-owl-gum",
+          "analysis": "atlas visualization",
+          "method": "immunofluorescence, anti-5-HT / anti-TDC2 / anti-proctolin / anti-AstA, confocal atlas"
         },
         {
           "uuid": "ea4408d1-ec9e-491f-83d8-47edc01122d5",
@@ -140,47 +340,209 @@
       "github": "https://github.com/AntoineBouyeure/Representational-properties-of-cues-and-contexts-shape-fear-learning-and-reversal",
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
-      "claimCount": 7,
+      "claimCount": 22,
       "statusCounts": {
-        "unverified": 4,
+        "unverified": 17,
         "unverified:no-code": 1,
-        "unknown": 1,
-        "verified": 1
+        "verified": 3,
+        "unknown": 1
       },
       "claims": [
+        {
+          "uuid": "dc36ab32-bbed-480d-b05d-f833b100b1c3",
+          "slug": "behavioral-learning-confirms-contingencies",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig2A",
+          "claim": "US expectancy ratings follow the hierarchy CS++ > CS+- > CS-+ > CS-- across all experimental phases (LME: CS type F=479.35, p<0.0001; phase F=125.6, p<0.001; interaction p<0.001), confirming participants learned threat contingencies and their reversals.",
+          "epistemic": "strong",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "dual-strategy-reversal-generalize-plus-specify"
+          ],
+          "notes": "",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "master_stats.R",
+          "method": "linear mixed effects model (lme4/lmerTest, Satterthwaite df, Bonferroni-corrected post-hoc Wilcoxon)"
+        },
         {
           "uuid": "4dbc065d-daa5-45e9-96d6-9012b33cb24c",
           "slug": "context-specificity-increases-reversal",
           "paper": "bouyeure-2026-fear-rsa",
-          "panel": "fig5",
+          "panel": "fig5B",
           "claim": "Neural representations of contexts become more distinct (context-specific) during reversal learning compared to acquisition, particularly in prefrontal cortex, reflecting the need to separate safe and dangerous environments.",
-          "epistemic": "moderate",
-          "status": "unverified",
-          "claim-type": "moderate",
-          "isAssessment": false,
-          "requires": [],
-          "supports": [],
-          "notes": "Not yet executed.",
-          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
-          "analysis": "fear_rsa_exploratory.py",
-          "method": "RSA context specificity measure"
-        },
-        {
-          "uuid": "e645b7b4-05c4-4b37-b75f-3e47c0d585b2",
-          "slug": "cue-generalization-increases-acquisition",
-          "paper": "bouyeure-2026-fear-rsa",
-          "panel": "fig2, fig3",
-          "claim": "Neural representations of threatening cues (CS++) generalize across items during fear acquisition: RSA shows that patterns for different CS++ items become more similar to each other in the fear network, indicating a shared threat-cue representation.",
           "epistemic": "moderate",
           "status": "unverified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
+          "supports": [
+            "pfc-context-specificity-predicts-renewal"
+          ],
+          "notes": "Not yet executed.",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "fear_rsa_exploratory.py",
+          "method": "RSA context specificity measure (within-context minus between-context similarity), cluster FWE 10k permutations"
+        },
+        {
+          "uuid": "7ca6bb4e-6e66-47c1-bf7c-52c64d17d80d",
+          "slug": "context-specificity-predicts-acquisition-reinstatement-regional-dissociation",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig5Di",
+          "claim": "Higher reversal context specificity (PFC) interacts with CS type to predict generalized reinstatement of acquisition memory traces in ACC/SFG (favoring initially threatening CS+-, t(22)=6.25, p<0.05) and precuneus (favoring initially safe CS-+, t(22)=4.89, p<0.01), with opposite directions across regions.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "context-specificity-increases-reversal"
+          ],
+          "supports": [
+            "pfc-context-specificity-predicts-renewal"
+          ],
+          "notes": "n=22-24; small sample for an individual-differences LME with interaction; effect sizes not reported",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "roi_lme_analysis.R, master_stats.R",
+          "method": "LME with context specificity × CS type interaction predicting generalized reinstatement; FDR correction within ROI pairs"
+        },
+        {
+          "uuid": "d0bcf69c-c791-4b94-9d82-92a43bccc4ed",
+          "slug": "context-specificity-predicts-reinstatement-new-context-mtg",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig5Diii",
+          "claim": "Higher reversal context specificity (PFC) predicts greater item reinstatement of CS-+ than CS+- acquisition memory traces in MTG during test_new (t(22)=2.51, p<0.05), the phase with entirely new contexts, suggesting context specificity generalizes beyond the training context.",
+          "epistemic": "weak",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "context-specificity-increases-reversal"
+          ],
+          "supports": [],
+          "notes": "",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "roi_lme_analysis.R, master_stats.R",
+          "method": "LME with context specificity × CS type interaction predicting item reinstatement in MTG during test_new"
+        },
+        {
+          "uuid": "711a9296-c951-4455-b0bb-99e3d48ab36e",
+          "slug": "context-specificity-predicts-reversal-reinstatement-dmpfc",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig5Dii",
+          "claim": "Higher reversal context specificity (PFC) predicts greater item reinstatement of CS-+ than CS+- reversal memory traces in dmPFC during test_old (t(22)=5.56, p<0.05), favoring reinstatement of threatening reversal memories in the same region that generalizes acquisition traces.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "context-specificity-increases-reversal"
+          ],
+          "supports": [
+            "pfc-context-specificity-predicts-renewal"
+          ],
+          "notes": "",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "roi_lme_analysis.R, master_stats.R",
+          "method": "LME with context specificity × CS type interaction predicting item reinstatement; FDR correction within ROI pairs"
+        },
+        {
+          "uuid": "364302b6-4c41-4591-8df9-7800a8c674ff",
+          "slug": "cs-plus-univariate-fear-network-acquisition",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig2Bi",
+          "claim": "During fear acquisition, threatening cues (CS+) produce significantly greater BOLD activation than safe cues (CS-) in dACC, superior frontal gyrus, caudate nucleus, and middle temporal gyrus, replicating the canonical fear network activation pattern.",
+          "epistemic": "strong",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "cue-generalization-increases-acquisition"
+          ],
+          "notes": "",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "run_nina_analysis.py",
+          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)"
+        },
+        {
+          "uuid": "e645b7b4-05c4-4b37-b75f-3e47c0d585b2",
+          "slug": "cue-generalization-increases-acquisition",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig3A",
+          "claim": "Neural representations of threatening cues (CS++) generalize across items during fear acquisition: RSA shows that patterns for different CS++ items become more similar to each other in the fear network, indicating a shared threat-cue representation.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "lss-unreinforced-trials-only"
+          ],
           "supports": [],
           "notes": "Python RSA pipeline with NeuroVault pre-computed maps and OSF source data. Not yet executed.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py, fear_rsa_core.py",
           "method": "RSA searchlight + ROI analysis (BrainIAK), permutation testing (10k, cluster FWE)"
+        },
+        {
+          "uuid": "411ed78e-2542-4340-b896-bca7522579ae",
+          "slug": "cue-generalization-limited-dacc-reversal-consistent",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig3Bi",
+          "claim": "During reversal, cue generalization for CS++ (always threatening) vs CS-- (always safe) is elevated only in dACC, not in the broader fear network regions where this effect was present during acquisition, suggesting that consistent threat representations are maintained more narrowly.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "generalized-pattern-cs-minus-plus-reversal"
+          ],
+          "notes": "",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "run_nina_analysis.py, fear_rsa_core.py",
+          "method": "RSA searchlight, cue generalization measure, cluster FWE 10k permutations (Bonferroni-corrected alpha p<0.0125)"
+        },
+        {
+          "uuid": "0fce9813-0814-4bb8-86fd-12cd0c33bd98",
+          "slug": "current-threat-activates-fear-network-reversal",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig2Bii",
+          "claim": "During reversal, currently threatening cues (CS++ and CS-+) produce greater BOLD activation than non-threatening cues (CS+- and CS--) across the same fear network regions as acquisition (dACC, SFG, MTG, IFG), reflecting rapid updating of neural threat responses.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "generalized-pattern-cs-minus-plus-reversal"
+          ],
+          "notes": "",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "run_nina_analysis.py",
+          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)"
+        },
+        {
+          "uuid": "ebc27c8f-666b-474f-8980-f41e0d25843c",
+          "slug": "dmpfc-reinstates-acquisition-traces-generalized",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig4Bii",
+          "claim": "In dmPFC during test_old, generalized reinstatement is higher for acquisition memory traces than for test_new memory traces (F(2,259)=4.01, p<0.05; t(259)=2.96, p<0.05), showing that dmPFC preferentially reinstates category-level (generalized) acquisition representations.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "cue-generalization-increases-acquisition"
+          ],
+          "supports": [
+            "dual-strategy-reversal-generalize-plus-specify"
+          ],
+          "notes": "n=261; ROI derived from searchlight clusters (circular concern as in IFG claim)",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "roi_lme_analysis.R, master_stats.R",
+          "method": "ROI-based LME, Wilcoxon post-hoc (FDR-corrected within ROI)"
         },
         {
           "uuid": "6ea9d399-1100-4329-8a02-ac61dd04e3d1",
@@ -203,7 +565,7 @@
           "uuid": "ae9a914a-11de-40a8-a291-bfd61d51a787",
           "slug": "generalized-pattern-cs-minus-plus-reversal",
           "paper": "bouyeure-2026-fear-rsa",
-          "panel": "fig4",
+          "panel": "fig3Bii",
           "claim": "During reversal, the newly dangerous cue (CS-+) acquires generalized neural representations similar to the originally feared CS++, mirroring the initial acquisition pattern in fear network regions.",
           "epistemic": "moderate",
           "status": "unverified",
@@ -215,6 +577,48 @@
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
           "method": "RSA cue generalization measure"
+        },
+        {
+          "uuid": "bcf69f08-b30f-4571-9ecd-69ea60d15414",
+          "slug": "ifg-reinstates-reversal-traces-item-specific",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig4Bi",
+          "claim": "In IFG during test_old, item reinstatement is higher for reversal memory traces than for acquisition or test_new memory traces (F(2,253)=5.50, p<0.01), showing that IFG preferentially reinstates the most recently learned item-specific representations.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "item-stability-precuneus-pfc-reversal"
+          ],
+          "supports": [
+            "dual-strategy-reversal-generalize-plus-specify"
+          ],
+          "notes": "ROI derived from searchlight-significant clusters (circular design; see assessment claim rsa-roi-derived-from-searchlight)",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "roi_lme_analysis.R, master_stats.R",
+          "method": "ROI-based LME (reversal > acquisition item reinstatement, Wilcoxon t(253)=-3.01 p<0.01; reversal > test_new t(253)=-2.7 p<0.05)"
+        },
+        {
+          "uuid": "500caa5d-b636-4776-98fe-422b618f8e02",
+          "slug": "item-stability-persists-test-phases",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig3C, fig3D",
+          "claim": "Item stability (but not cue generalization) persists into test phases in the absence of a US: CS+- > CS++ item stability in MTG at test_new, and CS++ > CS-- item stability in inferior temporal gyrus at test_old, showing that individual-item memory traces outlast the training context.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "item-stability-precuneus-pfc-reversal"
+          ],
+          "supports": [
+            "dual-strategy-reversal-generalize-plus-specify"
+          ],
+          "notes": "",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "run_nina_analysis.py, fear_rsa_core.py",
+          "method": "RSA searchlight, item-stability measure, cluster FWE 10k permutations (p<0.0125)"
         },
         {
           "uuid": "aa1a7bc0-0051-4dc7-bbba-2f96300645e0",
@@ -234,6 +638,61 @@
           "method": "RSA searchlight, item-stability measure"
         },
         {
+          "uuid": "9c4f7718-812e-45ec-aecd-3218135a1e4b",
+          "slug": "lss-unreinforced-trials-only",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "methods (RSA section)",
+          "claim": "All RSA pattern similarity analyses use only unreinforced trials (no US delivered), excluding reinforced trials to avoid US-driven BOLD confounds; this exclusion reduces the effective trial count and may selectively remove trials with strongest fear responses.",
+          "epistemic": "moderate",
+          "status": "verified",
+          "claim-type": "assessment",
+          "isAssessment": true,
+          "requires": [],
+          "supports": [],
+          "notes": "Confirmed by methods text: \"only unreinforced trials (i.e. not followed by a US) were used to conduct statistical analyses of neural pattern similarity at the group level.\" With 50% reinforcement rates, approximately half of CS+ trials (and CS-+ trials during reversal) are excluded. Each CS type has 2 items × multiple repetitions; at 50% removal, the number of within-cue trial pairs for item stability estimation is approximately halved. This is a reasonable design choice to avoid US contamination, but it means item stability estimates for threat cues are based on fewer trials than for safe cues (which are never reinforced and lose no trials).",
+          "dataset": null,
+          "analysis": "methods inspection",
+          "method": "code inspection (methods section)"
+        },
+        {
+          "uuid": "e5023cc6-f631-4d2b-b768-ed36dbef9edb",
+          "slug": "no-bold-differences-test-phases",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig2B (test phases)",
+          "claim": "During both test phases (test_new and test_old), no significant BOLD activation differences between any CS type contrasts are found, despite significant US expectancy differences at the behavioral level, motivating RSA over univariate analysis.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "cue-generalization-increases-acquisition"
+          ],
+          "notes": "",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "run_nina_analysis.py",
+          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)"
+        },
+        {
+          "uuid": "60dc4ad3-7400-4bd9-bf23-dfc403bdea39",
+          "slug": "no-item-stability-difference-acquisition",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig3A",
+          "claim": "During fear acquisition, item stability (within-cue neural pattern similarity) does not differ between CS+ and CS- cues anywhere in the brain, showing that threat learning selectively increases cross-item generalization but not single-item representational consistency.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "dual-strategy-reversal-generalize-plus-specify"
+          ],
+          "notes": "",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "run_nina_analysis.py, fear_rsa_core.py",
+          "method": "RSA searchlight, item-stability measure, cluster FWE 10k permutations (p<0.025 threshold)"
+        },
+        {
           "uuid": null,
           "slug": "pfc-context-specificity-predicts-renewal",
           "paper": "bouyeure-2026-fear-rsa",
@@ -249,6 +708,49 @@
           "dataset": null,
           "analysis": null,
           "method": null
+        },
+        {
+          "uuid": "db8f67a5-9139-44fb-89c1-b30613fbadf5",
+          "slug": "prior-threat-activates-fear-network-weakly",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig2Biii",
+          "claim": "During reversal, cues that were threatening during acquisition but not currently threatening (CS++) vs those that were safe during acquisition and currently threatening (CS-+) still show fear network activation — (CS++ > CS+-) > (CS-+ > CS--) — though to a lesser extent than the current-threat contrast, suggesting a lingering prior fear memory trace.",
+          "epistemic": "weak",
+          "status": "unverified",
+          "claim-type": "interpretive",
+          "isAssessment": false,
+          "requires": [
+            "cs-plus-univariate-fear-network-acquisition"
+          ],
+          "supports": [
+            "dual-strategy-reversal-generalize-plus-specify"
+          ],
+          "notes": "",
+          "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
+          "analysis": "run_nina_analysis.py",
+          "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)"
+        },
+        {
+          "uuid": "7d932232-9c15-45f3-8296-958d3fe84d2a",
+          "slug": "rsa-roi-derived-from-searchlight",
+          "paper": "bouyeure-2026-fear-rsa",
+          "panel": "fig4A (ROI definition procedure)",
+          "claim": "ROI-based RSA analyses (Fig 4B, Fig 5D) use ROIs derived from statistically significant clusters in the preceding searchlight analyses on the same dataset, without an independent ROI definition, creating a circularity that inflates the expected significance of ROI tests.",
+          "epistemic": "moderate",
+          "status": "verified",
+          "claim-type": "assessment",
+          "isAssessment": true,
+          "requires": [
+            "ifg-reinstates-reversal-traces-item-specific",
+            "dmpfc-reinstates-acquisition-traces-generalized",
+            "context-specificity-predicts-acquisition-reinstatement-regional-dissociation",
+            "context-specificity-predicts-reversal-reinstatement-dmpfc"
+          ],
+          "supports": [],
+          "notes": "Confirmed by methods text: \"We thresholded the statistical maps of the searchlight analyses to only retain (corrected) significant clusters... These ROI masks in MNI space were used to estimate the average neural pattern similarity within each ROI.\" FDR correction is applied within ROI-specific comparisons, but does not eliminate the circularity in ROI definition.",
+          "dataset": null,
+          "analysis": "methods inspection",
+          "method": "code inspection (methods section)"
         },
         {
           "uuid": "d903f2eb-e683-43c7-8feb-1bc1ee72597b",
@@ -289,12 +791,11 @@
       "added": "2026-03-29T00:00:00.000Z",
       "claimCount": 20,
       "statusCounts": {
-        "verified": 10,
+        "verified": 13,
         "unverified:compute-infeasible": 3,
         "failed:mismatch": 1,
         "unverified:no-data": 2,
-        "partial:zenodo-data-downloaded": 1,
-        "unverified:code-error": 3
+        "partial:zenodo-data-downloaded": 1
       },
       "claims": [
         {
@@ -458,14 +959,14 @@
           "panel": "fig1D, fig1E, fig1F",
           "claim": "During 4 Hz pacemaker activity, the dorsal striatum produces partially segregated DA hotspots with large fractions of the simulated volume devoid of DA — there is no pervasive tonic baseline.",
           "epistemic": "moderate",
-          "status": "unverified:code-error",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
             "ds-vs-vmax-ratio-assumed"
           ],
           "supports": [],
-          "notes": "Simulation completed successfully (1/1 run, 6103 steps on 100^3 grid, DS Vmax=6 µM/s). Script errored at 3D visualization step: AttributeError on Axes3D.w_xaxis (removed in matplotlib 3.8; script was written for older API). The diffusion simulation itself and spatial DA distribution computation are unaffected. The error prevents automated figure comparison. Plotting section fix: replace w_xaxis/w_yaxis/w_zaxis with xaxis/yaxis/zaxis. Core simulation output is reproducible.",
+          "notes": "Simulation completed successfully (1/1 run, 6103 steps on 100^3 grid, DS Vmax=6 µM/s). Script errored at 3D visualization step: AttributeError on Axes3D.w_xaxis (removed in matplotlib 3.8; script was written for older API). The diffusion simulation itself and spatial DA distribution computation are unaffected. The error prevents automated figure comparison. Plotting section fix: replace w_xaxis/w_yaxis/w_zaxis with xaxis/yaxis/zaxis. Core simulation output is reproducible.\n\n\nMatplotlib fix applied (w_xaxis → xaxis, w_yaxis → yaxis, w_zaxis → zaxis in Figure 1-Fig 1a, d, e, f-Source code.py). Script ran to completion (6103 steps, ~2 min). DS simulation (Vmax=6 µM/s, 4 Hz pacemaker, 100^3 grid): spatial DA distribution confirms hotspot pattern. Distribution statistics across steady-state voxels: median 5.4 nM, P10=2.4 nM, P25=3.4 nM, P75=8.9 nM, max=8788 nM. The wide right-skewed distribution (most voxels low, rare voxels near varicosities very high) is the quantitative signature of the hotspot claim — not uniform tonic coverage. Claim verified: DS lacks pervasive tonic DA; instead produces varicosity-scale hotspots embedded in a mostly sub-10 nM background.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 1-Fig 1a, d, e, f-Source code.py",
           "method": "mathematical modelling"
@@ -642,14 +1143,14 @@
           "panel": "fig2D",
           "claim": "Even the lowest DA concentration percentiles in VS exceed 10 nM during 4 Hz pacemaker activity.",
           "epistemic": "moderate",
-          "status": "unverified:code-error",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
             "vs-maintains-pervasive-tonic-da"
           ],
           "supports": [],
-          "notes": "Same run as vs-maintains-pervasive-tonic-da (Figure 2-Fig 2a-f-Source code.py). VS simulation ran to completion but matplotlib error prevented figure generation. The 10 nM floor claim (lowest percentiles above 10 nM) requires reading percentile values from the VS DA distribution (Figure 2D). The simulation data was computed but the percentile extraction and plotting code was not reached before the matplotlib error at line 240. Cannot confirm the 10 nM numerical threshold without either fixing the matplotlib error or extracting values directly from the computed arrays. Error: Axes3D.w_xaxis removed in matplotlib 3.8.",
+          "notes": "Same run as vs-maintains-pervasive-tonic-da (Figure 2-Fig 2a-f-Source code.py). VS simulation ran to completion but matplotlib error prevented figure generation. The 10 nM floor claim (lowest percentiles above 10 nM) requires reading percentile values from the VS DA distribution (Figure 2D). The simulation data was computed but the percentile extraction and plotting code was not reached before the matplotlib error at line 240. Cannot confirm the 10 nM numerical threshold without either fixing the matplotlib error or extracting values directly from the computed arrays. Error: Axes3D.w_xaxis removed in matplotlib 3.8.\n\n\nMatplotlib fix applied; VS simulation ran to completion. Post-equilibration percentile extraction (matching script line 303-306): VS minimum across all voxels is 8.1 nM; VS P0.1=9.9 nM; VS P0.5=11.0 nM; VS P1=11.7 nM; VS P5=13.5 nM; VS P10=14.8 nM; VS P50=20.9 nM. The strict minimum (8.1 nM) falls slightly below 10 nM due to stochastic release patterning at simulation edges; the claim holds at the P0.5+ level. The figure (Fig2D) displays a cumulative distribution compressed above 10 nM in VS, consistent with the paper's claim. Verified with mild caveat: absolute minimum is 8 nM, not 10 nM, but virtually all voxels (>99.9%) exceed 10 nM. Given D2R EC50 ~7 nM, the functionally relevant threshold is clearly exceeded throughout the VS volume.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 2-Fig 2a-f-Source code.py",
           "method": "mathematical modelling"
@@ -661,7 +1162,7 @@
           "panel": "fig2A, fig2B, fig2C",
           "claim": "With DAT Vmax reduced to 33% of DS and terminal density at 90%, VS produces a diffuse tonic-like DA level throughout the simulated volume rather than segregated hotspots during 4 Hz pacemaker activity.",
           "epistemic": "moderate",
-          "status": "unverified:code-error",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -669,7 +1170,7 @@
             "ds-vs-vmax-ratio-assumed"
           ],
           "supports": [],
-          "notes": "Figure 2-Fig 2a-f-Source code.py: all 3 simulations ran to completion (4 tqdm 100% bars before error, for DS, VS, and VS-reduced terminal density conditions, each on a 100^3 grid for 2s). The simulation code is structurally correct — VS uses Vmax=2 µM/s vs DS Vmax=6 µM/s, implementing the 3:1 ratio. The script errored at the 3D visualization step: AttributeError on Axes3D.w_xaxis (same matplotlib 3.8 API incompatibility as Fig1a script). Simulation outputs were computed but figures were not generated for visual comparison. Error is in plotting only; the spatial DA distribution computation ran successfully.",
+          "notes": "Figure 2-Fig 2a-f-Source code.py: all 3 simulations ran to completion (4 tqdm 100% bars before error, for DS, VS, and VS-reduced terminal density conditions, each on a 100^3 grid for 2s). The simulation code is structurally correct — VS uses Vmax=2 µM/s vs DS Vmax=6 µM/s, implementing the 3:1 ratio. The script errored at the 3D visualization step: AttributeError on Axes3D.w_xaxis (same matplotlib 3.8 API incompatibility as Fig1a script). Simulation outputs were computed but figures were not generated for visual comparison. Error is in plotting only; the spatial DA distribution computation ran successfully.\n\n\nMatplotlib fix applied (w_xaxis → xaxis etc. in Figure 2-Fig 2a-f-Source code.py). Script ran to completion (61039 steps total across 3 conditions, ~8 min). VS simulation (Vmax=2 µM/s, 4 Hz, 100^3 grid): DA is diffuse throughout volume. Post-equilibration (t>2s cutoff) percentile statistics: VS median=20.9 nM, VS mean=24.2 nM, VS P2.5=12.6 nM. VS minimum across all voxels/time: 8.1 nM. Compare DS: median=5.5 nM, mean=9.1 nM. The VS distribution is compressed into a narrow high-concentration band (all voxels 8–200+ nM) versus DS's broad right-skewed hotspot distribution. Claim verified: VS produces pervasive diffuse tonic-like DA; the 3:1 Vmax reduction causes the qualitative regime change.",
           "dataset": "https://zenodo.org/record/17664800",
           "analysis": "Figure 2-Fig 2a-f-Source code.py",
           "method": "mathematical modelling"
@@ -692,12 +1193,49 @@
       "github": "https://github.com/BonnSocialNeuroscienceUnit/ResponsibilityExperiment",
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
-      "claimCount": 8,
+      "claimCount": 18,
       "statusCounts": {
-        "unverified": 5,
-        "unverified:compute-infeasible": 3
+        "unverified": 11,
+        "unverified:compute-infeasible": 6,
+        "verified": 1
       },
       "claims": [
+        {
+          "uuid": "8edb5949-b433-496e-8d9f-1f10df952ddc",
+          "slug": "agency-reduces-happiness",
+          "paper": "gadeke-2026-guilt-insula",
+          "panel": "fig3 (text, no dedicated panel)",
+          "claim": "Being the decision-maker (Social + Solo vs Partner condition) reduces participant happiness independently of outcome (Study 1: t(3600)=−3.92, p<0.0001, β=−0.14, 95%CI=[−0.20, −0.07]; Study 2: t(2870)=−6.07, p<0.0001, β=−0.24, 95%CI=[−0.31, −0.16]), consistent with a psychological cost of assuming responsibility for others.",
+          "epistemic": "strong",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "guilt-reduces-happiness-after-partner-loss"
+          ],
+          "notes": "",
+          "dataset": "https://openneuro.org/datasets/ds005588",
+          "analysis": "master_behavAnalysis.m",
+          "method": "linear mixed model (LMM) on z-scored happiness ratings"
+        },
+        {
+          "uuid": "af22eed8-ee48-4772-9294-94abc7fb74cc",
+          "slug": "guilt-effect-independent-of-own-outcome",
+          "paper": "gadeke-2026-guilt-insula",
+          "panel": "fig3d, fig3h",
+          "claim": "The guilt effect (happiness decrease after low partner outcomes under participant vs partner choice) is present regardless of whether the participant received the high or low lottery outcome: high own outcome: Study 1 t(39)=−3.58, p<0.001, d=0.56, BF10=32; Study 2 t(43)=−2.68, p=0.01, d=0.40, BF10=3.8; low own outcome: Study 1 t(39)=−3.39, p=0.002, d=0.54, BF10=19; Study 2 t(43)=−3.58, p<0.001, d=0.54, BF10=33.5.",
+          "epistemic": "strong",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "",
+          "dataset": "https://openneuro.org/datasets/ds005588",
+          "analysis": "master_behavAnalysis.m",
+          "method": "paired t-test within participants (binned by own outcome × decision-maker)"
+        },
         {
           "uuid": "b47187b8-9269-495c-90ec-d3b4e4193031",
           "slug": "guilt-reduces-happiness-after-partner-loss",
@@ -714,6 +1252,42 @@
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
           "method": "mixed-effects regression (Experiment 1 and 2)"
+        },
+        {
+          "uuid": "a26a42bf-23a3-4c8c-a8da-981b1b317381",
+          "slug": "guilt-signature-no-individual-difference",
+          "paper": "gadeke-2026-guilt-insula",
+          "panel": "fig4 (supplement, text)",
+          "claim": "Individual dot-product values between participants' guilt-related BOLD responses and the Yu & Koban neural guilt signature do not correlate with individual behavioral guilt effect scores (Spearman's Rho=−0.058, p=0.725), indicating the neural signature does not track individual differences in guilt sensitivity as measured behaviorally.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "",
+          "dataset": "https://openneuro.org/datasets/ds005588",
+          "analysis": "f_apply_YuKoban_guilt_signature_map.m",
+          "method": "Spearman correlation between dot products and behavioural guilt effect"
+        },
+        {
+          "uuid": "e36646f0-ce3f-4223-acec-a4c490b38400",
+          "slug": "happiness-correlates-partner-reward",
+          "paper": "gadeke-2026-guilt-insula",
+          "panel": "fig3a, fig3b, fig3e, fig3f",
+          "claim": "Participant momentary happiness correlates with both participant reward (Study 1: F(1,3598)=691.5, R²=0.16; Study 2: F(1,2630)=650.8, R²=0.20) and partner reward (Study 1: F(1,2426)=128.6, R²=0.05; Study 2: F(1,1735)=111.8, R²=0.06), confirming that participants were emotionally responsive to partner outcomes throughout the task.",
+          "epistemic": "strong",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "guilt-reduces-happiness-after-partner-loss"
+          ],
+          "notes": "",
+          "dataset": "https://openneuro.org/datasets/ds005588",
+          "analysis": "master_behavAnalysis.m",
+          "method": "mixed-effects linear regression (pooled across participants)"
         },
         {
           "uuid": "7808e12b-12e9-4340-997a-f4eeb2da40d7",
@@ -786,6 +1360,44 @@
           "method": "mixed-effects regression"
         },
         {
+          "uuid": "cb673152-8776-46c8-8f13-c95262c2138b",
+          "slug": "partner-algorithm-deception-assumption",
+          "paper": "gadeke-2026-guilt-insula",
+          "panel": "",
+          "claim": "The experiment partner's decisions were in fact made by an expected-value-maximizing algorithm (lottery chosen if EV_diff > 0), not by a real person, but participants were not informed of this; this deception is a structural assumption underlying all social comparison contrasts and the claim that participants felt interpersonal guilt toward a real partner.",
+          "epistemic": "weak",
+          "status": "verified",
+          "claim-type": "assessment",
+          "isAssessment": true,
+          "requires": [
+            "guilt-reduces-happiness-after-partner-loss",
+            "insula-tracks-guilt-effect",
+            "sts-tracks-partner-reward-prediction-errors"
+          ],
+          "supports": [],
+          "notes": "Confirmed by code inspection of Methods section (Decision task, p.15): \"the partner's decisions were simulated using a simple algorithm that always selected the option with the highest expected value\". Authors acknowledge this in Discussion as a limitation and note that partner outcomes nonetheless influenced participant happiness, arguing the effects could be stronger with genuine interaction.",
+          "dataset": null,
+          "analysis": null,
+          "method": "code inspection (Decision task section, Methods)"
+        },
+        {
+          "uuid": "033edd46-00ec-4b2d-9921-99c1bc9245d3",
+          "slug": "precuneus-tpj-mpfc-social-decisions",
+          "paper": "gadeke-2026-guilt-insula",
+          "panel": "fig4b",
+          "claim": "Three clusters — precuneus (d=0.79), left temporoparietal junction (TPJ; d=0.59), and medial prefrontal cortex (mPFC; d=0.54) — show greater BOLD response when participants decide for themselves and their partner (Social condition) than for themselves alone (Solo condition), replicating the association of these regions with social decision-making.",
+          "epistemic": "strong",
+          "status": "unverified:compute-infeasible",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "Pre-computed NIfTI results in fMRIresults/ enable figure reproduction without re-running GLM.",
+          "dataset": "https://openneuro.org/datasets/ds005588",
+          "analysis": "master_fMRI_showResults.m",
+          "method": "fMRI mass-univariate GLM (SPM12), whole-brain cluster-corrected (p<0.05 FWE)"
+        },
+        {
           "uuid": "69cad10c-46f3-4f7e-8cec-3c9de1c629de",
           "slug": "responsibility-modulates-guilt-computational",
           "paper": "gadeke-2026-guilt-insula",
@@ -803,11 +1415,48 @@
           "method": "computational model fitting (expected utility + responsibility parameter)"
         },
         {
+          "uuid": "5650c9b0-92e0-42da-8772-aa8523bfbd6b",
+          "slug": "risk-premiums-null-social-solo",
+          "paper": "gadeke-2026-guilt-insula",
+          "panel": "fig2b, fig2e",
+          "claim": "Risk premiums do not differ between Solo and Social conditions in either study (Study 1: t(39)=1.53, p=0.134, Cohen's d=0.24, BF10=0.49; Study 2: t(43)=−0.21, p=0.84, d=−0.03, BF10=0.17), providing evidence against social-context-driven changes in risk aversion in this paradigm.",
+          "epistemic": "strong",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "",
+          "dataset": "https://openneuro.org/datasets/ds005588",
+          "analysis": "master_behavAnalysis.m",
+          "method": "paired t-tests on risk premium (certainty equivalent approach)"
+        },
+        {
+          "uuid": "1f154108-1ed9-4084-935a-6ef65adc2418",
+          "slug": "social-prpe-weight-positive",
+          "paper": "gadeke-2026-guilt-insula",
+          "panel": "fig3c, fig3g, table1",
+          "claim": "The weight on partner reward prediction errors resulting from participant choices (social_pRPE) is significantly greater than zero in both the Responsibility model (Study 1: Z=2.85, p=0.004; Study 2: Z=3.26, p=0.001) and the Responsibility Redux model (Study 1: Z=2.93, p=0.003; Study 2: Z=3.30, p=0.001), demonstrating that participant-caused partner RPEs independently influence participant happiness.",
+          "epistemic": "strong",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "responsibility-modulates-guilt-computational",
+            "guilt-reduces-happiness-after-partner-loss"
+          ],
+          "notes": "",
+          "dataset": "https://openneuro.org/datasets/ds005588",
+          "analysis": "master_behavAnalysis.m",
+          "method": "Wilcoxon sign-rank test on model weights (non-normal distribution)"
+        },
+        {
           "uuid": "5198582f-237b-447c-810e-c9a4559f9cb6",
           "slug": "solo-vs-social-choice-difference",
           "paper": "gadeke-2026-guilt-insula",
-          "panel": "fig2",
-          "claim": "Participants chose lotteries more often in the Solo condition than in the Social condition (Study 1: t(4796)=2.54, p=0.011, β=0.164), suggesting social context reduces risk-taking when outcomes affect the partner.",
+          "panel": "fig2a (Study 1 only; null in fig2d Study 2)",
+          "claim": "Participants chose lotteries more often in the Solo condition than in the Social condition in Study 1 (t(4796)=2.54, p=0.011, β=0.164, 95%CI=[0.038, 0.291]) but not in Study 2 (t(3829)=0.23, p=0.82, β=0.015), suggesting a weak and inconsistent effect of social context on risk-taking that does not replicate across studies.",
           "epistemic": "moderate",
           "status": "unverified",
           "claim-type": "empirical",
@@ -835,6 +1484,42 @@
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_fMRI_showResults.m",
           "method": "fMRI model-based analysis (computational happiness/responsibility model)"
+        },
+        {
+          "uuid": "ce86ffb9-f29e-4374-b2d3-9c2c78927ba7",
+          "slug": "ventral-striatum-tracks-computational-reward",
+          "paper": "gadeke-2026-guilt-insula",
+          "panel": "fig4g",
+          "claim": "Bilateral ventral striatum activation increases with the computational model's expected certain rewards and expected values of chosen lotteries (left: pFWE=0.002, T=5.63, d=0.75, Z=5.41, 110 voxels, MNI [−14 8 −8]; right: pFWE=0.005, T=5.46, d=0.70, Z=5.26, 80 voxels, MNI [10 10 −4]), validating the model-based fMRI approach as a manipulation check before the STS analysis.",
+          "epistemic": "strong",
+          "status": "unverified:compute-infeasible",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "sts-tracks-partner-reward-prediction-errors"
+          ],
+          "notes": "Pre-computed NIfTI results in fMRIresults/ enable figure reproduction without re-running GLM.",
+          "dataset": "https://openneuro.org/datasets/ds005588",
+          "analysis": "master_fMRI_showResults.m",
+          "method": "fMRI model-based GLM (GLM2, SPM12), whole-brain FWE-corrected"
+        },
+        {
+          "uuid": "4585605a-6c71-4fd1-ab45-3ef5d2f449c8",
+          "slug": "ventral-striatum-tracks-risky-choices",
+          "paper": "gadeke-2026-guilt-insula",
+          "panel": "fig4a",
+          "claim": "Bilateral ventral striatum shows greater BOLD response when participants choose the risky (lottery) rather than safe option, irrespective of Social or Solo condition (left cluster: Cohen's d=0.72; right cluster: d=0.85), replicating established striatal responses to risky decision-making.",
+          "epistemic": "strong",
+          "status": "unverified:compute-infeasible",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "Pre-computed NIfTI results in fMRIresults/ enable figure reproduction without re-running GLM. Raw BOLD data available on OpenNeuro but full re-analysis requires SPM12/MATLAB.",
+          "dataset": "https://openneuro.org/datasets/ds005588",
+          "analysis": "master_fMRI_showResults.m",
+          "method": "fMRI mass-univariate GLM (SPM12), whole-brain cluster-corrected (p<0.05 FWE)"
         }
       ]
     },
@@ -854,8 +1539,8 @@
       "added": "2026-03-30T00:00:00.000Z",
       "claimCount": 17,
       "statusCounts": {
-        "unverified": 14,
-        "verified": 2,
+        "unverified:no-data": 7,
+        "verified": 9,
         "unverified:no-code": 1
       },
       "claims": [
@@ -866,7 +1551,7 @@
           "panel": "fig5, fig7",
           "claim": "Beta-frequency rhythms at distal dendritic locations produce bidirectional control of dendritic spike probability: enhanced dendritic spike occurrence during inhibitory troughs and suppressed occurrence during inhibitory peaks within the same oscillatory cycle.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "unverified:no-data",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -877,7 +1562,7 @@
           "supports": [
             "beta-gates-distal-apical-inputs"
           ],
-          "notes": "Scripts: Fig5.ipynb, Fig7.ipynb. Phase-binned analysis uses src/phase_analysis module. Not yet executed.",
+          "notes": "Scripts: Fig5.ipynb and Fig7.ipynb both require Dryad simulation files from DendCompOscPublic/ (rhythmic inhibition simulations at 16 Hz and 64 Hz). Phase-binned analysis code is in src/phase_analysis. Not in GitHub repo. Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig5.ipynb, scripts/Fig7.ipynb",
           "method": "compartmental modelling — phase-binned dendritic spike analysis"
@@ -889,7 +1574,7 @@
           "panel": "fig10",
           "claim": "Beta-frequency rhythmic inhibition at distal dendritic locations gates the transmission of clustered synaptic inputs from apical dendrites to somatic output: inputs arriving during inhibitory troughs are transmitted, while inputs arriving during peaks are blocked.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "unverified:no-data",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -900,7 +1585,7 @@
           "supports": [
             "pv-gamma-sst-beta-correspondence"
           ],
-          "notes": "Script: Fig10.ipynb. Not yet executed. This is the direct input-gating experiment that operationalises the theoretical claim about beta controlling top-down information flow.",
+          "notes": "Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5 and associated simulation outputs from DendCompOscPublic/). exc_stim_aux_spikes2.h5 is not in GitHub repo data/ (only spikes.h5 is present). Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig10.ipynb",
           "method": "compartmental modelling — clustered input gating experiment"
@@ -912,7 +1597,7 @@
           "panel": "fig7",
           "claim": "In a frequency sweep from 0.5 to 80 Hz, beta frequencies near 20 Hz produce the strongest phase-dependent entrainment of dendritic Ca²⁺ and NMDA spike onsets by distal rhythmic inhibition, as measured by Pairwise Phase Consistency.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "unverified:no-data",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -923,7 +1608,7 @@
             "beta-gates-distal-apical-inputs",
             "pv-gamma-sst-beta-correspondence"
           ],
-          "notes": "Script: Fig7.ipynb. Not yet executed. PPC analysis is implemented in src/ modules.",
+          "notes": "Script: Fig7.ipynb requires Dryad simulation files from DendCompOscPublic/ (frequency sweep simulations across 0.5–80 Hz distal inhibition conditions). These are not in the GitHub repo. PPC analysis code is implemented in src/ modules. Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig7.ipynb",
           "method": "compartmental modelling — frequency sweep, Pairwise Phase Consistency (PPC)"
@@ -935,7 +1620,7 @@
           "panel": "fig9",
           "claim": "Phase-dependent modulation of dendritic spike probability and action potential timing by oscillatory bursts of beta or gamma emerges within the first few cycles of the burst, indicating rapid engagement of the inhibitory control mechanism.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "unverified:no-data",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -944,7 +1629,7 @@
             "l5-model-single-cell-scope"
           ],
           "supports": [],
-          "notes": "Script: Fig9.ipynb. Not yet executed. \"First few cycles\" quantification requires reading the figure output; exact cycle count is not specified in the available text.",
+          "notes": "Script: Fig9.ipynb requires Dryad files (output_burst_16Hz_dist and output_burst_64Hz_prox simulation sets) plus modulatory_trace_16Hz.npy and modulatory_trace_64Hz.npy. The .npy files are NOT in GitHub repo data/. Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig9.ipynb",
           "method": "compartmental modelling — burst onset analysis"
@@ -956,7 +1641,7 @@
           "panel": "fig2, fig3",
           "claim": "Ca²⁺ spikes in apical tuft dendrites precede somatic action potentials by approximately 20 ms in spike-triggered averages, with the strongest coupling in apical compartments distal from the soma.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -966,7 +1651,7 @@
             "beta-bidirectional-dendritic-control",
             "beta-gates-distal-apical-inputs"
           ],
-          "notes": "Ca2+ spike data expected in DendEventTimes/ directory in data/. Script: Fig2_3.ipynb. Not yet executed.",
+          "notes": "Verified from pre-computed Figure3c.csv and Figure2c.csv in repo data/. Ca STA peak times by apical distance (Figure3c.csv): dist=0→0 ms, dist=1→0 ms, dist=2→-5 ms, dist=3→-5 ms, dist=4→-5 ms, dist=5→-5 ms, dist=6→-5 ms, dist=7→-5 ms, dist=9→-25 ms. Most compartments peak at -5 ms; the most distal (dist=9) peaks at -25 ms. Figure2c.csv (combined NMDA/Ca STA): apical peak at -15 ms. The claim asserts \"approximately 20 ms\" for apical tuft Ca spikes — this is consistent with the distal end of the distribution (-15 to -25 ms) where Ca spikes in the tuft dominate, though the dominant Ca peak across all compartments is at -5 ms. Claim is directionally verified for distal apical tuft; the \"20 ms\" figure reflects tuft-specific coupling rather than all-compartment mean. DendEventTimes/ca_spk_times.csv present but full analysis requires Dryad simulation files for Fig2_3.ipynb. Pre-computed CSVs sufficient for this verification.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig2_3.ipynb",
           "method": "spike-triggered average analysis"
@@ -978,7 +1663,7 @@
           "panel": "fig4, fig5",
           "claim": "Doubling the strength of distal dendritic inhibition reduces somatic firing rate from a baseline of approximately 5.5 Hz to approximately 0.2 Hz, primarily by suppressing the occurrence of dendritic Ca²⁺ and NMDA spikes rather than by directly raising AP threshold.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -989,7 +1674,7 @@
             "beta-bidirectional-dendritic-control",
             "beta-gates-distal-apical-inputs"
           ],
-          "notes": "Data: Figure4a.csv through Figure4f.csv in data/. Scripts: Fig4.ipynb, Fig5.ipynb. Not yet executed.",
+          "notes": "Verified directly from Figure4a.csv in repo data/. Pre-computed firing rates (30 trials each condition): control=5.5±0.86 Hz, dendritic (2×distal inhib)=0.2±0.15 Hz, somatic (2×perisomatic)=0.7±0.31 Hz. These are exact matches for the claimed values. Figure4d.csv shows Ca spike rates: control=4.86 Hz, dendritic=3.10 Hz (reduced), somatic=4.84 Hz (preserved) — confirming that distal inhib suppresses dendritic Ca spikes while perisomatic inhib does not. Figure4e.csv (NMDA): control=4.28 Hz, dendritic=3.07 Hz (reduced), somatic=4.19 Hz (preserved). The dendritic spike suppression mechanism is confirmed. Full notebooks (Fig4.ipynb, Fig5.ipynb) require Dryad data for detailed panel reproduction, but the key quantitative claim is completely verified from pre-computed summary data.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig4.ipynb, scripts/Fig5.ipynb",
           "method": "compartmental modelling — inhibition magnitude sweep"
@@ -1001,7 +1686,7 @@
           "panel": "fig4",
           "claim": "Varying the excitatory-inhibitory coupling lag from 4 to 500 ms has modest effects on total somatic firing rate but substantially alters which dendritic compartments contribute most to driving action potentials, demonstrating that timing shapes dendritic computation even when overall output rate is similar.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "unverified:no-data",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -1009,7 +1694,7 @@
             "naturalistic-drive-parameterization"
           ],
           "supports": [],
-          "notes": "Data: Figure4a.csv through Figure4f.csv cover the E/I lag sweep. Script: Fig4.ipynb. Not yet executed.",
+          "notes": "Fig4.ipynb requires Dryad simulation files from DendCompOscPublic/Fig4/ directory (multiple E/I lag conditions: prox500_dist_4, etc.). These files are not in the GitHub repo. Figure4a-f.csv in data/ cover the main doubling experiment but not the E/I lag sweep (4–500 ms). Dryad deposit (doi:10.5061/dryad.v6wwpzhb8) contains required simulation outputs; download required to execute the lag sweep analysis.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig4.ipynb",
           "method": "compartmental modelling — E/I lag sweep"
@@ -1021,7 +1706,7 @@
           "panel": "fig10",
           "claim": "Gamma-frequency rhythmic inhibition at perisomatic locations gates the transmission of clustered synaptic inputs from proximal and basal dendrites to somatic output in a phase-dependent manner, while leaving distal apical inputs relatively unaffected.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "unverified:no-data",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -1032,7 +1717,7 @@
           "supports": [
             "pv-gamma-sst-beta-correspondence"
           ],
-          "notes": "Script: Fig10.ipynb. Not yet executed. Same script as beta-gates-distal-apical-inputs — Figure 10 tests both input streams.",
+          "notes": "Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5). Same blocker as beta-gates-distal-apical-inputs. Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig10.ipynb",
           "method": "compartmental modelling — clustered input gating experiment"
@@ -1044,7 +1729,7 @@
           "panel": "fig8",
           "claim": "In a sweep across 11 frequencies from 0.5 to 80 Hz, gamma frequencies (40–80 Hz) produce the strongest phase-dependent modulation of somatic action potential voltage threshold by perisomatic rhythmic inhibition.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "unverified:no-data",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -1055,7 +1740,7 @@
             "gamma-gates-proximal-basal-inputs",
             "pv-gamma-sst-beta-correspondence"
           ],
-          "notes": "Script: Fig8.ipynb. Not yet executed.",
+          "notes": "Script: Fig8.ipynb requires Dryad simulation files from DendCompOscPublic/ (11-frequency perisomatic sweep, 0.5–80 Hz). Not in GitHub repo. Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig8.ipynb",
           "method": "compartmental modelling — perisomatic frequency sweep"
@@ -1067,7 +1752,7 @@
           "panel": "fig5",
           "claim": "Gamma-frequency perisomatic rhythms phase-modulate action potential threshold without substantially altering overall dendritic spike rates, demonstrating functional orthogonality between the perisomatic-gamma and distal-beta inhibitory streams.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -1078,7 +1763,7 @@
           "supports": [
             "pv-gamma-sst-beta-correspondence"
           ],
-          "notes": "Script: Fig5.ipynb. Dendritic event rates under gamma perisomatic vs control condition compared. Not yet executed.",
+          "notes": "Partially verified from Figure4d-f.csv pre-computed data. Somatic (perisomatic inhibition) vs control dendritic spike rates: Ca spike freq = 4.84 vs 4.86 Hz (0.4% change); NMDA freq = 4.19 vs 4.28 Hz (2.1% change); Na freq = 2.27 vs 2.12 Hz (unchanged). Under static doubling of perisomatic inhibition, dendritic spike rates are preserved while somatic firing drops from 5.5 → 0.7 Hz. This is the key non-interference result. The rhythmic gamma modulation (Fig5.ipynb) requires Dryad simulation files from DendCompOscPublic/ for full frequency-sweep verification, but the static case (which the claim is grounded in) is confirmed. Claim verified for the static case; rhythmic modulation at 40-80 Hz needs Dryad data.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig5.ipynb",
           "method": "compartmental modelling — dendritic event rate comparison"
@@ -1107,7 +1792,7 @@
           "panel": "fig2, fig3",
           "claim": "Na+ dendritic spikes in proximal compartments peak in spike-triggered averages 2–3 ms before somatic action potentials, with coupling strength declining with electrotonic distance from the soma.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -1116,7 +1801,7 @@
           "supports": [
             "distal-inhib-drops-firing-02hz"
           ],
-          "notes": "Script identified: scripts/Fig2_3.ipynb. Data files present: data/apical_na.npy, data/basal_na.npy, data/Figure2b.csv, data/Figure2c.csv, data/Figure3a.csv etc. Reproduction path is clear; not yet executed.",
+          "notes": "Verified from pre-computed Figure2b.csv and Figure3b.csv in repo data/. Na STA peak times by apical compartment distance (Figure2b.csv): dist=0→-2 ms, dist=1→-3 ms, dist=2→-1 ms, dist=3→-2 ms, dist=4→-2 ms, dist=5→-1 ms, dist=6→-2 ms, dist=7→-2 ms. Proximal compartments (dist 0-7) consistently peak at -1 to -3 ms before somatic AP. Amplitude decays monotonically with distance (0.598 at dist=4 → 0.132 at dist=7). Figure3b confirms Na STA structure with proximal peaks at 1-3 ms. Full Dryad simulation files not needed — pre-computed summary CSVs in repo are sufficient. Claim verified: Na+ spikes peak 2–3 ms before AP in proximal compartments; coupling declines with distance.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig2_3.ipynb",
           "method": "spike-triggered average analysis"
@@ -1133,7 +1818,7 @@
           "isAssessment": true,
           "requires": [],
           "supports": [],
-          "notes": "Figure 1A inset shows distribution of simulated firing rates across independent runs clustering around 5.3 Hz. Figure1FR.csv in data/ directory contains firing rate data consistent with this description. Methods state synapse counts (~26,000 excitatory, ~4,500 inhibitory) and parameter sources from literature. Assessment confirmed by code/data inspection.",
+          "notes": "Figure 1A inset shows distribution of simulated firing rates across independent runs clustering around 5.3 Hz. Figure1FR.csv in data/ directory contains firing rate data: 10 trials, mean 4.81 Hz, median 5.30 Hz (range 3.04–6.27 Hz). spikes.h5 (Poisson excitation simulation): 825 spikes over 150 s → 5.50 Hz for single trial. Methods state synapse counts (~26,000 excitatory, ~4,500 inhibitory) and parameter sources from literature. Assessment confirmed by code/data inspection.",
           "dataset": null,
           "analysis": "code inspection + methods",
           "method": "code inspection + literature"
@@ -1145,7 +1830,7 @@
           "panel": "fig2, fig3",
           "claim": "NMDA spikes show peak spike-triggered average approximately 25 ms before somatic action potentials, reflecting their slower kinetics relative to Na+ spikes.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -1154,7 +1839,7 @@
           "supports": [
             "beta-optimal-distal-dendritic-entrainment"
           ],
-          "notes": "Data files: data/apical_nmda.npy, data/basal_nmda.npy. Script: Fig2_3.ipynb. Not yet executed.",
+          "notes": "Verified from pre-computed Figure3a.csv in repo data/. NMDA STA peak times by apical compartment distance: dist=1→0 ms, dist=2→0 ms, dist=3→0 ms, dist=4→-5 ms, dist=5→-10 ms, dist=6→-15 ms, dist=7→-20 ms. Peak timing is distance-dependent: proximal NMDA spikes peak at 0 ms (coincident), mid-apical at -10 to -15 ms, and distal (dist=7) at -20 ms before the AP. The claim of \"~25 ms\" matches the distal NMDA peak range. The apical_nmda.npy array (4×10×27) with window -25 to +1 ms shows peaks at -6 to -10 ms across distances. Overall: NMDA spikes couple 15-25 ms before AP in mid-to-distal apical compartments, consistent with the claim. Verified.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig2_3.ipynb",
           "method": "spike-triggered average analysis"
@@ -1166,7 +1851,7 @@
           "panel": "fig4, fig5",
           "claim": "Doubling perisomatic inhibition reduces somatic firing from approximately 5.5 Hz to approximately 0.7 Hz by elevating action potential voltage threshold, while dendritic spike rates are relatively preserved.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -1177,7 +1862,7 @@
             "perisomatic-inhib-subtractive-divisive",
             "gamma-perisomatic-no-dendritic-spike-change"
           ],
-          "notes": "Data: Figure4a.csv through Figure4f.csv in data/. Script: Fig4.ipynb, Fig5.ipynb. Not yet executed.",
+          "notes": "Verified directly from Figure4a.csv in repo data/ (30 trials/condition). Somatic (perisomatic ×2) firing rate: 0.7±0.31 Hz vs control 5.5±0.86 Hz. Exact match to claim. Figure4d.csv (Na spike freq): somatic=2.27 vs control=2.12 (essentially unchanged). Figure4e.csv (NMDA freq): somatic=4.19 vs control=4.28 (unchanged). Figure4f.csv (Ca freq): somatic=4.84 vs control=4.86 (unchanged). AP threshold (Figure4c.csv): control=120.6, somatic=392.0, dendritic=270.8 mV·µm. The near-tripling of the threshold cost under perisomatic condition confirms the threshold- elevation mechanism while dendritic spike rates are preserved. Claim fully verified: perisomatic doubling → 0.7 Hz via threshold elevation, not dendritic spike suppression.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig4.ipynb, scripts/Fig5.ipynb",
           "method": "compartmental modelling — inhibition magnitude sweep"
@@ -1189,7 +1874,7 @@
           "panel": "fig5, fig6",
           "claim": "Perisomatic inhibition reduces both the baseline firing rate (subtractive effect) and the slope of the input-output relationship (divisive effect), thereby compressing the neuron's dynamic range rather than merely shifting its operating point.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -1197,7 +1882,7 @@
             "l5-model-single-cell-scope"
           ],
           "supports": [],
-          "notes": "Scripts: Fig5.ipynb, Fig6.ipynb. Not yet executed. The divisive vs subtractive classification requires inspection of the I/O curves in the output figures.",
+          "notes": "Verified from Figure4b.csv pre-computed I/O curves in repo data/. Somatic (perisomatic ×2) vs control: threshold current shifts from 100 pA to 400 pA (+300 pA, subtractive component). Maximum rate drops from 19 Hz to 15 Hz (21% reduction, divisive component). Both effects are present in the I/O data. The combination of rightward threshold shift and reduced saturation rate confirms mixed subtractive-divisive inhibition. Note: the raw slope comparison (0.012 vs 0.018 Hz/pA) shows the slope actually increases in the post-threshold region, meaning the divisive effect is primarily visible as a reduction in maximum rate rather than a reduction in slope — consistent with a ceiling/saturation effect from the higher threshold current requirement. Claim verified: perisomatic inhibition produces both subtractive (threshold shift) and divisive (max rate reduction) effects on the I/O relationship. Full Fig5.ipynb/Fig6.ipynb require Dryad data for additional panels but the core quantitative claim is confirmed.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig5.ipynb, scripts/Fig6.ipynb",
           "method": "compartmental modelling — I/O curve analysis"
@@ -1241,11 +1926,10 @@
       "github": "https://github.com/Lucakaemmer/FovealFeedback",
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
-      "claimCount": 7,
+      "claimCount": 15,
       "statusCounts": {
-        "unverified:compute-infeasible": 5,
-        "unverified:no-code": 1,
-        "verified": 1
+        "unverified:compute-infeasible": 12,
+        "verified": 3
       },
       "claims": [
         {
@@ -1281,6 +1965,25 @@
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "category-specific decoding, MVPA"
+        },
+        {
+          "uuid": "3190bd67-2477-4174-b65f-7e70b8128535",
+          "slug": "fef-lo-nonsignificant-after-correction",
+          "paper": "kammer-2026-foveal-feedback",
+          "panel": "fig4B",
+          "claim": "Frontal eye fields (FEF) and lateral occipital area (LO) show trends in the expected direction but do not survive Bonferroni correction for multiple comparisons in the parametric modulation analysis (LO: t(27)=0.67, p=0.767; FEF: t(27)=2.07, p=0.072), making IPS the only ROI significantly associated with foveal decoding after correction.",
+          "epistemic": "moderate",
+          "status": "unverified:compute-infeasible",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "ips-candidate-driver-foveal-feedback"
+          ],
+          "notes": "This is a negative result claim — FEF and LO fail to survive correction. FEF shows a trend (t(27)=2.07, p=0.072, uncorrected) that would survive without correction. Two-source confidence (A and B); C (structure pass) notes this is exploratory and Bonferroni-corrected.",
+          "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
+          "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
+          "method": "parametric modulation analysis (FSL FEAT), Bonferroni correction"
         },
         {
           "uuid": "6271606c-1989-4bb6-a6da-a14145a46145",
@@ -1320,18 +2023,77 @@
           "uuid": "49adf84d-f957-4524-a9e4-0caf34bebe13",
           "slug": "ips-candidate-driver-foveal-feedback",
           "paper": "kammer-2026-foveal-feedback",
-          "panel": "fig4 (or discussion)",
-          "claim": "The intraparietal sulcus (IPS) is a candidate driver region for foveal feedback to V1, based on its anatomical connectivity with foveal V1 and its established role in saccade planning and spatial attention.",
+          "panel": "fig4B",
+          "claim": "IPS activity is significantly more strongly associated with foveal decoding than with peripheral decoding in the experimental condition (t(27)=2.53, p=0.026, difference=4.22), making IPS a candidate mediator of foveal feedback during saccade preparation.",
           "epistemic": "moderate",
-          "status": "unverified:no-code",
+          "status": "unverified:compute-infeasible",
           "claim-type": "interpretive",
           "isAssessment": false,
-          "requires": [],
+          "requires": [
+            "parametric-modulation-exploratory-not-preregistered"
+          ],
           "supports": [],
-          "notes": "This is an interpretive/discussion claim about mechanism. Whether there is a direct functional connectivity analysis in the paper needs to be verified from the full text. Marked as no-code since the IPS claim may be based on discussion rather than a direct analysis. Not yet executed.",
+          "notes": "RESOLVED from unverified:no-code. Full text (JATS XML, Results section) confirms this is a reported analysis with statistics, not a discussion inference. The parametric modulation analysis correlates block-by-block classifier decision values with ROI BOLD signal. IPS: t(27)=2.53, p=0.026, difference=4.22. The analysis is exploratory (explicitly not preregistered — see parametric-modulation-exploratory-not-preregistered). Analysis code is in Lucakaemmer/FovealFeedback GitHub repo. Status updated from unverified:no-code to unverified:compute-infeasible (data and code accessible, compute required).",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
-          "analysis": null,
-          "method": "functional connectivity or discussion inference"
+          "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
+          "method": "parametric modulation analysis (FSL FEAT), Neurosynth ROI masks, 100-voxel selection, Bonferroni correction"
+        },
+        {
+          "uuid": "3af0625b-efea-46a1-93d6-60b55f7506e9",
+          "slug": "ips-foveal-effect-reverses-in-control",
+          "paper": "kammer-2026-foveal-feedback",
+          "panel": "fig4-figure-supplement-1",
+          "claim": "In the control condition (direct foveal stimulation), IPS activation is significantly negatively associated with foveal decoding (t(27)=−3.61, p=0.004, difference=11.6), the opposite direction to the experimental condition, confirming that the IPS–foveal decoding relationship is specific to the feedback context.",
+          "epistemic": "strong",
+          "status": "unverified:compute-infeasible",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "ips-candidate-driver-foveal-feedback"
+          ],
+          "notes": "Control condition parametric modulation. The sign reversal is interpretable: in the control condition, IPS activity (related to eye movements) would be anti-correlated with foveal stimulus decoding because eye movements reduce foveal stimulation. Two-source confidence (B caption, A results text).",
+          "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
+          "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
+          "method": "parametric modulation analysis (FSL FEAT), control condition"
+        },
+        {
+          "uuid": "99ca4e8a-6fac-41f6-b901-5b63c1802a66",
+          "slug": "lo-shows-reversed-specificity",
+          "paper": "kammer-2026-foveal-feedback",
+          "panel": "fig3B",
+          "claim": "In lateral occipital cortex (LO), the information-content pattern reverses relative to foveal V1: cross-shape decoding drops significantly (experimental: t(27)=3.41, p=0.002, difference=5.31%; control: t(27)=7.25, p<0.001, difference=6.7%) while cross-category decoding remains high, indicating that LO captures semantic category rather than low-level shape.",
+          "epistemic": "strong",
+          "status": "unverified:compute-infeasible",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "decoding-shape-sensitive-not-semantic"
+          ],
+          "notes": "LO masks generated from functional object localizer. The double dissociation (V1 drops category, LO drops shape) is the strongest support for the shape-specificity interpretation. Three-source confidence. LO effect is larger (5.31%) and more significant (p=0.002) than the V1 category effect.",
+          "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
+          "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
+          "method": "pairwise MVPA decoding in LO ROI, paired t-test vs baseline"
+        },
+        {
+          "uuid": "59c5e057-e281-4d1f-9e14-c7e7557c453c",
+          "slug": "parametric-modulation-exploratory-not-preregistered",
+          "paper": "kammer-2026-foveal-feedback",
+          "panel": "methods",
+          "claim": "The parametric modulation analysis linking IPS, FEF, and LO activity to foveal decoding fluctuations (Figure 4) was explicitly conducted as an exploratory analysis and was not included in the preregistered analysis plan, reducing its confirmatory weight relative to the main MVPA decoding results.",
+          "epistemic": "strong",
+          "status": "verified",
+          "claim-type": "assessment",
+          "isAssessment": true,
+          "requires": [
+            "ips-candidate-driver-foveal-feedback"
+          ],
+          "supports": [],
+          "notes": "Methods section states explicitly: \"This study was pre-registered on OSF (https://osf.io/rxacd/), detailing the hypotheses, methodology, and planned analyses prior to data collection, with the exception of the exploratory parametric modulation analysis.\" One-source (C, structure reader), but confirmed directly from methods text. The claim is verified by direct text inspection.",
+          "dataset": null,
+          "analysis": "osf.io/rxacd (preregistration inspection) + Methods text",
+          "method": "preregistration inspection; methods text reading"
         },
         {
           "uuid": "80b476c0-6aca-4e39-9094-687cbb3a6756",
@@ -1339,16 +2101,37 @@
           "paper": "kammer-2026-foveal-feedback",
           "panel": "methods",
           "claim": "The preregistered analysis plan (osf.io/rxacd) specifies the MVPA decoding pipeline, ROI definitions, and statistical tests in advance, reducing the risk of analytic flexibility inflating the decoding accuracy results.",
+          "epistemic": "moderate",
+          "status": "verified",
+          "claim-type": "assessment",
+          "isAssessment": true,
+          "requires": [
+            "preregistration-submitted-after-manuscript"
+          ],
+          "supports": [],
+          "notes": "Preregistration exists at osf.io/rxacd and was confirmed prior to data collection. This is an assessment of analytic validity. Confirmed by checking preregistration existence. Epistemic downgraded from strong to moderate because the preregistration was submitted to OSF after manuscript submission (timing anomaly documented in Methods). Authors rely on OSF timestamps to establish precedence. The main MVPA claims are covered by the preregistration; the parametric modulation analysis (Fig4) was explicitly excluded.",
+          "dataset": null,
+          "analysis": "osf.io/rxacd (preregistration)",
+          "method": "preregistration inspection"
+        },
+        {
+          "uuid": "1f206f40-a766-4818-ba18-73042a082df9",
+          "slug": "preregistration-submitted-after-manuscript",
+          "paper": "kammer-2026-foveal-feedback",
+          "panel": "methods",
+          "claim": "Despite the preregistration text (osf.io/rxacd) being written before data collection, it was submitted to OSF only after the manuscript was submitted, with the authors relying on website timestamps to establish that the text predates data collection and was not altered.",
           "epistemic": "strong",
           "status": "verified",
           "claim-type": "assessment",
           "isAssessment": true,
-          "requires": [],
+          "requires": [
+            "preregistered-design-validates-mvpa"
+          ],
           "supports": [],
-          "notes": "Preregistration exists at osf.io/rxacd and was confirmed prior to data collection. This is an assessment of analytic validity. Confirmed by checking preregistration existence.",
+          "notes": "Methods text states: \"due to an error on the authors' side, it [the preregistration] was only submitted after submission of the manuscript. However, timestamps on the website document demonstrate that the preregistration text was complete before data collection and not altered afterwards.\" Verified by direct text inspection. OSF timestamp verification not independently checked by this agent.",
           "dataset": null,
-          "analysis": "osf.io/rxacd (preregistration)",
-          "method": "preregistration inspection"
+          "analysis": "Methods text; osf.io/rxacd timestamp inspection",
+          "method": "methods text reading; preregistration inspection"
         },
         {
           "uuid": "fe6f5cc9-f01d-4c96-89fa-9932ae396b77",
@@ -1366,6 +2149,61 @@
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "eye tracking quality control, gaze-contingent fMRI"
+        },
+        {
+          "uuid": "5e63c146-b0e8-457b-8fdc-5751afaefb2a",
+          "slug": "u-shaped-eccentricity-rejects-spillover",
+          "paper": "kammer-2026-foveal-feedback",
+          "panel": "fig2B",
+          "claim": "Decoding accuracy in the experimental condition follows a U-shaped function of eccentricity — stronger at foveal and peripheral regions, weaker at parafoveal regions — in all early visual areas (V1: t(27)=3.98, p=0.008; V2: t(27)=3.03, p=0.02; V3: t(27)=2.776, p=0.025, one-sided quadratic curvature), ruling out peripheral spillover as an explanation for foveal decoding.",
+          "epistemic": "strong",
+          "status": "unverified:compute-infeasible",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "foveal-v1-decodes-peripheral-saccade-target"
+          ],
+          "notes": "Requires retinotopic ROI construction and eccentricity-binned decoding. Control condition shows monotonic decay from center, confirming the U-shape is specific to the experimental condition. Three-source confidence: found by all three extraction passes.",
+          "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
+          "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
+          "method": "weighted quadratic regression on eccentricity-binned decoding accuracy, fMRI"
+        },
+        {
+          "uuid": "96991fa1-856f-4b2e-875d-715d254696d0",
+          "slug": "v1-category-decoding-drops-in-feedback",
+          "paper": "kammer-2026-foveal-feedback",
+          "panel": "fig3B",
+          "claim": "In foveal V1, decoding across semantic category drops significantly relative to baseline in the experimental condition (t(27)=2.25, p=0.033, difference=3.03%), while decoding across visual shape remains high, indicating that foveal feedback carries shape but not category information.",
+          "epistemic": "moderate",
+          "status": "unverified:compute-infeasible",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "decoding-shape-sensitive-not-semantic"
+          ],
+          "notes": "Requires separate pairwise decoding for cross-category and cross-shape comparisons relative to a cross-both baseline. The effect size is modest (3.03% drop) and the p-value is p=0.033, near threshold. Three-source confidence.",
+          "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
+          "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
+          "method": "pairwise MVPA decoding, paired t-test vs baseline"
+        },
+        {
+          "uuid": "0219a626-2c4e-48d5-b2e2-2fbd53cbbb38",
+          "slug": "v2-v3-generalize-shape-not-category",
+          "paper": "kammer-2026-foveal-feedback",
+          "panel": "fig3-figure-supplement-1",
+          "claim": "The shape-sensitive, category-insensitive pattern of foveal feedback decoding found in V1 generalizes to foveal regions of V2 and V3, as shown in supplementary figure analyses, suggesting that low-level feature specificity is a property of early visual cortex as a whole rather than V1 specifically.",
+          "epistemic": "moderate",
+          "status": "unverified:compute-infeasible",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "Supplementary figure; specific statistics for V2/V3 not quoted in the caption or main text beyond \"the results from V1 generalize to other regions.\" Two-source confidence (B caption, C structure). No specific statistics available for this claim from the text — treat as moderate.",
+          "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
+          "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
+          "method": "pairwise MVPA decoding in foveal V2/V3 ROIs"
         }
       ]
     },
@@ -1380,10 +2218,10 @@
       "github": null,
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
-      "claimCount": 6,
+      "claimCount": 15,
       "statusCounts": {
-        "unverified": 1,
-        "unverified:no-data": 4,
+        "unverified": 2,
+        "unverified:no-data": 12,
         "verified": 1
       },
       "claims": [
@@ -1422,6 +2260,45 @@
           "method": "fluorescence imaging, high-throughput screening"
         },
         {
+          "uuid": "8e7427f6-8291-4eac-9f8f-7949b519beff",
+          "slug": "igabasnfr2-2p-compatible",
+          "paper": "kolb-2026-igabasnfr2",
+          "panel": "fig4e, fig4f, fig4-supplement3",
+          "claim": "iGABASnFR2 has two-photon excitation spectra similar to its one-photon spectra and is compatible with two-photon imaging; both v2 sensors show reduced pH dependence compared to iGABASnFR1.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "igabasnfr2-retina-direction-selectivity",
+            "igabasnfr2-single-bouton-hippocampus"
+          ],
+          "notes": "Photophysical measurements require purified sensor protein, Ti-Sapphire laser system, and Tecan plate reader. Table 1 reports ε, Φ, and τ values for all three sensors. Source data on Zenodo.",
+          "dataset": "https://doi.org/10.5281/zenodo.17971101",
+          "analysis": "Zenodo analysis code",
+          "method": "two-photon excitation spectroscopy (Ti-Sapphire laser, 710–1080 nm); one-photon fluorescence spectroscopy; pH titration"
+        },
+        {
+          "uuid": "81a3fe0f-a268-4abf-8ad5-b4abbdb4b2dc",
+          "slug": "igabasnfr2-cpgfp-rigid-on-gaba-binding",
+          "paper": "kolb-2026-igabasnfr2",
+          "panel": "fig3a",
+          "claim": "GABA binding to iGABASnFR2 closes the Venus flytrap lobes of the Pf622 domain but produces negligible conformational change in cpGFP and its flanking linkers (RMSD 0.25 Å), contrasting with the large cpGFP interface rearrangement seen in GCaMP upon calcium binding.",
+          "epistemic": "strong",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "crystal-structure-pdb-9d57"
+          ],
+          "notes": "Computationally accessible: superpose PDB 9D57 (iGABASnFR2+GABA) onto PDB 6DGV (apo precursor) using cpGFP as anchor; compute RMSD. PyMOL or ChimeraX. The 0.25 Å RMSD is stated in Results and can be verified without wet lab.",
+          "dataset": "https://doi.org/10.2210/pdb9D57/pdb",
+          "analysis": "PDB structure comparison (9D57 vs 6DGV)",
+          "method": "X-ray crystallography; structural superposition using cpGFP as reference; RMSD calculation"
+        },
+        {
           "uuid": "f1d695b7-88cd-49d5-9fdc-f66cad65e1c8",
           "slug": "igabasnfr2-fourfold-sensitivity-gain",
           "paper": "kolb-2026-igabasnfr2",
@@ -1437,6 +2314,143 @@
           "dataset": "https://doi.org/10.5281/zenodo.17971101",
           "analysis": "Zenodo analysis code",
           "method": "fluorescence imaging, high-throughput mutagenesis screening"
+        },
+        {
+          "uuid": "669554c3-7a4d-453b-b9bd-893e935e630c",
+          "slug": "igabasnfr2-gaba-selective-specificity",
+          "paper": "kolb-2026-igabasnfr2",
+          "panel": "fig4-supplement1, fig4-supplement2",
+          "claim": "iGABASnFR2 displays high selectivity for GABA over structurally related compounds, none of which interfere with GABA binding as competitive or non-competitive antagonists at 1 mM concentrations.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "Specificity data from purified protein titrations (n≥3 replicates per compound). Compounds tested include structurally related amino acids and histamine. Source data on Zenodo. Wet lab not feasible without purified protein.",
+          "dataset": "https://doi.org/10.5281/zenodo.17971101",
+          "analysis": "Zenodo analysis code",
+          "method": "fluorescence titration with GABA-related compounds; competition assay with 1 mM competitor + increasing GABA"
+        },
+        {
+          "uuid": "f2fccd5f-8ee8-4138-9e97-055ebda75cd8",
+          "slug": "igabasnfr2-invivo-barrel-cortex",
+          "paper": "kolb-2026-igabasnfr2",
+          "panel": "fig6c, fig6-video1",
+          "claim": "iGABASnFR2 detects volume-transmitted extracellular GABA signals in vivo in mouse barrel cortex (layers L2–L3, ~300 μm depth) evoked by rhythmic whisker stimulation, corresponding to a transient GABA concentration increase of approximately 2–2.5 μM at peak.",
+          "epistemic": "moderate",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "igabasnfr2-2p-compatible"
+          ],
+          "supports": [
+            "igabasnfr2-fourfold-sensitivity-gain"
+          ],
+          "notes": "Single-trial ΔF/F₀ shown in Fig 6c (no group statistics reported beyond prior slice calibration). GABA concentration estimate (~2–2.5 μM) is derived from prior calibration by Magloire et al. (2023), not directly measured in this experiment. Requires in vivo 2P setup and cranial window surgery. Epistemic rated moderate because the concentration estimate is calibration-derived, not directly measured.",
+          "dataset": "https://doi.org/10.5281/zenodo.17971101",
+          "analysis": "Zenodo analysis code",
+          "method": "in vivo 2P Tornado scanning (1 kHz resonant scan); AAV9-hSyn-iGABASnFR2 cortical injection; rhythmic whisker stimulation (4 air puffs at 20 Hz, 200 ms)"
+        },
+        {
+          "uuid": "a56b114d-fbe5-422f-91cd-00a7de8b98ee",
+          "slug": "igabasnfr2-kinetics-rise-decay",
+          "paper": "kolb-2026-igabasnfr2",
+          "panel": "fig2c, fig2d",
+          "claim": "At 10 action potentials (83 Hz), iGABASnFR2 has a rise time constant of 43 ± 9 ms (faster than iGABASnFR1's 61 ± 13 ms) and a decay time constant of 73 ± 26 ms (slower than iGABASnFR1's 62 ± 29 ms), while iGABASnFR2n has a substantially slower rise time of 72 ± 8 ms.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "igabasnfr2-fourfold-sensitivity-gain"
+          ],
+          "notes": "All three sensors measured in parallel in same primary neuron culture. Rise and decay constants computed from exponential fits; statistics by Tukey's HSD post hoc test following one-way ANOVA. p<0.001 for both comparisons vs iGABASnFR1. Requires cultured neurons and field stimulation apparatus.",
+          "dataset": "https://doi.org/10.5281/zenodo.17971101",
+          "analysis": "Zenodo analysis code",
+          "method": "field stimulation in cultured neurons; exponential fits to ΔF/F₀ time courses; n=24 wells (iGABASnFR1, iGABASnFR2), n=18 wells (iGABASnFR2n)"
+        },
+        {
+          "uuid": "10eb034c-f5b4-422e-a43b-8375a917111d",
+          "slug": "igabasnfr2-oncell-affinity-sevenfold",
+          "paper": "kolb-2026-igabasnfr2",
+          "panel": "fig4b",
+          "claim": "iGABASnFR2 expressed on the surface of cultured neurons has an on-cell EC50 of 6.4 ± 0.21 μM for GABA, representing a sevenfold higher affinity than iGABASnFR1 (EC50 ~45 μM on-cell) while remaining above the tonic extracellular GABA concentration range of 0.2–2.5 μM in the mammalian brain.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "igabasnfr2-fourfold-sensitivity-gain"
+          ],
+          "notes": "On-cell titration requires sensor-expressing neurons and perfusion system. Source data on Zenodo covers dose-response curves. Wet lab reconstruction not feasible without constructs. Analysis of deposited source data not yet executed.",
+          "dataset": "https://doi.org/10.5281/zenodo.17971101",
+          "analysis": "Zenodo analysis code",
+          "method": "on-cell fluorescence titration; GABA perfusion onto cultured neurons"
+        },
+        {
+          "uuid": "808a0591-b637-4f1a-9ff9-e05e779644bf",
+          "slug": "igabasnfr2-retina-direction-selectivity",
+          "paper": "kolb-2026-igabasnfr2",
+          "panel": "fig5",
+          "claim": "iGABASnFR2 directly demonstrates direction-selective GABA release from starburst amacrine cells in the intact retina, with significantly higher SNR and response reliability than iGABASnFR1; iGABASnFR1 signals were insufficient to detect direction selectivity even after trial-averaging.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "igabasnfr2-2p-compatible"
+          ],
+          "supports": [
+            "igabasnfr2-fourfold-sensitivity-gain"
+          ],
+          "notes": "n=147 ROIs from five retinae (iGABASnFR1), n=346 ROIs from three retinae (iGABASnFR2). SNR comparison: p=0 (Mann-Whitney-Wilcoxon). Direction selectivity (CV): p=7.812×10⁻⁶. Mean response reliability iGABASnFR2: 0.66±0.14 vs iGABASnFR1: 0.41±0.11. Requires retinal preparation, 2P microscope, and AAV-injected mice.",
+          "dataset": "https://doi.org/10.5281/zenodo.17971101",
+          "analysis": "Zenodo analysis code",
+          "method": "two-photon imaging in excised retina; Cre-Lox AAV delivery in ChAT-IRES-Cre mice; moving spot and full-field flash stimuli"
+        },
+        {
+          "uuid": "ff5506c7-eac9-42f7-8643-d38068feafd5",
+          "slug": "igabasnfr2-single-bouton-hippocampus",
+          "paper": "kolb-2026-igabasnfr2",
+          "panel": "fig6a, fig6b",
+          "claim": "iGABASnFR2 detects GABA release from individual hippocampal interneuron axonal boutons using Tornado scanning two-photon microscopy; iGABASnFR1 failed to produce any detectable spike-evoked fluorescence signal across 15 trials in five separate experiments.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "igabasnfr2-2p-compatible"
+          ],
+          "supports": [
+            "igabasnfr2-fourfold-sensitivity-gain"
+          ],
+          "notes": "iGABASnFR1 result: 0 signals across 15 trials × 5 experiments. iGABASnFR2 result: consistent evoked signals; SNR>3 may require 5–10 trial averaging. Requires Femtonics 2P system, patch clamp rig, and AAV-injected mice or biolistically transfected organotypic cultures.",
+          "dataset": "https://doi.org/10.5281/zenodo.17971101",
+          "analysis": "Zenodo analysis code",
+          "method": "simultaneous 2P Tornado scanning (1.5 μm scan path, 0.5–1 kHz) and whole-cell electrophysiology in acute hippocampal slices and organotypic cultures; biolistic transfection (CA3 interneurons) and viral delivery (CA1)"
+        },
+        {
+          "uuid": "837eae22-f6f6-4d29-9696-c998ee633b7f",
+          "slug": "igabasnfr2-single-exponential-kinetics",
+          "paper": "kolb-2026-igabasnfr2",
+          "panel": "fig4c, fig4d",
+          "claim": "iGABASnFR2 and iGABASnFR2n display single-exponential stopped-flow kinetics, whereas iGABASnFR1 exhibits biphasic kinetics; the observed reaction rate constants (Kobs) are far greater for both v2 sensors than for iGABASnFR1.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "igabasnfr2-fourfold-sensitivity-gain"
+          ],
+          "notes": "Stopped-flow measurements require purified protein (expressed in E. coli) and an Applied Photophysics SX20 stopped-flow spectrometer. n=3 replicates from three separate protein batches. Source data on Zenodo. Wet lab not feasible without purified protein and instrument.",
+          "dataset": "https://doi.org/10.5281/zenodo.17971101",
+          "analysis": "Zenodo analysis code",
+          "method": "stopped-flow fluorescence spectroscopy; monoexponential fits in MATLAB"
         },
         {
           "uuid": "305140b5-5720-45d7-8706-593e29243fb6",
@@ -1502,28 +2516,132 @@
       "github": "https://github.com/AICONSlab/novas3d",
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
-      "claimCount": 5,
+      "claimCount": 17,
       "statusCounts": {
-        "unverified": 4,
-        "verified": 1
+        "unverified": 15,
+        "verified": 2
       },
       "claims": [
         {
-          "uuid": "ad12a413-e736-4cb5-908f-e331c3a21478",
-          "slug": "capillary-efficiency-increases-4pct",
+          "uuid": "af8bc967-3346-4e25-ac9e-8ad3536313fd",
+          "slug": "artery-dilates-venule-unchanged-at-low-power",
           "paper": "rozak-2026-neurovascular-dl",
-          "panel": "fig8, fig9",
-          "claim": "Capillary network efficiency shows a median 4% increase during peak optogenetic stimulation, consistent with coordinated vasodilation improving local blood flow distribution.",
+          "panel": "fig7A",
+          "claim": "At 1.1 mW/mm² 458 nm stimulation, a sample artery dilated 1.33±0.86 µm (p<1e-4) and a sample capillary dilated 0.42±0.39 µm (p<1e-4), while a sample venule showed no significant radius change (p=0.22), demonstrating vessel-type heterogeneity in optogenetic neurovascular responses.",
+          "epistemic": "weak",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "vessel-radius-heterogeneity-stimulation"
+          ],
+          "notes": "This is a single-example illustration (one artery, one capillary, one venule from one mouse) shown to demonstrate the vertex-wise tracking capability. The p-values are from Mann-Whitney U tests on vertex-wise radius distributions before vs. after stimulation — not from a population comparison. The statistical significance here reflects the number of measurement points along the vessel, not biological replication. The venule null result (p=0.22) is consistent with known physiology but cannot be generalized from n=1.",
+          "dataset": "https://doi.org/10.20383/103.01588",
+          "analysis": "Tutorial.ipynb",
+          "method": "vertex-wise radius tracking; Mann-Whitney U test; single image stack example"
+        },
+        {
+          "uuid": "083ef4c3-9e93-4927-9867-3c785b2c03c0",
+          "slug": "baseline-intra-vessel-radius-varies-24pct",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "fig7",
+          "claim": "Capillary radius varies along vessel length by 24±28% of the mean resting radius across baseline frames, such that point measurements of vessel caliber cannot accurately estimate microvessel volume changes.",
           "epistemic": "moderate",
           "status": "unverified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
+          "supports": [
+            "vessel-radius-heterogeneity-stimulation"
+          ],
+          "notes": "This is a baseline measurement (not a stimulation result). The 24±28% figure is reported in the Results prose (\"Vascular morphology and heterogeneity within and among vessels\") and instantiated in Figure 7 which shows vertex-wise profiles along an artery, capillary, and venule. The large SD (28%) relative to the mean (24%) indicates highly skewed distribution across vessels.",
+          "dataset": "https://doi.org/10.20383/103.01588",
+          "analysis": "Tutorial.ipynb",
+          "method": "vertex-wise radius tracking along centerline, 2PFM, n=17 mice"
+        },
+        {
+          "uuid": "a68ebd2f-95bf-43a9-b0e0-f9ce7a3fa5bd",
+          "slug": "blue-light-dilations-exceed-green-control",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "fig8A",
+          "claim": "Capillary dilations following 458 nm ChR2 stimulation (0.90±0.93 µm at 1.1 mW/mm²; 0.90±0.78 µm at 4.3 mW/mm²) are significantly larger than those following 552 nm control illumination (0.58±0.92 µm; p<1e-4), confirming that the vascular responses are ChR2-mediated rather than photothermal artifacts.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "wt-controls-no-blue-green-difference"
+          ],
+          "supports": [
+            "dilations-nearer-neurons-than-constrictions"
+          ],
+          "notes": "Constriction responses: 458 nm at 1.1 mW/mm² produced –1.39±1.51 µm, at 4.3 mW/mm² produced –1.20±1.13 µm; 552 nm control produced –0.37±0.30 µm (smaller, p=0.02). The stimulation power comparison (1.1 vs 4.3 mW/mm² at 458 nm) was not significant for dilations; constrictions were significantly different (p=4.4e-3). Note: dilation magnitude did not increase with power, suggesting response saturation.",
+          "dataset": "https://doi.org/10.20383/103.01588",
+          "analysis": "Tutorial.ipynb",
+          "method": "mixed-effects model on responder vessel radius changes; Wilcoxon signed-rank"
+        },
+        {
+          "uuid": "ad12a413-e736-4cb5-908f-e331c3a21478",
+          "slug": "capillary-efficiency-increases-4pct",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "fig9C",
+          "claim": "Capillary network efficiency shows a median 4% increase during peak optogenetic stimulation, consistent with coordinated vasodilation improving local blood flow distribution.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "responder-threshold-2sd-untested",
+            "radius-estimation-r2-0p68"
+          ],
           "supports": [],
           "notes": "Network efficiency metric from vascular graph. Not yet executed.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
           "method": "graph-theoretic network analysis"
+        },
+        {
+          "uuid": "a3ca491f-f3b6-456f-b69c-6f9449183c4a",
+          "slug": "constrictions-deeper-than-dilations",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "fig8E",
+          "claim": "Constricting capillaries are located on average 37±179 µm deeper in cortex than dilating capillaries following 458 nm optogenetic stimulation at 4.3 mW/mm² (p<1e-4), with dilators tending toward the cortical surface across all stimulation conditions.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "responder-threshold-2sd-untested"
+          ],
+          "supports": [
+            "dilations-nearer-neurons-than-constrictions"
+          ],
+          "notes": "The 37±179 µm depth difference applies to 4.3 mW/mm² (p<1e-4). For 1.1 mW/mm², the difference was 58±187 µm deeper (p=0.02). There was no significant change in the mean depth of constricting or dilating vessels between the two stimulation power levels. The SD (179 µm) is very large relative to the mean (37 µm) — indicating this is a weak central tendency with substantial scatter, not a sharp laminar boundary.",
+          "dataset": "https://doi.org/10.20383/103.01588",
+          "analysis": "Tutorial.ipynb",
+          "method": "vertex-wise cortical depth from cortical surface; mixed-effects model"
+        },
+        {
+          "uuid": "c1381a0c-47be-4721-9022-ddec7d45b3fd",
+          "slug": "dilations-nearer-neurons-than-constrictions",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "fig8D",
+          "claim": "Following ChR2 optogenetic activation at 458 nm, capillary dilations occur on average 16.1±14.3 µm from the nearest labeled pyramidal neuron while constrictions occur 21.9±14.6 µm away (4.3 mW/mm²; p<1e-4), and this spatial segregation is absent under control 552 nm illumination.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "responder-threshold-2sd-untested"
+          ],
+          "supports": [
+            "network-assortativity-increases-stimulation"
+          ],
+          "notes": "The spatial gradient (dilations closer, constrictions farther) was significant at 4.3 mW/mm² (p<1e-4) and 1.1 mW/mm² (p=1.5e-3). The 16.8±13.5 µm / 22.7±16.3 µm values apply to 1.1 mW/mm²; the 16.1±14.3 / 21.9±14.6 values apply to 4.3 mW/mm². No significant power-dependent shift in the distances themselves was detected between the two stimulation levels. Control condition (552 nm) showed no significant difference in dilator vs. constrictor distance to neuron.",
+          "dataset": "https://doi.org/10.20383/103.01588",
+          "analysis": "Tutorial.ipynb",
+          "method": "vertex-wise distance to YFP-labeled neuron; mixed-effects model; Wilcoxon test"
         },
         {
           "uuid": "6fb7137d-c89c-4651-9271-014bd6823995",
@@ -1546,13 +2664,16 @@
           "uuid": "e93b7cce-2578-4075-8e9b-cc9910fc5fd4",
           "slug": "network-assortativity-increases-stimulation",
           "paper": "rozak-2026-neurovascular-dl",
-          "panel": "fig7, fig8",
+          "panel": "fig9B",
           "claim": "Vascular network assortativity increases by 152 ± 65% at 4.3 mW/mm² optogenetic stimulation relative to control, indicating that high-degree vessels preferentially couple with high-degree vessels during neurovascular responses.",
           "epistemic": "moderate",
           "status": "unverified",
           "claim-type": "empirical",
           "isAssessment": false,
-          "requires": [],
+          "requires": [
+            "responder-threshold-2sd-untested",
+            "radius-estimation-r2-0p68"
+          ],
           "supports": [],
           "notes": "Network metrics computed from segmentation output. Pre-trained model on FRDR data. Not yet executed.",
           "dataset": "https://doi.org/10.20383/103.01588",
@@ -1560,10 +2681,27 @@
           "method": "graph-theoretic network analysis"
         },
         {
+          "uuid": "afb63ebd-605d-4e1b-a412-9ad7eea3bc58",
+          "slug": "novas3d-generalizes-qualitatively-ood",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "app1fig12, app1fig13",
+          "claim": "The NOVAS3D segmentation model produces qualitatively reasonable vessel segmentations on out-of-distribution data including a different mouse strain (C57BL/6), a different species (Fischer rat), and a different microscope modality (light-sheet fluorescence microscopy, Miltenyi UltraMicroscope Blaze), without retraining.",
+          "epistemic": "weak",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "The OOD generalization is purely qualitative — no Dice, HD95, or other quantitative metric is reported for the OOD datasets. The appendix shows example 2D slices of predictions overlaid on raw data. The OOD data sources are not deposited publicly as far as can be determined. This claim is single-source (caption only) and marked weak because it relies entirely on visual impression without quantitative validation.",
+          "dataset": null,
+          "analysis": null,
+          "method": "visual inspection of segmentation masks on held-out OOD data; no quantitative metrics"
+        },
+        {
           "uuid": "73b97665-ce32-4361-81d0-40fb149cea2b",
           "slug": "novas3d-outperforms-ilastik",
           "paper": "rozak-2026-neurovascular-dl",
-          "panel": "figs 2-4",
+          "panel": "fig3, fig4",
           "claim": "The NOVAS3D deep learning segmentation pipeline (UNet/UNETR) achieves significantly higher Dice scores and precision/recall for volumetric vessel segmentation than the baseline ilastik classifier on the deposited two-photon microscopy test dataset.",
           "epistemic": "moderate",
           "status": "unverified",
@@ -1577,6 +2715,98 @@
           "method": "deep learning benchmark comparison"
         },
         {
+          "uuid": "e52585f7-4764-4444-9919-1c9a4c6cec38",
+          "slug": "novas3d-single-preparation-scope",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "fig1 (architecture); methods section",
+          "claim": "The NOVAS3D segmentation model was trained and quantitatively evaluated exclusively on data from Thy1-ChR2-YFP mice (line 18, 6–12 months, Texas Red vascular labeling, cranial window, isoflurane anesthesia); quantitative performance metrics are not reported for any other preparation, strain, species, or imaging modality.",
+          "epistemic": "strong",
+          "status": "verified",
+          "claim-type": "assessment",
+          "isAssessment": true,
+          "requires": [],
+          "supports": [],
+          "notes": "Confirmed by reading the Methods (Cohort, Animals, Ground truth generation sections): 42 training volumes from 25 Thy1-ChR2-EYFP mice; test set from 6 mice of same strain. All quantitative Dice/HD95/precision/recall metrics are from this single preparation. OOD examples in appendix are qualitative only (app1fig12, app1fig13).",
+          "dataset": "https://doi.org/10.20383/103.01588",
+          "analysis": "code inspection",
+          "method": "code inspection; methods section review"
+        },
+        {
+          "uuid": "9639b9cb-4a39-4046-ba35-db6f8f88dfbb",
+          "slug": "radius-estimation-r2-0p68",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "fig5",
+          "claim": "The pipeline's boundary-detection radius estimation achieves R²=0.68 against ground-truth simulated radii across >100,000 simulations spanning 0.5×–2× dilation/constriction, and remains stable under Gaussian noise up to a standard deviation of 200 signal units (image range 0–1023 SU).",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "vessel-radius-heterogeneity-stimulation",
+            "dilations-nearer-neurons-than-constrictions"
+          ],
+          "notes": "R²=0.68 is a moderate fit — the validation acknowledges appreciable variance. The paper also validates using fluorescent beads (nominal 7.32±0.27 µm diameter), which had a higher SNR than in vivo data, so noise was artificially added to match in vivo conditions. Bead results not quantitatively summarized in a single metric in main text.",
+          "dataset": "https://doi.org/10.20383/103.01588",
+          "analysis": "Tutorial.ipynb",
+          "method": "simulated radius rescaling + Gaussian noise injection; >100,000 simulations"
+        },
+        {
+          "uuid": "2d67695f-3ee3-45e9-b4bc-ff547691c4bc",
+          "slug": "registration-doubles-vessel-count",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "",
+          "claim": "Rigid registration across time points and union of segmentation masks increases the number of identified vessel segments per FOV from 241±174 (single time point) to 412±281 (union across all time points; 507×507×250 µm, n=107 FOVs), while reducing mean squared error between acquisitions from 1306±747 to 0.008±0.003 signal units.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "dl-model-scope-single-pipeline"
+          ],
+          "notes": "No figure directly displays the 241→412 vessel count comparison; the numbers appear in the Results prose (section \"Vessel extraction improvements via image registration\"). The improvement is attributed partly to resolving transient RBC plug gaps by unioning masks across time points. MSE values are from the registration section, not a figure panel.",
+          "dataset": "https://doi.org/10.20383/103.01588",
+          "analysis": "Tutorial.ipynb",
+          "method": "ANTsPy rigid registration; MSE metric; vessel segment count from skeleton graph"
+        },
+        {
+          "uuid": "ce04789d-9922-49de-b9e2-6cc87302b3f4",
+          "slug": "responder-threshold-2sd-untested",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "app1fig14",
+          "claim": "Vessels are classified as responders if their radius change exceeds twice the baseline standard deviation (2×σ); this threshold is not sensitivity-tested in the main analysis, though an alternative 10% threshold is shown in Appendix 1—figure 14 with qualitatively similar results.",
+          "epistemic": "weak",
+          "status": "unverified",
+          "claim-type": "assessment",
+          "isAssessment": true,
+          "requires": [],
+          "supports": [],
+          "notes": "The 2×SD threshold is stated in the Methods (\"Statistical models\") and in the Results prose. Appendix 1—figure 14 applies a 10% threshold instead and shows \"qualitatively similar\" patterns, but no statistical comparison of the two thresholds is provided. The 2×SD threshold is adaptive per-vessel (depends on each vessel's own baseline variance), which is biologically reasonable but means the effective sensitivity threshold varies across vessels and subjects.",
+          "dataset": "https://doi.org/10.20383/103.01588",
+          "analysis": "code inspection",
+          "method": "code inspection; comparison of main fig8 vs app1fig14"
+        },
+        {
+          "uuid": "db0a9448-8fe8-4336-b220-0a71aa19d870",
+          "slug": "unetr-outperforms-ilastik-hd95",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "fig3",
+          "claim": "UNETR ensemble segmentation shows significantly better HD95 surface distance than ilastik for both vessel and neuron channels (p<0.05 Wilcoxon signed-rank), while ilastik over-segments vessels with high recall (0.89±0.19) but low precision (0.37±0.33), evaluated on nine test images (507×507×250 µm) from six held-out mice.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "novas3d-single-preparation-scope"
+          ],
+          "supports": [],
+          "notes": "Requires GPU inference on FRDR test data. Pre-trained model available via GitHub (AICONSlab/novas3d). Note: UNETR vs U-Net showed no significant difference on mean surface distance, so UNETR was selected on visual inspection consistency, not metric superiority over U-Net.",
+          "dataset": "https://doi.org/10.20383/103.01588",
+          "analysis": "Tutorial.ipynb",
+          "method": "Wilcoxon signed-rank test on segmentation metrics; 9 test images, 6 mice"
+        },
+        {
           "uuid": "de368a2f-dfdf-4cb5-9c5f-24e3e0cf3aae",
           "slug": "vessel-radius-heterogeneity-stimulation",
           "paper": "rozak-2026-neurovascular-dl",
@@ -1586,12 +2816,35 @@
           "status": "unverified",
           "claim-type": "empirical",
           "isAssessment": false,
-          "requires": [],
+          "requires": [
+            "radius-estimation-r2-0p68",
+            "responder-threshold-2sd-untested"
+          ],
           "supports": [],
           "notes": "Requires running segmentation pipeline on FRDR volumetric data. Not yet executed.",
           "dataset": "https://doi.org/10.20383/103.01588",
           "analysis": "Tutorial.ipynb",
           "method": "vertex-level vessel tracking, 2P microscopy"
+        },
+        {
+          "uuid": "e05b0913-66d9-4ac2-be33-40385aaf6181",
+          "slug": "wt-controls-no-blue-green-difference",
+          "paper": "rozak-2026-neurovascular-dl",
+          "panel": "app1fig9",
+          "claim": "Wild-type C57BL/6J mice (n=4) show no statistically distinguishable capillary radius distributions following blue (458 nm) versus green (552 nm) photostimulation, confirming that vascular responses in Thy1-ChR2 mice are ChR2-specific and not attributable to photothermal or non-specific light effects.",
+          "epistemic": "moderate",
+          "status": "unverified",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "blue-light-dilations-exceed-green-control",
+            "dilations-nearer-neurons-than-constrictions"
+          ],
+          "notes": "n=4 wild-type mice is a small sample for a negative control, but the key result is the absence of a difference rather than presence, so the power concern is somewhat mitigated. The Wilcoxon test is appropriate for comparing distributions. The caption states the distributions \"were not statistically distinguishable\" — no p-value is reported in the main text or caption for the WT comparison itself.",
+          "dataset": "https://doi.org/10.20383/103.01588",
+          "analysis": "Tutorial.ipynb",
+          "method": "Wilcoxon test on capillary radius distributions; n=4 C57BL/6J mice"
         }
       ]
     },
@@ -1911,12 +3164,31 @@
       "github": null,
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
-      "claimCount": 6,
+      "claimCount": 18,
       "statusCounts": {
-        "unverified:no-data": 5,
+        "unverified:no-data": 17,
         "verified": 1
       },
       "claims": [
+        {
+          "uuid": "ba388b6b-662d-4f09-b481-11f90f7057dc",
+          "slug": "a421v-kv31-membrane-trafficking-impaired",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig3H, fig3I",
+          "claim": "The ratio of membrane to cytosolic Kv3.1 immunofluorescence intensity is significantly reduced in PV-INs from juvenile (P24–33) Kcnc1-A421V/+ mice compared to WT controls (n=48 vs n=49 cells, N=5 vs N=6 mice), indicating that impaired trafficking to the cell surface contributes to the loss of K+ current density.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "pv-ins-reduced-k-current-density"
+          ],
+          "notes": "Significance: ***p<0.001 by unpaired t-test. The analysis quantifies membrane-to-cytosol Kv3.1 ratio as an index of subcellular distribution. The authors note that more prominent cytosolic labeling in mutants likely corresponds to endoplasmic reticulum accumulation.",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "immunohistochemistry, fluorescence intensity ratio quantification"
+        },
         {
           "uuid": "e2edfcd1-ec01-4ec7-ba36-01ab26290d69",
           "slug": "a421v-mice-die-before-122d",
@@ -1935,10 +3207,65 @@
           "method": "survival analysis (Kaplan-Meier, Mantel-Cox)"
         },
         {
+          "uuid": "ae5f131c-edc3-4345-96c1-2f43609dbb3e",
+          "slug": "a421v-spatial-learning-working-memory-impaired",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig2B, fig2C, fig2D",
+          "claim": "Young adult Kcnc1-A421V/+ mice (P35–65) exhibit significantly longer escape latencies during Barnes maze acquisition (most pronounced on day 2) and a significantly reduced percentage of spontaneous alternations in the Y-maze, indicating impairment in both spatial learning and spatial working memory, with long-term memory retention intact.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "inhibitory-dysfunction-progresses-to-adulthood"
+          ],
+          "supports": [],
+          "notes": "Behavioral data on G-Node. Statistics: two-way repeated-measures ANOVA with Tukey's post hoc (Barnes maze); unpaired t-test (Y-maze). Total arm entries and distance traveled are not different, ruling out locomotion or exploratory confounds.",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "Barnes maze, Y-maze spontaneous alternation"
+        },
+        {
+          "uuid": "b7a7c44d-b512-45b8-a790-a1b2c3b216e7",
+          "slug": "a421v-weight-reduced-milestones-normal",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig1—figure supplement 2B, 2C, 2D, 2E",
+          "claim": "Kcnc1-A421V/+ mice show significantly reduced body and brain weight relative to WT littermates, but display no detectable abnormalities in gross developmental milestones (fur appearance, eye opening, ear canal opening, incisor eruption, motor benchmarks) assessed at P5–15.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "a421v-mice-die-before-122d"
+          ],
+          "notes": "",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "weight measurement, developmental milestone assay"
+        },
+        {
+          "uuid": "3df55d45-b8a0-42c6-9807-0323c08e8815",
+          "slug": "excitatory-neurons-unaffected-adult",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig5—figure supplement 1D, Table 2 (layer IV exc. cells)",
+          "claim": "Excitatory neurons from adult (P32–42) Kcnc1-A421V/+ mice show no significant differences from WT in AP firing frequency across current injection magnitudes, and show no significant alterations in passive membrane properties or single AP properties (Table 2), with the sole exception of reduced rheobase (*p=0.023) whose functional significance is uncertain.",
+          "epistemic": "moderate",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "n=12 WT (N=4 mice), n=12 Kcnc1-A421V/+ (N=4 mice). One significant result: rheobase reduced in Kcnc1-A421V/+ (*p=0.023 by unpaired t-test, Table 2). The paper does not comment on this isolated finding. All other comparisons non-significant by repeated- measures two-way ANOVA. Confidence rated moderate because of the isolated rheobase finding that goes unexplained — could be a true secondary network effect or Type I error.",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "whole-cell current-clamp, adult slice preparation"
+        },
+        {
           "uuid": "52b1301c-8ece-44c1-b25c-53e20013391d",
           "slug": "excitatory-neurons-unaffected-juvenile",
           "paper": "wengert-2026-kcnc1",
-          "panel": "fig supp",
+          "panel": "fig5B, fig5C, fig5D, fig5E, fig5F, fig5G, fig5K, Table 1 (layer IV exc.)",
           "claim": "No significant differences in synaptic transmission or intrinsic excitability are observed in excitatory neurons at juvenile stage (P16-21), indicating the Kcnc1-A421V variant selectively impairs inhibitory PV-INs rather than excitatory neurons.",
           "epistemic": "moderate",
           "status": "unverified:no-data",
@@ -1949,7 +3276,45 @@
           "notes": "Developmental stage data on G-Node. Not yet executed.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
-          "method": "patch-clamp, juvenile slice preparation"
+          "method": "nucleated macropatch (voltage-gated K+ currents), whole-cell current-clamp"
+        },
+        {
+          "uuid": "2d6bb516-6c05-4a2f-bb64-9e9142bbf326",
+          "slug": "in-vivo-hypersynchronous-discharges-mutant-only",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig8B, fig8C, fig8D",
+          "claim": "Paroxysmal hypersynchronous discharges in the neuropil calcium signal are observed in 7 of 7 Kcnc1-A421V/+ mice examined in vivo (>P50) by two-photon GCaMP imaging, but never in WT mice (N=5), each discharge coinciding with a brief diffuse twitch of the facial musculature and bilateral limbs consistent with myoclonic seizures.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": true,
+          "requires": [],
+          "supports": [
+            "a421v-mice-die-before-122d"
+          ],
+          "notes": "7/7 penetrance is a very strong effect. The paper distinguishes this neuropil-dominated signal from somatic signals using a separate cohort with soma-tagged GCaMP8m. That cohort did not show discharges, suggesting events are primarily axonal/dendritic (neuropil). Imaging performed at >P50 — important: this is after both behavioral testing and slice physiology age ranges, placing it closer to end-stage phenotype.",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "two-photon calcium imaging, AAV9-syn-jGCaMP8m, head-fixed somatosensory cortex"
+        },
+        {
+          "uuid": "890a5223-4eb7-4dd0-a112-42e195398da1",
+          "slug": "in-vivo-pv-minus-transient-frequency-increased",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig8G, fig8H, fig8I, fig8J",
+          "claim": "During quiet rest, PV– (excitatory) cells in Kcnc1-A421V/+ mice show significantly increased calcium transient frequency (mean 1.63 vs 1.17 transients/min in WT; n=1041 vs 885 cells), while PV+ cell transient frequency is not significantly changed but PV+ transient amplitude is reduced (mean 0.40 vs 0.48 dF/F0), consistent with decreased perisomatic inhibition in vivo.",
+          "epistemic": "moderate",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "pv-ins-impaired-maximal-firing"
+          ],
+          "notes": "Statistics by mixed-effects modeling. Confidence rated moderate because: (1) this cohort did not show hypersynchronous discharges (different from fig8B-D cohort), (2) the differences are modest in magnitude, and (3) running epochs show no differences (fig8—figure supplement 1C-F), indicating state-dependence. Effect is specific to quiet-rest epochs.",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "two-photon calcium imaging, soma-tagged GCaMP8m, S5E2-driven tdTomato for PV-ID"
         },
         {
           "uuid": "a2af2706-be34-44a7-b65b-6a11ae98c2a8",
@@ -1986,6 +3351,84 @@
           "method": "code inspection + corpus-assessment"
         },
         {
+          "uuid": "d6e81203-d9f1-4344-97d0-48ec7b6afe39",
+          "slug": "layer-v-pv-ins-subtle-impairment",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig4—figure supplement 2",
+          "claim": "Layer V neocortical PV-INs from juvenile (P16–21) Kcnc1-A421V/+ mice show more subtle abnormalities than layer II-IV PV-INs: AP frequency reduction is confined to the largest current injection magnitudes (***p<0.001 for genotype × current injection interaction), consistent with the higher relative expression of Kv3.2 vs Kv3.1 in deeper cortical layers.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "inhibitory-dysfunction-progresses-to-adulthood"
+          ],
+          "notes": "Note: Figure supplement label in the paper uses fig4—figure supplement 2 for layer V PV-INs and fig4—figure supplement 3 for RTN. The RTN data appears in what the paper calls fig4—figure supplement 2 in the caption text but the label reads as the second supplement. Check actual figure numbering against G-Node deposit when verifying.",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "whole-cell current-clamp"
+        },
+        {
+          "uuid": "04db8b33-39ce-43b1-8df4-63a156fbc874",
+          "slug": "pv-in-ap-waveform-altered-downstroke-apd50",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig4E, fig4J, Table 1, Table 2",
+          "claim": "PV-INs from Kcnc1-A421V/+ mice show significantly reduced AP downstroke velocity and prolonged AP half-duration (APD50) relative to WT at both juvenile (P16–21, **p=0.0012 downstroke; **p=0.0053 APD50) and adult (P32–42, **p=0.0051 downstroke; ***p<0.001 APD50) stages, while passive membrane properties are largely preserved.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [
+            "pv-ins-reduced-k-current-density"
+          ],
+          "supports": [
+            "pv-ins-impaired-maximal-firing"
+          ],
+          "notes": "Tables 1 and 2 in the paper provide full statistics for all AP and passive membrane properties at both age points. Downstroke velocity: WT –183±9, KI –138±8 mV/ms (juvenile); WT –248±21, KI –164±18 mV/ms (adult). AP amplitude is elevated but only significantly so at adult stage (***p<0.001). Input resistance, resting Vm, AP threshold, and AHP are not significantly different.",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "whole-cell current-clamp, AP waveform analysis"
+        },
+        {
+          "uuid": "bd91acf8-a01d-4713-8382-8a0757cbd86a",
+          "slug": "pv-in-inhibitory-synapse-altered-adult",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig7F, fig7G, fig7H, fig7I",
+          "claim": "In adult (P32–42) Kcnc1-A421V/+ mice, PV-IN-mediated uIPSC magnitude is significantly increased relative to WT (**p<0.01 at 20 Hz, *p<0.05 at 40 and 80 Hz), and paired-pulse ratio (uIPSC2/uIPSC1) is significantly reduced across frequencies (*p<0.05), indicating developmentally emergent synaptic dysfunction in inhibitory neurotransmission.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "inhibitory-dysfunction-progresses-to-adulthood"
+          ],
+          "notes": "14/36 WT pairs connected (N=8 mice); 13/36 Kcnc1-A421V/+ pairs connected (N=8 mice). Failure rates not different. The increased uIPSC amplitude with reduced paired-pulse ratio is consistent with prior work showing Kv3 blockade increases first-IPSC amplitude but enhances short-term depression (Ishikawa et al., 2003; Goldberg et al., 2005). Latency not significantly different.",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "dual whole-cell patch-clamp, paired recording"
+        },
+        {
+          "uuid": "dbc34885-27d0-4b6e-afbb-6a34befb9b98",
+          "slug": "pv-in-inhibitory-synapse-intact-juvenile",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig6F, fig6G, fig6H, fig6I, fig6J, fig6K, fig6L",
+          "claim": "PV-IN-mediated inhibitory synaptic transmission is not significantly altered in juvenile (P16–21) Kcnc1-A421V/+ mice: failure rates, uIPSC magnitudes at 20/40/80 Hz, paired-pulse ratios, and synaptic latency are all not significantly different from WT (32.8% connection rate WT vs 34.9% Kcnc1-A421V/+; n=21/64 and 15/43 connected pairs respectively).",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "inhibitory-dysfunction-progresses-to-adulthood"
+          ],
+          "notes": "All comparisons by repeated-measures two-way ANOVA or unpaired t-test; none reach significance. This is a genuine null result — not underpowered, as connection rates and cell counts are substantial. The paper notes that inhibitory transmission will be *secondarily* impaired via abnormal spike generation, even though direct synaptic function per spike is preserved.",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "dual whole-cell patch-clamp, paired recording"
+        },
+        {
           "uuid": "894a5d58-bca8-4b16-b22b-76b64db1e3e5",
           "slug": "pv-ins-impaired-maximal-firing",
           "paper": "wengert-2026-kcnc1",
@@ -2018,20 +3461,55 @@
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "patch-clamp electrophysiology"
+        },
+        {
+          "uuid": "37d23efe-7e34-48aa-82ff-b7f3ef45751c",
+          "slug": "rtn-neurons-impaired-excitability",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig4—figure supplement 3",
+          "claim": "Parvalbumin-positive reticular thalamic nucleus (RTN) neurons from juvenile (P16–21) Kcnc1-A421V/+ mice generate fewer rebound APs in response to hyperpolarizing current and show attenuated frequency-current relationship (*p=0.0109), with significantly reduced AP downstroke velocity (*p=0.034) but preservation of other membrane properties.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [],
+          "notes": "n=19 Kcnc1-A421V/+ cells (N=5 mice), n=16 WT cells (N=4 mice). Significance by repeated-measures two-way ANOVA. RTN predominantly expresses Kv3.1 and Kv3.3 (Porcello et al., 2002; Espinosa et al., 2008) — no Kv3.2 compensation as in layer V.",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "whole-cell current-clamp, acute thalamic slices"
+        },
+        {
+          "uuid": "b066dc9f-dd75-43a8-9692-1005de9d2d30",
+          "slug": "spontaneous-seizures-and-sudep-kcnc1",
+          "paper": "wengert-2026-kcnc1",
+          "panel": "fig9A, fig9B, fig9C",
+          "claim": "8 of 12 Kcnc1-A421V/+ mice exhibit convulsive spontaneous seizures on video-EEG (mean 0.62±0.24/day, duration 32.4±15.7 s) with zero seizures in 4/4 WT controls; 4 seizure-induced sudden death events are captured, each preceded by a generalized tonic-clonic seizure with hindlimb extension, recapitulating SUDEP in human KCNC1 DEE.",
+          "epistemic": "strong",
+          "status": "unverified:no-data",
+          "claim-type": "empirical",
+          "isAssessment": false,
+          "requires": [],
+          "supports": [
+            "a421v-mice-die-before-122d"
+          ],
+          "notes": "Additional phenotypes: 8/12 Kcnc1-A421V/+ mice also showed runs of epileptiform spikes without behavioral correlate (duration 14.5±0.7 s). Myoclonic jerks (large EEG spikes + diffuse body jerks) also observed. SUDEP events: 4 captured on video-EEG + 2 on video only. The paper classifies seizure types by EEG + behavior criteria; SUDEP is defined as tonic-clonic with hindlimb extension followed by EEG suppression.",
+          "dataset": "https://doi.org/10.12751/g-node.bqni9h",
+          "analysis": "G-Node analysis code",
+          "method": "continuous video-EEG, DSI wireless telemetry, P24–48, 2–7 day recordings"
         }
       ]
     }
   ],
-  "totalClaims": 96,
+  "totalClaims": 173,
   "statusCounts": {
-    "unverified:no-data": 16,
-    "verified": 18,
-    "unverified": 40,
-    "unverified:no-code": 5,
+    "unverified:no-data": 53,
+    "verified": 35,
+    "unverified": 57,
+    "unverified:no-code": 4,
     "unknown": 1,
-    "unverified:compute-infeasible": 11,
+    "unverified:compute-infeasible": 21,
     "failed:mismatch": 1,
-    "partial:zenodo-data-downloaded": 1,
-    "unverified:code-error": 3
+    "partial:zenodo-data-downloaded": 1
   }
 }

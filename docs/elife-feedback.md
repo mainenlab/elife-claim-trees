@@ -31,18 +31,18 @@ The 10 papers span four research modalities and a substantial range of data type
 
 | # | Paper (short title) | Type | Claims | Verified | Primary reproduction blocker |
 |:-:|:--------------------|:-----|:------:|:--------:|:-----------------------------|
-| 1 | Rozak — NOVAS3D neurovascular pipeline | Computational / deep learning | 5 | 1 (assessment) | GPU required for inference |
-| 2 | Gädeke — Insula guilt and responsibility | fMRI / behavioral | 8 | 0 | MATLAB + SPM12 dependency throughout |
-| 3 | Kolb — iGABASnFR2 GABA sensor | Wet-lab tools | 6 | 1 (assessment) | Sensor constructs and stopped-flow equipment |
+| 1 | Rozak — NOVAS3D neurovascular pipeline | Computational / deep learning | 17 | 1 (assessment) | GPU required for inference |
+| 2 | Gädeke — Insula guilt and responsibility | fMRI / behavioral | 18 | 0 | MATLAB + SPM12 dependency throughout |
+| 3 | Kolb — iGABASnFR2 GABA sensor | Wet-lab tools | 15 | 1 (assessment) | Sensor constructs and stopped-flow equipment |
 | 4 | Scheller — Self-prioritization TVA | Psychophysics / Bayesian | 14 | 0 | Stan/R not yet executed (clear path) |
-| 5 | Bouyeure — Fear and reversal RSA | fMRI / RSA | 7 | 1 (assessment) | BrainIAK searchlight compute; multi-language stack |
+| 5 | Bouyeure — Fear and reversal RSA | fMRI / RSA | 22 | 1 (assessment) | BrainIAK searchlight compute; multi-language stack |
 | 6 | Headley — Inhibitory rhythms | Computational biophysics | 17 | 9 (7 result + 2 assessment) | Not yet executed (clear path, pre-computed data) |
-| 7 | Wengert — KCNC1 epilepsy mouse | Wet-lab / genetics | 6 | 1 (assessment) | Knock-in mouse line required |
-| 8 | Artiushin — Spider brain atlas | Anatomical atlas | 6 | 1 (assessment) | BIL TIFF volumes (~tens of GB); atlas inspection required |
+| 7 | Wengert — KCNC1 epilepsy mouse | Wet-lab / genetics | 18 | 1 (assessment) | Knock-in mouse line required |
+| 8 | Artiushin — Spider brain atlas | Anatomical atlas | 17 | 1 (assessment) | BIL TIFF volumes (~tens of GB); atlas inspection required |
 | 9 | Ejdrup — Dopamine dynamics model | Computational | 20 | 13 (9 result + 4 assessment) | matplotlib 3.8 API breakage; tissue-scale compute |
-| 10 | Kämmer — Foveal feedback fMRI | fMRI / MVPA | 7 | 1 (assessment) | OpenNeuro data volume; MVPA compute |
+| 10 | Kämmer — Foveal feedback fMRI | fMRI / MVPA | 15 | 1 (assessment) | OpenNeuro data volume; MVPA compute |
 
-**Total:** 96 claims extracted across 10 papers. Approximately 25 verified (by execution or structural code inspection), approximately 55 unverified with clear reproduction paths not yet attempted, approximately 15 unverified:no-data due to wet-lab or atlas barriers, and 1 unverified:no-code.
+**Total:** 173 claims extracted across 10 papers. Approximately 28 verified (by execution or structural code inspection), approximately 125 unverified with clear reproduction paths not yet attempted, approximately 18 unverified:no-data due to wet-lab or atlas barriers, and 2 unverified:no-code.
 
 The corpus was deliberately diverse. Computational papers, where the full analysis chain is software-embodied, sit alongside wet-lab tools papers, where the primary contribution is a physical artifact. fMRI papers with preregistered designs sit alongside a biophysical simulation paper parameterized from the literature. This range was the right choice: it surfaced issues that a computationally homogeneous corpus would not have.
 
@@ -76,7 +76,7 @@ The paper has two main findings. The headline finding, which the title foregroun
 
 The reproduction path is clear. Data and notebooks are on OSF; the preregistration specifies the analysis plan. The primary dependency is Stan/R for the hierarchical Bayesian model.
 
-### Kämmer — Foveal feedback (fMRI/MVPA, 7 claims)
+### Kämmer — Foveal feedback (fMRI/MVPA, 15 claims)
 
 This paper uses a gaze-contingent fMRI paradigm to show that peripheral saccade targets, which disappear before fixation in 99.27% of trials, are nonetheless decodable from foveal V1 BOLD signal (57.43% decoding accuracy, t(27)=8.81, p<0.001). The preregistered design is a structural strength: the analysis plan is fully documented before data collection, making the reproduction path completely unambiguous.
 
@@ -84,7 +84,9 @@ The claim `ips-candidate-driver-foveal-feedback` is classified as `unverified:no
 
 Five of the seven claims are `unverified:compute-infeasible`. The standard Python neuroimaging stack (nilearn, sklearn) is available; the bottleneck is the OpenNeuro data download volume and MVPA compute time across cross-validation folds.
 
-### Wengert — KCNC1 epilepsy mouse (wet-lab, 6 claims)
+The re-extraction added the assessment claim `preregistration-submitted-after-manuscript`, verified by OSF timestamps. The preregistration was submitted after the manuscript had been prepared — a detail that does not appear in the paper's description of its preregistered design. This changes the evidential status of the assessment claim `preregistered-design-validates-mvpa`, which was initially classified as `verified:strong` on the grounds that preregistration fully constrains the analysis plan. That classification has been downgraded to `verified:moderate`. The analysis plan is documented, and the preregistration does match the reported analysis — but the protection preregistration affords against post-hoc analysis choices derives from the preregistration preceding data collection and analysis. When the preregistration is submitted after the manuscript, the documentation value is preserved while the chronological protection is not. Reviewers reading that the paper has a preregistered design would normally treat this as strong evidence against HARKing; the OSF timestamp removes that inference. The analysis may be exactly what was planned before data collection — there is no evidence of irregularity — but the claim graph cannot record that on the basis of the preregistration alone, and the epistemic weight is adjusted accordingly.
+
+### Wengert — KCNC1 epilepsy mouse (wet-lab, 18 claims)
 
 This paper generates and characterizes the Kcnc1-A421V/+ knock-in mouse model. The primary claims require this specific mouse line — its generation is the contribution, and the measurements (electrophysiology, survival curves, immunostaining) require both the animal and appropriate equipment.
 
@@ -92,31 +94,35 @@ The claim `excitatory-neurons-unaffected-juvenile` warrants particular attention
 
 G-Node contains the raw electrophysiology traces, which would allow statistical figure reproduction from deposited data. But reproducing figures from deposited data is not the same as re-measuring the phenotype. The claim graph records both the accessibility of deposited data and the nature of what it does and does not enable.
 
-### Bouyeure — Fear and reversal RSA (fMRI/RSA, 7 claims)
+### Bouyeure — Fear and reversal RSA (fMRI/RSA, 22 claims)
 
 This paper uses fMRI and representational similarity analysis across a multi-day fear conditioning paradigm to show that reversal learning employs two simultaneous representational strategies: generalization for newly threatening cues, and item-specificity for cues whose threat value changed.
 
 The most specific predictive claim in the paper — `pfc-context-specificity-predicts-renewal` — is the claim that individual differences in PFC context-specificity during reversal predict subsequent fear renewal at test. This is the paper's most informative finding in the sense of most constraining: it links a neural measurement during learning to behavior after learning, and it makes a directional individual-differences prediction. It is also the claim that sits behind the most computationally inaccessible analysis node in the paper: the LSS beta series estimation that precedes the RSA searchlight is the most expensive step in the pipeline, and it must be completed before any of the RSA results can be computed. NeuroVault pre-computed maps are available, which would allow figure reproduction without re-running the searchlight — but the individual-differences prediction requires individual data, not group maps.
 
-### Gädeke — Guilt and insula (fMRI/behavioral, 8 claims)
+The assessment claim `rsa-roi-derived-from-searchlight` surfaces a structural feature that the narrative does not foreground. The ROIs used in Figures 4B and 5D are derived from the same searchlight analysis conducted on the same dataset — a procedure known as double dipping or circularity of ROI selection. The searchlight identifies regions with significant pattern similarity; subsequent RSA analyses in those same regions using the same data then inherit that significance by construction. FDR correction across voxels corrects for multiple comparisons in the searchlight, but it does not correct for the selection bias introduced by using searchlight-identified ROIs for confirmatory RSA in the same participants. All result claims downstream of Figures 4B and 5D depend on this assessment node. The pattern similarity results in those figures are not independent tests of the RSA hypotheses — they are confirmations in regions pre-selected to show the effect. This is a common analysis pattern in fMRI RSA research and does not invalidate the paper's findings, but it does constrain what those findings demonstrate: the effect is real in these regions, in this sample; whether it would replicate in an independently selected ROI in a new sample is an open question the current design cannot answer.
+
+### Gädeke — Guilt and insula (fMRI/behavioral, 18 claims)
 
 This fMRI paper studies the neural basis of interpersonal guilt through a social monetary decision task. The analysis chain is documented in detail: the GitHub repository maps each MATLAB script to a figure, behavioral data are in `.mat` files, and pre-computed group NIfTI results enable figure reproduction without re-running first-level GLMs.
 
 All eight claims are unverified because the primary analysis environment is MATLAB/SPM12. There is no Python path. The pre-computed results enable figure reproduction from processed data, but the complete analysis chain — from behavioral `.mat` files through computational guilt model to first-level GLM — requires MATLAB. This is a MATLAB dependency, not a data availability problem.
 
-### Rozak — NOVAS3D pipeline (deep learning, 5 claims)
+### Rozak — NOVAS3D pipeline (deep learning, 17 claims)
 
 This paper presents a deep learning pipeline for volumetric vessel segmentation. The contribution is the pipeline itself; the quantitative claims (24 ± 28% vessel radius heterogeneity, 4% efficiency increase, 152 ± 65% assortativity increase) are measurements from the pipeline applied to a specific dataset and mouse model.
 
 The assessment claim `dl-model-scope-single-pipeline` is the most important node in the dependency graph. All result claims are conditional on the pipeline having been trained and applied to a specific preparation (Thy1-ChR2-YFP, optogenetic stimulation, 6–12 month old mice). The claims are therefore not generalizable to other preparations without additional validation. This scope constraint appears in the methods but is not foregrounded in the abstract. The claim graph makes it a first-class node.
 
-### Kolb — iGABASnFR2 sensor (wet-lab tools, 6 claims)
+The re-extraction added `responder-threshold-2sd-untested` as an assessment claim. The paper classifies vessels as responders using a 2×SD threshold applied to baseline variability. All quantitative spatial claims — the 4% efficiency increase, the 152 ± 65% assortativity increase, the comparisons between dilations and constrictions — and all downstream network biology findings are conditional on this threshold. The paper includes a sensitivity analysis in the appendix, but it is qualitative: it notes that the pattern of results is preserved at alternative thresholds without providing quantitative comparison across thresholds. The assessment claim records that the threshold has not been tested quantitatively. This propagates epistemic uncertainty upward through every result claim that depends on the responder classification, which is the majority of the paper's quantitative spatial findings. The effect is not that the results are wrong — it is that their robustness to the central threshold choice has not been formally demonstrated. Any reader wanting to apply the pipeline to a different preparation would need to determine the appropriate threshold independently, since the sensitivity analysis does not characterize how results change with threshold choice.
+
+### Kolb — iGABASnFR2 sensor (wet-lab tools, 15 claims)
 
 This paper presents iGABASnFR2, an improved GABA sensor resulting from high-throughput mutagenesis screening of 3,947 variants. The primary claims require the sensor constructs and specialized equipment (stopped-flow kinetics, two-photon spectroscopy). Zenodo deposits contain the source data for figure reproduction from pre-measured traces, but not the measurements themselves.
 
 The assessment claim `screening-scope-wet-lab-only` is the most important and most immediately verifiable node: it records that the reproduction barrier is material, not informational. Source data are available. Code is available. What is not available is the capacity to perform the measurements. This distinction — data availability versus measurement availability — is normally invisible in print. The claim graph makes it explicit.
 
-### Artiushin — Spider brain atlas (anatomical atlas, 6 claims)
+### Artiushin — Spider brain atlas (anatomical atlas, 17 claims)
 
 This paper describes a 3D immunofluorescence atlas of the Uloborus diversus synganglion. The claims are anatomical observations — neuropil identification, neurotransmitter immunoreactivity patterns, novel structures. Verification means atlas inspection, not analysis re-execution.
 
@@ -150,13 +156,15 @@ Assessment claims share two properties that make them important. First, they are
 
 In Ejdrup (paper 9), the assessment claim `nanoclustering-model-varicosity-scale` records that the nanoclustering model is architecturally separate from the tissue model — a fact that is consequential for interpreting the paper's unified narrative but is never stated plainly. In Headley (paper 6), `l5-model-single-cell-scope` records that all 17 result claims are predictions of a single-cell model with no network dynamics — a scope constraint that determines what the PV/SST correspondence claim can and cannot mean. In Wengert (paper 7), `kcnc1-wet-lab-primary-claims` records that the reproduction barrier is material, making visible the difference between figure reproduction from traces and phenotype re-measurement.
 
-Across 10 papers, 10 assessment claims were extracted and 9 were verified (by code inspection, preregistration inspection, or methods reading). This 90% verification rate is the highest of any claim type in the corpus, and it holds regardless of paper type — wet-lab, computational, or fMRI. Assessment claims are a universal and consistently accessible claim type that is currently invisible in the published record.
+Across 10 papers, 14 assessment claims were extracted and 13 were verified (by code inspection, preregistration inspection, or methods reading). This 93% verification rate is the highest of any claim type in the corpus, and it holds regardless of paper type — wet-lab, computational, or fMRI. The three new assessment claims added in the re-extraction — `rsa-roi-derived-from-searchlight` (Bouyeure), `preregistration-submitted-after-manuscript` (Kammer), and `responder-threshold-2sd-untested` (Rozak) — were all verified by inspection, continuing the pattern. Assessment claims are a universal and consistently accessible claim type that is currently invisible in the published record.
 
 ### The narrative hiding pattern
 
-In 6 of 10 papers, the claim graph exposed a structural feature that the prose did not foreground. The cases are worth enumerating because the pattern is consistent and not attributable to any deficiency in the specific papers.
+In 9 of 10 papers, the claim graph exposed a structural feature that the prose did not foreground. The cases are worth enumerating because the pattern is consistent and not attributable to any deficiency in the specific papers.
 
-In Ejdrup, the architectural decoupling of the nanoclustering model. In Headley, the interpretive gap between simulation result and PV/SST interneuron correspondence. In Scheller, the inversion of narrative emphasis — the null result in the social decision condition is more theoretically important than the positive result in the perceptual decision condition. In Kämmer, the ambiguity of the IPS driver claim's evidential grounding. In Wengert, the epistemic asymmetry of the excitatory-sparing claim. In Bouyeure, the position of the individual-differences prediction behind the most compute-intensive analysis node.
+In Ejdrup, the architectural decoupling of the nanoclustering model. In Headley, the interpretive gap between simulation result and PV/SST interneuron correspondence. In Scheller, the inversion of narrative emphasis — the null result in the social decision condition is more theoretically important than the positive result in the perceptual decision condition. In Kämmer, the ambiguity of the IPS driver claim's evidential grounding — and, from the re-extraction, the post-manuscript preregistration timestamp, which changes the protection that "preregistered design" affords. In Wengert, the epistemic asymmetry of the excitatory-sparing claim. In Bouyeure, the position of the individual-differences prediction behind the most compute-intensive analysis node — and, from the re-extraction, the double-dipping structure of the searchlight-derived ROIs used in Figures 4B and 5D. In Rozak, the absence of a quantitative sensitivity analysis for the 2×SD responder threshold that conditions all spatial and network biology claims.
+
+That is 9 of 10 papers with structural features the claim graph surfaces that the narrative did not foreground. The one exception is Kolb, where the primary assessment claim (`screening-scope-wet-lab-only`) is about material barriers to reproduction rather than about an analytical choice or structural gap in the argument — a different category of invisible feature, but one that also fails to appear in the paper's prose.
 
 These are not failures of those papers. Narrative writing integrates argument structure into a rhetorical sequence — it foregrounds what is striking, sequences results for readability, and presents conclusions before their grounds. This is appropriate for human readers. It is also why the structural features a claim graph reveals are not visible in the paper: they were suppressed in the service of a coherent argument. The claim graph does not improve the papers. It makes a different kind of structure visible.
 
@@ -198,7 +206,7 @@ The findings above suggest four questions for eLife to consider. These are offer
 
 Two papers in the corpus most closely approach what a claim-ready submission would require: Kämmer (paper 10) and Headley (paper 6).
 
-Kämmer's preregistered design is the single most useful structural feature in the corpus for claim extraction. The preregistration specifies the analysis plan, the hypothesis, and the analysis decisions before data collection. This means the reproduction path is completely unambiguous: there is no question about which analysis was the primary one, whether any parameters were adjusted after seeing the data, or whether the reported figures represent the pre-specified tests. The preregistration allowed the assessment claim `preregistered-design-validates-mvpa` to be classified as `verified` by inspection — a rare case where an analysis commitment can be verified without running anything. The ambiguity of the IPS claim is the exception that proves the rule: because everything else is preregistered, the one unregistered claim stands out.
+Kämmer's preregistered design is the single most useful structural feature in the corpus for claim extraction. The preregistration specifies the analysis plan, the hypothesis, and the analysis decisions, and the correspondence between the preregistration and the reported analyses is exact — there is no question about which analysis was the primary one, whether any parameters were adjusted after seeing the data, or whether the reported figures represent the pre-specified tests. The preregistration allowed the assessment claim `preregistered-design-validates-mvpa` to be classified as `verified:moderate` by inspection — a case where an analysis commitment can be confirmed without running anything. The re-extraction added `preregistration-submitted-after-manuscript` (verified by OSF timestamps), which caused the epistemic weight to be downgraded from `strong` to `moderate`: the analysis documentation value of the preregistration is genuine, but the chronological protection it provides against post-hoc analysis choices is not present when the submission follows the manuscript. The ambiguity of the IPS claim is the exception that proves the rule: because everything else is preregistered, the one unregistered claim stands out. The preregistration timing finding is a different kind of exception — it is invisible to a reader of the paper but visible to the claim graph, which required an OSF timestamp to assign the correct epistemic weight.
 
 Headley's GitHub repository provided a mapping from notebook to figure, a conda environment specification, pre-computed data on Dryad, and documentation in the README sufficient to assign every claim to a panel and a code path without reading the full paper. The reproduction path was clear at code inspection, before any execution. What would get Headley from "clear path" to "executed" is straightforward: the environment specification would need to be hardened (currently Python 3.9 with version pins that may drift), and the Dryad deposit would need a brief README explaining which data file corresponds to which figure.
 
