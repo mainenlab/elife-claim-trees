@@ -15,12 +15,13 @@ priority: 2026-03-30
 epistemic: moderate
 
 belongings:
-[]
+  - relation: requires
+    target: lss-unreinforced-trials-only
 
 assertions:
   - paper-slug: bouyeure-2026-fear-rsa
-    doi: ~
-    panel: fig2, fig3
+    doi: 10.7554/eLife.105126
+    panel: fig3A
     analysis: run_nina_analysis.py, fear_rsa_core.py
     dataset: https://doi.org/10.17605/OSF.IO/NGWKA
     dataset-doi: 10.17605/OSF.IO/NGWKA

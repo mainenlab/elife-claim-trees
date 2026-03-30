@@ -15,12 +15,13 @@ priority: 2026-03-30
 epistemic: moderate
 
 belongings:
-[]
+  - relation: extends
+    target: cue-generalization-increases-acquisition
 
 assertions:
   - paper-slug: bouyeure-2026-fear-rsa
-    doi: ~
-    panel: fig4
+    doi: 10.7554/eLife.105126
+    panel: fig3Bii
     analysis: run_nina_analysis.py
     dataset: https://doi.org/10.17605/OSF.IO/NGWKA
     dataset-doi: 10.17605/OSF.IO/NGWKA
