@@ -1,8 +1,6 @@
 # Claim Graphs for eLife Neuroscience Papers: Findings from a 10-Paper Prototype
 
 **Zach Mainen** (Mainen Lab, Champalimaud Research, Lisbon)
-**Tim Behrens** (Oxford)
-**Ken Harris** (UCL)
 
 *Prepared for Damian Pattinson and Andy Collings (eLife)*
 *March 2026*
