@@ -1,0 +1,49 @@
+---
+uuid: 2189823e-209f-479b-a068-032f5fba3818
+slug: self-prioritization-absent-social-decision
+doi: ~
+claim: >
+  In the social decision dimension (report whose shape flickered first), there is no
+  processing advantage for self-associated stimuli: the relative advantage is 0.87 Hz
+  [HDI95: −0.96 to 2.7 Hz], with 63.9% of the HDI favoring the other-associated stimulus
+  (1.2 Hz [HDI95: −0.78 to 3.1 Hz]).
+claim-type: empirical
+concepts:
+  - self-prioritization
+  - social decision
+  - other-prioritization
+  - attentional selection
+  - TVA processing rates
+priority: 2026-03-30
+epistemic: moderate
+
+belongings:
+  - relation: requires
+    target: tva-capacity-model-wins
+  - relation: supports
+    target: self-prioritization-automatic-early
+  - relation: supports
+    target: decisional-dimension-tradeoff
+
+assertions:
+  - paper-slug: scheller-2026-self-prioritization
+    doi: 10.7554/eLife.100932
+    panel: fig5
+    analysis: OSF analysis notebooks (https://osf.io/a62df)
+    dataset: https://osf.io/a62df
+    dataset-doi: ~
+    method: hierarchical Bayesian TVA estimation, Experiment 1 (N=69)
+    confidence: moderate
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-30
+    status: unverified
+    notes: >
+      Experiment 1 social decision condition. The finding that self-advantage disappears (or
+      reverses) in the social decision condition is counterintuitive and the primary unexpected
+      result of the study. Replication across N=71 in Experiment 2 confirms the pattern.
+      Not yet executed.
+---
+
+This result is counterintuitive: when participants explicitly decode the social identity (whose shape?), there is no self-processing advantage and possibly an other-advantage. The paper interprets this as evidence for a trade-off: active social decoding diverts resources away from the perceptual feature that carries self-relevance, reducing or eliminating the automatic prioritization. This result challenges a naive reading of "self-prioritization" — the effect is specific to the level of processing at which the decision is made.

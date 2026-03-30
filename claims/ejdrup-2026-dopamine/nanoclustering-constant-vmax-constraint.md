@@ -31,8 +31,13 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: verified
+    notes: >
+      Code inspection confirmed: Figure 4-Fig 4 simulations-Source code.py includes a
+      normalization step that scales per-voxel DAT rates by cluster area fraction so total
+      integrated Vmax remains constant across clustered and unclustered conditions. The
+      constraint is explicit in the code. No parameter sweep tests the case where nanoclustering
+      co-occurs with increased total Vmax. Assessment claim confirmed by direct code reading.
 ---
 
 The constant-Vmax constraint is a legitimate experimental design choice — it isolates the effect of spatial distribution from total capacity — but its biological validity is worth noting. In cellular reality, DAT nanoclusters may form due to lipid raft partitioning or scaffolding interactions that also alter total surface expression. If VS has both more nanoclustering and more total DAT protein than the model assumes, the clearance-slowing effect of clustering could be counteracted by increased total capacity. The constraint is appropriate for the mechanistic question the paper asks; the assessment flags it for claims that extrapolate the nanoclustering result to the tissue-scale regional difference.

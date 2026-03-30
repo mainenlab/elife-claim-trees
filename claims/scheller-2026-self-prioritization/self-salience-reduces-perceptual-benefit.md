@@ -1,0 +1,44 @@
+---
+uuid: d5cc37f8-3738-4acf-95de-3c10a177aa69
+slug: self-salience-reduces-perceptual-benefit
+doi: ~
+claim: >
+  Perceptual salience benefit is substantially reduced for self-associated stimuli (2.5 Hz
+  [HDI95: 0.86 to 4.1 Hz]) compared to other-associated (5.2 Hz [HDI95: 3.6 to 6.9 Hz])
+  or non-socially-associated perceptually salient stimuli (6 Hz [HDI95: 4.6 to 7.3 Hz]),
+  indicating a sub-additive interaction when social self-relevance and perceptual salience
+  co-occur.
+claim-type: empirical
+concepts:
+  - sub-additive interaction
+  - self-salience
+  - perceptual salience
+  - attentional competition
+  - obligatory self-prioritization
+priority: 2026-03-30
+epistemic: moderate
+
+belongings:
+  - relation: requires
+    target: perceptual-salience-6hz-advantage
+  - relation: supports
+    target: self-salience-dominates-other-associated
+
+assertions:
+  - paper-slug: scheller-2026-self-prioritization
+    doi: 10.7554/eLife.100932
+    panel: fig6, fig7
+    analysis: OSF analysis notebooks (https://osf.io/a62df)
+    dataset: https://osf.io/a62df
+    dataset-doi: ~
+    method: hierarchical Bayesian TVA, condition comparison, Experiment 2 (N=71)
+    confidence: moderate
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-30
+    status: unverified
+    notes: Not yet executed.
+---
+
+The sub-additivity for self-associated stimuli is the paper's most theoretically interesting interaction: self-relevance actively reduces the processing benefit that perceptual salience would otherwise confer. The paper interprets this as "obligatory" self-prioritization — self-relevance so dominates the attentional allocation that it competes with rather than adds to physical salience. The effect is driven by a smaller salient rate increase for self-associated stimuli (0.78 Hz vs 2.5 Hz for other-associated) and less suppression of the non-salient stimulus.

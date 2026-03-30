@@ -1,0 +1,37 @@
+---
+uuid: 73b97665-ce32-4361-81d0-40fb149cea2b
+slug: novas3d-outperforms-ilastik
+doi: ~
+claim: >
+  The NOVAS3D deep learning segmentation pipeline (UNet/UNETR) achieves significantly higher Dice scores and precision/recall for volumetric vessel segmentation than the baseline ilastik classifier on the deposited two-photon microscopy test dataset.
+claim-type: empirical
+concepts:
+  - NOVAS3D
+  - UNet
+  - UNETR
+  - Dice score
+  - vessel segmentation
+  - ilastik baseline
+priority: 2026-03-30
+epistemic: moderate
+
+belongings:
+[]
+
+assertions:
+  - paper-slug: rozak-2026-neurovascular-dl
+    doi: ~
+    panel: figs 2-4
+    analysis: Tutorial.ipynb
+    dataset: https://doi.org/10.20383/103.01588
+    dataset-doi: 10.20383/103.01588
+    method: deep learning benchmark comparison
+    confidence: moderate
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-30
+    status: unverified
+    notes: >
+      GitHub: AICONSlab/novas3d. Python package with Tutorial.ipynb. FRDR data deposit. GPU required for inference. Not yet executed.
+---

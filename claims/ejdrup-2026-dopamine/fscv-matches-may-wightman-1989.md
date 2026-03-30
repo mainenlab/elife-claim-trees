@@ -34,8 +34,15 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: unverified:compute-infeasible
+    notes: >
+      The FSCV simulation (Figure 2-Fig 2g, h-Source code.py) requires running the full
+      tissue-scale model for 10, 30, and 60 Hz stimulation conditions in both DS and VS.
+      Script execution timed out during the simulation runs. The Fig2g/h script uses the same
+      matplotlib w_xaxis API (not confirmed broken here, but VS simulation runs upstream).
+      Pre-computed output arrays for Fig 2g/h were not found in the Zenodo deposit for this
+      specific panel. Workaround: download zenodo.17664800 and check for fig2_fscv_* .npy
+      arrays; if present, plotting section can run immediately.
 ---
 
 Matching the May & Wightman (1989) FSCV dataset provides an important empirical anchor: this is a direct comparison to real experimental data rather than an internal model consistency check. The match supports the model's parameterization (Vmax ratio, release probability, quantal size) as reproducing observed regional differences. The epistemic caveat is that May & Wightman used rat striatal slices while this model is parameterized for in vivo mouse — slice preparation removes tonic activity, alters extracellular volume fraction, and may affect Km estimates. The qualitative pattern (VS > DS across frequencies) is robust; the quantitative match should be interpreted with these species and preparation differences in mind.

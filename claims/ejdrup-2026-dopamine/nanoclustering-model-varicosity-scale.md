@@ -32,8 +32,14 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: verified
+    notes: >
+      Code inspection confirmed: Figure 4-Fig 4 simulations-Source code.py uses domain
+      dimensions 1.8 × 1.8 µm with 0.02 µm voxels, architecturally distinct from the
+      tissue-scale model in Figures 1–3 (100 µm domain, 1 µm voxels). No code pathway
+      couples effective Vmax from the varicosity simulation to the tissue simulation inputs.
+      Architecture gap confirmed by structural reading of sim_functions.py and the Figure 4
+      source code.
 ---
 
 The paper presents nanoclustering as a "possible regulator" of regional DA dynamics, but the two simulations (varicosity-scale and tissue-scale) are not formally coupled. The varicosity model demonstrates that dense DAT clusters produce a diffusion-limited clearance bottleneck, but this result is not fed back as a modified Vmax into the tissue-scale model. The logical argument — that nanoclustering in VS could contribute to lower effective Vmax in VS — is plausible but qualitative. Quantitative claims that depend on nanoclustering effects at the tissue scale inherit this architectural gap. The scale separation is real and properly described in the paper; the assessment concern is the absence of formal integration between the two simulations.

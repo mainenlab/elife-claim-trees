@@ -1,0 +1,56 @@
+---
+uuid: f22677a4-7db6-4fa1-80f6-1d08081293f0
+slug: pv-gamma-sst-beta-correspondence
+doi: ~
+claim: >
+  The model provides mechanistic grounding for the empirical association of parvalbumin-positive
+  interneurons with gamma rhythms and somatostatin-positive interneurons with beta rhythms:
+  PV+ neurons target perisomatic locations where gamma is optimal for AP threshold modulation,
+  while SST+ neurons target distal dendrites where beta is optimal for dendritic spike
+  entrainment.
+claim-type: interpretive
+concepts:
+  - parvalbumin interneurons
+  - somatostatin interneurons
+  - gamma rhythm
+  - beta rhythm
+  - interneuron classification
+priority: 2026-03-30
+epistemic: moderate
+
+belongings:
+  - relation: requires
+    target: beta-optimal-distal-dendritic-entrainment
+  - relation: requires
+    target: gamma-optimal-perisomatic-ap-modulation
+  - relation: requires
+    target: beta-gates-distal-apical-inputs
+  - relation: requires
+    target: gamma-gates-proximal-basal-inputs
+
+assertions:
+  - paper-slug: headley-2026-inhibitory-rhythms
+    doi: 10.7554/eLife.95562
+    panel: fig10 (synthesis / discussion)
+    analysis: ~
+    dataset: ~
+    dataset-doi: ~
+    method: interpretive — linking simulation results to anatomical literature
+    confidence: moderate
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-30
+    status: unverified:no-code
+    notes: >
+      This is an interpretive synthesis claim, not a direct simulation output. There is no
+      script or data file to reproduce it. The claim is assessed by examining whether the
+      simulation-derived frequency optima (beta for distal, gamma for perisomatic) are
+      consistent with the known anatomical targeting of PV+ and SST+ interneurons. The
+      empirical PV+/gamma and SST+/beta associations are literature facts, not results of
+      this study.
+---
+
+This is the paper's key interpretive synthesis: the simulation results are used to provide a functional explanation for an empirical pattern (PV+→gamma, SST+→beta) observed in vivo. The mechanistic logic is: PV+ cells naturally fire at gamma and target the soma → gamma perisomatic inhibition optimally modulates AP threshold → this is a fast, cycle-by-cycle control of somatic output. SST+ cells fire at beta and target distal dendrites → beta distal inhibition optimally entrains dendritic spike occurrence → this is a slower, integration-window control of top-down inputs. The two streams are orthogonal.
+
+The epistemic status is moderate because the paper does not simulate PV+ or SST+ interneuron networks directly — it simulates generic inhibitory inputs with location and frequency parameters. The connection to specific interneuron types requires the biological assumption that PV+ and SST+ cells reliably target the right compartments at the right frequencies, which is a literature claim not a result of this study.

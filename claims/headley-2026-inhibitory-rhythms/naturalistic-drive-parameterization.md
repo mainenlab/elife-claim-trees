@@ -1,0 +1,44 @@
+---
+uuid: d0caf4f6-21bb-4fae-985d-5c9ebab6504c
+slug: naturalistic-drive-parameterization
+doi: ~
+claim: >
+  The model is driven by ~26,000 excitatory and ~4,500 inhibitory synapses with parameters
+  (release probability, PSC amplitude, temporal kinetics) taken from published experimental
+  measurements, producing a baseline somatic firing rate of approximately 5.3 Hz that matches
+  typical in vivo layer 5 firing rates; no sensitivity analysis over these synaptic parameter
+  choices is presented.
+claim-type: assessment
+concepts:
+  - model parameterization
+  - synaptic parameters
+  - naturalistic drive
+  - baseline firing rate
+priority: 2026-03-30
+epistemic: moderate
+
+belongings: []
+
+assertions:
+  - paper-slug: headley-2026-inhibitory-rhythms
+    doi: 10.7554/eLife.95562
+    panel: fig1A (inset)
+    analysis: code inspection + methods
+    dataset: ~
+    dataset-doi: ~
+    method: code inspection + literature
+    confidence: moderate
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-30
+    status: verified
+    notes: >
+      Figure 1A inset shows distribution of simulated firing rates across independent runs
+      clustering around 5.3 Hz. Figure1FR.csv in data/ directory contains firing rate data
+      consistent with this description. Methods state synapse counts (~26,000 excitatory,
+      ~4,500 inhibitory) and parameter sources from literature. Assessment confirmed by
+      code/data inspection.
+---
+
+The ~5.3 Hz baseline is the foundation for all firing rate suppression results (0.2 Hz with distal inhibition doubling, 0.7 Hz with perisomatic doubling). The absolute magnitude of suppression depends on this baseline, which in turn depends on the synaptic parameterization. The parameterization is well-justified by literature, but the absence of a sensitivity analysis means we cannot assess how robust the 0.2/0.7 Hz values are to variation in synaptic parameters. This is a standard limitation of biophysically detailed single-cell models.

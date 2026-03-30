@@ -1,0 +1,35 @@
+---
+uuid: b8667945-1d0c-4f6d-973b-b64bb9972ea0
+slug: protocerebral-bridge-candidate-central-complex
+doi: ~
+claim: >
+  A structure consistent with a protocerebral bridge (potential spider equivalent of the insect central complex) is identified in the atlas, suggesting the spider brain contains a candidate homolog of circuits involved in path integration.
+claim-type: existence
+concepts:
+  - protocerebral bridge
+  - central complex
+  - insect homolog
+  - spider brain
+  - neuroanatomy
+priority: 2026-03-30
+epistemic: weak
+
+belongings: []
+
+assertions:
+  - paper-slug: artiushin-2026-spider-atlas
+    doi: ~
+    panel: fig (central complex candidate)
+    analysis: atlas inspection + comparative anatomy
+    dataset: https://doi.org/10.35077/ace-owl-gum
+    dataset-doi: 10.35077/ace-owl-gum
+    method: comparative neuroanatomy, immunostaining pattern
+    confidence: weak
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-30
+    status: unverified:no-data
+    notes: >
+      Weak epistemic status: homology claim requires comparative anatomy expertise and is based on morphological/neurochemical similarity. BIL data required. Not yet executed.
+---

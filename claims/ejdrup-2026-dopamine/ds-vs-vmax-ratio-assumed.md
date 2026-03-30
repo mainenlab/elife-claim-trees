@@ -31,8 +31,14 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: verified
+    notes: >
+      Code inspection confirmed: sim_functions.py sets Vmax_DS = 6.0 µM/s and Vmax_VS = 2.0
+      µM/s as fixed parameters. No derivation from first principles appears in any notebook.
+      The ratio is cited to prior voltammetry literature (Kennedy et al., Cragg & Rice). The
+      Figure 2—supplement 1 immunostaining supports a DS > VS protein gradient (p=0.0021) but
+      does not quantify functional Vmax. Assessment claim confirmed by direct code and methods
+      reading.
 ---
 
 The 3:1 Vmax ratio is the central structural assumption of the model; the entire DS/VS regional contrast in simulated DA dynamics flows from it. The assumption is well-supported by prior voltammetry and radioligand binding literature, and the DAT immunostaining data in this paper (Figure 2—supplement 1B–C, p=0.0021) provides protein-level corroboration. However, functional Vmax depends on transporter turnover rate and membrane trafficking as well as surface expression, so protein level and functional capacity are not identical. Claims that derive the regional contrast from this ratio are well-grounded but not fully self-contained within the study; the key prior assumption warrants explicit flagging when assessing downstream result claims.

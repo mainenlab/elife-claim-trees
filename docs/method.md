@@ -6,6 +6,10 @@ The ingestion process translates a paper from argument format to claim graph for
 
 Locate and confirm: the paper (DOI, full text), the code repository (GitHub/Zenodo), and the data deposit. Record URLs and confirm accessibility. If code or data are absent, note it — their absence is itself a finding. Map the figure structure: how many main figures, how many supplement figures, roughly how many panels. This takes 15–30 minutes.
 
+**Full text access:** Always attempt to download the paper PDF first via `cdn.elifesciences.org/articles/{article-id}/elife-{article-id}-v1.pdf`. If successful, extract with `pdftotext`. Do not rely on eLife HTML for results sections — the HTML is consistently truncated after approximately the first two figures. If PDF download fails, fall back in this order: (1) GitHub repo README (often contains results summaries and figure-to-script mappings), (2) eLife API abstract (`api.elifesciences.org/articles/{id}`), (3) WebFetch of the eLife article page with a focused prompt for key quantitative values.
+
+**For observational papers (atlases, anatomical surveys):** Note explicitly that primary claims are observational — their evidence is the image data itself, not a statistical test. Verification for these claims means atlas inspection, not analysis re-execution. Note the data volume and access path (BIL, IDR, etc.) and whether an interactive viewer is available without full download.
+
 ## Step 2: Abstract scan
 
 Read the abstract and identify 2–4 top-level claims — the paper's main bets. Write a candidate slug for each (3–5 words, lowercase hyphenated verb phrase). These will be the interpretive or synthesis nodes at the top of the dependency graph. They often have no single figure of their own — they are the synthesis of the figures below them.
@@ -71,10 +75,19 @@ For each claim where data and code are available, run the analysis and compare t
 
 - `verified` — ran, output matches
 - `failed:mismatch` — ran, output does not match; record the discrepancy in notes
-- `unverified:no-data`
-- `unverified:no-code`
+- `unverified:no-data` — data deposit not accessible; reproduction not attempted
+- `unverified:no-code` — code not accessible; reproduction not attempted
+- `unverified:code-error` — code runs but errors before producing output; record the exact error and any known fix
+- `unverified:compute-infeasible` — code runs but would require compute beyond available resources; record estimated runtime and any workaround using pre-computed deposit files
+- `unverified` — not yet attempted (use this only when the reason is genuinely unknown)
 
 A verified claim is one that has been re-enacted, not merely read.
+
+**Assessment claims:** Assessment claims (structural properties of code or parameterization) are verified by code inspection. Mark them `verified` when inspection confirms the structural property, and record in `notes` that verification was by code reading rather than execution. This is a legitimate and sufficient form of verification for claims about model structure.
+
+**Visualization vs analysis errors:** When code errors occur only in the visualization step (figure rendering) and not in the simulation/analysis step, classify as `unverified:code-error` and note whether the underlying simulation output is itself reproducible. Broken figure rendering code does not invalidate the simulation result — but it does block automated figure comparison.
+
+**Pre-computed data first:** Before classifying any claim as `unverified:compute-infeasible`, check the associated data deposit for pre-computed output arrays. Many computational papers deposit simulation outputs (`.npy`, `.mat`, `.h5` files) that allow the plotting-only section of each script to run without re-executing long simulations. Always attempt the deposit-first path.
 
 ## A note on naming
 

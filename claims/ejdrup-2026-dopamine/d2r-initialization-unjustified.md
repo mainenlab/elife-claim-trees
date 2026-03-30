@@ -31,8 +31,13 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-29
-    status: unverified
-    notes: ~
+    status: verified
+    notes: >
+      Code inspection confirmed: Figure 1-Fig 1h-Source code.py initializes D2R occupancy at
+      occ_D2 = 0.4. No sensitivity sweep over this parameter appears in any notebook or
+      supplementary script. Calculation from paper's own EC50 (7 nM) and DS tonic [DA] (~10 nM)
+      gives equilibrium occupancy ≈ 0.59 via Hill equation with n=1. Assessment claim confirmed
+      by direct code reading.
 ---
 
 The initialization value of 0.4 is inconsistent with the equilibrium prediction from the model's own parameters. Using the Hill equation with EC50 = 7 nM and [DA]_tonic ≈ 10 nM in DS gives occupancy ≈ 0.59. The directional claims about D2R dynamics (slow return to baseline, insensitivity to brief pauses) are unlikely to be qualitatively wrong, but quantitative occupancy values reported in Figures 1H, 1J, 2G, and 2H are sensitive to this choice. The absence of a sensitivity analysis is the methodological gap: readers cannot assess how much the absolute occupancy values would shift under correct initialization. Claims requiring this assessment node are flagged as `weak` in their absolute values even when the directional logic is `moderate` or `strong`.
