@@ -33,6 +33,11 @@ reproductions:
     script: verification/wengert-2026-kcnc1/verify.py
     original_figure: verification/originals/wengert-2026-kcnc1/fig1.jpg
     figure: verification/wengert-2026-kcnc1/fig-survival.png
+    original_script: https://doi.gin.g-node.org/10.12751/g-node.bqni9h
+    script_execution: pre-computed
+    script_execution_note: "Primary analysis in Clampfit (proprietary). Statistics verified from deposited Excel summary file."
+    time_fast: "~2 min"
+    time_full: "~48 hrs (68 GB download + gin)"
     notes: >
       Data extracted from Wengert et al_eLife_Electrophysiology Analysis.xlsx (G-Node,
       Survival sheet, fig1E). n=33 KI, n=46 WT confirmed exactly. 30/33 KI mice died

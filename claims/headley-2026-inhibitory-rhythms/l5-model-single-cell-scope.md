@@ -32,6 +32,11 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig4.ipynb
+    script_execution: unmodified
+    script_execution_note: "Scope confirmed by code inspection; Fig4.ipynb run unmodified on pre-computed data"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Repository structure and README confirm single-cell NEURON simulation. No network model
       present in scripts/ or src/. All notebooks load spike time data from a single simulated

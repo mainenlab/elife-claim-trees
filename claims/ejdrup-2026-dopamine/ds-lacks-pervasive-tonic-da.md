@@ -34,6 +34,11 @@ reproductions:
     date: 2026-03-29
     status: unverified:code-error
     script: verification/ejdrup-2026-dopamine/verify.py
+    original_script: "https://github.com/Gether-Lab/striatal-dopamine-model/blob/main/Figure%201-Fig%201a%2C%20d%2C%20e%2C%20f-Source%20code.py"
+    script_execution: patched
+    script_execution_note: "w_xaxis → xaxis (matplotlib 3.8 API change, cosmetic only)"
+    time_fast: "~5 min"
+    time_full: "~8 hrs (standard Python)"
     notes: >
       Simulation completed successfully (1/1 run, 6103 steps on 100^3 grid, DS Vmax=6 µM/s).
       Script errored at 3D visualization step: AttributeError on Axes3D.w_xaxis (removed in

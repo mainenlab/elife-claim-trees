@@ -40,6 +40,11 @@ reproductions:
     script: verification/scheller-2026-self-prioritization/verify.py
     original_figure: verification/originals/scheller-2026-self-prioritization/fig9.jpg
     figure: verification/scheller-2026-self-prioritization/fig-spe-social-correlation.png
+    original_script: https://osf.io/a62df
+    script_execution: pre-computed
+    script_execution_note: "Stan model not re-run. Statistics verified from deposited posterior summary CSVs."
+    time_fast: "~3 min"
+    time_full: "~12 hrs (Stan/CmdStan + R)"
     notes: >
       Verified from Correlation_Results.xlsx (OSF cross-exp folder). Pearson r computed
       directly from SPE and ΔΔv_Soc/ΔΔv_Per columns for Exp1 (N=63):

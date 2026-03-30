@@ -33,6 +33,11 @@ reproductions:
     script: verification/gadeke-2026-guilt-insula/verify.py
     original_figure: verification/originals/gadeke-2026-guilt-insula/fig2.jpg
     figure: verification/gadeke-2026-guilt-insula/fig-lottery-choice-ev.png
+    original_script: https://github.com/BonnSocialNeuroscienceUnit/ResponsibilityExperiment/blob/main/Code/bin/
+    script_execution: not-executed
+    script_execution_note: "Requires MATLAB + SPM12. Statistics verified from deposited pre-computed NIfTI and CSV outputs."
+    time_fast: "~3 min"
+    time_full: "~3 hrs (MATLAB + SPM12)"
     notes: >
       Logistic regression (statsmodels) run on deposited CSV data (not per-subject MATLAB files).
       Paper uses mixed-effects logistic with subject random effects and reports t-statistics.

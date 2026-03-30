@@ -40,6 +40,11 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/scheller-2026-self-prioritization/verify.py
+    original_script: https://osf.io/a62df
+    script_execution: pre-computed
+    script_execution_note: "Stan model not re-run. Statistics verified from deposited posterior summary CSVs."
+    time_fast: "~3 min"
+    time_full: "~12 hrs (Stan/CmdStan + R)"
     notes: >
       Verified from estimates_indiv_C.csv (Exp2, OSF https://osf.io/a62df). Condition 3
       (social decision, no perceptual salience): v_p(self) = 23.55 Hz, v_r(other) = 24.91 Hz,

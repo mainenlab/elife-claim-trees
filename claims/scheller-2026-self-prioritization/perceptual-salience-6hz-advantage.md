@@ -40,6 +40,11 @@ reproductions:
     script: verification/scheller-2026-self-prioritization/verify.py
     original_figure: verification/originals/scheller-2026-self-prioritization/fig6.jpg
     figure: verification/scheller-2026-self-prioritization/fig-tva-rates-exp1.png
+    original_script: https://osf.io/a62df
+    script_execution: pre-computed
+    script_execution_note: "Stan model not re-run. Statistics verified from deposited posterior summary CSVs."
+    time_fast: "~3 min"
+    time_full: "~12 hrs (Stan/CmdStan + R)"
     notes: >
       Verified from pre-computed model estimates (estimates_indiv_C.csv, Exp2 folder,
       OSF https://osf.io/a62df). Exp2 condition 2 (perceptual salience, no social association):

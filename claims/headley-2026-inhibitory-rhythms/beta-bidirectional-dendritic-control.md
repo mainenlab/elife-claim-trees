@@ -40,6 +40,11 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: unverified:no-data
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig5.ipynb
+    script_execution: pre-computed
+    script_execution_note: "Requires 1.88 GB Dryad download (DendCompOscPublic/); no individual file access available"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Scripts: Fig5.ipynb and Fig7.ipynb both require Dryad simulation files from
       DendCompOscPublic/ (rhythmic inhibition simulations at 16 Hz and 64 Hz).

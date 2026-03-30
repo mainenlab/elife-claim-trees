@@ -42,6 +42,11 @@ reproductions:
     script: verification/scheller-2026-self-prioritization/verify.py
     original_figure: verification/originals/scheller-2026-self-prioritization/fig5.jpg
     figure: verification/scheller-2026-self-prioritization/fig-social-decision-inversion.png
+    original_script: https://osf.io/a62df
+    script_execution: pre-computed
+    script_execution_note: "Stan model not re-run. Statistics verified from deposited posterior summary CSVs."
+    time_fast: "~3 min"
+    time_full: "~12 hrs (Stan/CmdStan + R)"
     notes: >
       Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Social condition
       (cond 2): v_p(self) = 30.07 Hz, v_r(other) = 31.27 Hz, diff = -1.20 Hz (claim: other

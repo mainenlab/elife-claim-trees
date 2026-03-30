@@ -33,6 +33,11 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig4.ipynb
+    script_execution: unmodified
+    script_execution_note: "Baseline firing rate verified from Figure1FR.csv; methods text inspected for synapse counts"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Figure 1A inset shows distribution of simulated firing rates across independent runs
       clustering around 5.3 Hz. Figure1FR.csv in data/ directory contains firing rate data:

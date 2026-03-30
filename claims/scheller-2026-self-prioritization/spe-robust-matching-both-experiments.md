@@ -36,6 +36,11 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/scheller-2026-self-prioritization/verify.py
+    original_script: https://osf.io/a62df
+    script_execution: pre-computed
+    script_execution_note: "Stan model not re-run. Statistics verified from deposited posterior summary CSVs."
+    time_fast: "~3 min"
+    time_full: "~12 hrs (Stan/CmdStan + R)"
     notes: >
       Verified from Correlation_Results.xlsx (OSF cross-exp folder, https://osf.io/a62df).
       Cohen's d computed from SPE column (Acc_Self - Acc_Other per participant):

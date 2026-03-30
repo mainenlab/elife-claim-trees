@@ -36,6 +36,11 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/headley-2026-inhibitory-rhythms/verify.py
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig2_3.ipynb
+    script_execution: unmodified
+    script_execution_note: "Run unmodified on pre-computed CSV data from GitHub repo"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Verified from pre-computed Figure2b.csv and Figure3b.csv in repo data/. Na STA
       peak times by apical compartment distance (Figure2b.csv): dist=0→-2 ms, dist=1→-3 ms,

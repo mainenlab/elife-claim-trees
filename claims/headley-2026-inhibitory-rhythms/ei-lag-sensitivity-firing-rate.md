@@ -36,6 +36,11 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: unverified:no-data
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig4.ipynb
+    script_execution: pre-computed
+    script_execution_note: "E/I lag sweep sections require Dryad DendCompOscPublic/Fig4/ (1.88 GB)"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Fig4.ipynb requires Dryad simulation files from DendCompOscPublic/Fig4/ directory
       (multiple E/I lag conditions: prox500_dist_4, etc.). These files are not in the

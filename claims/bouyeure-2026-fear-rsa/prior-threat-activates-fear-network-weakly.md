@@ -40,6 +40,11 @@ reproductions:
     script: verification/bouyeure-2026-fear-rsa/verify.py
     original_figure: verification/originals/bouyeure-2026-fear-rsa/fig2.jpg
     figure: verification/bouyeure-2026-fear-rsa/fig-prior-threat-mismatch.png
+    original_script: https://github.com/AntoineBouyeure/Representational-properties-of-cues-and-contexts-shape-fear-learning-and-reversal/blob/main/run_nina_analysis.py
+    script_execution: pre-computed
+    script_execution_note: "BrainIAK searchlight not re-run. Statistics verified from NeuroVault group maps."
+    time_fast: "~4 min"
+    time_full: "~48 hrs (BrainIAK + HPC)"
     notes: >
       NeuroVault map downloaded (run2_previousvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032).
       Only 36 significant voxels survive FWE correction (threshold -log10(p)>1.301). Max -log10(p)=1.670

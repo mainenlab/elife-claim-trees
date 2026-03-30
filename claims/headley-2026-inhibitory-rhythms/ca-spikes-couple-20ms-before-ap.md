@@ -37,6 +37,11 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig2_3.ipynb
+    script_execution: unmodified
+    script_execution_note: "Run unmodified on pre-computed CSV data from GitHub repo"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Verified from pre-computed Figure3c.csv and Figure2c.csv in repo data/. Ca STA peak
       times by apical distance (Figure3c.csv): dist=0→0 ms, dist=1→0 ms, dist=2→-5 ms,

@@ -38,6 +38,11 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: unverified:no-data
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig9.ipynb
+    script_execution: pre-computed
+    script_execution_note: "Requires Dryad burst simulation files (1.88 GB); .npy files absent from GitHub repo"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Script: Fig9.ipynb requires Dryad files (output_burst_16Hz_dist and output_burst_64Hz_prox
       simulation sets) plus modulatory_trace_16Hz.npy and modulatory_trace_64Hz.npy. The .npy

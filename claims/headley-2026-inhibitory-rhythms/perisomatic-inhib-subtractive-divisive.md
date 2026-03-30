@@ -36,6 +36,11 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig5.ipynb
+    script_execution: pre-computed
+    script_execution_note: "Verified from deposited pre-computed CSV data; Fig5.ipynb/Fig6.ipynb require 1.88 GB Dryad data for full panels"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Verified from Figure4b.csv pre-computed I/O curves in repo data/. Somatic (perisomatic
       ×2) vs control: threshold current shifts from 100 pA to 400 pA (+300 pA, subtractive

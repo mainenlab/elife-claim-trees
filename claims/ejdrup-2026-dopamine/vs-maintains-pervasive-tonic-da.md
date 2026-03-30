@@ -36,6 +36,11 @@ reproductions:
     date: 2026-03-29
     status: unverified:code-error
     script: verification/ejdrup-2026-dopamine/verify.py
+    original_script: "https://github.com/Gether-Lab/striatal-dopamine-model/blob/main/Figure%202-Fig%202a-f-Source%20code.py"
+    script_execution: patched
+    script_execution_note: "w_xaxis → xaxis (matplotlib 3.8 API change, cosmetic only)"
+    time_fast: "~5 min"
+    time_full: "~8 hrs (standard Python)"
     notes: >
       Figure 2-Fig 2a-f-Source code.py: all 3 simulations ran to completion (4 tqdm
       100% bars before error, for DS, VS, and VS-reduced terminal density conditions,

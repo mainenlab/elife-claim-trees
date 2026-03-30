@@ -40,6 +40,11 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: unverified:no-data
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig8.ipynb
+    script_execution: pre-computed
+    script_execution_note: "11-frequency perisomatic sweep requires 1.88 GB Dryad DendCompOscPublic/"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Script: Fig8.ipynb requires Dryad simulation files from DendCompOscPublic/
       (11-frequency perisomatic sweep, 0.5–80 Hz). Not in GitHub repo.

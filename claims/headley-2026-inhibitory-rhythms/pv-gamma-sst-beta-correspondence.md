@@ -42,6 +42,8 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: unverified:no-code
+    script_execution: not-executed
+    script_execution_note: "Interpretive synthesis — no script; assessed by consistency with anatomical literature"
     notes: >
       This is an interpretive synthesis claim, not a direct simulation output. There is no
       script or data file to reproduce it. The claim is assessed by examining whether the

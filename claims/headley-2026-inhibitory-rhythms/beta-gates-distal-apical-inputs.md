@@ -40,6 +40,11 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: unverified:no-data
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig10.ipynb
+    script_execution: pre-computed
+    script_execution_note: "Requires Dryad exc_stim_aux_spikes2.h5 (1.88 GB); not in GitHub repo"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5 and associated
       simulation outputs from DendCompOscPublic/). exc_stim_aux_spikes2.h5 confirmed NOT in

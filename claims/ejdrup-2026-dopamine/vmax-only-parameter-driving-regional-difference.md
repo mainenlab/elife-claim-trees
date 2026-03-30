@@ -34,6 +34,11 @@ reproductions:
     date: 2026-03-29
     status: verified
     script: verification/ejdrup-2026-dopamine/verify.py
+    original_script: "https://github.com/Gether-Lab/striatal-dopamine-model/blob/main/Figure%203-Fig%203k%2C%20l-Source%20code.py"
+    script_execution: patched
+    script_execution_note: "w_xaxis → xaxis (matplotlib 3.8 API change, cosmetic only)"
+    time_fast: "~5 min"
+    time_full: "~8 hrs (standard Python)"
     notes: >
       Figure 3-Fig 3k, l-Source code.py ran to completion with EXIT:0, no errors (111
       tqdm 100% completions = 39 Vmax values × 2 regions + init runs, on 50^3 grid).

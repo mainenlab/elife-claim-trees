@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 // Reads all claim markdown files from ../claims/ and outputs src/data/claims.json
-import { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'fs';
+import fs, { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const claimsRoot = join(__dirname, '../../claims');
+const projectRoot = join(__dirname, '../../');
 const outDir = join(__dirname, '../src/data');
 const outFile = join(outDir, 'claims.json');
 
@@ -66,6 +67,12 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
     const status = normalizeStatus(fm.reproductions);
     const notes = (fm.reproductions || []).map(r => r.notes).filter(Boolean).join('\n\n');
 
+    const logPath = join(projectRoot,
+      `verification/${paperSlug}/verify.log`);
+    const log_output = fs.existsSync(logPath)
+      ? fs.readFileSync(logPath, 'utf8').slice(0, 3000)
+      : null;
+
     claims.push({
       uuid: fm.uuid || null,
       slug,
@@ -85,6 +92,12 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
       analysis: fm.assertions?.[0]?.analysis || null,
       method: fm.assertions?.[0]?.method || null,
       script: fm.reproductions?.[0]?.script || null,
+      original_script: fm.reproductions?.[0]?.original_script || null,
+      script_execution: fm.reproductions?.[0]?.script_execution || null,
+      script_execution_note: fm.reproductions?.[0]?.script_execution_note || null,
+      time_fast: fm.reproductions?.[0]?.time_fast || null,
+      time_full: fm.reproductions?.[0]?.time_full || null,
+      log_output,
     });
   }
 

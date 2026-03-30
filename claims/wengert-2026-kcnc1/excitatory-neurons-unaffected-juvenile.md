@@ -32,6 +32,11 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/wengert-2026-kcnc1/verify.py
+    original_script: https://doi.gin.g-node.org/10.12751/g-node.bqni9h
+    script_execution: pre-computed
+    script_execution_note: "Primary analysis in Clampfit (proprietary). Statistics verified from deposited Excel summary file."
+    time_fast: "~2 min"
+    time_full: "~48 hrs (68 GB download + gin)"
     notes: >
       K+ current density verified from G-Node Excel (Pyr WT P16-21 / Pyr A421V P16-21
       Potassium Current sheets). At +40mV: WT n=8 mean=343.4±205.7, KI n=10 mean=307.1±132.4

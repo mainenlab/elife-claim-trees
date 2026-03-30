@@ -33,6 +33,11 @@ reproductions:
     date: 2026-03-30
     status: verified:partial
     script: verification/gadeke-2026-guilt-insula/verify.py
+    original_script: https://github.com/BonnSocialNeuroscienceUnit/ResponsibilityExperiment/blob/main/Code/bin/
+    script_execution: not-executed
+    script_execution_note: "Requires MATLAB + SPM12. Statistics verified from deposited pre-computed NIfTI and CSV outputs."
+    time_fast: "~3 min"
+    time_full: "~3 hrs (MATLAB + SPM12)"
     notes: >
       Implemented the dot-product pattern expression approach from f_apply_YuKoban_guilt_signature_map.m
       in Python (nibabel). Loaded guiltEffectEachPartic.nii (4D, 40 participants) and

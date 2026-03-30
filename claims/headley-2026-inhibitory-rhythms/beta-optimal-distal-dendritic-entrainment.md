@@ -40,6 +40,11 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: unverified:no-data
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig7.ipynb
+    script_execution: pre-computed
+    script_execution_note: "Frequency sweep simulations require 1.88 GB Dryad DendCompOscPublic/"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Script: Fig7.ipynb requires Dryad simulation files from DendCompOscPublic/
       (frequency sweep simulations across 0.5–80 Hz distal inhibition conditions).

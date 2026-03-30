@@ -32,6 +32,11 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/gadeke-2026-guilt-insula/verify.py
+    original_script: https://github.com/BonnSocialNeuroscienceUnit/ResponsibilityExperiment/blob/main/Code/bin/
+    script_execution: not-executed
+    script_execution_note: "Requires MATLAB + SPM12. Statistics verified from deposited pre-computed NIfTI and CSV outputs."
+    time_fast: "~3 min"
+    time_full: "~3 hrs (MATLAB + SPM12)"
     notes: >
       Pre-computed LMM table (LMM happiness on outcomes and responsibility) confirms the
       partnerWon:subjDecided_1 interaction — the guilt-effect term:

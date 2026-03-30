@@ -38,6 +38,11 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/scheller-2026-self-prioritization/verify.py
+    original_script: https://osf.io/a62df
+    script_execution: pre-computed
+    script_execution_note: "Stan model not re-run. Statistics verified from deposited posterior summary CSVs."
+    time_fast: "~3 min"
+    time_full: "~12 hrs (Stan/CmdStan + R)"
     notes: >
       Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Group-level
       ΔC_µ^{perceptual} = 0.0026/ms = 2.60 Hz (claim: 2.6 Hz, exact match). v_p change

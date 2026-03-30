@@ -42,6 +42,11 @@ reproductions:
     script: verification/headley-2026-inhibitory-rhythms/verify.py
     original_figure: verification/originals/headley-2026-inhibitory-rhythms/fig4.jpg
     figure: verification/headley-2026-inhibitory-rhythms/fig4a-firing-rates.png
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig4.ipynb
+    script_execution: unmodified
+    script_execution_note: "Run unmodified on pre-computed CSV data from GitHub repo"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Verified directly from Figure4a.csv in repo data/ (30 trials/condition). Somatic
       (perisomatic ×2) firing rate: 0.7±0.31 Hz vs control 5.5±0.86 Hz. Exact match to

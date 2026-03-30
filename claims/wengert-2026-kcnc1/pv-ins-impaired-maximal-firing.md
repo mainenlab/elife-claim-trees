@@ -31,6 +31,11 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/wengert-2026-kcnc1/verify.py
+    original_script: https://doi.gin.g-node.org/10.12751/g-node.bqni9h
+    script_execution: pre-computed
+    script_execution_note: "Primary analysis in Clampfit (proprietary). Statistics verified from deposited Excel summary file."
+    time_fast: "~2 min"
+    time_full: "~48 hrs (68 GB download + gin)"
     notes: >
       Data from G-Node Excel (PV-IN WT P16-21 Spiking, PV-IN A421V+ P16-21 Spiking sheets).
       Max AP counts per cell from F/I protocol (-100 to +900 pA, 20pA steps):

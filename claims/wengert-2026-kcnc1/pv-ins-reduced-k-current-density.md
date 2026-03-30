@@ -33,6 +33,11 @@ reproductions:
     script: verification/wengert-2026-kcnc1/verify.py
     original_figure: verification/originals/wengert-2026-kcnc1/fig2.jpg
     figure: verification/wengert-2026-kcnc1/fig-k-current-density.png
+    original_script: https://doi.gin.g-node.org/10.12751/g-node.bqni9h
+    script_execution: pre-computed
+    script_execution_note: "Primary analysis in Clampfit (proprietary). Statistics verified from deposited Excel summary file."
+    time_fast: "~2 min"
+    time_full: "~48 hrs (68 GB download + gin)"
     notes: >
       Data extracted from G-Node Excel summary (PV-IN K+ currents sheet). n=13 WT,
       n=17 KI confirmed exactly (matches paper). Peak current density at +40mV:

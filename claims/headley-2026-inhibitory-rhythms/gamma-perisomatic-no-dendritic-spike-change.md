@@ -40,6 +40,11 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    original_script: https://github.com/dbheadley/InhibOnDendComp/blob/main/scripts/Fig5.ipynb
+    script_execution: pre-computed
+    script_execution_note: "Static case verified from pre-computed CSV; rhythmic gamma panels require 1.88 GB Dryad data"
+    time_fast: "~2 min"
+    time_full: "~6 hrs (NEURON + 1.88 GB Dryad)"
     notes: >
       Partially verified from Figure4d-f.csv pre-computed data. Somatic (perisomatic
       inhibition) vs control dendritic spike rates: Ca spike freq = 4.84 vs 4.86 Hz

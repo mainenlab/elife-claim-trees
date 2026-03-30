@@ -37,6 +37,11 @@ reproductions:
     script: verification/gadeke-2026-guilt-insula/verify.py
     original_figure: verification/originals/gadeke-2026-guilt-insula/fig3.jpg
     figure: verification/gadeke-2026-guilt-insula/fig-happiness-partner-reward.png
+    original_script: https://github.com/BonnSocialNeuroscienceUnit/ResponsibilityExperiment/blob/main/Code/bin/
+    script_execution: not-executed
+    script_execution_note: "Requires MATLAB + SPM12. Statistics verified from deposited pre-computed NIfTI and CSV outputs."
+    time_fast: "~3 min"
+    time_full: "~3 hrs (MATLAB + SPM12)"
     notes: >
       Pre-computed LMM tables in Code/csv/ confirm all values directly. Partner reward (rewardPart)
       is a significant positive predictor of happiness in both studies:

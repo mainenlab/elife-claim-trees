@@ -35,6 +35,11 @@ reproductions:
     date: 2026-03-30
     status: verified:partial
     script: verification/bouyeure-2026-fear-rsa/verify.py
+    original_script: https://github.com/AntoineBouyeure/Representational-properties-of-cues-and-contexts-shape-fear-learning-and-reversal/blob/main/run_nina_analysis.py
+    script_execution: pre-computed
+    script_execution_note: "BrainIAK searchlight not re-run. Statistics verified from NeuroVault group maps."
+    time_fast: "~4 min"
+    time_full: "~48 hrs (BrainIAK + HPC)"
     notes: >
       Behavioral data downloaded from OSF (behaviordata_final.csv, n=24, 12288 rows). CS type
       hierarchy confirmed: overall means CS++(2.62) > CS+-(2.38) > CS-+(2.23) > CS--(1.58),

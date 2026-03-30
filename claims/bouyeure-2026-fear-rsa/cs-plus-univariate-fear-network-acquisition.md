@@ -35,6 +35,11 @@ reproductions:
     date: 2026-03-30
     status: verified:partial
     script: verification/bouyeure-2026-fear-rsa/verify.py
+    original_script: https://github.com/AntoineBouyeure/Representational-properties-of-cues-and-contexts-shape-fear-learning-and-reversal/blob/main/run_nina_analysis.py
+    script_execution: pre-computed
+    script_execution_note: "BrainIAK searchlight not re-run. Statistics verified from NeuroVault group maps."
+    time_fast: "~4 min"
+    time_full: "~48 hrs (BrainIAK + HPC)"
     notes: >
       NeuroVault map downloaded (CSplus-minus_TFCE_nlog10p.nii.gz, collection 23032).
       Map stores -log10(p) values (TFCE corrected), threshold at 1.301 for p<0.05.
