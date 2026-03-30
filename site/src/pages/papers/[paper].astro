@@ -11,6 +11,17 @@ export function getStaticPaths() {
 const { paper: paperSlug } = Astro.params;
 const paperData = corpus.papers.find(p => p.slug === paperSlug)!;
 
+const badgeConfig: Record<string, { label: string; bg: string; text: string; emoji: string; description: string }> = {
+  gold:              { label: 'Gold',              bg: '#fef3c7', text: '#92400e', emoji: '🥇', description: 'Deposit reproduces main claims without specialist hardware or institutional software.' },
+  silver:            { label: 'Silver',            bg: '#f3f4f6', text: '#374151', emoji: '🥈', description: 'Genuine deposit; a documented partial barrier exists but the path to reproduction is clear.' },
+  'none-compute':    { label: 'Compute barrier',   bg: '#fee2e2', text: '#991b1b', emoji: '✗',  description: 'Reproduction requires infrastructure beyond a standard workstation (GPU cluster, HPC, or large downloads with no pre-computed shortcut).' },
+  'none-gap':        { label: 'Deposit gap',       bg: '#fee2e2', text: '#991b1b', emoji: '✗',  description: 'Required data or code is unavailable, hard-coded to local paths, or does not match what the analysis requires.' },
+  'none-structural': { label: 'Structural barrier',bg: '#fee2e2', text: '#991b1b', emoji: '✗',  description: 'Primary claims require physical apparatus, proprietary materials, or specialist equipment; verification requires atlas inspection rather than analysis re-execution.' },
+  pending:           { label: 'Pending',           bg: '#f9fafb', text: '#6b7280', emoji: '⏳', description: 'Verification in progress.' },
+};
+
+const badge = badgeConfig[(paperData as any).badge ?? 'pending'] ?? badgeConfig.pending;
+
 const statusOrder = ['verified', 'unverified:code-error', 'unverified:compute-infeasible', 'unverified', 'unverified:no-data', 'unverified:no-code', 'failed', 'unknown'];
 
 const statusGroups = [
@@ -31,7 +42,18 @@ const statusGroups = [
       <div class="text-xs text-gray-500 mb-2">
         <a href="/papers" class="hover:underline">Papers</a> /
       </div>
-      <h1 class="text-xl font-semibold text-gray-900 leading-snug mb-3">{paperData.title}</h1>
+      <div class="flex items-start gap-4 mb-3">
+        <h1 class="text-xl font-semibold text-gray-900 leading-snug flex-1">{paperData.title}</h1>
+        <div
+          class="flex-shrink-0 flex flex-col items-center gap-1 px-3 py-2 rounded-xl text-center"
+          style={{ background: badge.bg, color: badge.text, minWidth: '7rem' }}
+          title={badge.description}
+        >
+          <span class="text-2xl leading-none">{badge.emoji}</span>
+          <span class="text-xs font-semibold uppercase tracking-wide">{badge.label}</span>
+          <span class="text-xs leading-tight opacity-75 max-w-[9rem]">{badge.description}</span>
+        </div>
+      </div>
       <div class="text-sm text-gray-600 mb-4">
         {paperData.authors.join(', ')}
       </div>

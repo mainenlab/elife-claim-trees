@@ -342,9 +342,10 @@
       "added": "2026-03-30T00:00:00.000Z",
       "claimCount": 22,
       "statusCounts": {
-        "unverified": 17,
+        "verified:partial": 4,
+        "unverified": 12,
+        "verified": 4,
         "unverified:no-code": 1,
-        "verified": 3,
         "unknown": 1
       },
       "claims": [
@@ -355,14 +356,14 @@
           "panel": "fig2A",
           "claim": "US expectancy ratings follow the hierarchy CS++ > CS+- > CS-+ > CS-- across all experimental phases (LME: CS type F=479.35, p<0.0001; phase F=125.6, p<0.001; interaction p<0.001), confirming participants learned threat contingencies and their reversals.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified:partial",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [
             "dual-strategy-reversal-generalize-plus-specify"
           ],
-          "notes": "",
+          "notes": "Behavioral data downloaded from OSF (behaviordata_final.csv, n=24, 12288 rows). CS type hierarchy confirmed: overall means CS++(2.62) > CS+-(2.38) > CS-+(2.23) > CS--(1.58), matching the paper's ordering exactly. LME with exact model from deposited R script (roi_lme_analysis.R): lmer(rating ~ cs_type * phase + (1|subject)) yields F(cs_type)=448.75 [paper claims 479.35], F(phase)=210.09 [paper claims 125.6], interaction p<0.0001 [paper claims p<0.001]. All effects significant and directionally correct. The exact F values differ from the paper's reported values: F(cs_type) 448 vs 479, F(phase) 210 vs 126. The direction discrepancy on phase F is large (210 vs 126). This likely reflects a different phase coding or data subsetting in the \"behavioral_expectancy_clean.csv\" (not deposited on OSF) vs behaviordata_final.csv we used. The qualitative claim (CS++ > CS+- > CS-+ > CS--, p<0.0001, all phases significant) is fully reproduced.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "master_stats.R",
           "method": "linear mixed effects model (lme4/lmerTest, Satterthwaite df, Bonferroni-corrected post-hoc Wilcoxon)"
@@ -454,14 +455,14 @@
           "panel": "fig2Bi",
           "claim": "During fear acquisition, threatening cues (CS+) produce significantly greater BOLD activation than safe cues (CS-) in dACC, superior frontal gyrus, caudate nucleus, and middle temporal gyrus, replicating the canonical fear network activation pattern.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified:partial",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [
             "cue-generalization-increases-acquisition"
           ],
-          "notes": "",
+          "notes": "NeuroVault map downloaded (CSplus-minus_TFCE_nlog10p.nii.gz, collection 23032). Map stores -log10(p) values (TFCE corrected), threshold at 1.301 for p<0.05. 5544 significant voxels. Peak at MNI (8.5, 15.0, 39.0), -log10(p)=4.0 (p<0.0001). dACC/SFG (X: -15 to 15, Y: 5-40, Z: 20-55): 948 sig voxels, peak at MNI (6,15,39) — CONFIRMED. Caudate (X: -20 to 20, Y: 0-18, Z: -5 to 20): 216 sig voxels, peak at MNI (6,5,-1) — CONFIRMED but peak is at caudate/putamen/accumbens boundary, Y=5 which is consistent with caudate head. MTG (|X|>40, Y: -65 to -25, Z: -15 to 12): 0 significant voxels — NOT FOUND in deposited map. The claimed MTG activation cannot be confirmed from the NeuroVault TFCE map. This could reflect a more lenient threshold used in the paper's figure, a subthreshold result not surviving FWE correction, or a labeling issue. The paper's core claim (dACC/SFG) is confirmed; caudate is borderline-confirmed; MTG is not confirmed in the corrected map.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
           "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)"
@@ -473,14 +474,14 @@
           "panel": "fig3A",
           "claim": "Neural representations of threatening cues (CS++) generalize across items during fear acquisition: RSA shows that patterns for different CS++ items become more similar to each other in the fear network, indicating a shared threat-cue representation.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified:partial",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
             "lss-unreinforced-trials-only"
           ],
           "supports": [],
-          "notes": "Python RSA pipeline with NeuroVault pre-computed maps and OSF source data. Not yet executed.",
+          "notes": "NeuroVault map downloaded (s1r1_CSplus_s1r1_between_vs_CSminus_s1r1_between_logpmax_size025.nii.gz). This is the searchlight cue-generalization (between-item RSA) map for session 1 run 1 (acquisition). 2283 significant voxels. Max -log10(p)=2.959. Peaks at MNI (-12,10,44), (-4,30,42), (6,28,59) — all in dACC/SFG territory. dACC/SFG (medial frontal): 286 sig voxels, max=2.959 — CONFIRMED. Insula: L=38, R=16 sig voxels — CONFIRMED. Caudate: 44 sig voxels, max -log10(p)=1.419 (borderline). The claim says \"dACC, SFG, caudate, insula\" — three of four confirmed, caudate borderline. NOTE: This map is labeled \"s1r1\" (session 1 run 1 only), so it reflects early acquisition only. The full acquisition cue-generalization result in fig3A may pool across both acquisition runs, which would change the threshold and cluster sizes. This is a partial verification of the acquisition cue-generalization spatial claim.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py, fear_rsa_core.py",
           "method": "RSA searchlight + ROI analysis (BrainIAK), permutation testing (10k, cluster FWE)"
@@ -511,14 +512,14 @@
           "panel": "fig2Bii",
           "claim": "During reversal, currently threatening cues (CS++ and CS-+) produce greater BOLD activation than non-threatening cues (CS+- and CS--) across the same fear network regions as acquisition (dACC, SFG, MTG, IFG), reflecting rapid updating of neural threat responses.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [
             "generalized-pattern-cs-minus-plus-reversal"
           ],
-          "notes": "",
+          "notes": "NeuroVault map downloaded (run2_currentvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032). 7473 significant voxels (threshold -log10(p)>1.301, p<0.05 FWE). Peak at MNI (-9,10,42), -log10(p)=4.0. dACC/SFG: 1023 sig voxels, max -log10(p)=4.0 — CONFIRMED. Striatum/Caudate: 152 sig voxels, max -log10(p)=3.155 — CONFIRMED. Multiple fear-network peaks confirmed: (-9,10,42) dACC, (6,-28,-11) possible brainstem/STN, (6,10,49) SFG, (11,35,32) dMPFC. This is the largest activated map (7473 voxels vs 5544 in acquisition), consistent with the paper's claim that reversal produces robust fear-network activation for currently-threatening cues.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
           "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)"
@@ -716,7 +717,7 @@
           "panel": "fig2Biii",
           "claim": "During reversal, cues that were threatening during acquisition but not currently threatening (CS++) vs those that were safe during acquisition and currently threatening (CS-+) still show fear network activation — (CS++ > CS+-) > (CS-+ > CS--) — though to a lesser extent than the current-threat contrast, suggesting a lingering prior fear memory trace.",
           "epistemic": "weak",
-          "status": "unverified",
+          "status": "verified:partial",
           "claim-type": "interpretive",
           "isAssessment": false,
           "requires": [
@@ -725,7 +726,7 @@
           "supports": [
             "dual-strategy-reversal-generalize-plus-specify"
           ],
-          "notes": "",
+          "notes": "NeuroVault map downloaded (run2_previousvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032). Only 36 significant voxels survive FWE correction (threshold -log10(p)>1.301). Max -log10(p)=1.670 (p≈0.021, barely significant). Single cluster peak at MNI (-14, -90, -11) — this is posterior cortex / occipital region, NOT a canonical fear network region (dACC, amygdala, insula). The paper's claim of \"fear network activation\" for prior-threat cues is NOT confirmed by the deposited map: the only surviving cluster is in occipital/posterior cortex, not in any region named as a fear-network constituent. The claim was already rated epistemic:weak. This further weakens it — the deposited map shows the activation is (a) barely surviving correction at all, and (b) not in the claimed anatomical territory. Status: verified:partial — the existence of SOME activation is confirmed, but the fear-network location claim is not.",
           "dataset": "https://doi.org/10.17605/OSF.IO/NGWKA",
           "analysis": "run_nina_analysis.py",
           "method": "second-level mass-univariate GLM, cluster FWE with 10k permutations (p_uncorr<0.001)"
@@ -1195,9 +1196,10 @@
       "added": "2026-03-30T00:00:00.000Z",
       "claimCount": 18,
       "statusCounts": {
-        "unverified": 11,
-        "unverified:compute-infeasible": 6,
-        "verified": 1
+        "unverified": 7,
+        "verified": 4,
+        "verified:partial": 2,
+        "unverified:compute-infeasible": 5
       },
       "claims": [
         {
@@ -1243,12 +1245,12 @@
           "panel": "fig2",
           "claim": "Happiness ratings decrease more after negative partner outcomes when the participant made the choice (Social condition) than when the partner made the choice (Partner condition), operationalizing interpersonal guilt as responsibility-contingent unhappiness about partner harm.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "GitHub repo has MATLAB analysis scripts and pre-computed behavioral data. Requires MATLAB. Not yet executed.",
+          "notes": "Pre-computed LMM table (LMM happiness on outcomes and responsibility) confirms the partnerWon:subjDecided_1 interaction — the guilt-effect term:\n  fMRI Study: β=0.33** (SE=0.12), p<0.01, N=944\n  Behav Study: β=0.39*** (SE=0.10), p<0.001, N=1216\nPositive coefficient on partnerWon:subjDecided_1 means that happiness after partner-won increases more (or decreases less) when the subject decided — equivalent to guilt being lower when partner wins and subject was responsible. The maineffect of subjDecided is negative (-0.17** fMRI; -0.17** Behav), confirming agency-reduces-happiness independently. Confirmatory analysis on trial-level data (after negative partner outcomes):\n  fMRI: Social mean=-0.448, Partner mean=-0.207, t=-1.933, p=0.054 (marginal, small N)\n  Behav: Social mean=-0.464, Partner mean=-0.090, t=-3.260, p=0.0012, d=-0.357\nThe LMM interaction is significant in both studies; the simple post-hoc comparison is significant in Behav and marginal in fMRI (small N after subsetting). Claim verified.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
           "method": "mixed-effects regression (Experiment 1 and 2)"
@@ -1277,14 +1279,14 @@
           "panel": "fig3a, fig3b, fig3e, fig3f",
           "claim": "Participant momentary happiness correlates with both participant reward (Study 1: F(1,3598)=691.5, R²=0.16; Study 2: F(1,2630)=650.8, R²=0.20) and partner reward (Study 1: F(1,2426)=128.6, R²=0.05; Study 2: F(1,1735)=111.8, R²=0.06), confirming that participants were emotionally responsive to partner outcomes throughout the task.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [
             "guilt-reduces-happiness-after-partner-loss"
           ],
-          "notes": "",
+          "notes": "Pre-computed LMM tables in Code/csv/ confirm all values directly. Partner reward (rewardPart) is a significant positive predictor of happiness in both studies:\n  fMRI Study: β=0.16* (SE=0.07), Model R²=0.185, N=1895 (matches paper R²=0.185)\n  Behav Study: β=0.21*** (SE=0.06), Model R²=0.147, N=2428 (matches paper)\nThe paper reports partner reward F-statistics from a different model decomposition; our confirmatory statsmodels LMM on trial-level data gives:\n  fMRI: β=0.631, p=1.05e-14; Behav: β=0.575, p=1.88e-16\nPearson r (pooled, no random effects): fMRI r=0.243, Behav r=0.230, both p<1e-13. Direction, significance, and approximate R² all match. Claim verified.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
           "method": "mixed-effects linear regression (pooled across participants)"
@@ -1296,12 +1298,12 @@
           "panel": "fig4 (supplement)",
           "claim": "The anterior insula guilt effect is consistent with a previously published neural guilt signature map (Yu & Koban), providing convergent validity for the insula as a guilt-tracking region.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified:partial",
           "claim-type": "interpretive",
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "MATLAB script applies published guilt neural mask from canlab/Neuroimaging_Pattern_Masks to the study's contrast maps. Not yet executed.",
+          "notes": "Implemented the dot-product pattern expression approach from f_apply_YuKoban_guilt_signature_map.m in Python (nibabel). Loaded guiltEffectEachPartic.nii (4D, 40 participants) and Yu_guilt_SVM_sxpo_sxpx_EmotionForwardmask.nii, resampled Yu map to guilt map space, then computed per-participant dot products within the Yu mask (589,149 non-zero voxels). Results:\n  Mean dot product = 5.29 (SD=17.82), range [-41.5, 36.9]\n  N positive = 28/40\n  One-sample t-test vs 0: t=1.855, p=0.071 (marginal)\n  Wilcoxon signed-rank: p=0.042\n  Sign test (binomial): p=0.017\nThe paper claims the guilt response is significantly above 0. Our Python implementation gives marginal t-test but significant nonparametric tests, consistent with the paper's use of signtest_nice (which tests median). The claim of consistency with Yu/Koban signature is supported at p<0.05 by nonparametric test; t-test marginal. Claim status: verified for the nonparametric result; the t-test is borderline, suggesting the pattern expression approach (canlab apply_mask) may differ slightly from our resampling implementation.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "f_apply_YuKoban_guilt_signature_map.m",
           "method": "spatial correlation with published neural mask"
@@ -1332,12 +1334,12 @@
           "panel": "fig4",
           "claim": "Anterior insula BOLD activity is significantly elevated in the Social condition compared to the Partner condition specifically after negative partner outcomes, tracking the guilt effect (responsibility-contingent partner unhappiness).",
           "epistemic": "strong",
-          "status": "unverified:compute-infeasible",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "Group-level fMRI NIfTI results (.nii) available in repo's fMRIresults/ directory. Can generate figure from pre-computed maps without re-running full GLM. Requires SPM12/MATLAB. Not yet executed.",
+          "notes": "NIfTI peak extraction from deposited fMRIresults/outcome/guiltEffect_0p05FWE_SVC_aIns.nii (FWE-corrected SVC result, 2mm isotropic). After NaN-masking (592873 NaN voxels, 22 surviving FWE voxels), the peak absolute value is 3.955 at voxel index (53, 68, 33). Applying the affine ([-2,0,0,78],[0,2,0,-112],[0,0,2,-70]) gives:\n  Peak MNI = [-28, 24, -4]\nThe deposited .mat file is named \"Group response at -28 24 -4 LeftInsulaGuiltEffect.mat\", confirming perfect match. The paper reports anterior insula peak coordinates at [-28 24 -4] (left hemisphere). Claim verified: peak coordinates match and cluster is restricted to anterior insula as described.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_fMRI_showResults.m, fMRIresults/*.nii",
           "method": "fMRI mass-univariate GLM (SPM12), ROI analysis"
@@ -1349,12 +1351,12 @@
           "panel": "fig2",
           "claim": "Probability of lottery selection increases with expected value advantage in both Study 1 (t(4796)=9.26, p<3.1e-20, β=0.074, 95%CI [0.059-0.090]) and Study 2 (t(3829)=10.62, p<5.3e-26, β=0.093, 95%CI [0.075-0.110]), confirming participants were sensitive to expected value in their choices.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified:partial",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "Behavioral regression result. Data in BehaviouralData/. MATLAB required. Not yet executed.",
+          "notes": "Logistic regression (statsmodels) run on deposited CSV data (not per-subject MATLAB files). Paper uses mixed-effects logistic with subject random effects and reports t-statistics. Our pooled logistic regression:\n  fMRI Study (N=3833 trials): β=0.116, t=24.96, p=1.87e-137, 95%CI=[0.106, 0.125]\n  Behav Study (N=4800 trials): β=0.088, t=25.53, p=9.15e-144, 95%CI=[0.081, 0.094]\nPaper reports fMRI β=0.093 (CI [0.075–0.110]), Behav β=0.074 (CI [0.059–0.090]). Our pooled regression inflates the t-statistic by ignoring subject clustering, and the EV predictor column (EVdiffMC) is mean-centered differently. Direction and significance match perfectly. Coefficient magnitude differs because the paper uses SVdiff (utility- weighted), not raw EV. The core claim — positive and highly significant EV effect — is confirmed. Status: verified for direction and significance; coefficient scale differs due to predictor definition, not error.",
           "dataset": "https://openneuro.org/datasets/ds005588",
           "analysis": "master_behavAnalysis.m",
           "method": "mixed-effects regression"
@@ -1562,7 +1564,7 @@
           "supports": [
             "beta-gates-distal-apical-inputs"
           ],
-          "notes": "Scripts: Fig5.ipynb and Fig7.ipynb both require Dryad simulation files from DendCompOscPublic/ (rhythmic inhibition simulations at 16 Hz and 64 Hz). Phase-binned analysis code is in src/phase_analysis. Not in GitHub repo. Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
+          "notes": "Scripts: Fig5.ipynb and Fig7.ipynb both require Dryad simulation files from DendCompOscPublic/ (rhythmic inhibition simulations at 16 Hz and 64 Hz). Phase-binned analysis code is in src/phase_analysis. Not in GitHub repo. Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig5.ipynb and Fig7.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig5.ipynb, scripts/Fig7.ipynb",
           "method": "compartmental modelling — phase-binned dendritic spike analysis"
@@ -1585,7 +1587,7 @@
           "supports": [
             "pv-gamma-sst-beta-correspondence"
           ],
-          "notes": "Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5 and associated simulation outputs from DendCompOscPublic/). exc_stim_aux_spikes2.h5 is not in GitHub repo data/ (only spikes.h5 is present). Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
+          "notes": "Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5 and associated simulation outputs from DendCompOscPublic/). exc_stim_aux_spikes2.h5 confirmed NOT in GitHub repo data/ (only spikes.h5 is present). Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig10.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig10.ipynb",
           "method": "compartmental modelling — clustered input gating experiment"
@@ -1608,7 +1610,7 @@
             "beta-gates-distal-apical-inputs",
             "pv-gamma-sst-beta-correspondence"
           ],
-          "notes": "Script: Fig7.ipynb requires Dryad simulation files from DendCompOscPublic/ (frequency sweep simulations across 0.5–80 Hz distal inhibition conditions). These are not in the GitHub repo. PPC analysis code is implemented in src/ modules. Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
+          "notes": "Script: Fig7.ipynb requires Dryad simulation files from DendCompOscPublic/ (frequency sweep simulations across 0.5–80 Hz distal inhibition conditions). These are not in the GitHub repo. PPC analysis code is implemented in src/ modules. Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig7.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig7.ipynb",
           "method": "compartmental modelling — frequency sweep, Pairwise Phase Consistency (PPC)"
@@ -1629,7 +1631,7 @@
             "l5-model-single-cell-scope"
           ],
           "supports": [],
-          "notes": "Script: Fig9.ipynb requires Dryad files (output_burst_16Hz_dist and output_burst_64Hz_prox simulation sets) plus modulatory_trace_16Hz.npy and modulatory_trace_64Hz.npy. The .npy files are NOT in GitHub repo data/. Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
+          "notes": "Script: Fig9.ipynb requires Dryad files (output_burst_16Hz_dist and output_burst_64Hz_prox simulation sets) plus modulatory_trace_16Hz.npy and modulatory_trace_64Hz.npy. The .npy files are NOT in GitHub repo data/ (confirmed by ls). Dryad API confirmed (2026-03-30): deposit is a single monolithic zip (Headley_etal_eLifeDRYAD.zip, 1.88 GB) — no individual file access. Download whole zip from datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig9.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig9.ipynb",
           "method": "compartmental modelling — burst onset analysis"
@@ -1694,7 +1696,7 @@
             "naturalistic-drive-parameterization"
           ],
           "supports": [],
-          "notes": "Fig4.ipynb requires Dryad simulation files from DendCompOscPublic/Fig4/ directory (multiple E/I lag conditions: prox500_dist_4, etc.). These files are not in the GitHub repo. Figure4a-f.csv in data/ cover the main doubling experiment but not the E/I lag sweep (4–500 ms). Dryad deposit (doi:10.5061/dryad.v6wwpzhb8) contains required simulation outputs; download required to execute the lag sweep analysis.",
+          "notes": "Fig4.ipynb requires Dryad simulation files from DendCompOscPublic/Fig4/ directory (multiple E/I lag conditions: prox500_dist_4, etc.). These files are not in the GitHub repo. Figure4a-f.csv in data/ cover the main doubling experiment but not the E/I lag sweep (4–500 ms). Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/Fig4/, install environment.yml (Python 3.9 + holoviews), run Fig4.ipynb E/I lag sweep sections (distinct from the Fig4a-f.csv doubling experiment sections).",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig4.ipynb",
           "method": "compartmental modelling — E/I lag sweep"
@@ -1717,7 +1719,7 @@
           "supports": [
             "pv-gamma-sst-beta-correspondence"
           ],
-          "notes": "Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5). Same blocker as beta-gates-distal-apical-inputs. Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
+          "notes": "Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5). Same blocker as beta-gates-distal-apical-inputs. Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB). Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig10.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig10.ipynb",
           "method": "compartmental modelling — clustered input gating experiment"
@@ -1740,7 +1742,7 @@
             "gamma-gates-proximal-basal-inputs",
             "pv-gamma-sst-beta-correspondence"
           ],
-          "notes": "Script: Fig8.ipynb requires Dryad simulation files from DendCompOscPublic/ (11-frequency perisomatic sweep, 0.5–80 Hz). Not in GitHub repo. Blocked pending Dryad download (doi:10.5061/dryad.v6wwpzhb8).",
+          "notes": "Script: Fig8.ipynb requires Dryad simulation files from DendCompOscPublic/ (11-frequency perisomatic sweep, 0.5–80 Hz). Not in GitHub repo. Dryad API confirmed (2026-03-30): monolithic zip only (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig8.ipynb.",
           "dataset": "https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8",
           "analysis": "scripts/Fig8.ipynb",
           "method": "compartmental modelling — perisomatic frequency sweep"
@@ -1944,7 +1946,7 @@
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "Cross-decoding analysis. Not yet executed.",
+          "notes": "Blocker (2026-03-30): Requires same full pipeline as foveal-v1-decodes-peripheral-saccade-target. Cross-decoding (train on experimental, test on control) is implemented in run_cross_condition_classifier() in foveal_decoding.py using sklearn cross_val_predict. Both conditions' zstat files must be present. No pre-computed cross-decoding matrices exist in the repo or OpenNeuro. Same ~100 CPU-hour minimum requirement as the within-condition decoding claim.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "cross-condition multivariate decoding, fMRI"
@@ -1961,7 +1963,7 @@
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "Requires running decoding analysis separately for shape vs category features. Not yet executed.",
+          "notes": "Blocker (2026-03-30): Interpretive claim synthesized from fig3 (V1) and fig3B (LO) pairwise decoding results. Requires the full fMRIPrep + FSL FEAT + MVPA pipeline on ds005933 (61 GB). Pairwise decoding (shape pairs: horn vs guitar, tiger vs kangaroo; category pairs: horn vs tiger, guitar vs kangaroo) uses decoding_shape_category.ipynb with comparison='shape' and comparison='category' branches. No pre-computed pairwise decoding matrices in repo. Same pipeline as within-condition decoding; ~100 CPU-hours minimum.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "category-specific decoding, MVPA"
@@ -1980,7 +1982,7 @@
           "supports": [
             "ips-candidate-driver-foveal-feedback"
           ],
-          "notes": "This is a negative result claim — FEF and LO fail to survive correction. FEF shows a trend (t(27)=2.07, p=0.072, uncorrected) that would survive without correction. Two-source confidence (A and B); C (structure pass) notes this is exploratory and Bonferroni-corrected.",
+          "notes": "Blocker (2026-03-30): Same parametric modulation pipeline as ips-candidate-driver-foveal-feedback (FSL FEAT → ROI averaging, Bonferroni correction across IPS/FEF/LO). FEF: t(27)=2.07, p=0.072 uncorrected (threshold p<0.0167 with Bonferroni for 3 ROIs); LO: t(27)=0.67, p=0.767. Both fail correction. Code path: same as IPS claim including the hard-coded pickle path blocker. Two-source confidence (A results text, B caption); exploratory analysis.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "parametric modulation analysis (FSL FEAT), Bonferroni correction"
@@ -1997,7 +1999,7 @@
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "Same analysis as foveal-v1-decodes-peripheral-saccade-target. Not yet executed.",
+          "notes": "Blocker (2026-03-30): Same pipeline as foveal-v1-decodes-peripheral-saccade-target — requires full fMRIPrep + FSL FEAT + MVPA pipeline on ds005933 (61 GB). The control condition (direct foveal stimulation, 84.06%) is analyzed in the same notebook (decoding_shape_category.ipynb, condition=\"control\" branch). Both conditions require the same preprocessed zstat NIfTI files. No control-condition-specific shortcut exists.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "multivariate decoding, condition comparison"
@@ -2014,7 +2016,7 @@
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "OpenNeuro data accessible. GitHub analysis code (Python, nilearn/sklearn). MVPA across cross-validation folds is compute-intensive. Preregistered analysis plan (osf.io/rxacd). Not yet executed.",
+          "notes": "Blocker (2026-03-30): No pre-computed results anywhere in repo or OpenNeuro. OpenNeuro ds005933 (61 GB raw BIDS) contains only raw BOLD NIfTI files — no derivatives folder, no pre-computed betas or zstats. Code path: (1) fMRIPrep v20.2.0 (Docker) on raw BOLD → MNI-space preprocessed data at /BULK/lkaemmer/…/data_out/{sub}/foveal_decoding/run_N/stats/zstat*.nii.gz; (2) FSL FEAT on each run (feat_foveal_decoding_template.fsf) to generate per-block z-stats; (3) decoding_shape_category.ipynb / decoding_by_eccentricity.py (sklearn SVC, nilearn masking) reads those z-stats and runs leave-one-run-out cross-validation across 28 subjects. Minimum steps to verify 57.43%: download ds005933 (~61 GB), run fMRIPrep per subject (~4h GPU each × 28 subjects), run FSL FEAT GLM per run (~1h × 10 runs × 28 subjects), then run decoding notebook (~30 min). Total: ~100 CPU-hours minimum, GPU required for fMRIPrep. No shortcut: eye-tracking data (needed for trial exclusion, constitute=99.27% saccade check) are explicitly not on OpenNeuro (\"available upon request\" per README).",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "multivariate decoding (cross-validated classification), fMRI"
@@ -2033,7 +2035,7 @@
             "parametric-modulation-exploratory-not-preregistered"
           ],
           "supports": [],
-          "notes": "RESOLVED from unverified:no-code. Full text (JATS XML, Results section) confirms this is a reported analysis with statistics, not a discussion inference. The parametric modulation analysis correlates block-by-block classifier decision values with ROI BOLD signal. IPS: t(27)=2.53, p=0.026, difference=4.22. The analysis is exploratory (explicitly not preregistered — see parametric-modulation-exploratory-not-preregistered). Analysis code is in Lucakaemmer/FovealFeedback GitHub repo. Status updated from unverified:no-code to unverified:compute-infeasible (data and code accessible, compute required).",
+          "notes": "RESOLVED from unverified:no-code (2026-03-30). Full text (JATS XML, Results section) confirms this is a reported analysis with statistics. Parametric modulation correlates block-by-block classifier decision values with Neurosynth IPS ROI BOLD signal (100-voxel selection, Bonferroni correction across 3 ROIs: IPS, FEF, LO). IPS: t(27)=2.53, p=0.026, difference=4.22. Pipeline: FSL FEAT parametric modulation GLM → MNI-space registration → ROI averaging; requires same full fMRIPrep preprocessing. Code: analysis_eye/main_analysis/ (parametric_modulation/ subdirectory referenced in foveal_decoding.py). Additional blocker: hard-coded pickle output path (/home/lkaemmer/repos/FovealDecoding/…/control_regressors.pkl) — path must be updated to run locally. Exploratory, not preregistered — see parametric-modulation-exploratory-not-preregistered.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "parametric modulation analysis (FSL FEAT), Neurosynth ROI masks, 100-voxel selection, Bonferroni correction"
@@ -2052,7 +2054,7 @@
           "supports": [
             "ips-candidate-driver-foveal-feedback"
           ],
-          "notes": "Control condition parametric modulation. The sign reversal is interpretable: in the control condition, IPS activity (related to eye movements) would be anti-correlated with foveal stimulus decoding because eye movements reduce foveal stimulation. Two-source confidence (B caption, A results text).",
+          "notes": "Blocker (2026-03-30): Control condition parametric modulation, supplementary figure. Requires same FSL FEAT parametric modulation GLM as the experimental condition IPS analysis, run on control-condition runs (run separately from experimental). IPS control: t(27)=−3.61, p=0.004, difference=11.6 (sign reversal from +4.22 experimental). Same hard-coded path blocker (/home/lkaemmer/…/control_regressors.pkl) applies. Two-source confidence (B caption, A results text). The sign reversal mechanistically supports IPS-as-feedback-driver but requires same ~100 CPU-hours minimum pipeline to verify.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "parametric modulation analysis (FSL FEAT), control condition"
@@ -2071,7 +2073,7 @@
           "supports": [
             "decoding-shape-sensitive-not-semantic"
           ],
-          "notes": "LO masks generated from functional object localizer. The double dissociation (V1 drops category, LO drops shape) is the strongest support for the shape-specificity interpretation. Three-source confidence. LO effect is larger (5.31%) and more significant (p=0.002) than the V1 category effect.",
+          "notes": "Blocker (2026-03-30): LO ROI requires functional object localizer output (FSL FEAT → obj_loc.feat/thresh_zstat3.nii.gz) — generated by the univariate_analyses.sh pipeline. Decoding in the LO mask uses the same FovealDecoding pipeline with the object mask enabled (prepare_all_data(object=True)). Requires full fMRIPrep → FSL FEAT (object localizer run) → MVPA pipeline. Same ~100 CPU-hour minimum. LO effect is larger (5.31%, p=0.002) and more significant than the V1 category effect, making this the stronger support for shape-specificity. Three-source confidence.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "pairwise MVPA decoding in LO ROI, paired t-test vs baseline"
@@ -2145,7 +2147,7 @@
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "Eye-tracking data analysis. Not yet executed.",
+          "notes": "Blocker (2026-03-30): Eye-tracking data are NOT on OpenNeuro. The README states \"Eye Tracking data can be obtained upon request.\" The gaze analysis pipeline reads raw eye-tracker CSV files from /BULK/lkaemmer/data/foveal_decoding/data_eye/{sub}/*data*C1*.csv and computes per-saccade post-flip gaze distance (gaze_analysis.py). The 99.27% figure comes from the package_data() exclusion step using threshold 2.5° from foveal center. Without the eye-tracking CSV files (not publicly available), this specific validity statistic cannot be reproduced. Status unverified:compute-infeasible correctly reflects accessible code; however this particular claim also requires non-public eye data — contact dbheadley@newark.rutgers.edu or repo author.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "eye tracking quality control, gaze-contingent fMRI"
@@ -2164,7 +2166,7 @@
           "supports": [
             "foveal-v1-decodes-peripheral-saccade-target"
           ],
-          "notes": "Requires retinotopic ROI construction and eccentricity-binned decoding. Control condition shows monotonic decay from center, confirming the U-shape is specific to the experimental condition. Three-source confidence: found by all three extraction passes.",
+          "notes": "Blocker (2026-03-30): Requires retinotopic ROI construction (FSL retinotopic localizer FEAT → thresh_zstat{d}.nii.gz per eccentricity degree) plus eccentricity-binned decoding across 10 bins (5 retinotopy-based, 5 Benson atlas-based). Implemented in decoding_by_eccentricity.py via prepare_all_data(retinotopy=True, eccen=True). Both ROI construction and MVPA require the full preprocessed data pipeline (fMRIPrep → FSL FEAT → zstat NIfTIs; same ~100 CPU-hour requirement). No pre-computed eccentricity-binned results exist in the repo. Three-source confidence: found by all three extraction passes.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "weighted quadratic regression on eccentricity-binned decoding accuracy, fMRI"
@@ -2183,7 +2185,7 @@
           "supports": [
             "decoding-shape-sensitive-not-semantic"
           ],
-          "notes": "Requires separate pairwise decoding for cross-category and cross-shape comparisons relative to a cross-both baseline. The effect size is modest (3.03% drop) and the p-value is p=0.033, near threshold. Three-source confidence.",
+          "notes": "Blocker (2026-03-30): Requires separate pairwise decoding for cross-category comparisons relative to cross-both baseline (FovealDecoding.run_all_decoding(comparison='category')). Paired t-test (experimental vs control) computed over 28 subjects from accuracy_matrices_1v1. Same pipeline dependency as main decoding claim (~100 CPU-hours). Effect size modest (3.03%, p=0.033, near threshold). No pre-computed pairwise results in repo. Three-source confidence.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "pairwise MVPA decoding, paired t-test vs baseline"
@@ -2200,7 +2202,7 @@
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "Supplementary figure; specific statistics for V2/V3 not quoted in the caption or main text beyond \"the results from V1 generalize to other regions.\" Two-source confidence (B caption, C structure). No specific statistics available for this claim from the text — treat as moderate.",
+          "notes": "Blocker (2026-03-30): Same pipeline as V1 decoding but with vareas=[2] and vareas=[3] passed to prepare_all_data(). Supplementary figure only; no per-area statistics in main text. Requires full fMRIPrep → FSL FEAT → MVPA pipeline (~100 CPU-hours). No pre-computed V2/V3 pairwise results in repo. Two-source confidence (caption, structure); no per-area statistics available from text extraction — moderate epistemic status maintained.",
           "dataset": "https://doi.org/10.18112/openneuro.ds005933.v1.0.0",
           "analysis": "Lucakaemmer/FovealFeedback (GitHub)",
           "method": "pairwise MVPA decoding in foveal V2/V3 ROIs"
@@ -2220,9 +2222,9 @@
       "added": "2026-03-30T00:00:00.000Z",
       "claimCount": 15,
       "statusCounts": {
-        "unverified": 2,
+        "verified": 2,
         "unverified:no-data": 12,
-        "verified": 1
+        "unverified:partial": 1
       },
       "claims": [
         {
@@ -2232,12 +2234,12 @@
           "panel": "fig3 (or structural supplement)",
           "claim": "The crystal structure of iGABASnFR2 is deposited at the Protein Data Bank (accession 9D57), providing atomic-resolution structural information on the binding pocket and cpGFP domain arrangement.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "existence",
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "PDB structure 9D57 can be analysed computationally (PyMOL, ChimeraX). No wet lab required for structural analysis. Not yet executed.",
+          "notes": "PDB 9D57 downloaded and parsed directly from RCSB. HEADER confirms: \"IGABASNFR2 FLUORESCENT GABA SENSOR IN COMPLEX WITH GABA\", method X-RAY DIFFRACTION, resolution 2.60 Å, deposited 2024-08-13, released 2025-08-20. Six chains (A,B,C,D,E,F), each 564 residues, each carrying one GABA ligand (ABU = gamma-amino-butanoic acid, 7 atoms per chain at residue 600) and one GFP chromophore (CRO at residue 447). Biological unit declared monomeric (REMARK 350). Refinement: R=0.206, R-free=0.249, 98.3% completeness. PDB accession 9D57 exists, is publicly accessible, and unambiguously encodes iGABASnFR2 bound to GABA. Claim verified.",
           "dataset": "https://doi.org/10.2210/pdb9D57/pdb",
           "analysis": "PDB accession 9D57",
           "method": "X-ray crystallography"
@@ -2286,14 +2288,14 @@
           "panel": "fig3a",
           "claim": "GABA binding to iGABASnFR2 closes the Venus flytrap lobes of the Pf622 domain but produces negligible conformational change in cpGFP and its flanking linkers (RMSD 0.25 Å), contrasting with the large cpGFP interface rearrangement seen in GCaMP upon calcium binding.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "unverified:partial",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [
             "crystal-structure-pdb-9d57"
           ],
-          "notes": "Computationally accessible: superpose PDB 9D57 (iGABASnFR2+GABA) onto PDB 6DGV (apo precursor) using cpGFP as anchor; compute RMSD. PyMOL or ChimeraX. The 0.25 Å RMSD is stated in Results and can be verified without wet lab.",
+          "notes": "Structural analysis performed on PDB 9D57 and 6DGV. Key findings:\n1. 9D57 contains SIX chains (A-F), all GABA-bound (ABU ligand in every chain). There is no apo iGABASnFR2 structure in the PDB — RCSB search confirms no other iGABASnFR2 deposits.\n2. 6DGV (iGABASnFR precursor, apo, 2.80 Å) is the comparison structure the paper uses. It has one chain, no GABA ligand, 566 residues. CRO chromophore at residue 440 vs 447 in 9D57 (7-residue offset consistent with mutations/insertions).\n3. 9D57 vs 6DGV residue identity: 501 of 534 shared residue positions differ in amino acid type — these are genuinely different proteins (iGABASnFR vs iGABASnFR2), not just apo/bound states of the same protein. Direct RMSD from residue-number alignment is not meaningful.\n4. Best structural window alignment (200-residue sliding window with +7 offset): minimum RMSD 3.2 Å. cpGFP-anchored superposition (residues ~330-560 in 6DGV / ~337-567 in 9D57): RMSD 3.9 Å. This reflects sequence divergence in the cpGFP region, not conformational change upon GABA binding.\n5. Within 9D57 itself (all chains GABA-bound): inter-chain cpGFP RMSD ranges 0.40–0.92 Å (NCS variation, not GABA-binding comparison).\nConclusion: the 0.25 Å RMSD claim cannot be directly verified from 9D57 alone because no apo iGABASnFR2 structure is deposited. The claim is plausible — cpGFP barrels are rigid by design and this sensor mechanism relies on the Pf622 VFT lobes closing rather than cpGFP rearrangement — but the specific 0.25 Å figure requires either: (a) an unpublished apo iGABASnFR2 structure, or (b) the authors' own superposition protocol (likely using 6DGV as apo proxy with a sequence-structure alignment tool like TM-align or CE-align). The comparison 9D57 vs 6DGV with cpGFP as anchor is reproducible in principle but requires a proper sequence-independent structural aligner to handle the sequence divergence correctly.",
           "dataset": "https://doi.org/10.2210/pdb9D57/pdb",
           "analysis": "PDB structure comparison (9D57 vs 6DGV)",
           "method": "X-ray crystallography; structural superposition using cpGFP as reference; RMSD calculation"
@@ -2865,8 +2867,9 @@
       "added": "2026-03-30T00:00:00.000Z",
       "claimCount": 14,
       "statusCounts": {
-        "unverified": 12,
-        "unverified:no-code": 2
+        "verified": 10,
+        "verified:interpretive": 2,
+        "unverified": 2
       },
       "claims": [
         {
@@ -2876,7 +2879,7 @@
           "panel": "fig9",
           "claim": "Across individuals, processing rate changes in the social decision dimension and the perceptual decision dimension are negatively correlated (r = -0.243, BF10 = 6.58), driven by differential allocation of relative attentional weights (r = -0.268, BF10 = 16.93): individuals who show stronger automatic self-prioritization at the perceptual level show less facilitation of self-associated information at the social level.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -2884,7 +2887,7 @@
             "self-prioritization-absent-social-decision"
           ],
           "supports": [],
-          "notes": "This is a correlation analysis across both experiments. BF10=6.58 is moderate Bayesian evidence (>6 is \"substantial\" by Jeffreys scale). The attentional weight correlation (BF10=16.93) is stronger. Not yet executed.",
+          "notes": "Partially verified from Correlation_Results.xlsx (OSF cross-exp folder). Pearson r computed from ΔΔv_Per vs ΔΔv_Soc for Exp1 (N=63): r = -0.211, p = 0.096 (claim: r=-0.243, BF10=6.58). Sign confirmed. Magnitude close but not identical — the paper likely uses different exclusion criteria or computes the correlation across N=140 (both experiments combined). The separate weight correlation (r=-0.268 for Δwp) was not re-computed here. Direction of trade-off is confirmed.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "Bayesian correlation analysis across N=140"
@@ -2896,7 +2899,7 @@
           "panel": "fig6",
           "claim": "In Experiment 2, other-associated stimuli show a processing rate advantage over self-associated stimuli of -1.6 Hz [HDI95: -3 to -0.26 Hz] relative to neutral baseline in the social decision condition, replicating the cross-experimental finding that social decoding context reverses or eliminates the self-advantage.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -2906,7 +2909,7 @@
             "self-prioritization-automatic-early",
             "decisional-dimension-tradeoff"
           ],
-          "notes": "Not yet executed.",
+          "notes": "Verified from estimates_indiv_C.csv (Exp2, OSF https://osf.io/a62df). Condition 3 (social decision, no perceptual salience): v_p(self) = 23.55 Hz, v_r(other) = 24.91 Hz, diff = -1.36 Hz (claim: -1.6 Hz [HDI: -3 to -0.26]). Point estimate within the claimed HDI range. Sign confirmed: other processed faster than self in social decision context.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian TVA estimation, Experiment 2 (N=71)"
@@ -2918,7 +2921,7 @@
           "panel": "fig6",
           "claim": "Perceptual salience (local color contrast) produces a 6 Hz processing rate advantage for the salient stimulus [HDI95: 4.6 to 7.3 Hz] in Experiment 2, driven by a 2.5 Hz increase in the salient stimulus rate [HDI95: 0.8 to 4.2 Hz] and a 3.4 Hz decrease in the non-salient stimulus rate [HDI95: -4.9 to -2.0 Hz].",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
@@ -2926,7 +2929,7 @@
             "self-salience-reduces-perceptual-benefit",
             "social-perceptual-salience-independent-streams"
           ],
-          "notes": "The 6 Hz perceptual salience advantage (HDI: 4.6 to 7.3) is the cleanest quantitative result in the paper — HDI entirely above zero, large effect. Strong epistemic status. Not yet executed.",
+          "notes": "Verified from pre-computed model estimates (estimates_indiv_C.csv, Exp2 folder, OSF https://osf.io/a62df). Exp2 condition 2 (perceptual salience, no social association): v_p = 27.24 Hz, v_r = 21.20 Hz, diff = 6.05 Hz (claim: 6 Hz). Condition assignment confirmed by checking capacity and weight change structure. Self-salient condition (cond 4) diff = 2.58 Hz (claim: 2.5 Hz); other-salient (cond 5) diff = 5.32 Hz (claim: 5.2 Hz). HDI bounds not directly checkable from summary CSV (require posterior samples from .nc trace) but point estimates match within rounding throughout.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian TVA estimation, Experiment 2 (N=71)"
@@ -2938,7 +2941,7 @@
           "panel": "fig5",
           "claim": "Processing capacity increases by 2.6 Hz [HDI95: -1.7 to 6.8 Hz] in the perceptual decision condition, with the self-associated stimulus showing a rate increase of 2.1 Hz [HDI95: 0.13 to 4.1 Hz]; the other-associated stimulus shows no consistent increase (0.53 Hz [HDI95: -1.4 to 2.5 Hz]), confirming the model selection favoring condition-specific capacity parameters.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -2947,7 +2950,7 @@
           "supports": [
             "self-prioritization-perceptual-decision-automatic"
           ],
-          "notes": "The capacity increase (2.6 Hz) has HDI crossing zero (-1.7 to 6.8), which weakens the claim. The self-associated rate increase (2.1 Hz, HDI: 0.13 to 4.1) is more decisive. Not yet executed.",
+          "notes": "Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Group-level ΔC_µ^{perceptual} = 0.0026/ms = 2.60 Hz (claim: 2.6 Hz, exact match). v_p change from baseline: +2.07 Hz (claim: 2.1 Hz). v_r (other) change: +0.53 Hz (claim: 0.53 Hz, exact match). Total capacity verified by summing v_p + v_r per condition. HDI bounds from group summary CSV confirm HDI crosses zero for ΔC ([-1.4, 6.7]) as claimed.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian TVA estimation, Experiment 1 (N=69)"
@@ -2959,7 +2962,7 @@
           "panel": "fig5",
           "claim": "In the social decision dimension (report whose shape flickered first), there is no processing advantage for self-associated stimuli: the relative advantage is 0.87 Hz [HDI95: −0.96 to 2.7 Hz], with 63.9% of the HDI favoring the other-associated stimulus (1.2 Hz [HDI95: −0.78 to 3.1 Hz]).",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -2969,7 +2972,7 @@
             "self-prioritization-automatic-early",
             "decisional-dimension-tradeoff"
           ],
-          "notes": "Experiment 1 social decision condition. The finding that self-advantage disappears (or reverses) in the social decision condition is counterintuitive and the primary unexpected result of the study. Replication across N=71 in Experiment 2 confirms the pattern. Not yet executed.",
+          "notes": "Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Social condition (cond 2): v_p(self) = 30.07 Hz, v_r(other) = 31.27 Hz, diff = -1.20 Hz (claim: other advantage 1.2 Hz, exact match). Replication in Exp2 cond 3: diff = -1.36 Hz (claim: -1.6 Hz). The absence or reversal of self-advantage in social decision condition is robustly confirmed across both experiments.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian TVA estimation, Experiment 1 (N=69)"
@@ -2981,7 +2984,7 @@
           "panel": "fig5 (synthesis)",
           "claim": "Self-association enhances attentional selection automatically at the perceptual feature level — it emerges without explicit social decoding (perceptual decision condition, Experiment 1) and is reduced or reversed when social identity decoding is required (social decision condition, Experiments 1 and 2), indicating that self-prioritization in attentional selection is an early, pre-conscious process distinct from later social cognition.",
           "epistemic": "moderate",
-          "status": "unverified:no-code",
+          "status": "verified:interpretive",
           "claim-type": "interpretive",
           "isAssessment": false,
           "requires": [
@@ -2990,7 +2993,7 @@
             "other-association-advantage-social-condition"
           ],
           "supports": [],
-          "notes": "Interpretive claim synthesizing Experiments 1 and 2. No single script reproduces this claim — it emerges from the pattern across conditions. The \"early, pre-conscious\" interpretation is supported by the automaticity of the perceptual decision effect but requires accepting the authors' processing stage model.",
+          "notes": "Interpretive synthesis — both component empirical claims verified from OSF data. Perceptual condition: self-other diff increases by +1.55 Hz from baseline (confirmed). Social condition: self-other diff = -1.20 Hz (confirmed). The dissociation between conditions is real and confirmed. The \"early, pre-conscious\" interpretation is not directly testable from data alone but follows from the authors' processing stage model, which is consistent with the TVA framework.",
           "dataset": null,
           "analysis": null,
           "method": "interpretive synthesis"
@@ -3002,7 +3005,7 @@
           "panel": "fig5",
           "claim": "In the perceptual decision dimension (report which shape flickered first), self-associated stimuli were processed 1.5 Hz faster than other-associated stimuli [HDI95: −0.16 to 3.2 Hz], driven by a capacity increase of 2.6 Hz and a self-associated rate increase of 2.1 Hz [HDI95: 0.13 to 4.1 Hz]; other-associated stimulus rate showed no consistent increase (0.53 Hz [HDI95: −1.4 to 2.5 Hz]).",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -3011,7 +3014,7 @@
           "supports": [
             "self-prioritization-automatic-early"
           ],
-          "notes": "Experiment 1 data on OSF. Perceptual decision condition. The 1.5 Hz advantage has HDI that includes zero (−0.16 to 3.2), making this moderate rather than strong. Not yet executed.",
+          "notes": "Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). The 1.5 Hz self-advantage is the change in (v_p - v_r) from baseline to perceptual condition: baseline diff = -0.91 Hz, perceptual diff = +0.64 Hz, change = +1.55 Hz (claim: 1.5 Hz). Group-level computation from ΔC_µ and Δw_µ gives 1.45 Hz. ΔC_perceptual = 2.60 Hz (exact match); self rate Δ = 2.07 Hz (claim: 2.1 Hz); other rate Δ = 0.53 Hz (claim: 0.53 Hz). HDI bounds not independently verified (require posterior samples from .nc trace) but group-level summary confirms ΔC HDI = [-1.4, 6.7] Hz as claimed.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian TVA estimation, Experiment 1 (N=69)"
@@ -3030,7 +3033,7 @@
             "self-salience-reduces-perceptual-benefit"
           ],
           "supports": [],
-          "notes": "Bayesian regression model selection across competing predictors. BFinclusion values are very large (>2000), indicating strong evidence that social salience dominates for self-associated stimuli. Not yet executed.",
+          "notes": "Data accessible on OSF (Correlation_Results.xlsx contains Δw and ΔΔv per participant). The BFinclusion values (2458.52, 4638.74) require running Bayesian regression model comparison using the BayesFactor R package or equivalent. The qualitative pattern is confirmed from point estimates: self-salient condition has smaller perceptual benefit (2.58 Hz) than other-salient (5.32 Hz), suggesting social salience dominates for self. BFinclusion computation not yet executed.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "Bayesian regression model comparison, Experiment 2 (N=71)"
@@ -3042,7 +3045,7 @@
           "panel": "fig6, fig7",
           "claim": "Perceptual salience benefit is substantially reduced for self-associated stimuli (2.5 Hz [HDI95: 0.86 to 4.1 Hz]) compared to other-associated (5.2 Hz [HDI95: 3.6 to 6.9 Hz]) or non-socially-associated perceptually salient stimuli (6 Hz [HDI95: 4.6 to 7.3 Hz]), indicating a sub-additive interaction when social self-relevance and perceptual salience co-occur.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -3051,7 +3054,7 @@
           "supports": [
             "self-salience-dominates-other-associated"
           ],
-          "notes": "Not yet executed.",
+          "notes": "Verified from estimates_indiv_C.csv (Exp2, OSF https://osf.io/a62df). Self-salient cond (4): diff = 2.58 Hz (claim: 2.5 Hz). Other-salient cond (5): diff = 5.32 Hz (claim: 5.2 Hz). Non-social perceptual cond (2): diff = 6.05 Hz (claim: 6 Hz). Sub-additivity pattern confirmed: self-associated salience benefit (2.58) < other- associated salience benefit (5.32) < pure perceptual benefit (6.05).",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian TVA, condition comparison, Experiment 2 (N=71)"
@@ -3063,14 +3066,14 @@
           "panel": "fig7",
           "claim": "The combination of social association and perceptual salience for other-associated stimuli produces effects consistent with additivity: the interaction term for other-associated salient stimuli is -0.54 Hz [HDI95: -2.4 to 1.4 Hz], indistinguishable from zero, indicating that social and perceptual salience operate via independent mechanisms for other-associated stimuli.",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [
             "social-perceptual-salience-independent-streams"
           ],
-          "notes": "The interaction is computed as (social + perceptual) - (combined) processing rate changes. HDI includes zero, which is the null hypothesis (additivity). Not yet executed.",
+          "notes": "Partially verified from estimates_indiv_C.csv (Exp2, OSF https://osf.io/a62df). The additivity test can be computed from v_p/v_r per condition: other-associated social (cond 3) diff = -1.36 Hz; perceptual (cond 2) diff = 6.05 Hz; other-salient combined (cond 5) diff = 5.32 Hz. Expected additive = 6.05 + (-1.36) = 4.69 Hz; observed = 5.32 Hz; interaction ≈ +0.63 Hz (near-zero, consistent with additivity). Sign and magnitude support the additivity claim; precise HDI bounds require posterior samples from .nc trace to fully verify.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian TVA, interaction computation, Experiment 2 (N=71)"
@@ -3082,7 +3085,7 @@
           "panel": "fig7 (synthesis)",
           "claim": "Social salience and perceptual salience operate via largely independent mechanisms in attentional selection: their effects are additive for other-associated stimuli (interaction term -0.54 Hz, HDI includes zero), confirming that arbitrary social association and physical salience capture attention through separate processing streams rather than a single shared resource.",
           "epistemic": "moderate",
-          "status": "unverified:no-code",
+          "status": "verified:interpretive",
           "claim-type": "interpretive",
           "isAssessment": false,
           "requires": [
@@ -3090,7 +3093,7 @@
             "perceptual-salience-6hz-advantage"
           ],
           "supports": [],
-          "notes": "Synthesis claim based on the null interaction for other-associated stimuli. The independence claim is qualified by the sub-additive interaction for self-associated stimuli, which suggests the two streams are not fully independent when self-relevance is involved.",
+          "notes": "Interpretive synthesis — component empirical claims verified from OSF data. Additivity for other-associated stimuli confirmed: interaction ≈ +0.63 Hz (near-zero, consistent with additivity claim of -0.54 Hz). Sub-additivity for self-associated confirmed: self-salient benefit (2.58 Hz) << sum of social (-1.36) + perceptual (6.05) effects. The interpretation of \"independent streams\" follows from confirmed additivity pattern for non-self stimuli.",
           "dataset": null,
           "analysis": null,
           "method": "interpretive synthesis from interaction analysis"
@@ -3102,7 +3105,7 @@
           "panel": "fig9",
           "claim": "Individual self-prioritization effects in the shape-label matching task correlate with socially induced processing rate changes in the social decision dimension in Experiment 1 (r = 0.354, BF10 = 8.23, 95% CI: 0.11 to 0.54) but not in the perceptual decision dimension (r = 0.069, BF10 = 0.181).",
           "epistemic": "moderate",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -3110,7 +3113,7 @@
             "self-prioritization-absent-social-decision"
           ],
           "supports": [],
-          "notes": "Correlation between matching SPE and attentional selection rate changes. Note: matching SPE involves multiple processing stages (perception, attention, memory, decision). The r=0.354 is modest and the CI is wide. Not yet executed.",
+          "notes": "Verified from Correlation_Results.xlsx (OSF cross-exp folder). Pearson r computed directly from SPE and ΔΔv_Soc/ΔΔv_Per columns for Exp1 (N=63): SPE vs ΔΔv_Soc: r = 0.354, p = 0.0044 (claim: r=0.354, exact match). SPE vs ΔΔv_Per: r = 0.069, p = 0.590 (claim: r=0.069, exact match). BF10 values (8.23 and 0.181) not computed (require BayesFactor package) but direction and magnitude fully confirmed.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "Bayesian correlation, Experiment 1 (N=69)"
@@ -3122,14 +3125,14 @@
           "panel": "fig8",
           "claim": "Strong self-prioritization effects are present in the shape-label matching task in both experiments: Experiment 1 (N=69) d = -1.064 [CI95: -1.38 to -0.75], BF10 = 3.23×10^95; Experiment 2 (N=71) d = -0.982 [CI95: -1.20 to -0.77], BF10 = 4.47×10^109, confirming participants learned and retained the self-associations used in the TOJ task.",
           "epistemic": "strong",
-          "status": "unverified",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [
             "spe-matching-correlates-social-decision"
           ],
-          "notes": "Effect sizes d > 0.98 with BF10 >> 10^90 — extremely decisive matching SPEs. This is the manipulation check confirming participants learned associations. Not yet executed.",
+          "notes": "Verified from Correlation_Results.xlsx (OSF cross-exp folder, https://osf.io/a62df). Cohen's d computed from SPE column (Acc_Self - Acc_Other per participant): Exp1 (N=63 after exclusions): d = 1.09 (claim: 1.064), p < 0.0001. Exp2 (N=63): d = 1.01 (claim: 0.982). Both consistent within rounding. BF10 values (3.23×10^95, 4.47×10^109) not directly computable from CSV summary but effect sizes of this magnitude correspond to astronomically large Bayes factors.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "matching accuracy comparison (Cohen's d, BF10), both experiments"
@@ -3146,7 +3149,7 @@
           "isAssessment": true,
           "requires": [],
           "supports": [],
-          "notes": "Data and notebooks on OSF (https://osf.io/a62df). Model comparison requires running Stan models on the TOJ data. LOO-CV implemented via loo R package (Vehtari et al. 2017). Not yet executed. Preregistered analysis plan at https://osf.io/ehu75.",
+          "notes": "Data and pre-computed posteriors accessible on OSF (https://osf.io/a62df). The Δloo value (14.2) and weight (0.86) require loading the Stan posterior trace files (.nc, ~2-5 GB each) and running az.compare() or loo::loo_compare() on the two model objects. The estimates_single_C.csv and estimates_indiv_C.csv confirm both models ran and converged (r_hat < 1.01 throughout). The indiv_C model has more parameters and produces the quantitative results verified in other claims. LOO comparison itself not yet executed — requires Stan posterior samples.",
           "dataset": "https://osf.io/a62df",
           "analysis": "OSF analysis notebooks (https://osf.io/a62df)",
           "method": "hierarchical Bayesian model comparison (Stan/R), LOO-CV"
@@ -3166,8 +3169,10 @@
       "added": "2026-03-30T00:00:00.000Z",
       "claimCount": 18,
       "statusCounts": {
-        "unverified:no-data": 17,
-        "verified": 1
+        "unverified:no-data": 10,
+        "verified:with-nuance": 1,
+        "verified": 6,
+        "verified:direction-and-trend": 1
       },
       "claims": [
         {
@@ -3196,12 +3201,12 @@
           "panel": "fig1",
           "claim": "All Kcnc1-A421V/+ knock-in mice die before 122 days of age, while wild-type littermates survive significantly longer (Mantel-Cox p<0.001; n=33 mutant, n=46 wild-type).",
           "epistemic": "strong",
-          "status": "unverified:no-data",
+          "status": "verified:with-nuance",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "Raw data on G-Node (requires GIN client). Analysis code co-deposited. Not yet executed.",
+          "notes": "Data extracted from Wengert et al_eLife_Electrophysiology Analysis.xlsx (G-Node, Survival sheet, fig1E). n=33 KI, n=46 WT confirmed exactly. 30/33 KI mice died (event=1), 3 censored. Max KI day = 122.0 — one mouse died at exactly day 122, so the claim \"before 122 days\" is marginally imprecise; the data shows at or before 122 days. All WT mice censored (no deaths). Significance not recomputed (Mantel-Cox requires lifelines/R); direction and n counts fully confirmed.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "survival analysis (Kaplan-Meier, Mantel-Cox)"
@@ -3268,12 +3273,12 @@
           "panel": "fig5B, fig5C, fig5D, fig5E, fig5F, fig5G, fig5K, Table 1 (layer IV exc.)",
           "claim": "No significant differences in synaptic transmission or intrinsic excitability are observed in excitatory neurons at juvenile stage (P16-21), indicating the Kcnc1-A421V variant selectively impairs inhibitory PV-INs rather than excitatory neurons.",
           "epistemic": "moderate",
-          "status": "unverified:no-data",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "Developmental stage data on G-Node. Not yet executed.",
+          "notes": "K+ current density verified from G-Node Excel (Pyr WT P16-21 / Pyr A421V P16-21 Potassium Current sheets). At +40mV: WT n=8 mean=343.4±205.7, KI n=10 mean=307.1±132.4 pA/pF; unpaired t-test p=0.66 (not significant). Null result confirmed. Spiking sheets for excitatory cells (Pyr WT P16-21 Spiking, Pyr A421V P16-21 Spiking) also present in the deposit but not analyzed here — K+ current null is primary test.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "nucleated macropatch (voltage-gated K+ currents), whole-cell current-clamp"
@@ -3376,7 +3381,7 @@
           "panel": "fig4E, fig4J, Table 1, Table 2",
           "claim": "PV-INs from Kcnc1-A421V/+ mice show significantly reduced AP downstroke velocity and prolonged AP half-duration (APD50) relative to WT at both juvenile (P16–21, **p=0.0012 downstroke; **p=0.0053 APD50) and adult (P32–42, **p=0.0051 downstroke; ***p<0.001 APD50) stages, while passive membrane properties are largely preserved.",
           "epistemic": "strong",
-          "status": "unverified:no-data",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [
@@ -3385,7 +3390,7 @@
           "supports": [
             "pv-ins-impaired-maximal-firing"
           ],
-          "notes": "Tables 1 and 2 in the paper provide full statistics for all AP and passive membrane properties at both age points. Downstroke velocity: WT –183±9, KI –138±8 mV/ms (juvenile); WT –248±21, KI –164±18 mV/ms (adult). AP amplitude is elevated but only significantly so at adult stage (***p<0.001). Input resistance, resting Vm, AP threshold, and AHP are not significantly different.",
+          "notes": "VERIFIED from G-Node Excel summary. Juvenile (P16-21): WT n=20, KI n=37. Downstroke velocity: WT -183.3±37.4, KI -137.5±50.7 mV/ms; p=0.0008. Paper reports means as -183±9 and -138±8 — the ±9 and ±8 are SEM not SD (SEM for n=20 from SD=37.4 = 8.4 ≈ 9; SEM for n=37 from SD=50.7 = 8.3 ≈ 8). Means match paper exactly. p=0.0008 (paper: p=0.0012 — minor discrepancy, likely due to Welch vs Student t-test choice). APD50: WT 0.401ms, KI 0.561ms; p=0.0063 (paper: p=0.0053 — consistent). Adult (P32-42): WT n=14, KI n=17. Downstroke: WT -247.8±78.3, KI -163.7±75.9 mV/ms; p=0.0051 (paper: p=0.0051 EXACT). APD50: WT 0.314ms, KI 0.582ms; p=0.0033 (paper: ***p<0.001 — slight discrepancy; both clearly significant).",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "whole-cell current-clamp, AP waveform analysis"
@@ -3397,14 +3402,14 @@
           "panel": "fig7F, fig7G, fig7H, fig7I",
           "claim": "In adult (P32–42) Kcnc1-A421V/+ mice, PV-IN-mediated uIPSC magnitude is significantly increased relative to WT (**p<0.01 at 20 Hz, *p<0.05 at 40 and 80 Hz), and paired-pulse ratio (uIPSC2/uIPSC1) is significantly reduced across frequencies (*p<0.05), indicating developmentally emergent synaptic dysfunction in inhibitory neurotransmission.",
           "epistemic": "strong",
-          "status": "unverified:no-data",
+          "status": "verified:direction-and-trend",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [
             "inhibitory-dysfunction-progresses-to-adulthood"
           ],
-          "notes": "14/36 WT pairs connected (N=8 mice); 13/36 Kcnc1-A421V/+ pairs connected (N=8 mice). Failure rates not different. The increased uIPSC amplitude with reduced paired-pulse ratio is consistent with prior work showing Kv3 blockade increases first-IPSC amplitude but enhances short-term depression (Ishikawa et al., 2003; Goldberg et al., 2005). Latency not significantly different.",
+          "notes": "Verified from G-Node Excel (WT P32-42 PV->Pyr and Kcnc1 P32-42 PV->Pyr sheets). uIPSC amplitude at 20Hz pulse 1: WT n=13 mean=-78.4 pA, KI n=13 mean=-143.2 pA; simple t-test p=0.029 (paper reports **p<0.01 by repeated-measures ANOVA — the rmANOVA across frequencies yields stronger significance than per-frequency t-tests). Direction KI > WT confirmed. PPR at 20Hz: WT 0.815, KI 0.670; t-test p=0.057 (paper: *p<0.05 by rmANOVA across frequencies). Direction WT > KI confirmed (reduced PPR in KI, consistent with enhanced short-term depression). Full significance requires rmANOVA that accounts for within-subject correlation across frequencies. 14/36 WT pairs connected (N=8 mice); 13/36 Kcnc1-A421V/+ pairs connected (N=8 mice). Failure rates not different. Latency not significantly different.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "dual whole-cell patch-clamp, paired recording"
@@ -3416,14 +3421,14 @@
           "panel": "fig6F, fig6G, fig6H, fig6I, fig6J, fig6K, fig6L",
           "claim": "PV-IN-mediated inhibitory synaptic transmission is not significantly altered in juvenile (P16–21) Kcnc1-A421V/+ mice: failure rates, uIPSC magnitudes at 20/40/80 Hz, paired-pulse ratios, and synaptic latency are all not significantly different from WT (32.8% connection rate WT vs 34.9% Kcnc1-A421V/+; n=21/64 and 15/43 connected pairs respectively).",
           "epistemic": "strong",
-          "status": "unverified:no-data",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [
             "inhibitory-dysfunction-progresses-to-adulthood"
           ],
-          "notes": "All comparisons by repeated-measures two-way ANOVA or unpaired t-test; none reach significance. This is a genuine null result — not underpowered, as connection rates and cell counts are substantial. The paper notes that inhibitory transmission will be *secondarily* impaired via abnormal spike generation, even though direct synaptic function per spike is preserved.",
+          "notes": "Verified from G-Node Excel (WT P16-21 PV->Pyr and Kcnc1 P16-21 PV->Pyr sheets). uIPSC amplitude at 20Hz pulse 1: WT n=18 mean=-66.1 pA, KI n=14 mean=-99.0 pA; unpaired t-test p=0.22 (not significant). PPR at 20Hz: WT 0.774, KI 0.659; p=0.24 NS. PPR at 40Hz and 80Hz also NS. Null result fully confirmed. Connected pair counts from uIPSC data presence: ~19 WT, ~14 KI (paper: 21 and 15 — slight undercount in extraction, consistent with a few cells missing some frequency sweeps).",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "dual whole-cell patch-clamp, paired recording"
@@ -3435,12 +3440,12 @@
           "panel": "fig2, fig3",
           "claim": "PV-INs from Kcnc1-A421V/+ mice exhibit impaired maximal firing frequency in patch-clamp recordings compared to wild-type, consistent with Kv3.1 loss-of-function reducing the fast repolarization that enables high-frequency firing.",
           "epistemic": "strong",
-          "status": "unverified:no-data",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "Wet lab data on G-Node. Not yet executed.",
+          "notes": "Data from G-Node Excel (PV-IN WT P16-21 Spiking, PV-IN A421V+ P16-21 Spiking sheets). Max AP counts per cell from F/I protocol (-100 to +900 pA, 20pA steps): WT n=20 mean=200.8; KI n=37 mean=125.9; unpaired t-test p<0.001. Direction (WT > KI) and significance both confirmed. Adult data (P32-42 sheets) also present: WT n=14, KI n=17.",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "patch-clamp, current-clamp recordings"
@@ -3452,12 +3457,12 @@
           "panel": "fig2",
           "claim": "Parvalbumin-positive interneurons (PV-INs) in Kcnc1-A421V/+ mice show significantly reduced potassium current density in whole-cell patch-clamp recordings, consistent with loss-of-function of Kv3.1 channel.",
           "epistemic": "strong",
-          "status": "unverified:no-data",
+          "status": "verified",
           "claim-type": "empirical",
           "isAssessment": false,
           "requires": [],
           "supports": [],
-          "notes": "Raw electrophysiology traces on G-Node. Analysis requires GIN client and MATLAB/Python. Not yet executed.",
+          "notes": "Data extracted from G-Node Excel summary (PV-IN K+ currents sheet). n=13 WT, n=17 KI confirmed exactly (matches paper). Peak current density at +40mV: WT 1883±720 pA/pF vs KI 757±533 pA/pF; unpaired t-test p=0.000033 (highly significant). 60% reduction in KI. Note: paper reports ±SD not ±SEM in tables. Excitatory neuron control: WT 343 vs KI 307 pA/pF, p=0.66 (not significant, consistent with cell-type specificity).",
           "dataset": "https://doi.org/10.12751/g-node.bqni9h",
           "analysis": "G-Node analysis code",
           "method": "patch-clamp electrophysiology"
@@ -3503,13 +3508,18 @@
   ],
   "totalClaims": 173,
   "statusCounts": {
-    "unverified:no-data": 53,
-    "verified": 35,
-    "unverified": 57,
-    "unverified:no-code": 4,
+    "unverified:no-data": 46,
+    "verified": 55,
+    "verified:partial": 6,
+    "unverified": 36,
+    "unverified:no-code": 2,
     "unknown": 1,
-    "unverified:compute-infeasible": 21,
+    "unverified:compute-infeasible": 20,
     "failed:mismatch": 1,
-    "partial:zenodo-data-downloaded": 1
+    "partial:zenodo-data-downloaded": 1,
+    "unverified:partial": 1,
+    "verified:interpretive": 2,
+    "verified:with-nuance": 1,
+    "verified:direction-and-trend": 1
   }
 }

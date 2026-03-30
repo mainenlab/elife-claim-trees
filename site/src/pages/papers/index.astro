@@ -13,6 +13,15 @@ const statusGroups = [
   { key: 'unverified:no-code', color: '#9ca3af' },
   { key: 'unverified', color: '#9ca3af' },
 ];
+
+const badgeConfig: Record<string, { label: string; bg: string; text: string; emoji: string }> = {
+  gold:           { label: 'Gold',             bg: '#fef3c7', text: '#92400e', emoji: '🥇' },
+  silver:         { label: 'Silver',           bg: '#f3f4f6', text: '#374151', emoji: '🥈' },
+  'none-compute': { label: 'Compute barrier',  bg: '#fee2e2', text: '#991b1b', emoji: '✗' },
+  'none-gap':     { label: 'Deposit gap',      bg: '#fee2e2', text: '#991b1b', emoji: '✗' },
+  'none-structural': { label: 'Structural barrier', bg: '#fee2e2', text: '#991b1b', emoji: '✗' },
+  pending:        { label: 'Pending',          bg: '#f9fafb', text: '#6b7280', emoji: '⏳' },
+};
 ---
 
 <Layout title="Papers">
@@ -22,6 +31,7 @@ const statusGroups = [
       {papers.map(p => {
         const verified = p.statusCounts['verified'] ?? 0;
         const pct = Math.round((verified / p.claimCount) * 100);
+        const badge = badgeConfig[p.badge ?? 'pending'] ?? badgeConfig.pending;
         return (
           <a href={`/papers/${p.slug}`} class="flex items-start gap-4 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group">
             <!-- Status bar -->
@@ -35,7 +45,16 @@ const statusGroups = [
               })}
             </div>
             <div class="flex-1 min-w-0">
-              <h2 class="text-sm font-medium text-gray-900 group-hover:text-blue-700 mb-1 leading-snug">{p.title}</h2>
+              <div class="flex items-start justify-between gap-3 mb-1">
+                <h2 class="text-sm font-medium text-gray-900 group-hover:text-blue-700 leading-snug">{p.title}</h2>
+                <span
+                  class="flex-shrink-0 inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full"
+                  style={{ background: badge.bg, color: badge.text }}
+                >
+                  <span>{badge.emoji}</span>
+                  <span>{badge.label}</span>
+                </span>
+              </div>
               <div class="text-xs text-gray-500 mb-2">
                 {p.authors.slice(0, 3).join(', ')}{p.authors.length > 3 ? ' et al.' : ''} · {p.journal} · DOI: {p.doi}
               </div>

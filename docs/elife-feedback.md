@@ -50,7 +50,7 @@ The corpus was deliberately diverse. Computational papers, where the full analys
 
 ## 3. Paper-by-Paper Findings
 
-### Ejdrup — Dopamine dynamics model (computational, 20 claims)
+### Ejdrup — Dopamine dynamics model (computational, 20 claims) 🥈
 
 This paper builds a reaction-diffusion model of striatal dopamine dynamics to explain the functional difference between dorsal and ventral striatum. The primary finding — that DAT Vmax is the dominant determinant of regional contrast — is well-supported by the parameter sweep in Figures 3B–G, and the claim `vmax-only-parameter-driving-regional-difference` is among the most strongly epistemic claims in the corpus. Thirteen of the 20 claims were verified in this prototype run, including 9 result claims and 4 assessment claims verified by code inspection.
 
@@ -60,7 +60,7 @@ There is also a numerical discrepancy in `dat-clustering-greater-in-vs`. The pap
 
 Three claims are blocked by a matplotlib 3.8 API change (`Axes3D.w_xaxis` was renamed to `xaxis`). This is a one-line fix per script. The simulation code is correct; only the figure rendering is broken.
 
-### Headley — Inhibitory rhythms (computational biophysics, 17 claims)
+### Headley — Inhibitory rhythms (computational biophysics, 17 claims) 🥈
 
 This paper uses a multicompartmental NEURON model of a layer 5 pyramidal neuron to show that distal-dendritic inhibition at beta frequencies gates Ca²⁺/NMDA spike occurrence while perisomatic inhibition at gamma frequencies modulates action potential threshold — two distinct computational operations performed by two distinct circuit motifs. The model is a single cell, and the assessment claim `l5-model-single-cell-scope` records this explicitly: all 17 result claims are predictions of a single-cell model with no network dynamics or population-level effects.
 
@@ -68,7 +68,7 @@ The paper's synthesis claim `pv-gamma-sst-beta-correspondence` provides mechanis
 
 Seven of the 15 result claims are verified from pre-computed CSV data in the repository; 7 remain unverified pending download of the Dryad oscillation frequency-sweep arrays; 1 synthesis claim is unverified:no-code. The reproduction path for the remaining claims is clear: pre-computed data arrays are in the Dryad deposit and the GitHub repository provides per-figure notebooks. The barrier is time, not access.
 
-### Scheller — Self-prioritization (psychophysics, 14 claims)
+### Scheller — Self-prioritization (psychophysics, 14 claims) ⏳
 
 This psychophysics paper uses a temporal order judgment task and hierarchical Bayesian TVA modeling across two experiments (N=69, N=71) to show that arbitrary self-associations enhance attentional selection at the perceptual feature level — and, counterintuitively, that this advantage disappears when social decoding is required.
 
@@ -76,7 +76,7 @@ The paper has two main findings. The headline finding, which the title foregroun
 
 The reproduction path is clear. Data and notebooks are on OSF; the preregistration specifies the analysis plan. The primary dependency is Stan/R for the hierarchical Bayesian model.
 
-### Kämmer — Foveal feedback (fMRI/MVPA, 15 claims)
+### Kämmer — Foveal feedback (fMRI/MVPA, 15 claims) ✗
 
 This paper uses a gaze-contingent fMRI paradigm to show that peripheral saccade targets, which disappear before fixation in 99.27% of trials, are nonetheless decodable from foveal V1 BOLD signal (57.43% decoding accuracy, t(27)=8.81, p<0.001). The preregistered design is a structural strength: the analysis plan is fully documented before data collection, making the reproduction path completely unambiguous.
 
@@ -86,7 +86,7 @@ Five of the seven claims are `unverified:compute-infeasible`. The standard Pytho
 
 The re-extraction added the assessment claim `preregistration-submitted-after-manuscript`, verified by OSF timestamps. The preregistration was submitted after the manuscript had been prepared — a detail that does not appear in the paper's description of its preregistered design. This changes the evidential status of the assessment claim `preregistered-design-validates-mvpa`, which was initially classified as `verified:strong` on the grounds that preregistration fully constrains the analysis plan. That classification has been downgraded to `verified:moderate`. The analysis plan is documented, and the preregistration does match the reported analysis — but the protection preregistration affords against post-hoc analysis choices derives from the preregistration preceding data collection and analysis. When the preregistration is submitted after the manuscript, the documentation value is preserved while the chronological protection is not. Reviewers reading that the paper has a preregistered design would normally treat this as strong evidence against HARKing; the OSF timestamp removes that inference. The analysis may be exactly what was planned before data collection — there is no evidence of irregularity — but the claim graph cannot record that on the basis of the preregistration alone, and the epistemic weight is adjusted accordingly.
 
-### Wengert — KCNC1 epilepsy mouse (wet-lab, 18 claims)
+### Wengert — KCNC1 epilepsy mouse (wet-lab, 18 claims) ⏳
 
 This paper generates and characterizes the Kcnc1-A421V/+ knock-in mouse model. The primary claims require this specific mouse line — its generation is the contribution, and the measurements (electrophysiology, survival curves, immunostaining) require both the animal and appropriate equipment.
 
@@ -94,7 +94,7 @@ The claim `excitatory-neurons-unaffected-juvenile` warrants particular attention
 
 G-Node contains the raw electrophysiology traces, which would allow statistical figure reproduction from deposited data. But reproducing figures from deposited data is not the same as re-measuring the phenotype. The claim graph records both the accessibility of deposited data and the nature of what it does and does not enable.
 
-### Bouyeure — Fear and reversal RSA (fMRI/RSA, 22 claims)
+### Bouyeure — Fear and reversal RSA (fMRI/RSA, 22 claims) 🥈
 
 This paper uses fMRI and representational similarity analysis across a multi-day fear conditioning paradigm to show that reversal learning employs two simultaneous representational strategies: generalization for newly threatening cues, and item-specificity for cues whose threat value changed.
 
@@ -102,13 +102,13 @@ The most specific predictive claim in the paper — `pfc-context-specificity-pre
 
 The assessment claim `rsa-roi-derived-from-searchlight` surfaces a structural feature that the narrative does not foreground. The ROIs used in Figures 4B and 5D are derived from the same searchlight analysis conducted on the same dataset — a procedure known as double dipping or circularity of ROI selection. The searchlight identifies regions with significant pattern similarity; subsequent RSA analyses in those same regions using the same data then inherit that significance by construction. FDR correction across voxels corrects for multiple comparisons in the searchlight, but it does not correct for the selection bias introduced by using searchlight-identified ROIs for confirmatory RSA in the same participants. All result claims downstream of Figures 4B and 5D depend on this assessment node. The pattern similarity results in those figures are not independent tests of the RSA hypotheses — they are confirmations in regions pre-selected to show the effect. This is a common analysis pattern in fMRI RSA research and does not invalidate the paper's findings, but it does constrain what those findings demonstrate: the effect is real in these regions, in this sample; whether it would replicate in an independently selected ROI in a new sample is an open question the current design cannot answer.
 
-### Gädeke — Guilt and insula (fMRI/behavioral, 18 claims)
+### Gädeke — Guilt and insula (fMRI/behavioral, 18 claims) 🥇
 
 This fMRI paper studies the neural basis of interpersonal guilt through a social monetary decision task. The analysis chain is documented in detail: the GitHub repository maps each MATLAB script to a figure, behavioral data are in `.mat` files, and pre-computed group NIfTI results enable figure reproduction without re-running first-level GLMs.
 
 All eight claims are unverified because the primary analysis environment is MATLAB/SPM12. There is no Python path. The pre-computed results enable figure reproduction from processed data, but the complete analysis chain — from behavioral `.mat` files through computational guilt model to first-level GLM — requires MATLAB. This is a MATLAB dependency, not a data availability problem.
 
-### Rozak — NOVAS3D pipeline (deep learning, 17 claims)
+### Rozak — NOVAS3D pipeline (deep learning, 17 claims) ✗
 
 This paper presents a deep learning pipeline for volumetric vessel segmentation. The contribution is the pipeline itself; the quantitative claims (24 ± 28% vessel radius heterogeneity, 4% efficiency increase, 152 ± 65% assortativity increase) are measurements from the pipeline applied to a specific dataset and mouse model.
 
@@ -116,13 +116,13 @@ The assessment claim `dl-model-scope-single-pipeline` is the most important node
 
 The re-extraction added `responder-threshold-2sd-untested` as an assessment claim. The paper classifies vessels as responders using a 2×SD threshold applied to baseline variability. All quantitative spatial claims — the 4% efficiency increase, the 152 ± 65% assortativity increase, the comparisons between dilations and constrictions — and all downstream network biology findings are conditional on this threshold. The paper includes a sensitivity analysis in the appendix, but it is qualitative: it notes that the pattern of results is preserved at alternative thresholds without providing quantitative comparison across thresholds. The assessment claim records that the threshold has not been tested quantitatively. This propagates epistemic uncertainty upward through every result claim that depends on the responder classification, which is the majority of the paper's quantitative spatial findings. The effect is not that the results are wrong — it is that their robustness to the central threshold choice has not been formally demonstrated. Any reader wanting to apply the pipeline to a different preparation would need to determine the appropriate threshold independently, since the sensitivity analysis does not characterize how results change with threshold choice.
 
-### Kolb — iGABASnFR2 sensor (wet-lab tools, 15 claims)
+### Kolb — iGABASnFR2 sensor (wet-lab tools, 15 claims) 🥈
 
 This paper presents iGABASnFR2, an improved GABA sensor resulting from high-throughput mutagenesis screening of 3,947 variants. The primary claims require the sensor constructs and specialized equipment (stopped-flow kinetics, two-photon spectroscopy). Zenodo deposits contain the source data for figure reproduction from pre-measured traces, but not the measurements themselves.
 
 The assessment claim `screening-scope-wet-lab-only` is the most important and most immediately verifiable node: it records that the reproduction barrier is material, not informational. Source data are available. Code is available. What is not available is the capacity to perform the measurements. This distinction — data availability versus measurement availability — is normally invisible in print. The claim graph makes it explicit.
 
-### Artiushin — Spider brain atlas (anatomical atlas, 17 claims)
+### Artiushin — Spider brain atlas (anatomical atlas, 17 claims) ✗
 
 This paper describes a 3D immunofluorescence atlas of the Uloborus diversus synganglion. The claims are anatomical observations — neuropil identification, neurotransmitter immunoreactivity patterns, novel structures. Verification means atlas inspection, not analysis re-execution.
 
@@ -170,7 +170,41 @@ These are not failures of those papers. Narrative writing integrates argument st
 
 ---
 
-## 5. What the Method Learned About Itself
+## 5. A Reproducibility Badge System
+
+A post-publication badge system offers a way to make the findings of deposit verification legible to readers and actionable for editors. The purpose is not to rank papers or to penalize authors — it is to surface, at the point of reading, information about what the deposited materials actually enable. A paper with excellent data and a working codebase should be distinguished from one where the deposit nominally satisfies a data availability policy but does not in practice allow an independent researcher to check the reported numbers. That distinction is currently invisible in print; a badge makes it visible without requiring the reader to inspect the deposit themselves.
+
+Three tiers are necessary because the barriers to reproduction are structurally different, and conflating them produces misleading signals. A "no badge" assigned because a paper requires a GPU cluster for inference is editorially different from a "no badge" assigned because the data were never deposited — the first is a compute infrastructure problem, the second is a deposit policy problem, and the appropriate editorial remedy is different in each case. Similarly, a "silver" badge for a paper whose one broken matplotlib import blocks three figures is different from a "silver" badge for a paper whose core claims sit behind 2 GB of monolithic archive — both have genuine deposits with clear reproduction paths, but the friction is different in kind. The three-tier structure makes these distinctions explicit and assigns them different editorial weight.
+
+### Badge criteria
+
+**Gold** — The deposited data and code allow an independent researcher to reproduce the main claims without contacting the authors, without specialist hardware, and without institutional software. Running the analysis on the deposit produces numbers that match the paper. This is the standard.
+
+**Silver** — The deposit is genuine: data and code are present, and the analysis is reproducible in principle. A documented partial barrier exists — compute time, a specific environment dependency, a monolithic archive requiring full download, or a broken script with a known fix. The path to reproduction is clear even if not frictionless.
+
+**No badge** — The deposit does not enable independent reproduction of the reported statistics. Three distinct reasons warrant no badge, each with different editorial implications:
+- *Compute barrier*: deposit is complete but reproduction requires infrastructure beyond a standard workstation (GPU cluster, HPC, >10 GB downloads with no pre-computed shortcut)
+- *Structural barrier*: primary claims require physical apparatus, proprietary materials, or specialist equipment; or verification requires atlas inspection rather than analysis re-execution
+- *Deposit gap*: required data is "available upon request" rather than deposited, or code has hard-coded local paths, or the deposit does not match what the analysis requires
+
+### Current assignments
+
+| Paper | Badge | Reason |
+|:------|:------|:-------|
+| Gadeke — guilt/insula | 🥇 Gold | 5 claims verified exact from deposit; peak coordinates match to the voxel; pre-computed LMM tables reproduce R² exactly |
+| Ejdrup — dopamine model | 🥈 Silver | 13/20 verified; 3 blocked by a one-line matplotlib fix; 4 by compute with Zenodo pre-computed workaround available |
+| Headley — inhibitory rhythms | 🥈 Silver | 9/18 verified from repo CSVs; 7 oscillation claims need 1.88 GB monolithic Dryad archive (no individual file access) |
+| Bouyeure — fear RSA | 🥈 Silver | 5 claims verified; one substantive mismatch (prior-threat map shows occipital, not fear network) flagged |
+| Kolb — iGABASnFR2 | 🥈 Silver | Crystal structure verified exact (PDB 9D57); figure claims need 19 MB Zenodo download; cpGFP RMSD claim requires undeposited apo structure |
+| Scheller — self-prioritization | pending | OSF + Stan verification in progress |
+| Wengert — KCNC1 | pending | G-Node verification in progress |
+| Rozak — neurovascular DL | ✗ Compute barrier | GPU required; no pre-computed inference results |
+| Kammer — foveal feedback | ✗ Deposit gap | Eye-tracking data "available upon request" (not deposited); 61 GB raw BIDS, no derivatives; hard-coded local paths in code |
+| Artiushin — spider atlas | ✗ Structural barrier | Observational anatomical claims; verification requires 3D atlas inspection, not analysis re-execution |
+
+---
+
+## 6. What the Method Learned About Itself
 
 Six methodological issues arose during the corpus run and were resolved during processing. They are documented here not as limitations to disclaim but as findings about papers and how they work.
 
@@ -188,7 +222,7 @@ Six methodological issues arose during the corpus run and were resolved during p
 
 ---
 
-## 6. Implications for eLife's Editorial Process
+## 7. Implications for eLife's Editorial Process
 
 The findings above suggest four questions for eLife to consider. These are offered as genuine questions, not recommendations. eLife may have editorial reasons — practical, policy, or community-relations — to answer any of them differently than the prototype suggests.
 
@@ -200,9 +234,11 @@ The findings above suggest four questions for eLife to consider. These are offer
 
 **Should peer review surface claims that rest on discussion reasoning rather than reported analysis?** The Kämmer paper's IPS driver claim (`ips-candidate-driver-foveal-feedback`) is classified `unverified:no-code` because it could not be determined whether it is supported by a reported functional connectivity analysis or is an inference from the discussion. This distinction — reported analysis versus discussion inference — is meaningful for what a reader should believe. The claim graph can identify these cases: a claim without a code pointer that is not an assessment claim is either a synthesis claim (which should depend on other claims that do have code pointers) or a discussion claim that has been presented as a result. Asking reviewers to flag claims in this category is a modest change to review guidance that would surface a class of problem that is currently invisible in peer review.
 
+**Should eLife adopt the badge system at publication?** The badge assignments in Section 5 were determined by post-publication verification — an independent analyst running the deposit, inspecting the code, and recording what the deposited materials actually enable. This is the right way to assign badges: author self-report is structurally biased toward optimistic characterization, and a badge system that relies on self-report provides false assurance. eLife is in a position to trial post-publication badge assignment for the ten papers in this corpus, displaying the badge on article pages alongside the data availability statement, and publishing the verification record. Displayed on the article page, a badge is visible at the moment of reading — when a reader is deciding how much weight to give a result, whether to build on a finding, or whether to attempt to extend the analysis. A data availability statement that says "data available on Zenodo" and a Gold badge indicating that running the analysis on that Zenodo deposit reproduces Figure 3B exactly are not the same information. The badge makes the difference visible without requiring the reader to inspect the deposit themselves. The three-tier structure also has a specific editorial benefit: the "no badge" category with its three distinct causes — compute barrier, structural barrier, deposit gap — gives eLife actionable information about what kind of remediation to request. A deposit gap is correctable before publication; a compute barrier may be addressed by requiring pre-computed arrays; a structural barrier reflects the nature of the science and calls for a different kind of data availability disclosure. A badge system calibrated to these distinctions is a policy tool, not just a communication tool.
+
 ---
 
-## 7. What a Claim-Ready Paper Looks Like
+## 8. What a Claim-Ready Paper Looks Like
 
 Two papers in the corpus most closely approach what a claim-ready submission would require: Kämmer (paper 10) and Headley (paper 6).
 
@@ -214,7 +250,7 @@ What a claim-ready author would need to add to either paper is modest. A structu
 
 ---
 
-## 8. Integration with the eLife Reading Experience
+## 9. Integration with the eLife Reading Experience
 
 The standalone site demonstrates the concept. The practical question for eLife is how the claim graph enters the reading experience — whether it requires a reader to navigate away from the article, or whether it can be present alongside it. Three integration models exist, each requiring a different level of eLife involvement.
 
@@ -228,7 +264,7 @@ The embedded widget is what this document asks for. It is also where the convers
 
 ---
 
-## 9. The Website
+## 10. The Website
 
 A website at [https://zmainen.github.io/elife-claim-trees/](https://zmainen.github.io/elife-claim-trees/) presents browsable claim graphs for all 10 papers. Each paper has an index page with the claim table, the dependency graph, and the reproduction status for each claim. Individual claim pages record the proposition, the panel, the data pointer, the code pointer, and the reproduction status with notes.
 
