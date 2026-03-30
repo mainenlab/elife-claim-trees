@@ -149,6 +149,28 @@
   .badge-failed     { background: #fee2e2; color: #991b1b; }
   .badge-assessment { background: var(--accent-lt); color: var(--accent); }
 
+  /* ── Reproducibility pill badges ────────────────────────── */
+  .rbadge {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 7pt;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-family: Inter, system-ui, sans-serif;
+    vertical-align: middle;
+  }
+  .rbadge-gold       { background: #d97706; color: #fff; }
+  .rbadge-silver     { background: #64748b; color: #fff; }
+  .rbadge-compute    { background: #374151; color: #9ca3af; border: 1px solid #4b5563; }
+  .rbadge-gap        { background: #7f1d1d; color: #fca5a5; border: 1px solid #991b1b; }
+  .rbadge-structural { background: #374151; color: #9ca3af; border: 1px solid #4b5563; }
+  .rbadge-pending    { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
+
   /* ── Tables ──────────────────────────────────────────────── */
   .table-wrap {
     overflow-x: auto;
@@ -319,6 +341,7 @@
           <th class="center">Claims</th>
           <th class="center">Verified</th>
           <th>Primary reproduction blocker</th>
+          <th>Badge</th>
         </tr>
       </thead>
       <tbody>
@@ -329,6 +352,7 @@
           <td class="num">17</td>
           <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
           <td>GPU required for inference</td>
+          <td><span class="rbadge rbadge-compute">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></td>
         </tr>
         <tr>
           <td class="num">2</td>
@@ -337,6 +361,7 @@
           <td class="num">18</td>
           <td class="center"><span class="badge badge-unverified">0</span></td>
           <td>MATLAB + SPM12 dependency throughout</td>
+          <td><span class="rbadge rbadge-compute">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></td>
         </tr>
         <tr>
           <td class="num">3</td>
@@ -345,6 +370,7 @@
           <td class="num">15</td>
           <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
           <td>Sensor constructs and stopped-flow equipment</td>
+          <td><span class="rbadge rbadge-structural">NO BADGE <span style="opacity:0.7;font-weight:400">/ structural</span></span></td>
         </tr>
         <tr>
           <td class="num">4</td>
@@ -353,6 +379,7 @@
           <td class="num">14</td>
           <td class="center"><span class="badge badge-unverified">0</span></td>
           <td>Stan/R not yet executed (clear path)</td>
+          <td><span class="rbadge rbadge-silver"><span style="color:#cbd5e1">●</span> SILVER</span></td>
         </tr>
         <tr>
           <td class="num">5</td>
@@ -361,6 +388,7 @@
           <td class="num">22</td>
           <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
           <td>BrainIAK searchlight compute; multi-language stack</td>
+          <td><span class="rbadge rbadge-compute">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></td>
         </tr>
         <tr>
           <td class="num">6</td>
@@ -369,6 +397,7 @@
           <td class="num">17</td>
           <td class="center"><span class="badge badge-verified">9 (7 result + 2 assessment)</span></td>
           <td>Not yet executed (clear path, pre-computed data)</td>
+          <td><span class="rbadge rbadge-gold"><span style="color:#fcd34d">●</span> GOLD</span></td>
         </tr>
         <tr>
           <td class="num">7</td>
@@ -377,6 +406,7 @@
           <td class="num">18</td>
           <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
           <td>Knock-in mouse line required</td>
+          <td><span class="rbadge rbadge-silver"><span style="color:#cbd5e1">●</span> SILVER</span></td>
         </tr>
         <tr>
           <td class="num">8</td>
@@ -385,6 +415,7 @@
           <td class="num">17</td>
           <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
           <td>BIL TIFF volumes (~tens of GB); atlas inspection required</td>
+          <td><span class="rbadge rbadge-structural">NO BADGE <span style="opacity:0.7;font-weight:400">/ structural</span></span></td>
         </tr>
         <tr>
           <td class="num">9</td>
@@ -393,6 +424,7 @@
           <td class="num">20</td>
           <td class="center"><span class="badge badge-verified">13 (9 result + 4 assessment)</span></td>
           <td>matplotlib 3.8 API breakage; tissue-scale compute</td>
+          <td><span class="rbadge rbadge-gold"><span style="color:#fcd34d">●</span> GOLD</span></td>
         </tr>
         <tr>
           <td class="num">10</td>
@@ -401,6 +433,7 @@
           <td class="num">15</td>
           <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
           <td>OpenNeuro data volume; MVPA compute</td>
+          <td><span class="rbadge rbadge-compute">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></td>
         </tr>
       </tbody>
     </table>
@@ -417,7 +450,7 @@
   ══════════════════════════════════════════════════════════ -->
   <h2>3. Paper-by-Paper Findings</h2>
 
-  <h3>Ejdrup — Dopamine dynamics model <span style="font-weight:400;color:var(--muted)">(computational, 20 claims)</span></h3>
+  <h3>Ejdrup — Dopamine dynamics model <span style="font-weight:400;color:var(--muted)">(computational, 20 claims)</span> <span class="rbadge rbadge-gold" style="margin-left:6px"><span style="color:#fcd34d">●</span> GOLD</span></h3>
 
   <p>This paper builds a reaction-diffusion model of striatal dopamine dynamics to explain the functional difference between dorsal and ventral striatum. The primary finding — that DAT Vmax is the dominant determinant of regional contrast — is well-supported by the parameter sweep in Figures 3B–G, and the claim <code>vmax-only-parameter-driving-regional-difference</code> is among the most strongly epistemic claims in the corpus. Thirteen of the 20 claims were verified in this prototype run, including 9 result claims and 4 assessment claims verified by code inspection.</p>
 
@@ -427,7 +460,7 @@
 
   <p>Three claims are blocked by a matplotlib 3.8 API change (<code>Axes3D.w_xaxis</code> was renamed to <code>xaxis</code>). This is a one-line fix per script. The simulation code is correct; only the figure rendering is broken.</p>
 
-  <h3>Headley — Inhibitory rhythms <span style="font-weight:400;color:var(--muted)">(computational biophysics, 17 claims)</span></h3>
+  <h3>Headley — Inhibitory rhythms <span style="font-weight:400;color:var(--muted)">(computational biophysics, 17 claims)</span> <span class="rbadge rbadge-gold" style="margin-left:6px"><span style="color:#fcd34d">●</span> GOLD</span></h3>
 
   <p>This paper uses a multicompartmental NEURON model of a layer 5 pyramidal neuron to show that distal-dendritic inhibition at beta frequencies gates Ca²⁺/NMDA spike occurrence while perisomatic inhibition at gamma frequencies modulates action potential threshold — two distinct computational operations performed by two distinct circuit motifs. The model is a single cell, and the assessment claim <code>l5-model-single-cell-scope</code> records this explicitly: all 17 result claims are predictions of a single-cell model with no network dynamics or population-level effects.</p>
 
@@ -435,7 +468,7 @@
 
   <p>Seven of the 15 result claims are verified from pre-computed CSV data in the repository; 7 remain unverified pending download of the Dryad oscillation frequency-sweep arrays; 1 synthesis claim is unverified:no-code. The reproduction path for the remaining claims is clear: pre-computed data arrays are in the Dryad deposit and the GitHub repository provides per-figure notebooks. The barrier is time, not access.</p>
 
-  <h3>Scheller — Self-prioritization <span style="font-weight:400;color:var(--muted)">(psychophysics, 14 claims)</span></h3>
+  <h3>Scheller — Self-prioritization <span style="font-weight:400;color:var(--muted)">(psychophysics, 14 claims)</span> <span class="rbadge rbadge-silver" style="margin-left:6px"><span style="color:#cbd5e1">●</span> SILVER</span></h3>
 
   <p>This psychophysics paper uses a temporal order judgment task and hierarchical Bayesian TVA modeling across two experiments (N=69, N=71) to show that arbitrary self-associations enhance attentional selection at the perceptual feature level — and, counterintuitively, that this advantage disappears when social decoding is required.</p>
 
@@ -443,7 +476,7 @@
 
   <p>The reproduction path is clear. Data and notebooks are on OSF; the preregistration specifies the analysis plan. The primary dependency is Stan/R for the hierarchical Bayesian model.</p>
 
-  <h3>Kämmer — Foveal feedback <span style="font-weight:400;color:var(--muted)">(fMRI/MVPA, 15 claims)</span></h3>
+  <h3>Kämmer — Foveal feedback <span style="font-weight:400;color:var(--muted)">(fMRI/MVPA, 15 claims)</span> <span class="rbadge rbadge-compute" style="margin-left:6px">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></h3>
 
   <p>This paper uses a gaze-contingent fMRI paradigm to show that peripheral saccade targets, which disappear before fixation in 99.27% of trials, are nonetheless decodable from foveal V1 BOLD signal (57.43% decoding accuracy, t(27)=8.81, p&lt;0.001). The preregistered design is a structural strength: the analysis plan is fully documented before data collection, making the reproduction path completely unambiguous.</p>
 
@@ -453,7 +486,7 @@
 
   <p>The re-extraction added the assessment claim <code>preregistration-submitted-after-manuscript</code>, verified by OSF timestamps. The preregistration was submitted after the manuscript had been prepared — a detail that does not appear in the paper's description of its preregistered design. This changes the evidential status of the assessment claim <code>preregistered-design-validates-mvpa</code>, which was initially classified as <span class="badge badge-verified">verified:strong</span> on the grounds that preregistration fully constrains the analysis plan. That classification has been downgraded to <span class="badge badge-verified">verified:moderate</span>. The analysis plan is documented, and the preregistration does match the reported analysis — but the protection preregistration affords against post-hoc analysis choices derives from the preregistration preceding data collection and analysis. When the preregistration is submitted after the manuscript, the documentation value is preserved while the chronological protection is not. Reviewers reading that the paper has a preregistered design would normally treat this as strong evidence against HARKing; the OSF timestamp removes that inference. The analysis may be exactly what was planned before data collection — there is no evidence of irregularity — but the claim graph cannot record that on the basis of the preregistration alone, and the epistemic weight is adjusted accordingly.</p>
 
-  <h3>Wengert — KCNC1 epilepsy mouse <span style="font-weight:400;color:var(--muted)">(wet-lab, 18 claims)</span></h3>
+  <h3>Wengert — KCNC1 epilepsy mouse <span style="font-weight:400;color:var(--muted)">(wet-lab, 18 claims)</span> <span class="rbadge rbadge-silver" style="margin-left:6px"><span style="color:#cbd5e1">●</span> SILVER</span></h3>
 
   <p>This paper generates and characterizes the Kcnc1-A421V/+ knock-in mouse model. The primary claims require this specific mouse line — its generation is the contribution, and the measurements (electrophysiology, survival curves, immunostaining) require both the animal and appropriate equipment.</p>
 
@@ -461,7 +494,7 @@
 
   <p>G-Node contains the raw electrophysiology traces, which would allow statistical figure reproduction from deposited data. But reproducing figures from deposited data is not the same as re-measuring the phenotype. The claim graph records both the accessibility of deposited data and the nature of what it does and does not enable.</p>
 
-  <h3>Bouyeure — Fear and reversal RSA <span style="font-weight:400;color:var(--muted)">(fMRI/RSA, 22 claims)</span></h3>
+  <h3>Bouyeure — Fear and reversal RSA <span style="font-weight:400;color:var(--muted)">(fMRI/RSA, 22 claims)</span> <span class="rbadge rbadge-compute" style="margin-left:6px">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></h3>
 
   <p>This paper uses fMRI and representational similarity analysis across a multi-day fear conditioning paradigm to show that reversal learning employs two simultaneous representational strategies: generalization for newly threatening cues, and item-specificity for cues whose threat value changed.</p>
 
@@ -469,13 +502,13 @@
 
   <p>The assessment claim <code>rsa-roi-derived-from-searchlight</code> surfaces a structural feature that the narrative does not foreground. The ROIs used in Figures 4B and 5D are derived from the same searchlight analysis conducted on the same dataset — a procedure known as double dipping or circularity of ROI selection. The searchlight identifies regions with significant pattern similarity; subsequent RSA analyses in those same regions using the same data then inherit that significance by construction. FDR correction across voxels corrects for multiple comparisons in the searchlight, but it does not correct for the selection bias introduced by using searchlight-identified ROIs for confirmatory RSA in the same participants. All result claims downstream of Figures 4B and 5D depend on this assessment node. The pattern similarity results in those figures are not independent tests of the RSA hypotheses — they are confirmations in regions pre-selected to show the effect. This is a common analysis pattern in fMRI RSA research and does not invalidate the paper's findings, but it does constrain what those findings demonstrate: the effect is real in these regions, in this sample; whether it would replicate in an independently selected ROI in a new sample is an open question the current design cannot answer.</p>
 
-  <h3>Gädeke — Guilt and insula <span style="font-weight:400;color:var(--muted)">(fMRI/behavioral, 18 claims)</span></h3>
+  <h3>Gädeke — Guilt and insula <span style="font-weight:400;color:var(--muted)">(fMRI/behavioral, 18 claims)</span> <span class="rbadge rbadge-compute" style="margin-left:6px">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></h3>
 
   <p>This fMRI paper studies the neural basis of interpersonal guilt through a social monetary decision task. The analysis chain is documented in detail: the GitHub repository maps each MATLAB script to a figure, behavioral data are in <code>.mat</code> files, and pre-computed group NIfTI results enable figure reproduction without re-running first-level GLMs.</p>
 
   <p>All eight claims are unverified because the primary analysis environment is MATLAB/SPM12. There is no Python path. The pre-computed results enable figure reproduction from processed data, but the complete analysis chain — from behavioral <code>.mat</code> files through computational guilt model to first-level GLM — requires MATLAB. This is a MATLAB dependency, not a data availability problem.</p>
 
-  <h3>Rozak — NOVAS3D pipeline <span style="font-weight:400;color:var(--muted)">(deep learning, 17 claims)</span></h3>
+  <h3>Rozak — NOVAS3D pipeline <span style="font-weight:400;color:var(--muted)">(deep learning, 17 claims)</span> <span class="rbadge rbadge-compute" style="margin-left:6px">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></h3>
 
   <p>This paper presents a deep learning pipeline for volumetric vessel segmentation. The contribution is the pipeline itself; the quantitative claims (24 ± 28% vessel radius heterogeneity, 4% efficiency increase, 152 ± 65% assortativity increase) are measurements from the pipeline applied to a specific dataset and mouse model.</p>
 
@@ -483,13 +516,13 @@
 
   <p>The re-extraction added <code>responder-threshold-2sd-untested</code> as an assessment claim. The paper classifies vessels as responders using a 2×SD threshold applied to baseline variability. All quantitative spatial claims — the 4% efficiency increase, the 152 ± 65% assortativity increase, the comparisons between dilations and constrictions — and all downstream network biology findings are conditional on this threshold. The paper includes a sensitivity analysis in the appendix, but it is qualitative: it notes that the pattern of results is preserved at alternative thresholds without providing quantitative comparison across thresholds. The assessment claim records that the threshold has not been tested quantitatively. This propagates epistemic uncertainty upward through every result claim that depends on the responder classification, which is the majority of the paper's quantitative spatial findings. The effect is not that the results are wrong — it is that their robustness to the central threshold choice has not been formally demonstrated.</p>
 
-  <h3>Kolb — iGABASnFR2 sensor <span style="font-weight:400;color:var(--muted)">(wet-lab tools, 15 claims)</span></h3>
+  <h3>Kolb — iGABASnFR2 sensor <span style="font-weight:400;color:var(--muted)">(wet-lab tools, 15 claims)</span> <span class="rbadge rbadge-structural" style="margin-left:6px">NO BADGE <span style="opacity:0.7;font-weight:400">/ structural</span></span></h3>
 
   <p>This paper presents iGABASnFR2, an improved GABA sensor resulting from high-throughput mutagenesis screening of 3,947 variants. The primary claims require the sensor constructs and specialized equipment (stopped-flow kinetics, two-photon spectroscopy). Zenodo deposits contain the source data for figure reproduction from pre-measured traces, but not the measurements themselves.</p>
 
   <p>The assessment claim <code>screening-scope-wet-lab-only</code> is the most important and most immediately verifiable node: it records that the reproduction barrier is material, not informational. Source data are available. Code is available. What is not available is the capacity to perform the measurements. This distinction — data availability versus measurement availability — is normally invisible in print. The claim graph makes it explicit.</p>
 
-  <h3>Artiushin — Spider brain atlas <span style="font-weight:400;color:var(--muted)">(anatomical atlas, 17 claims)</span></h3>
+  <h3>Artiushin — Spider brain atlas <span style="font-weight:400;color:var(--muted)">(anatomical atlas, 17 claims)</span> <span class="rbadge rbadge-structural" style="margin-left:6px">NO BADGE <span style="opacity:0.7;font-weight:400">/ structural</span></span></h3>
 
   <p>This paper describes a 3D immunofluorescence atlas of the <em>Uloborus diversus</em> synganglion. The claims are anatomical observations — neuropil identification, neurotransmitter immunoreactivity patterns, novel structures. Verification means atlas inspection, not analysis re-execution.</p>
 

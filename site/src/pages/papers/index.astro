@@ -14,13 +14,14 @@ const statusGroups = [
   { key: 'unverified', color: '#9ca3af' },
 ];
 
-const badgeConfig: Record<string, { label: string; bg: string; text: string; emoji: string }> = {
-  gold:           { label: 'Gold',             bg: '#fef3c7', text: '#92400e', emoji: '🥇' },
-  silver:         { label: 'Silver',           bg: '#f3f4f6', text: '#374151', emoji: '🥈' },
-  'none-compute': { label: 'Compute barrier',  bg: '#fee2e2', text: '#991b1b', emoji: '✗' },
-  'none-gap':     { label: 'Deposit gap',      bg: '#fee2e2', text: '#991b1b', emoji: '✗' },
-  'none-structural': { label: 'Structural barrier', bg: '#fee2e2', text: '#991b1b', emoji: '✗' },
-  pending:        { label: 'Pending',          bg: '#f9fafb', text: '#6b7280', emoji: '⏳' },
+type BadgeInfo = { html: string };
+const badgeConfig: Record<string, BadgeInfo> = {
+  gold:              { html: '<span class="badge badge-gold"><span style="color:#fcd34d">●</span> GOLD</span>' },
+  silver:            { html: '<span class="badge badge-silver"><span style="color:#cbd5e1">●</span> SILVER</span>' },
+  'none-compute':    { html: '<span class="badge badge-compute">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span>' },
+  'none-gap':        { html: '<span class="badge badge-gap">NO BADGE <span style="opacity:0.8;font-weight:400">/ deposit gap</span></span>' },
+  'none-structural': { html: '<span class="badge badge-structural">NO BADGE <span style="opacity:0.7;font-weight:400">/ structural</span></span>' },
+  pending:           { html: '<span class="badge badge-pending" style="font-style:italic">PENDING</span>' },
 };
 ---
 
@@ -31,7 +32,7 @@ const badgeConfig: Record<string, { label: string; bg: string; text: string; emo
       {papers.map(p => {
         const verified = p.statusCounts['verified'] ?? 0;
         const pct = Math.round((verified / p.claimCount) * 100);
-        const badge = badgeConfig[p.badge ?? 'pending'] ?? badgeConfig.pending;
+        const badge = badgeConfig[(p as any).badge ?? 'pending'] ?? badgeConfig.pending;
         return (
           <a href={`/papers/${p.slug}`} class="flex items-start gap-4 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group">
             <!-- Status bar -->
@@ -47,13 +48,7 @@ const badgeConfig: Record<string, { label: string; bg: string; text: string; emo
             <div class="flex-1 min-w-0">
               <div class="flex items-start justify-between gap-3 mb-1">
                 <h2 class="text-sm font-medium text-gray-900 group-hover:text-blue-700 leading-snug">{p.title}</h2>
-                <span
-                  class="flex-shrink-0 inline-flex items-center gap-1 text-xs font-medium px-2 py-0.5 rounded-full"
-                  style={{ background: badge.bg, color: badge.text }}
-                >
-                  <span>{badge.emoji}</span>
-                  <span>{badge.label}</span>
-                </span>
+                <span class="flex-shrink-0" set:html={badge.html} />
               </div>
               <div class="text-xs text-gray-500 mb-2">
                 {p.authors.slice(0, 3).join(', ')}{p.authors.length > 3 ? ' et al.' : ''} · {p.journal} · DOI: {p.doi}

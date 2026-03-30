@@ -16,6 +16,27 @@ const { title, description = 'Panel-level claim graphs for reproducibility — e
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="/src/styles/global.css" />
+<style>
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 3px 10px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    font-family: Inter, system-ui, sans-serif;
+  }
+  .badge-gold       { background: #d97706; color: #fff; }
+  .badge-silver     { background: #64748b; color: #fff; }
+  .badge-compute    { background: #374151; color: #9ca3af; border: 1px solid #4b5563; }
+  .badge-gap        { background: #7f1d1d; color: #fca5a5; border: 1px solid #991b1b; }
+  .badge-structural { background: #374151; color: #9ca3af; border: 1px solid #4b5563; }
+  .badge-pending    { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
+</style>
 </head>
 <body class="min-h-screen bg-white">
   <nav class="border-b border-gray-100 bg-white sticky top-0 z-40">
