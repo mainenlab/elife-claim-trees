@@ -33,8 +33,19 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
-    notes: ~
+    status: verified:partial
+    notes: >
+      Behavioral data downloaded from OSF (behaviordata_final.csv, n=24, 12288 rows). CS type
+      hierarchy confirmed: overall means CS++(2.62) > CS+-(2.38) > CS-+(2.23) > CS--(1.58),
+      matching the paper's ordering exactly. LME with exact model from deposited R script
+      (roi_lme_analysis.R): lmer(rating ~ cs_type * phase + (1|subject)) yields
+      F(cs_type)=448.75 [paper claims 479.35], F(phase)=210.09 [paper claims 125.6],
+      interaction p<0.0001 [paper claims p<0.001]. All effects significant and directionally
+      correct. The exact F values differ from the paper's reported values: F(cs_type) 448 vs 479,
+      F(phase) 210 vs 126. The direction discrepancy on phase F is large (210 vs 126). This
+      likely reflects a different phase coding or data subsetting in the "behavioral_expectancy_clean.csv"
+      (not deposited on OSF) vs behaviordata_final.csv we used. The qualitative claim (CS++ > CS+- >
+      CS-+ > CS--, p<0.0001, all phases significant) is fully reproduced.
 ---
 
 During acquisition, CS++ ≈ CS+- and CS-+ ≈ CS-- (post-hoc Wilcoxon, Bonferroni-corrected), consistent with the fact that contingency change has not yet occurred. This equivalence is the expected pattern, not a failure of discrimination — it validates the reversal design by showing participants treated the two CS+ types identically before the reversal phase. The interaction effect (F=29.45, p<0.001) captures the phase-specific differentiation of cue types.

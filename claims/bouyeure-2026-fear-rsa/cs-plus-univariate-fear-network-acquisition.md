@@ -33,8 +33,20 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
-    notes: ~
+    status: verified:partial
+    notes: >
+      NeuroVault map downloaded (CSplus-minus_TFCE_nlog10p.nii.gz, collection 23032).
+      Map stores -log10(p) values (TFCE corrected), threshold at 1.301 for p<0.05.
+      5544 significant voxels. Peak at MNI (8.5, 15.0, 39.0), -log10(p)=4.0 (p<0.0001).
+      dACC/SFG (X: -15 to 15, Y: 5-40, Z: 20-55): 948 sig voxels, peak at MNI (6,15,39) — CONFIRMED.
+      Caudate (X: -20 to 20, Y: 0-18, Z: -5 to 20): 216 sig voxels, peak at MNI (6,5,-1) —
+      CONFIRMED but peak is at caudate/putamen/accumbens boundary, Y=5 which is consistent with
+      caudate head.
+      MTG (|X|>40, Y: -65 to -25, Z: -15 to 12): 0 significant voxels — NOT FOUND in deposited map.
+      The claimed MTG activation cannot be confirmed from the NeuroVault TFCE map. This could reflect
+      a more lenient threshold used in the paper's figure, a subthreshold result not surviving FWE
+      correction, or a labeling issue. The paper's core claim (dACC/SFG) is confirmed; caudate is
+      borderline-confirmed; MTG is not confirmed in the corrected map.
 ---
 
 This is the expected replication of prior fear conditioning work (Fullana et al., 2016). It establishes that the paradigm produces standard fear network responses and validates the experimental manipulation before the RSA analyses. The absence of a significant CS- > CS+ cluster is also reported and expected.

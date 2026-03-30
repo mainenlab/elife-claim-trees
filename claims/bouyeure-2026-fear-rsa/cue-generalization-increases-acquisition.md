@@ -31,7 +31,16 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified:partial
     notes: >
-      Python RSA pipeline with NeuroVault pre-computed maps and OSF source data. Not yet executed.
+      NeuroVault map downloaded (s1r1_CSplus_s1r1_between_vs_CSminus_s1r1_between_logpmax_size025.nii.gz).
+      This is the searchlight cue-generalization (between-item RSA) map for session 1 run 1 (acquisition).
+      2283 significant voxels. Max -log10(p)=2.959. Peaks at MNI (-12,10,44), (-4,30,42), (6,28,59)
+      — all in dACC/SFG territory. dACC/SFG (medial frontal): 286 sig voxels, max=2.959 — CONFIRMED.
+      Insula: L=38, R=16 sig voxels — CONFIRMED. Caudate: 44 sig voxels, max -log10(p)=1.419 (borderline).
+      The claim says "dACC, SFG, caudate, insula" — three of four confirmed, caudate borderline.
+      NOTE: This map is labeled "s1r1" (session 1 run 1 only), so it reflects early acquisition only.
+      The full acquisition cue-generalization result in fig3A may pool across both acquisition runs,
+      which would change the threshold and cluster sizes. This is a partial verification of the
+      acquisition cue-generalization spatial claim.
 ---

@@ -36,8 +36,18 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
-    notes: ~
+    status: verified:partial
+    notes: >
+      NeuroVault map downloaded (run2_previousvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032).
+      Only 36 significant voxels survive FWE correction (threshold -log10(p)>1.301). Max -log10(p)=1.670
+      (p≈0.021, barely significant). Single cluster peak at MNI (-14, -90, -11) — this is
+      posterior cortex / occipital region, NOT a canonical fear network region (dACC, amygdala, insula).
+      The paper's claim of "fear network activation" for prior-threat cues is NOT confirmed by the
+      deposited map: the only surviving cluster is in occipital/posterior cortex, not in any region
+      named as a fear-network constituent. The claim was already rated epistemic:weak. This further
+      weakens it — the deposited map shows the activation is (a) barely surviving correction at all,
+      and (b) not in the claimed anatomical territory. Status: verified:partial — the existence of
+      SOME activation is confirmed, but the fear-network location claim is not.
 ---
 
 The paper explicitly hedges this interpretation: the activation "may reflect the impact of the lingering fear memory trace (remaining from acquisition) and/or the time required to learn contingency changes during reversal." Both accounts predict the same pattern — reduced but present activation for prior-threat cues — so they cannot be distinguished from this contrast alone. Epistemic: weak because the causal interpretation is acknowledged as ambiguous.

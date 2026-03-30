@@ -76,7 +76,17 @@ Extraction performed 2026-03-30, agent: mainen-z. Three passes over JATS XML:
 
 | Status | Count | Claims |
 |:-------|:------|:-------|
-| verified | 2 | trace-conditioning-hippocampus-engaged (methods reading), rsa-roi-derived-from-searchlight (confirmed by methods text), lss-unreinforced-trials-only (confirmed by methods text) |
-| unverified | 16 | All RSA and behavioral claims — data accessible at OSF, code at GitHub |
+| verified | 1 | current-threat-activates-fear-network-reversal (NeuroVault: 7473 sig voxels, dACC/SFG/caudate confirmed) |
+| verified:partial | 4 | behavioral-learning-confirms-contingencies (hierarchy confirmed, F values differ from paper), cs-plus-univariate-fear-network-acquisition (dACC/SFG confirmed, MTG NOT found in corrected map), prior-threat-activates-fear-network-weakly (only 36 voxels, in occipital not fear network), cue-generalization-increases-acquisition (dACC/SFG/insula confirmed, s1r1 only) |
+| unverified | 14 | All remaining RSA, reinstatement, and context-specificity claims |
+
+**Key findings from 2026-03-30 verification run:**
+- Behavioral hierarchy CS++ > CS+- > CS-+ > CS-- fully reproduced from OSF data. Exact F statistics differ: F(cs_type)=448 vs paper 479, F(phase)=210 vs paper 126 — suggests paper used a "cleaned" CSV not identically deposited.
+- Acquisition univariate: dACC/SFG strongly confirmed (948 voxels, peak at MNI 8,15,39). MTG NOT found in the FWE-corrected NeuroVault map. Caudate borderline at y=5.
+- Reversal current-valence: 7473 significant voxels, dACC/SFG and caudate confirmed — strongest map.
+- Reversal previous-valence: only 36 significant voxels, peak in occipital cortex (-14,-90,-11), NOT in fear network. The "lingering fear network" claim is not supported by the deposited map.
+- RSA acquisition (s1r1): dACC/SFG (286 voxels) and insula confirmed; caudate borderline.
 
 **Key risks:** BrainIAK searchlight requires specific Python environment; R/Python multi-language stack; LSS beta series estimation computationally intensive. NeuroVault pre-computed maps allow figure reproduction without re-running GLMs or searchlights. ROI-from-searchlight circularity is a structural limitation that cannot be corrected post-hoc.
+
+**Data provenance:** OSF NGWKA behaviordata_final.csv (12288 rows, n=24), participants.csv. NeuroVault collection 23032 (4 maps). GitHub repo R_scripts/ (master_stats_analysis.R, roi_lme_analysis.R). Note: the "behavioral_expectancy_clean.csv" used in the deposited R script is NOT on OSF — only the raw behaviordata_final.csv is available.
