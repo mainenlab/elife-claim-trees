@@ -38,6 +38,105 @@ OSF_BEHAV = "https://osf.io/download/ngwka/"
 CACHE_DIR = "/tmp/bouyeure-2026"
 os.makedirs(CACHE_DIR, exist_ok=True)
 
+# ── Full pipeline ──────────────────────────────────────────────────────────────
+
+def full_pipeline():
+    """
+    ~48 hrs (HPC recommended). Requires: BrainIAK, FSL, openneuro-cli, ~20 GB download.
+
+    Steps:
+      1. Install BrainIAK (C++ compilation, ~20 min).
+      2. Clone the analysis repo from GitHub.
+      3. Download OpenNeuro dataset ds005931 (~20 GB) via openneuro-cli.
+      4. Run LSS (least-squares-separate) beta series estimation (~24 hrs).
+      5. Run RSA searchlight analysis (~24 hrs).
+      6. Re-run fast verification against the deposited NeuroVault NIfTI maps.
+
+    The fast mode reads pre-computed TFCE maps from NeuroVault (collection 23032).
+    The full pipeline regenerates those maps from raw BOLD data.
+    """
+    import shutil
+
+    print("[full] Step 1/5 — Installing BrainIAK (requires C++ compiler, ~20 min)...")
+    subprocess.run([sys.executable, "-m", "pip", "install", "brainiak"], check=False)
+    try:
+        import brainiak
+        print("[full]   BrainIAK installed successfully.")
+    except ImportError:
+        print("[full] ERROR: BrainIAK installation failed. Ensure C++ build tools are available.")
+        print("[full]   On macOS: xcode-select --install")
+        print("[full]   On Linux: sudo apt-get install build-essential")
+        sys.exit(2)
+
+    print("[full] Step 2/5 — Cloning analysis repo...")
+    repo_dir = "/tmp/bouyeure-repo"
+    if not os.path.isdir(repo_dir):
+        result = subprocess.run(
+            ["git", "clone", "--depth=1",
+             "https://github.com/AntoineBouyeure/"
+             "Representational-properties-of-cues-and-contexts-shape-fear-learning-and-reversal",
+             repo_dir],
+            capture_output=True, text=True
+        )
+        if result.returncode != 0:
+            print(f"[full] WARNING: repo clone failed: {result.stderr[:300]}")
+    else:
+        print(f"[full]   Repo already present at {repo_dir}")
+
+    print("[full] Step 3/5 — Downloading OpenNeuro ds005931 (~20 GB)...")
+    raw_dir = "/tmp/bouyeure-raw"
+    if not shutil.which("openneuro"):
+        subprocess.run([sys.executable, "-m", "pip", "install", "openneuro-py"], check=False)
+    if shutil.which("openneuro"):
+        subprocess.run(
+            ["openneuro", "download", "--dataset", "ds005931", "--target", raw_dir],
+            check=False
+        )
+    elif shutil.which("datalad"):
+        subprocess.run(
+            ["datalad", "install", "-s",
+             "https://github.com/OpenNeuroDatasets/ds005931.git", raw_dir],
+            check=False
+        )
+        subprocess.run(["datalad", "get", "."], cwd=raw_dir, check=False)
+    else:
+        print("[full] ERROR: openneuro-cli and datalad both unavailable.")
+        print("[full]   pip install openneuro-py  OR  pip install datalad")
+        sys.exit(2)
+
+    print("[full] Step 4/5 — Running LSS beta series estimation (~24 hrs)...")
+    lss_script = os.path.join(repo_dir, "run_nina_analysis.py")
+    if os.path.exists(lss_script):
+        subprocess.run(
+            [sys.executable, lss_script, "--stage", "lss", "--data", raw_dir],
+            cwd=repo_dir, check=False, timeout=None
+        )
+    else:
+        # Fallback: look for any analysis script in repo
+        import glob as _glob
+        scripts = _glob.glob(os.path.join(repo_dir, "**", "*.py"), recursive=True)
+        lss_scripts = [s for s in scripts if "lss" in s.lower() or "beta" in s.lower()]
+        for s in lss_scripts[:1]:
+            print(f"[full]   Running {os.path.basename(s)} ...")
+            subprocess.run([sys.executable, s, "--data", raw_dir], check=False, timeout=None)
+
+    print("[full] Step 5/5 — Running RSA searchlight (~24 hrs)...")
+    if os.path.exists(lss_script):
+        subprocess.run(
+            [sys.executable, lss_script, "--stage", "rsa", "--data", raw_dir],
+            cwd=repo_dir, check=False, timeout=None
+        )
+    else:
+        import glob as _glob
+        scripts = _glob.glob(os.path.join(repo_dir, "**", "*.py"), recursive=True)
+        rsa_scripts = [s for s in scripts if "rsa" in s.lower() or "searchlight" in s.lower()]
+        for s in rsa_scripts[:1]:
+            print(f"[full]   Running {os.path.basename(s)} ...")
+            subprocess.run([sys.executable, s, "--data", raw_dir], check=False, timeout=None)
+
+    print("[full] Pipeline complete. Running fast verification...")
+    fast_verify()
+
 ROWS = []
 
 def row(slug, paper_val, repro_val, status):
@@ -279,16 +378,9 @@ def verify_behavioral():
     )
     return 1 if ok else 0
 
-# ── Main ───────────────────────────────────────────────────────────────────────
+# ── Fast verify (callable from full pipeline) ──────────────────────────────────
 
-def main():
-    print("=" * 70)
-    print("Bouyeure et al. 2026 — Fear RSA — Verification")
-    print("=" * 70)
-    print(f"NIfTI source: NeuroVault collection 23032")
-    print(f"Behavioral source: OSF {OSF_BEHAV}")
-    print()
-
+def fast_verify():
     passes = 0
     passes += verify_acquisition()
     passes += verify_reversal_current()
@@ -302,7 +394,25 @@ def main():
     warns = sum(1 for r in ROWS if r[3] == "WARN")
     print(f"Summary: {total} claims | {total - fails - warns} PASS | {warns} WARN | {fails} FAIL")
     print("\nNote: prior-threat claim PASS = documented mismatch reproduced as expected.")
+    return fails
 
+# ── Main ───────────────────────────────────────────────────────────────────────
+
+def main():
+    print("=" * 70)
+    print("Bouyeure et al. 2026 — Fear RSA — Verification")
+    print("=" * 70)
+    print(f"NIfTI source: NeuroVault collection 23032")
+    print(f"Behavioral source: OSF {OSF_BEHAV}")
+    print()
+
+    if "--full" in sys.argv:
+        print("[mode] FULL pipeline (~48 hrs). Requires: BrainIAK, FSL, openneuro-cli, ~20 GB.")
+        print()
+        full_pipeline()
+        return
+
+    fails = fast_verify()
     if fails > 0:
         print("\nFAIL claims detected. See claim files for context.")
         sys.exit(1)

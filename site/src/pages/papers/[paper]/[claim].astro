@@ -19,6 +19,17 @@ const { paper: paperSlug, claim: claimSlug } = Astro.params;
 const paperData = corpus.papers.find(p => p.slug === paperSlug)!;
 const claimData = paperData.claims.find(c => c.slug === claimSlug)!;
 
+const timeEstimates: Record<string, {fast: string, full: string}> = {
+  'gadeke-2026-guilt-insula':           { fast: '~3 min',  full: '~3 hrs (MATLAB + SPM12)' },
+  'headley-2026-inhibitory-rhythms':    { fast: '~2 min',  full: '~6 hrs (NEURON + 1.88 GB Dryad)' },
+  'ejdrup-2026-dopamine':               { fast: '~5 min',  full: '~8 hrs (standard Python)' },
+  'scheller-2026-self-prioritization':  { fast: '~3 min',  full: '~12 hrs (Stan/CmdStan + R)' },
+  'wengert-2026-kcnc1':                 { fast: '~2 min',  full: '~48 hrs (68 GB download + gin)' },
+  'bouyeure-2026-fear-rsa':             { fast: '~4 min',  full: '~48 hrs (BrainIAK + HPC)' },
+  'kammer-2026-foveal-feedback':        { fast: 'N/A',     full: '~100 CPU-hrs (fMRIPrep + FSL)' },
+};
+const times = timeEstimates[paperSlug] ?? { fast: 'N/A', full: 'N/A' };
+
 const claimIndex = new Map(paperData.claims.map(c => [c.slug, c]));
 
 const requiresClaims = claimData.requires.map(r => claimIndex.get(r)).filter(Boolean);
@@ -178,6 +189,10 @@ if (claimData.script) {
     {scriptUrl && (
       <div class="mb-8">
         <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">Verification code</h2>
+        <div class="verification-times">
+          <span class="time-badge time-fast">Fast: {times.fast}</span>
+          <span class="time-badge time-full">Full: {times.full}</span>
+        </div>
         <div class="flex flex-wrap gap-3 mb-3">
           <a href={scriptUrl} target="_blank" class="text-xs text-blue-600 hover:underline">View script on GitHub ↗</a>
           <a href={logUrl} target="_blank" class="text-xs text-blue-600 hover:underline">View verification log ↗</a>
@@ -225,6 +240,11 @@ if (claimData.script) {
 </Layout>
 
 <style>
+  .verification-times { display: flex; gap: 0.75rem; margin: 0.5rem 0 1rem; }
+  .time-badge { font-size: 0.75rem; padding: 2px 8px; border-radius: 4px; font-weight: 600; }
+  .time-fast { background: #dcfce7; color: #166534; }
+  .time-full { background: #fef9c3; color: #854d0e; }
+
   .figure-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;

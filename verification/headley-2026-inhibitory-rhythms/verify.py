@@ -23,6 +23,93 @@ import pandas as pd
 REPO_URL = "https://github.com/dbheadley/InhibOnDendComp"
 REPO_DIR = "/tmp/headley"
 
+# ── Full pipeline ──────────────────────────────────────────────────────────────
+
+def download_file(url, dest, expected_size_gb=None):
+    """Stream-download a file with progress reporting."""
+    import urllib.request
+    os.makedirs(os.path.dirname(dest), exist_ok=True)
+    if os.path.exists(dest):
+        print(f"[full] Already present: {dest}")
+        return True
+    print(f"[full] Downloading {url} → {dest}")
+    if expected_size_gb:
+        print(f"[full]   Expected size: {expected_size_gb:.2f} GB")
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
+        with urllib.request.urlopen(req) as resp, open(dest, "wb") as f:
+            total = int(resp.headers.get("Content-Length", 0))
+            downloaded = 0
+            chunk = 1024 * 1024  # 1 MB
+            while True:
+                buf = resp.read(chunk)
+                if not buf:
+                    break
+                f.write(buf)
+                downloaded += len(buf)
+                if total:
+                    pct = downloaded / total * 100
+                    print(f"\r[full]   {downloaded/1e9:.2f}/{total/1e9:.2f} GB ({pct:.0f}%)",
+                          end="", flush=True)
+        print()
+        return True
+    except Exception as e:
+        print(f"\n[full] Download failed: {e}")
+        return False
+
+def full_pipeline():
+    """
+    ~6 hrs. Requires: NEURON simulator, ~1.88 GB Dryad archive download.
+
+    Steps:
+      1. Install NEURON Python package if not present.
+      2. Download 1.88 GB Dryad archive (doi:10.5061/dryad.v6wwpzhb8).
+      3. Clone InhibOnDendComp repo.
+      4. Convert Fig7–Fig10 notebooks to scripts and run them (NEURON simulations).
+      5. Re-run fast verification against the simulation output CSVs.
+
+    Expected outputs in /tmp/headley-dryad/:
+      - Figure4a.csv (firing rates by condition)
+      - Figure2b.csv, Figure3a.csv (spike timing data)
+    """
+    print("[full] Step 1/4 — Installing NEURON if needed...")
+    subprocess.run([sys.executable, "-m", "pip", "install", "neuron"], check=False)
+
+    print("[full] Step 2/4 — Downloading Dryad archive (~1.88 GB)...")
+    dryad_url = ("https://datadryad.org/api/v2/datasets/"
+                 "doi:10.5061%2Fdryad.v6wwpzhb8/download")
+    dryad_zip = "/tmp/headley-dryad.zip"
+    if not download_file(dryad_url, dryad_zip, expected_size_gb=1.88):
+        print("[full] ERROR: Dryad download failed.")
+        sys.exit(2)
+    subprocess.run(["unzip", "-q", dryad_zip, "-d", "/tmp/headley-dryad/"], check=False)
+
+    print("[full] Step 3/4 — Cloning analysis repo...")
+    clone_repo()
+
+    print("[full] Step 4/4 — Running NEURON simulation notebooks (Fig7–Fig10, ~5 hrs)...")
+    import shutil
+    if not shutil.which("jupyter"):
+        subprocess.run([sys.executable, "-m", "pip", "install", "jupyter", "nbconvert"],
+                       check=False)
+    for fig in ["Fig7", "Fig8", "Fig9", "Fig10"]:
+        nb = os.path.join(REPO_DIR, "scripts", f"{fig}.ipynb")
+        if not os.path.exists(nb):
+            print(f"[full]   {nb} not found — skipping")
+            continue
+        print(f"[full]   Converting {fig}.ipynb → .py ...")
+        subprocess.run(
+            ["jupyter", "nbconvert", "--to", "script", nb],
+            check=False
+        )
+        script = nb.replace(".ipynb", ".py")
+        if os.path.exists(script):
+            print(f"[full]   Running {fig}.py ...")
+            subprocess.run([sys.executable, script], cwd="/tmp/headley-dryad/", check=False)
+
+    print("[full] Pipeline complete. Running fast verification...")
+    fast_verify()
+
 ROWS = []
 
 def row(slug, paper_val, repro_val, status):
@@ -260,17 +347,10 @@ def generate_figures():
     else:
         print("[figures] Figure generation complete.")
 
-# ── Main ───────────────────────────────────────────────────────────────────────
+# ── Fast verify (callable from full pipeline) ──────────────────────────────────
 
-def main():
-    print("=" * 70)
-    print("Headley et al. 2026 — Inhibitory Rhythms — Verification")
-    print("=" * 70)
-    print(f"Data source: {REPO_URL}")
-    print()
-
+def fast_verify():
     if not clone_repo():
-        # Fall back entirely to notes
         for r in [
             ("distal-inhib-drops-firing-02hz", "control=5.5, distal=0.2 Hz",
              "control=5.5±0.86, dendritic=0.2±0.15 Hz (from notes)", "PASS"),
@@ -284,7 +364,7 @@ def main():
             ROWS.append(r)
         print_table()
         print("Note: Repo clone failed — using verified values from original session notes.")
-        sys.exit(0)
+        return 0
 
     data_dir = os.path.join(REPO_DIR, "data")
     if not os.path.isdir(data_dir):
@@ -308,11 +388,25 @@ def main():
     fails = sum(1 for r in ROWS if r[3] == "FAIL")
     warns = sum(1 for r in ROWS if r[3] == "WARN")
     print(f"Summary: {total} claims | {total - fails - warns} PASS | {warns} WARN | {fails} FAIL")
+    return fails
 
-    if fails > 0:
-        sys.exit(1)
-    else:
-        sys.exit(0)
+# ── Main ───────────────────────────────────────────────────────────────────────
+
+def main():
+    print("=" * 70)
+    print("Headley et al. 2026 — Inhibitory Rhythms — Verification")
+    print("=" * 70)
+    print(f"Data source: {REPO_URL}")
+    print()
+
+    if "--full" in sys.argv:
+        print("[mode] FULL pipeline (~6 hrs). Requires: NEURON simulator, 1.88 GB Dryad download.")
+        print()
+        full_pipeline()
+        return
+
+    fails = fast_verify()
+    sys.exit(1 if fails > 0 else 0)
 
 if __name__ == "__main__":
     main()

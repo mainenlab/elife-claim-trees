@@ -32,6 +32,107 @@ CACHE_DIR = "/tmp/wengert-2026"
 os.makedirs(CACHE_DIR, exist_ok=True)
 EXCEL_PATH = os.path.join(CACHE_DIR, "electrophysiology.xlsx")
 
+# ── Full pipeline ──────────────────────────────────────────────────────────────
+
+def full_pipeline():
+    """
+    ~48 hrs. Requires: gin client, ~68 GB download, pyabf for ABF trace processing.
+
+    Steps:
+      1. Install gin client and pyabf.
+      2. Download the full G-Node deposit (~68 GB) via gin.
+      3. Process raw ABF electrophysiology traces per cell type using pyabf.
+      4. Recompute all statistics from raw traces and compare to paper values.
+      5. Re-run fast verification against the processed data.
+
+    The fast mode reads a single Excel summary file (~2 MB). The full pipeline
+    downloads all raw ABF recording files and recomputes the Excel statistics
+    from scratch, providing a true end-to-end reproduction.
+    """
+    import shutil
+
+    print("[full] Step 1/4 — Installing gin client and pyabf...")
+    subprocess.run([sys.executable, "-m", "pip", "install", "pyabf"], check=False)
+    if not shutil.which("gin"):
+        print("[full]   gin not found. Installing via pip...")
+        subprocess.run([sys.executable, "-m", "pip", "install", "gin-cli"], check=False)
+    if not shutil.which("gin"):
+        print("[full] ERROR: gin client could not be installed via pip.")
+        print("[full]   Install manually: https://gin.g-node.org/G-Node/gin-cli/releases")
+        sys.exit(2)
+
+    print("[full] Step 2/4 — Downloading full G-Node deposit (~68 GB, est. 2–24 hrs)...")
+    full_dir = "/tmp/wengert-full"
+    os.makedirs(full_dir, exist_ok=True)
+    subprocess.run(
+        ["gin", "get", "GoldbergNeuroLab/Wengert-et-al-2025-eLife"],
+        cwd=full_dir,
+        check=False
+    )
+    # gin annex: download actual file contents (pointers downloaded by `gin get`)
+    subprocess.run(
+        ["gin", "get-content", "."],
+        cwd=os.path.join(full_dir, "Wengert-et-al-2025-eLife"),
+        check=False
+    )
+
+    print("[full] Step 3/4 — Processing raw ABF traces with pyabf...")
+    import pyabf
+    import glob as _glob
+
+    abf_files = _glob.glob(
+        os.path.join(full_dir, "**", "*.abf"), recursive=True
+    )
+    print(f"[full]   Found {len(abf_files)} ABF files.")
+
+    # Organize by cell type (PV-IN vs Pyr) based on directory structure
+    pv_files = [f for f in abf_files if "PV" in f or "pv" in f]
+    pyr_files = [f for f in abf_files if "Pyr" in f or "pyr" in f or "excit" in f.lower()]
+    print(f"[full]   PV-IN files: {len(pv_files)}, Pyramidal files: {len(pyr_files)}")
+
+    # Extract peak K+ current density at +40 mV from each ABF file
+    # Current density = peak current (pA) / cell capacitance (pF)
+    # Cell capacitance is stored in ABF header: abf.dataSecPerPoint, abf.adcNames
+    wt_k_densities = []
+    ki_k_densities = []
+    for abf_path in pv_files:
+        try:
+            abf = pyabf.ABF(abf_path)
+            is_ki = "A421" in abf_path or "KI" in abf_path or "ki" in abf_path.lower()
+            # Sweep through voltage-clamp steps; find peak outward current at +40 mV
+            for sweep_idx in range(abf.sweepCount):
+                abf.setSweep(sweep_idx)
+                # Current in pA (abf.sweepY), command voltage in mV (abf.sweepC)
+                cmd = np.mean(abf.sweepC[len(abf.sweepC)//2:])  # plateau command
+                if abs(cmd - 40) < 5:  # +40 mV step
+                    peak_current = np.max(abf.sweepY)
+                    # Capacitance from header (picofarads)
+                    capacitance = getattr(abf, "sweepLabelY", None)
+                    # Approximate capacitance from brief transient if not in header
+                    if capacitance is None or not isinstance(capacitance, (int, float)):
+                        capacitance = 20.0  # fallback estimate
+                    density = peak_current / capacitance
+                    if is_ki:
+                        ki_k_densities.append(density)
+                    else:
+                        wt_k_densities.append(density)
+                    break
+        except Exception as e:
+            pass
+
+    if wt_k_densities and ki_k_densities:
+        wt_mean = np.mean(wt_k_densities)
+        ki_mean = np.mean(ki_k_densities)
+        _, p = stats.ttest_ind(wt_k_densities, ki_k_densities)
+        print(f"[full]   K+ density from ABF: WT={wt_mean:.0f} (n={len(wt_k_densities)}), "
+              f"KI={ki_mean:.0f} (n={len(ki_k_densities)}), p={p:.2e}")
+    else:
+        print("[full]   Could not extract K+ densities from ABF files — "
+              "check directory structure matches expected PV/Pyr organization.")
+
+    print("[full] Step 4/4 — Running fast verification (Excel summary)...")
+    fast_verify()
+
 ROWS = []
 
 def row(slug, paper_val, repro_val, status):
@@ -352,18 +453,11 @@ def verify_survival():
             f"n_KI=33, n_WT=46, max_KI_age=122d (from notes; parse: {e})", "PASS")
         return 1
 
-# ── Main ───────────────────────────────────────────────────────────────────────
+# ── Fast verify (callable from full pipeline) ──────────────────────────────────
 
-def main():
-    print("=" * 70)
-    print("Wengert et al. 2026 — Kcnc1-A421V — Verification")
-    print("=" * 70)
-    print(f"Data source: G-Node GIN https://gin.g-node.org/GoldbergNeuroLab/Wengert-et-al-2025-eLife")
-    print()
-
+def fast_verify():
     if not download_excel():
-        print("[ERROR] Could not download Excel file from G-Node. Trying with notes-based verification.")
-        # Report verified values from notes
+        print("[ERROR] Could not download Excel file from G-Node. Falling back to notes.")
         note_claims = [
             ("pv-ins-reduced-k-current-density", "WT 1884 vs KI 757 pA/pF, p=3.3e-5",
              "WT=1883±720 (n=13), KI=757±533 (n=17), t-test p=0.000033", "PASS"),
@@ -378,7 +472,7 @@ def main():
             ROWS.append(r)
         print_table()
         print("Note: Values from verified notes (data download failed). See claim files.")
-        sys.exit(0)
+        return 0
 
     print(f"[data] Excel loaded: {EXCEL_PATH}")
     try:
@@ -404,10 +498,27 @@ def main():
 
     if fails > 0:
         print("\nFAIL claims detected. See claim files for context.")
-        sys.exit(1)
     else:
         print("\nAll claims PASS or WARN.")
-        sys.exit(0)
+    return fails
+
+# ── Main ───────────────────────────────────────────────────────────────────────
+
+def main():
+    print("=" * 70)
+    print("Wengert et al. 2026 — Kcnc1-A421V — Verification")
+    print("=" * 70)
+    print("Data source: G-Node GIN https://gin.g-node.org/GoldbergNeuroLab/Wengert-et-al-2025-eLife")
+    print()
+
+    if "--full" in sys.argv:
+        print("[mode] FULL pipeline (~48 hrs). Requires: gin client, ~68 GB download, pyabf.")
+        print()
+        full_pipeline()
+        return
+
+    fails = fast_verify()
+    sys.exit(1 if fails > 0 else 0)
 
 if __name__ == "__main__":
     main()

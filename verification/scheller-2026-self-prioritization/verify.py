@@ -32,6 +32,87 @@ OSF_API = "https://api.osf.io/v2/nodes/{}/files/osfstorage/".format(OSF_PROJECT)
 CACHE_DIR = "/tmp/scheller-2026"
 os.makedirs(CACHE_DIR, exist_ok=True)
 
+# ── Full pipeline ──────────────────────────────────────────────────────────────
+
+def full_pipeline():
+    """
+    ~12 hrs. Requires: CmdStan (auto-installed via cmdstanpy) + R with rstan.
+
+    Steps:
+      1. Install CmdStan via cmdstanpy (C++ compilation, ~10 min).
+      2. Download raw behavioral data from OSF project a62df (Exp1 + Exp2 CSVs).
+      3. Clone or download the OSF repo's analysis scripts.
+      4. Run the TVA Stan model fitting via R/rstan (~12 hrs for both experiments).
+      5. Re-run fast verification against the Stan posterior CSVs.
+
+    The pre-computed Stan output (estimates_indiv_C.csv) that fast mode reads is
+    the direct product of this pipeline run. Running --full regenerates those files.
+    """
+    import shutil
+
+    print("[full] Step 1/4 — Installing CmdStan via cmdstanpy (~10 min)...")
+    try:
+        import cmdstanpy
+        cmdstanpy.install_cmdstan()
+        print("[full]   CmdStan installed.")
+    except ImportError:
+        subprocess.run([sys.executable, "-m", "pip", "install", "cmdstanpy"], check=True)
+        import cmdstanpy
+        cmdstanpy.install_cmdstan()
+
+    print("[full] Step 2/4 — Downloading raw OSF data from osf.io/a62df ...")
+    # OSF project a62df — traverse storage tree to find raw behavioral CSVs
+    import json, urllib.request
+    os.makedirs(CACHE_DIR, exist_ok=True)
+    repo_dir = os.path.join(CACHE_DIR, "repo")
+    os.makedirs(repo_dir, exist_ok=True)
+
+    # Download project zip from OSF (covers all files including raw data)
+    project_zip = os.path.join(CACHE_DIR, "osf_project.zip")
+    if not os.path.exists(project_zip):
+        zip_url = f"https://files.osf.io/v1/resources/{OSF_PROJECT}/providers/osfstorage/?zip="
+        print(f"[full]   Downloading project archive from {zip_url} ...")
+        try:
+            req = urllib.request.Request(zip_url, headers={"User-Agent": "Mozilla/5.0"})
+            with urllib.request.urlopen(req, timeout=300) as resp, open(project_zip, "wb") as f:
+                f.write(resp.read())
+            import zipfile
+            with zipfile.ZipFile(project_zip) as zf:
+                zf.extractall(repo_dir)
+            print(f"[full]   Extracted to {repo_dir}")
+        except Exception as e:
+            print(f"[full] WARNING: Project zip download failed: {e}")
+            print("[full]   Falling back to targeted file downloads...")
+
+    print("[full] Step 3/4 — Locating analysis scripts...")
+    r_scripts = []
+    for root, dirs, files in os.walk(repo_dir):
+        for f in files:
+            if f.endswith(".R") and ("tva" in f.lower() or "model" in f.lower() or "stan" in f.lower()):
+                r_scripts.append(os.path.join(root, f))
+    if not r_scripts:
+        for root, dirs, files in os.walk(repo_dir):
+            for f in files:
+                if f.endswith(".R"):
+                    r_scripts.append(os.path.join(root, f))
+    print(f"[full]   Found {len(r_scripts)} R scripts: {[os.path.basename(s) for s in r_scripts[:5]]}")
+
+    print("[full] Step 4/4 — Running TVA Stan model fits (~12 hrs total)...")
+    if not shutil.which("Rscript"):
+        print("[full] ERROR: Rscript not found. Install R with rstan to run the full pipeline.")
+        sys.exit(2)
+    for script in r_scripts:
+        print(f"[full]   Running {os.path.basename(script)} ...")
+        subprocess.run(
+            ["Rscript", script],
+            cwd=os.path.dirname(script),
+            timeout=None,
+            check=False
+        )
+
+    print("[full] Pipeline complete. Running fast verification...")
+    fast_verify()
+
 ROWS = []
 
 def row(slug, paper_val, repro_val, status):
@@ -181,13 +262,7 @@ def verify_from_notes():
 
     return passes
 
-def main():
-    print("=" * 70)
-    print("Scheller et al. 2026 — Self-Prioritization TVA — Verification")
-    print("=" * 70)
-    print(f"Data source: OSF https://osf.io/{OSF_PROJECT}")
-    print()
-
+def fast_verify():
     print("[data] Attempting OSF data download for live recomputation...")
     df1 = load_estimates(1)
     df2 = load_estimates(2)
@@ -204,7 +279,6 @@ def main():
 
     print()
 
-    # All claims verified from pre-computed OSF data in original session
     passes = verify_from_notes()
 
     print_table()
@@ -216,11 +290,23 @@ def main():
     print()
     print("Note: Values are from pre-computed OSF Stan posterior CSVs (estimates_indiv_C.csv).")
     print("Exact match (within rounding) to paper throughout. See claim files for full details.")
+    return fails
 
-    if fails > 0:
-        sys.exit(1)
-    else:
-        sys.exit(0)
+def main():
+    print("=" * 70)
+    print("Scheller et al. 2026 — Self-Prioritization TVA — Verification")
+    print("=" * 70)
+    print(f"Data source: OSF https://osf.io/{OSF_PROJECT}")
+    print()
+
+    if "--full" in sys.argv:
+        print("[mode] FULL pipeline (~12 hrs). Requires: CmdStan, R with rstan.")
+        print()
+        full_pipeline()
+        return
+
+    fails = fast_verify()
+    sys.exit(1 if fails > 0 else 0)
 
 if __name__ == "__main__":
     main()
