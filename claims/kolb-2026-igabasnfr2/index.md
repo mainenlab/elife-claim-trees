@@ -27,8 +27,8 @@ Tools paper describing iGABASnFR2, an improved genetically encoded GABA sensor. 
 | [igabasnfr2-13fold-expression-increase](igabasnfr2-13fold-expression-increase.md) | fig1c | moderate | unverified:no-data |
 | [igabasnfr2n-negative-going-variant](igabasnfr2n-negative-going-variant.md) | fig1c, fig1d | moderate | unverified:no-data |
 | [igabasnfr2-kinetics-rise-decay](igabasnfr2-kinetics-rise-decay.md) | fig2c, fig2d | strong | unverified:no-data |
-| [crystal-structure-pdb-9d57](crystal-structure-pdb-9d57.md) | fig3 | strong | unverified |
-| [igabasnfr2-cpgfp-rigid-on-gaba-binding](igabasnfr2-cpgfp-rigid-on-gaba-binding.md) | fig3a | strong | unverified |
+| [crystal-structure-pdb-9d57](crystal-structure-pdb-9d57.md) | fig3 | strong | verified |
+| [igabasnfr2-cpgfp-rigid-on-gaba-binding](igabasnfr2-cpgfp-rigid-on-gaba-binding.md) | fig3a | strong | unverified:partial |
 | [igabasnfr2-oncell-affinity-sevenfold](igabasnfr2-oncell-affinity-sevenfold.md) | fig4b | strong | unverified:no-data |
 | [igabasnfr2-single-exponential-kinetics](igabasnfr2-single-exponential-kinetics.md) | fig4c, fig4d | strong | unverified:no-data |
 | [igabasnfr2-2p-compatible](igabasnfr2-2p-compatible.md) | fig4e, fig4f | strong | unverified:no-data |
@@ -41,11 +41,11 @@ Tools paper describing iGABASnFR2, an improved genetically encoded GABA sensor. 
 
 | Status | Count | Claims |
 |:-------|:------|:-------|
-| verified | 1 | screening-scope-wet-lab-only (assessment) |
+| verified | 2 | screening-scope-wet-lab-only (assessment); crystal-structure-pdb-9d57 (PDB confirmed) |
+| unverified:partial | 1 | igabasnfr2-cpgfp-rigid-on-gaba-binding — GABA-bound structure confirmed; 0.25 Å RMSD requires apo iGABASnFR2 (not deposited) + sequence-independent structural aligner |
 | unverified:no-data | 12 | Quantitative performance and biological demonstration claims — require sensor constructs and specialized equipment |
-| unverified | 2 | crystal-structure-pdb-9d57, igabasnfr2-cpgfp-rigid-on-gaba-binding — computationally accessible via PDB 9D57 |
 
-**Note:** Analysis code on Zenodo (zenodo.17971100) covers figure generation from pre-measured source data deposited at zenodo.17971101. This allows reproduction of figures but not the underlying measurements. The primary reproduction blocker is that the sensor constructs and specialized instrumentation (stopped-flow spectrometer, Ti-Sapphire 2P system, retinal and in vivo preparation) are required for the measurements themselves. The two PDB-based claims (fig3) are computationally verifiable using PyMOL or ChimeraX without wet lab access.
+**Note:** Analysis code on Zenodo (zenodo.17971100) covers figure generation from pre-measured source data deposited at zenodo.17971101. This allows reproduction of figures but not the underlying measurements. The primary reproduction blocker is that the sensor constructs and specialized instrumentation (stopped-flow spectrometer, Ti-Sapphire 2P system, retinal and in vivo preparation) are required for the measurements themselves. PDB 9D57 is confirmed: iGABASnFR2+GABA, X-ray 2.60 Å, 6 chains, GABA (ABU) present in all chains. The RMSD 0.25 Å cpGFP rigidity claim requires structural comparison with an apo iGABASnFR2 that is not publicly deposited; the comparison structure 6DGV (iGABASnFR v1 precursor) has 501/534 residue differences from 9D57 and requires sequence-independent alignment to use as an apo proxy.
 
 ## Triplicate extraction notes (2026-03-30)
 

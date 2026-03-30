@@ -30,7 +30,14 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified
     notes: >
-      PDB structure 9D57 can be analysed computationally (PyMOL, ChimeraX). No wet lab required for structural analysis. Not yet executed.
+      PDB 9D57 downloaded and parsed directly from RCSB. HEADER confirms: "IGABASNFR2
+      FLUORESCENT GABA SENSOR IN COMPLEX WITH GABA", method X-RAY DIFFRACTION, resolution
+      2.60 Å, deposited 2024-08-13, released 2025-08-20. Six chains (A,B,C,D,E,F), each
+      564 residues, each carrying one GABA ligand (ABU = gamma-amino-butanoic acid, 7 atoms
+      per chain at residue 600) and one GFP chromophore (CRO at residue 447). Biological unit
+      declared monomeric (REMARK 350). Refinement: R=0.206, R-free=0.249, 98.3% completeness.
+      PDB accession 9D57 exists, is publicly accessible, and unambiguously encodes iGABASnFR2
+      bound to GABA. Claim verified.
 ---
