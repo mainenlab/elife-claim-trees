@@ -1,0 +1,42 @@
+---
+uuid: 3190bd67-2477-4174-b65f-7e70b8128535
+slug: fef-lo-nonsignificant-after-correction
+doi: ~
+claim: >
+  Frontal eye fields (FEF) and lateral occipital area (LO) show trends in the expected direction but do not survive Bonferroni correction for multiple comparisons in the parametric modulation analysis (LO: t(27)=0.67, p=0.767; FEF: t(27)=2.07, p=0.072), making IPS the only ROI significantly associated with foveal decoding after correction.
+claim-type: empirical
+concepts:
+  - frontal eye fields
+  - FEF
+  - lateral occipital area
+  - parametric modulation
+  - multiple comparisons
+  - negative result
+priority: 2026-03-30
+epistemic: moderate
+
+belongings:
+  - relation: supports
+    target: ips-candidate-driver-foveal-feedback
+
+assertions:
+  - paper-slug: kammer-2026-foveal-feedback
+    doi: ~
+    panel: fig4B
+    analysis: Lucakaemmer/FovealFeedback (GitHub)
+    dataset: https://doi.org/10.18112/openneuro.ds005933.v1.0.0
+    dataset-doi: 10.18112/openneuro.ds005933.v1.0.0
+    method: parametric modulation analysis (FSL FEAT), Bonferroni correction
+    confidence: moderate
+
+reproductions:
+  - agent: mainen-z
+    date: 2026-03-30
+    status: unverified:compute-infeasible
+    notes: >
+      This is a negative result claim — FEF and LO fail to survive correction. FEF shows a trend
+      (t(27)=2.07, p=0.072, uncorrected) that would survive without correction. Two-source
+      confidence (A and B); C (structure pass) notes this is exploratory and Bonferroni-corrected.
+---
+
+Note that FEF (p=0.072 uncorrected) is borderline: with three ROIs and Bonferroni correction, the threshold would be p<0.0167. FEF passes only if you ignore the correction. The paper appropriately reports this as non-significant after correction. This negative result matters because it makes the IPS finding more specific rather than a global brain-state effect.
