@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Art Intelligence — For Andrew Wolff</title>
+<title>Art Intelligence — System Description</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -24,70 +24,75 @@
     font-family: 'Inter', system-ui, -apple-system, sans-serif;
     color: var(--text);
     background: var(--bg);
-    line-height: 1.65;
+    line-height: 1.6;
     -webkit-font-smoothing: antialiased;
   }
 
   .page {
     max-width: 660px;
     margin: 0 auto;
-    padding: 2.6rem 1.5rem 2.8rem;
+    padding: 2.4rem 1.5rem 2rem;
   }
 
   /* ── Header ─────────────────────────────────────────────── */
   .doc-header {
-    padding-bottom: 1.2rem;
+    padding-bottom: 1rem;
     border-bottom: 2px solid var(--accent);
-    margin-bottom: 1.8rem;
+    margin-bottom: 1.6rem;
   }
 
   .doc-title {
-    font-size: 28pt;
+    font-size: 22pt;
     font-weight: 700;
     color: var(--accent);
     line-height: 1.1;
-    letter-spacing: -0.5px;
-    margin-bottom: 0.45rem;
+    letter-spacing: -0.3px;
+    margin-bottom: 0.35rem;
   }
 
-  .doc-for {
-    font-size: 9.5pt;
-    color: var(--muted);
-    font-weight: 500;
-    margin-bottom: 0.25rem;
-  }
-
-  .doc-team {
+  .doc-sub {
     font-size: 9pt;
     color: var(--muted);
+    font-style: italic;
+    margin-bottom: 0.2rem;
   }
 
-  /* ── Body ────────────────────────────────────────────────── */
-  .intro {
-    font-size: 11pt;
-    font-weight: 500;
-    line-height: 1.55;
-    color: var(--text);
-    margin-bottom: 1.7rem;
+  .doc-meta {
+    font-size: 8.5pt;
+    color: var(--muted);
   }
 
-  .block {
-    margin-bottom: 1.5rem;
+  /* ── Section labels ──────────────────────────────────────── */
+  .section {
+    margin-bottom: 1.1rem;
+  }
+
+  .section-label {
+    font-size: 7.5pt;
+    font-weight: 700;
+    font-variant: small-caps;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border-left: 3px solid var(--accent);
+    padding-left: 0.55rem;
+    margin-bottom: 0.4rem;
+    line-height: 1.4;
+    display: block;
   }
 
   p {
-    font-size: 10.5pt;
-    line-height: 1.68;
+    font-size: 9.5pt;
+    line-height: 1.62;
     color: var(--text);
     margin: 0;
   }
 
   /* ── Footer ──────────────────────────────────────────────── */
   .footer {
-    margin-top: 2rem;
-    padding-top: 0.75rem;
+    margin-top: 1.6rem;
+    padding-top: 0.6rem;
     border-top: 1px solid var(--border);
-    font-size: 8pt;
+    font-size: 7.5pt;
     color: var(--muted);
     text-align: center;
   }
@@ -95,7 +100,7 @@
   /* ── Print / PDF ─────────────────────────────────────────── */
   @page {
     size: A4;
-    margin: 2cm 2.4cm;
+    margin: 1.8cm 2.2cm;
   }
 
   @media print {
@@ -109,33 +114,38 @@
 <div class="page">
 
   <header class="doc-header">
-    <div class="doc-title">Art Intelligence</div>
-    <div class="doc-for">For Andrew Wolff &nbsp;·&nbsp; Beowolff Capital &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; Confidential</div>
-    <div class="doc-team">Zachary F. Mainen &nbsp;·&nbsp; Kyo Iigaya &nbsp;·&nbsp; Daniel McNamee &nbsp;·&nbsp; Stella Dong</div>
+    <div class="doc-title">Art Intelligence — System Description</div>
+    <div class="doc-sub">Zachary F. Mainen &nbsp;·&nbsp; Kyo Iigaya &nbsp;·&nbsp; Daniel McNamee &nbsp;·&nbsp; Stella Dong</div>
+    <div class="doc-meta">Beowolff Capital &nbsp;·&nbsp; March 2026 &nbsp;·&nbsp; Confidential</div>
   </header>
 
-  <p class="intro">We are ready to build a working art recommendation and attribution system. This is what it costs, what it delivers, and what you own when it's done.</p>
-
-  <div class="block">
-    <p>The ask is $50K over 18 months. On the data side: access to artnet Postgres, Artsy's behavioral dataset, and the ArtFacts knowledge graph — facilitated by Beowolff. One technical counterpart to coordinate access and review outputs. That is the entirety of what is required to deliver a working system.</p>
+  <div class="section">
+    <span class="section-label">Data Layer</span>
+    <p>Three primary sources are integrated. Artnet's Postgres database provides 20M+ transaction and catalogue records spanning 35 years: sale prices, provenance chains, exhibition histories, and artist biographies. Artsy's behavioral dataset contains 3M user profiles with engagement signals, search sequences, and purchase histories. ArtFacts' knowledge graph encodes gallery representation, institutional affiliations, and critical reception over time. These are resolved into a unified entity graph using four reference ontologies: Iconclass (44K iconographic concepts), Getty AAT (2.5M art and architecture terms), GeoNames for geographic disambiguation, and WordNet for lexical normalization. Entity resolution maps artworks, artists, galleries, collectors, and institutions across all three sources into a single queryable graph containing approximately 41M entities. Every node carries a provenance record indicating which source(s) supplied it and at what confidence.</p>
   </div>
 
-  <div class="block">
-    <p>Week 1: art preference scores for a sample of works. Month 6: full feature extraction pipeline, taste profiles for Artsy's active collector base. Month 12: working recommendation engine, attribution prototype. Month 18: deployable system with demonstrated ROI on recommendation-driven sales.</p>
+  <div class="section">
+    <span class="section-label">Feature Extraction</span>
+    <p>Visual features are extracted by a convolutional neural network architecture calibrated against human preference data from Iigaya et al. (2021, 2023). The model decomposes visual preference into three hierarchical components: low-level statistics — colour, texture, spatial frequency — encoded in layers 1–3; mid-level perceptual structure — composition, form, figure–ground relationships — in layers 4–8; and high-level semantic content — subject matter, iconographic category, stylistic lineage — in layers 9 and above. Each artwork receives a feature vector across all three levels. Semantic and market features — medium, period, provenance chain, price trajectory, institutional history — are extracted from the entity graph. The combined per-work feature space is approximately 2,048 dimensions.</p>
   </div>
 
-  <div class="block">
-    <p>HAAK — the platform — is open source. The model trained on partnership data is proprietary to this partnership. Competitors can use the platform. They cannot use what we build on your data. The attribution architecture — the mechanism by which data contributors are compensated when their data drives a sale — is a structural competitive advantage that grows with every artist and gallery that joins.</p>
+  <div class="section">
+    <span class="section-label">Taste Model</span>
+    <p>Individual collector taste profiles are fitted as weighted combinations of the three preference components using behavioral data from Artsy. Population-level analysis identifies three stable taste clusters established in Iigaya et al. (2023) that serve as basis vectors; individual profiles are coordinates in this space. Profiles are computed locally — behavioral data is not centralised at any point in the pipeline. Recommendation is nearest-neighbour retrieval in the combined feature–taste space, filtered by availability, price range, and institutional context. Model weights are versioned; each version is logged with a hash of the training corpus at the time of fitting.</p>
   </div>
 
-  <div class="block">
-    <p>First-mover position in a market that will be won by whoever owns the attribution layer. The art market has not yet decided what trust looks like at scale. We are building the infrastructure that defines it. The team — Mainen, Iigaya, McNamee, Dong — does not exist anywhere else in this market. Neither does this architecture. Both take years to replicate.</p>
+  <div class="section">
+    <span class="section-label">Attribution</span>
+    <p>Each training run logs which data contributed to model performance using a Data Shapley approximation (Beta-Shapley; Kwon &amp; Zou 2022). When a sale occurs following a recommendation, the system traces the recommendation to the model version that generated it, retrieves the Shapley values for that version's training corpus, and distributes a defined fraction of the sale price proportionally across contributing data sources. Distribution is executed via smart contract. Artists and galleries whose data contributed to a recommendation receive automatic, verifiable compensation. The contribution ledger — Filix — records every data deposit, model version, and downstream performance measurement, providing the audit trail that makes Shapley computation tractable and externally verifiable.</p>
   </div>
 
-  <p style="font-size: 10.5pt; line-height: 1.68; margin-top: 0.5rem;">The data call is the next step.</p>
+  <div class="section">
+    <span class="section-label">Timeline</span>
+    <p>Week 1: visual preference scores for a sample of 1,000 works using the CNN feature extractor alone — no behavioral data required. Month 6: full three-component feature extraction running on the artnet corpus, taste profiles fitted for Artsy's active collector base, preliminary recommendation outputs available for inspection. Month 12: working recommendation engine operating end-to-end, attribution prototype with documented Shapley values per contributing dataset. Month 18: deployed system with verified attribution payouts on a defined sample of recommendation-driven sales, audit trail complete.</p>
+  </div>
 
   <footer class="footer">
-    Confidential &nbsp;·&nbsp; Not for distribution
+    Confidential &nbsp;·&nbsp; Beowolff Capital &nbsp;·&nbsp; Not for distribution
   </footer>
 
 </div>
