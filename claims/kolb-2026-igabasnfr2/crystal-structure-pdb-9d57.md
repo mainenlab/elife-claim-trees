@@ -31,6 +31,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/kolb-2026-igabasnfr2/verify.py
     notes: >
       PDB 9D57 downloaded and parsed directly from RCSB. HEADER confirms: "IGABASNFR2
       FLUORESCENT GABA SENSOR IN COMPLEX WITH GABA", method X-RAY DIFFRACTION, resolution

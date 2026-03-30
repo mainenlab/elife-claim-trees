@@ -34,6 +34,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified:partial
+    script: verification/bouyeure-2026-fear-rsa/verify.py
     notes: >
       NeuroVault map downloaded (CSplus-minus_TFCE_nlog10p.nii.gz, collection 23032).
       Map stores -log10(p) values (TFCE corrected), threshold at 1.301 for p<0.05.

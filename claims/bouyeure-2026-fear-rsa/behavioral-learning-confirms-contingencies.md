@@ -34,6 +34,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified:partial
+    script: verification/bouyeure-2026-fear-rsa/verify.py
     notes: >
       Behavioral data downloaded from OSF (behaviordata_final.csv, n=24, 12288 rows). CS type
       hierarchy confirmed: overall means CS++(2.62) > CS+-(2.38) > CS-+(2.23) > CS--(1.58),

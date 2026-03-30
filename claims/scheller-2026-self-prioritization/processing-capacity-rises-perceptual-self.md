@@ -37,6 +37,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/scheller-2026-self-prioritization/verify.py
     notes: >
       Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Group-level
       ΔC_µ^{perceptual} = 0.0026/ms = 2.60 Hz (claim: 2.6 Hz, exact match). v_p change

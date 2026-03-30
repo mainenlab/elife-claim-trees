@@ -31,6 +31,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/gadeke-2026-guilt-insula/verify.py
     notes: >
       Pre-computed LMM table (LMM happiness on outcomes and responsibility) confirms the
       partnerWon:subjDecided_1 interaction — the guilt-effect term:

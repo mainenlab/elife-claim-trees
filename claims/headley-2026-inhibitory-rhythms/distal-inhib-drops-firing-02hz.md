@@ -40,6 +40,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/headley-2026-inhibitory-rhythms/verify.py
     notes: >
       Verified directly from Figure4a.csv in repo data/. Pre-computed firing rates (30
       trials each condition): control=5.5±0.86 Hz, dendritic (2×distal inhib)=0.2±0.15 Hz,

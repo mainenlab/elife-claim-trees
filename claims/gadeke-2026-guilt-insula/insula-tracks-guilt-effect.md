@@ -31,6 +31,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/gadeke-2026-guilt-insula/verify.py
     notes: >
       NIfTI peak extraction from deposited fMRIresults/outcome/guiltEffect_0p05FWE_SVC_aIns.nii
       (FWE-corrected SVC result, 2mm isotropic). After NaN-masking (592873 NaN voxels, 22

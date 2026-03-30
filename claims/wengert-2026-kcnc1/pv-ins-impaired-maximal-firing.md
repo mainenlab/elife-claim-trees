@@ -30,6 +30,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/wengert-2026-kcnc1/verify.py
     notes: >
       Data from G-Node Excel (PV-IN WT P16-21 Spiking, PV-IN A421V+ P16-21 Spiking sheets).
       Max AP counts per cell from F/I protocol (-100 to +900 pA, 20pA steps):

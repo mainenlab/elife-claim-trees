@@ -37,6 +37,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified:partial
+    script: verification/bouyeure-2026-fear-rsa/verify.py
     notes: >
       NeuroVault map downloaded (run2_previousvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032).
       Only 36 significant voxels survive FWE correction (threshold -log10(p)>1.301). Max -log10(p)=1.670

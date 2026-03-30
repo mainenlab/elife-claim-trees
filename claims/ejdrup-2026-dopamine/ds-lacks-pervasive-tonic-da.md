@@ -33,6 +33,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-29
     status: unverified:code-error
+    script: verification/ejdrup-2026-dopamine/verify.py
     notes: >
       Simulation completed successfully (1/1 run, 6103 steps on 100^3 grid, DS Vmax=6 µM/s).
       Script errored at 3D visualization step: AttributeError on Axes3D.w_xaxis (removed in
@@ -43,6 +44,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/ejdrup-2026-dopamine/verify.py
     notes: >
       Matplotlib fix applied (w_xaxis → xaxis, w_yaxis → yaxis, w_zaxis → zaxis in
       Figure 1-Fig 1a, d, e, f-Source code.py). Script ran to completion (6103 steps,

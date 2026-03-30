@@ -33,6 +33,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-29
     status: verified
+    script: verification/ejdrup-2026-dopamine/verify.py
     notes: >
       Figure 3-Fig 3k, l-Source code.py ran to completion with EXIT:0, no errors (111
       tqdm 100% completions = 39 Vmax values × 2 regions + init runs, on 50^3 grid).

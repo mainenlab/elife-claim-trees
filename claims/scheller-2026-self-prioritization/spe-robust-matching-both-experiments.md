@@ -35,6 +35,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/scheller-2026-self-prioritization/verify.py
     notes: >
       Verified from Correlation_Results.xlsx (OSF cross-exp folder, https://osf.io/a62df).
       Cohen's d computed from SPE column (Acc_Self - Acc_Other per participant):

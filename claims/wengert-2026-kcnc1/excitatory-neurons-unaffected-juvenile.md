@@ -31,6 +31,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/wengert-2026-kcnc1/verify.py
     notes: >
       K+ current density verified from G-Node Excel (Pyr WT P16-21 / Pyr A421V P16-21
       Potassium Current sheets). At +40mV: WT n=8 mean=343.4±205.7, KI n=10 mean=307.1±132.4

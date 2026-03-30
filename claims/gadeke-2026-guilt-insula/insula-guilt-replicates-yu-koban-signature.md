@@ -32,6 +32,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified:partial
+    script: verification/gadeke-2026-guilt-insula/verify.py
     notes: >
       Implemented the dot-product pattern expression approach from f_apply_YuKoban_guilt_signature_map.m
       in Python (nibabel). Loaded guiltEffectEachPartic.nii (4D, 40 participants) and

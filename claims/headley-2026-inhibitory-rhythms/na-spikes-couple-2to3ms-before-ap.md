@@ -35,6 +35,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/headley-2026-inhibitory-rhythms/verify.py
     notes: >
       Verified from pre-computed Figure2b.csv and Figure3b.csv in repo data/. Na STA
       peak times by apical compartment distance (Figure2b.csv): dist=0→-2 ms, dist=1→-3 ms,

@@ -36,6 +36,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/bouyeure-2026-fear-rsa/verify.py
     notes: >
       NeuroVault map downloaded (run2_currentvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032).
       7473 significant voxels (threshold -log10(p)>1.301, p<0.05 FWE). Peak at MNI (-9,10,42),

@@ -39,6 +39,7 @@ reproductions:
   - agent: mainen-z
     date: 2026-03-30
     status: verified
+    script: verification/scheller-2026-self-prioritization/verify.py
     notes: >
       Verified from estimates_indiv_C.csv (Exp2, OSF https://osf.io/a62df). Condition 3
       (social decision, no perceptual salience): v_p(self) = 23.55 Hz, v_r(other) = 24.91 Hz,
