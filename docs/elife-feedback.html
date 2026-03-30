@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claim Graphs for eLife Neuroscience Papers</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  /* ── Reset & base ─────────────────────────────────────────── */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent:   #2563eb;
+    --accent-lt:#dbeafe;
+    --text:     #111827;
+    --muted:    #6b7280;
+    --border:   #e5e7eb;
+    --bg:       #ffffff;
+    --row-alt:  #f9fafb;
+    --th-bg:    #f1f5f9;
+    --code-bg:  #f3f4f6;
+  }
+
+  html { font-size: 10.5pt; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── Page layout ─────────────────────────────────────────── */
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  /* ── Header block ────────────────────────────────────────── */
+  .doc-header {
+    padding-bottom: 2rem;
+    border-bottom: 2px solid var(--accent);
+    margin-bottom: 2.5rem;
+  }
+
+  .doc-title {
+    font-size: 22pt;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.25;
+    margin-bottom: 0.9rem;
+  }
+
+  .doc-authors {
+    font-size: 10pt;
+    font-weight: 500;
+    color: var(--text);
+    margin-bottom: 0.45rem;
+  }
+
+  .doc-authors span {
+    display: inline-block;
+    margin-right: 1.2em;
+  }
+
+  .doc-authors .affil {
+    font-weight: 400;
+    color: var(--muted);
+  }
+
+  .doc-meta {
+    font-size: 9.5pt;
+    font-style: italic;
+    color: var(--muted);
+  }
+
+  /* ── Section headings ────────────────────────────────────── */
+  h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: var(--accent);
+    border-left: 3px solid var(--accent);
+    padding-left: 0.75rem;
+    margin: 2.5rem 0 1rem;
+    line-height: 1.3;
+  }
+
+  h3 {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: var(--text);
+    margin: 1.6rem 0 0.5rem;
+    line-height: 1.4;
+  }
+
+  h4 {
+    font-size: 10.5pt;
+    font-weight: 600;
+    color: var(--muted);
+    margin: 1.2rem 0 0.4rem;
+  }
+
+  /* ── Paragraph & lists ───────────────────────────────────── */
+  p {
+    margin-bottom: 0.9rem;
+  }
+
+  ul, ol {
+    margin: 0.5rem 0 0.9rem 1.4rem;
+  }
+
+  li {
+    margin-bottom: 0.35rem;
+  }
+
+  hr.section-rule {
+    border: none;
+    border-top: 1px solid var(--border);
+    margin: 2.5rem 0;
+  }
+
+  /* ── Code spans ──────────────────────────────────────────── */
+  code {
+    font-family: 'SF Mono', 'Fira Code', 'Consolas', monospace;
+    font-size: 8.5pt;
+    background: var(--code-bg);
+    border-radius: 3px;
+    padding: 0.1em 0.35em;
+    color: #374151;
+  }
+
+  /* ── Status badges ───────────────────────────────────────── */
+  .badge {
+    display: inline-block;
+    font-size: 7.5pt;
+    font-weight: 600;
+    border-radius: 3px;
+    padding: 0.1em 0.5em;
+    letter-spacing: 0.02em;
+    vertical-align: middle;
+  }
+
+  .badge-verified   { background: #dcfce7; color: #166534; }
+  .badge-unverified { background: #fef9c3; color: #854d0e; }
+  .badge-failed     { background: #fee2e2; color: #991b1b; }
+  .badge-assessment { background: var(--accent-lt); color: var(--accent); }
+
+  /* ── Tables ──────────────────────────────────────────────── */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 1.2rem 0 1.5rem;
+    border-radius: 6px;
+    border: 1px solid var(--border);
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 9pt;
+  }
+
+  thead th {
+    background: var(--th-bg);
+    font-weight: 600;
+    text-align: left;
+    padding: 0.55rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    color: var(--text);
+    white-space: nowrap;
+  }
+
+  thead th.center { text-align: center; }
+
+  tbody tr:nth-child(even) { background: var(--row-alt); }
+  tbody tr:nth-child(odd)  { background: var(--bg); }
+
+  tbody td {
+    padding: 0.5rem 0.75rem;
+    border-bottom: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+
+  tbody tr:last-child td { border-bottom: none; }
+
+  tbody td.center { text-align: center; }
+  tbody td.num    { text-align: center; font-variant-numeric: tabular-nums; }
+
+  tbody td code {
+    font-size: 8pt;
+  }
+
+  .corpus-total {
+    font-size: 9pt;
+    color: var(--muted);
+    margin-top: 0.5rem;
+    padding: 0.6rem 0.75rem;
+    background: var(--row-alt);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+  }
+
+  .corpus-total strong { color: var(--text); }
+
+  /* ── Callout / aside ─────────────────────────────────────── */
+  .callout {
+    border-left: 3px solid var(--accent);
+    background: var(--accent-lt);
+    border-radius: 0 4px 4px 0;
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+    font-size: 9.5pt;
+  }
+
+  /* ── Footer ──────────────────────────────────────────────── */
+  .doc-footer {
+    margin-top: 3rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid var(--border);
+    font-size: 9pt;
+    color: var(--muted);
+    font-style: italic;
+  }
+
+  /* ── Print / PDF ─────────────────────────────────────────── */
+  @page {
+    size: A4;
+    margin: 2.5cm 3cm;
+
+    @bottom-left {
+      content: "Claim Graphs for eLife Neuroscience Papers · March 2026";
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 7.5pt;
+      color: #9ca3af;
+    }
+
+    @bottom-right {
+      content: counter(page);
+      font-family: 'Inter', system-ui, sans-serif;
+      font-size: 7.5pt;
+      color: #9ca3af;
+    }
+  }
+
+  @media print {
+    html { font-size: 10pt; }
+
+    .page {
+      max-width: none;
+      padding: 0;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    a[href]::after { content: none !important; }
+
+    h2 { page-break-after: avoid; }
+    h3 { page-break-after: avoid; }
+    p  { orphans: 3; widows: 3; }
+
+    .table-wrap { page-break-inside: avoid; }
+
+    thead { display: table-header-group; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ══════════════════════════════════════════════════════════
+       HEADER
+  ══════════════════════════════════════════════════════════ -->
+  <header class="doc-header">
+    <h1 class="doc-title">Claim Graphs for eLife Neuroscience Papers:<br>Findings from a 10-Paper Prototype</h1>
+    <p class="doc-authors">
+      <span><strong>Zach Mainen</strong> <span class="affil">Mainen Lab, Champalimaud Research, Lisbon</span></span>
+      <span><strong>Tim Behrens</strong> <span class="affil">Oxford</span></span>
+      <span><strong>Ken Harris</strong> <span class="affil">UCL</span></span>
+    </p>
+    <p class="doc-meta">Prepared for Damian Pattinson and Andy Collings (eLife) — March 2026</p>
+  </header>
+
+  <!-- ══════════════════════════════════════════════════════════
+       1. INTRODUCTION
+  ══════════════════════════════════════════════════════════ -->
+  <h2>1. Introduction</h2>
+
+  <p>A claim graph is a structured representation of what a paper asserts and on what grounds. The basic unit is the claim: a single declarative sentence asserting what one analysis showed, grounded in a specific figure panel. One analysis, one result, one data source. Each claim names the phenomenon, the direction and magnitude of the result, and the key statistics if the result is quantitative. Each claim carries a pointer to the data and the analysis script that transforms data into the result. And each claim carries explicit dependency edges to the claims it structurally requires — not by citation, but by logical necessity. If this claim would be undermined if that one were wrong, that dependency is made explicit.</p>
+
+  <p>The format is not a new theory of science. It is a precise operationalization of something peer reviewers already do informally. When a reviewer reads a paper and traces an argument back through its figures, looking for the weakest link, they are traversing a dependency graph. The claim format makes that graph explicit, names each node, and records its reproducibility status.</p>
+
+  <p>Panel-level granularity is the right level for this purpose. A paper-level reproducibility designation is nearly meaningless: a paper can be "reproducible" in the sense that one figure is reproducible while another is not, or that the main result holds while a supporting claim that structures the interpretation does not. Claim-level, conversely, tends to be too granular — individual statistical tests stripped of their analytical context lose the meaning that makes reproduction meaningful. Panel-level is the level at which analysis decisions are made, at which data are transformed into results, and at which peer review is most often exercised.</p>
+
+  <p>The dependency structure between claims carries editorial information that the paper's narrative does not directly surface. A paper's argument integrates its dependency structure into a rhetorical sequence designed for human readers: it foregrounds what is striking, backgrounds what is assumed, and presents conclusions before the methods that ground them. This is appropriate for human reading. It is also lossy in specific ways: assumptions that span many claims appear only in methods sections; structural features of the argument — that this claim is architecturally decoupled from that one, or that the headline finding depends on a parameter choice two dependency levels deep — are invisible in the narrative. The claim graph makes them visible.</p>
+
+  <p>The prototype applied this method to all 10 papers eLife provided. The present document reports what was found. It is not a proposal for how eLife should change its processes — it is a report from a field experiment, and the findings are what they are.</p>
+
+  <p>A note on the 3-agent extraction method: the method specification calls for three independent reading passes (Agent A reads results prose, Agent B reads figure captions, Agent C reads methods and code) before reconciliation. In this prototype, all three passes were performed by a single analyst, reading in the order specified and withholding prior pass outputs. This is not three independent analysts and should not be treated as such. The practical benefit of the three-pass structure — different reading angles surface different claims and reduce systematic blind spots — was preserved; the statistical independence was not.</p>
+
+  <hr class="section-rule">
+
+  <!-- ══════════════════════════════════════════════════════════
+       2. CORPUS
+  ══════════════════════════════════════════════════════════ -->
+  <h2>2. The Prototype Corpus</h2>
+
+  <p>The 10 papers span four research modalities and a substantial range of data types, computational requirements, and data-sharing practices.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th class="center">#</th>
+          <th>Paper (short title)</th>
+          <th>Type</th>
+          <th class="center">Claims</th>
+          <th class="center">Verified</th>
+          <th>Primary reproduction blocker</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="num">1</td>
+          <td>Rozak — NOVAS3D neurovascular pipeline</td>
+          <td>Computational / deep learning</td>
+          <td class="num">17</td>
+          <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
+          <td>GPU required for inference</td>
+        </tr>
+        <tr>
+          <td class="num">2</td>
+          <td>Gädeke — Insula guilt and responsibility</td>
+          <td>fMRI / behavioral</td>
+          <td class="num">18</td>
+          <td class="center"><span class="badge badge-unverified">0</span></td>
+          <td>MATLAB + SPM12 dependency throughout</td>
+        </tr>
+        <tr>
+          <td class="num">3</td>
+          <td>Kolb — iGABASnFR2 GABA sensor</td>
+          <td>Wet-lab tools</td>
+          <td class="num">15</td>
+          <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
+          <td>Sensor constructs and stopped-flow equipment</td>
+        </tr>
+        <tr>
+          <td class="num">4</td>
+          <td>Scheller — Self-prioritization TVA</td>
+          <td>Psychophysics / Bayesian</td>
+          <td class="num">14</td>
+          <td class="center"><span class="badge badge-unverified">0</span></td>
+          <td>Stan/R not yet executed (clear path)</td>
+        </tr>
+        <tr>
+          <td class="num">5</td>
+          <td>Bouyeure — Fear and reversal RSA</td>
+          <td>fMRI / RSA</td>
+          <td class="num">22</td>
+          <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
+          <td>BrainIAK searchlight compute; multi-language stack</td>
+        </tr>
+        <tr>
+          <td class="num">6</td>
+          <td>Headley — Inhibitory rhythms</td>
+          <td>Computational biophysics</td>
+          <td class="num">17</td>
+          <td class="center"><span class="badge badge-verified">9 (7 result + 2 assessment)</span></td>
+          <td>Not yet executed (clear path, pre-computed data)</td>
+        </tr>
+        <tr>
+          <td class="num">7</td>
+          <td>Wengert — KCNC1 epilepsy mouse</td>
+          <td>Wet-lab / genetics</td>
+          <td class="num">18</td>
+          <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
+          <td>Knock-in mouse line required</td>
+        </tr>
+        <tr>
+          <td class="num">8</td>
+          <td>Artiushin — Spider brain atlas</td>
+          <td>Anatomical atlas</td>
+          <td class="num">17</td>
+          <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
+          <td>BIL TIFF volumes (~tens of GB); atlas inspection required</td>
+        </tr>
+        <tr>
+          <td class="num">9</td>
+          <td>Ejdrup — Dopamine dynamics model</td>
+          <td>Computational</td>
+          <td class="num">20</td>
+          <td class="center"><span class="badge badge-verified">13 (9 result + 4 assessment)</span></td>
+          <td>matplotlib 3.8 API breakage; tissue-scale compute</td>
+        </tr>
+        <tr>
+          <td class="num">10</td>
+          <td>Kämmer — Foveal feedback fMRI</td>
+          <td>fMRI / MVPA</td>
+          <td class="num">15</td>
+          <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
+          <td>OpenNeuro data volume; MVPA compute</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="corpus-total"><strong>Total:</strong> 173 claims extracted across 10 papers. Approximately 28 verified (by execution or structural code inspection), approximately 125 unverified with clear reproduction paths not yet attempted, approximately 18 unverified:no-data due to wet-lab or atlas barriers, and 2 unverified:no-code.</p>
+
+  <p>The corpus was deliberately diverse. Computational papers, where the full analysis chain is software-embodied, sit alongside wet-lab tools papers, where the primary contribution is a physical artifact. fMRI papers with preregistered designs sit alongside a biophysical simulation paper parameterized from the literature. This range was the right choice: it surfaced issues that a computationally homogeneous corpus would not have.</p>
+
+  <hr class="section-rule">
+
+  <!-- ══════════════════════════════════════════════════════════
+       3. PAPER-BY-PAPER FINDINGS
+  ══════════════════════════════════════════════════════════ -->
+  <h2>3. Paper-by-Paper Findings</h2>
+
+  <h3>Ejdrup — Dopamine dynamics model <span style="font-weight:400;color:var(--muted)">(computational, 20 claims)</span></h3>
+
+  <p>This paper builds a reaction-diffusion model of striatal dopamine dynamics to explain the functional difference between dorsal and ventral striatum. The primary finding — that DAT Vmax is the dominant determinant of regional contrast — is well-supported by the parameter sweep in Figures 3B–G, and the claim <code>vmax-only-parameter-driving-regional-difference</code> is among the most strongly epistemic claims in the corpus. Thirteen of the 20 claims were verified in this prototype run, including 9 result claims and 4 assessment claims verified by code inspection.</p>
+
+  <p>What the claim graph exposed that the paper's narrative did not foreground is the architectural decoupling of the nanoclustering model from the main tissue model. The paper presents both as parts of a unified argument: DAT nanoclustering in VS creates a diffusion-limited clearance bottleneck, which contributes to explaining the lower effective Vmax in VS. The claim graph makes this coupling explicit as an assessment claim — <code>nanoclustering-model-varicosity-scale</code> — and records that the two models are architecturally separate, with no formal coupling in the code. The nanoclustering result supports the main model's interpretation but does not participate in its execution. A reader following the paper's prose would not identify where the connection is formal and where it is interpretive.</p>
+
+  <p>There is also a numerical discrepancy in <code>dat-clustering-greater-in-vs</code>. The paper states the dSTORM nanoclustering result is significant at p=0.012 (n=12/13). A prior reproduction attempt logged in the repository records p=0.029 with sample sizes reversed (n=13/12). This has not been resolved in the current deposit. It does not affect the qualitative conclusion, but it is a specific, checkable claim where the paper and a logged reproduction attempt do not agree.</p>
+
+  <p>Three claims are blocked by a matplotlib 3.8 API change (<code>Axes3D.w_xaxis</code> was renamed to <code>xaxis</code>). This is a one-line fix per script. The simulation code is correct; only the figure rendering is broken.</p>
+
+  <h3>Headley — Inhibitory rhythms <span style="font-weight:400;color:var(--muted)">(computational biophysics, 17 claims)</span></h3>
+
+  <p>This paper uses a multicompartmental NEURON model of a layer 5 pyramidal neuron to show that distal-dendritic inhibition at beta frequencies gates Ca²⁺/NMDA spike occurrence while perisomatic inhibition at gamma frequencies modulates action potential threshold — two distinct computational operations performed by two distinct circuit motifs. The model is a single cell, and the assessment claim <code>l5-model-single-cell-scope</code> records this explicitly: all 17 result claims are predictions of a single-cell model with no network dynamics or population-level effects.</p>
+
+  <p>The paper's synthesis claim <code>pv-gamma-sst-beta-correspondence</code> provides mechanistic grounding for the empirical association of PV+ interneurons with gamma and SST+ interneurons with beta. This is the claim the paper is most commonly cited for. In the dependency graph, it sits two levels above any directly verifiable result: it requires both <code>beta-gates-distal-apical-inputs</code> and <code>gamma-gates-proximal-basal-inputs</code>, each of which in turn requires multiple upstream claims about frequency-dependent gating. The claim is well-supported within the model's assumptions, but the path from verifiable simulation result to the PV/SST interpretation passes through a mechanistic analogy that the model does not directly demonstrate — interneuron types are not modeled; they are invoked as interpretive matches. The claim graph makes this interpretive step visible as a gap in the dependency chain.</p>
+
+  <p>Seven of the 15 result claims are verified from pre-computed CSV data in the repository; 7 remain unverified pending download of the Dryad oscillation frequency-sweep arrays; 1 synthesis claim is unverified:no-code. The reproduction path for the remaining claims is clear: pre-computed data arrays are in the Dryad deposit and the GitHub repository provides per-figure notebooks. The barrier is time, not access.</p>
+
+  <h3>Scheller — Self-prioritization <span style="font-weight:400;color:var(--muted)">(psychophysics, 14 claims)</span></h3>
+
+  <p>This psychophysics paper uses a temporal order judgment task and hierarchical Bayesian TVA modeling across two experiments (N=69, N=71) to show that arbitrary self-associations enhance attentional selection at the perceptual feature level — and, counterintuitively, that this advantage disappears when social decoding is required.</p>
+
+  <p>The paper has two main findings. The headline finding, which the title foregrounds, is self-prioritization: self-associated stimuli are processed faster in the perceptual decision condition (1.5 Hz advantage, HDI: −0.16 to 3.2 Hz). The more theoretically important finding, captured as <code>self-prioritization-absent-social-decision</code>, is the inversion: in the social decision condition there is no self-advantage, and other-associated stimuli show a processing rate advantage instead. This is the claim that constrains theories of self-prioritization — it means the effect is not about social salience per se but about the absence of explicit identity decoding. The claim graph captures both as first-class nodes in the dependency tree, but their relative theoretical weight is inverted relative to the paper's narrative emphasis. The headline finding is the less surprising one.</p>
+
+  <p>The reproduction path is clear. Data and notebooks are on OSF; the preregistration specifies the analysis plan. The primary dependency is Stan/R for the hierarchical Bayesian model.</p>
+
+  <h3>Kämmer — Foveal feedback <span style="font-weight:400;color:var(--muted)">(fMRI/MVPA, 15 claims)</span></h3>
+
+  <p>This paper uses a gaze-contingent fMRI paradigm to show that peripheral saccade targets, which disappear before fixation in 99.27% of trials, are nonetheless decodable from foveal V1 BOLD signal (57.43% decoding accuracy, t(27)=8.81, p&lt;0.001). The preregistered design is a structural strength: the analysis plan is fully documented before data collection, making the reproduction path completely unambiguous.</p>
+
+  <p>The claim <code>ips-candidate-driver-foveal-feedback</code> is classified as <span class="badge badge-unverified">unverified:no-code</span>. From the available materials, it is unclear whether the IPS driver claim is supported by a functional connectivity analysis reported in the paper or whether it is an inference drawn in the discussion. If the latter, it is a discussion claim masquerading as a result claim — a distinction the claim graph makes explicit by requiring a code pointer. This was not resolvable in the initial prototype pass, which relied on HTML fetching; the JATS XML re-extraction subsequently confirmed from the Results section that the IPS analysis is fully reported with statistics. The claim has accordingly been updated to <span class="badge badge-unverified">unverified:compute-infeasible</span>.</p>
+
+  <p>Five of the seven claims are <span class="badge badge-unverified">unverified:compute-infeasible</span>. The standard Python neuroimaging stack (nilearn, sklearn) is available; the bottleneck is the OpenNeuro data download volume and MVPA compute time across cross-validation folds.</p>
+
+  <p>The re-extraction added the assessment claim <code>preregistration-submitted-after-manuscript</code>, verified by OSF timestamps. The preregistration was submitted after the manuscript had been prepared — a detail that does not appear in the paper's description of its preregistered design. This changes the evidential status of the assessment claim <code>preregistered-design-validates-mvpa</code>, which was initially classified as <span class="badge badge-verified">verified:strong</span> on the grounds that preregistration fully constrains the analysis plan. That classification has been downgraded to <span class="badge badge-verified">verified:moderate</span>. The analysis plan is documented, and the preregistration does match the reported analysis — but the protection preregistration affords against post-hoc analysis choices derives from the preregistration preceding data collection and analysis. When the preregistration is submitted after the manuscript, the documentation value is preserved while the chronological protection is not. Reviewers reading that the paper has a preregistered design would normally treat this as strong evidence against HARKing; the OSF timestamp removes that inference. The analysis may be exactly what was planned before data collection — there is no evidence of irregularity — but the claim graph cannot record that on the basis of the preregistration alone, and the epistemic weight is adjusted accordingly.</p>
+
+  <h3>Wengert — KCNC1 epilepsy mouse <span style="font-weight:400;color:var(--muted)">(wet-lab, 18 claims)</span></h3>
+
+  <p>This paper generates and characterizes the Kcnc1-A421V/+ knock-in mouse model. The primary claims require this specific mouse line — its generation is the contribution, and the measurements (electrophysiology, survival curves, immunostaining) require both the animal and appropriate equipment.</p>
+
+  <p>The claim <code>excitatory-neurons-unaffected-juvenile</code> warrants particular attention. In a disease model paper, the specificity claim — that the phenotype is restricted to inhibitory neurons — is as important as the positive findings about those neurons. It is the claim that justifies the conclusion of selective inhibitory dysfunction. It is also the least scrutinized, because absence-of-effect claims in heterozygous models are particularly sensitive to statistical power, and the paper's primary power calculations were almost certainly designed around the positive findings in PV interneurons. The claim graph assigns this claim <code>moderate</code> epistemic weight rather than <code>strong</code>, reflecting the asymmetry between detecting an effect and confirming its absence.</p>
+
+  <p>G-Node contains the raw electrophysiology traces, which would allow statistical figure reproduction from deposited data. But reproducing figures from deposited data is not the same as re-measuring the phenotype. The claim graph records both the accessibility of deposited data and the nature of what it does and does not enable.</p>
+
+  <h3>Bouyeure — Fear and reversal RSA <span style="font-weight:400;color:var(--muted)">(fMRI/RSA, 22 claims)</span></h3>
+
+  <p>This paper uses fMRI and representational similarity analysis across a multi-day fear conditioning paradigm to show that reversal learning employs two simultaneous representational strategies: generalization for newly threatening cues, and item-specificity for cues whose threat value changed.</p>
+
+  <p>The most specific predictive claim in the paper — <code>pfc-context-specificity-predicts-renewal</code> — is the claim that individual differences in PFC context-specificity during reversal predict subsequent fear renewal at test. This is the paper's most informative finding in the sense of most constraining: it links a neural measurement during learning to behavior after learning, and it makes a directional individual-differences prediction. It is also the claim that sits behind the most computationally inaccessible analysis node in the paper: the LSS beta series estimation that precedes the RSA searchlight is the most expensive step in the pipeline, and it must be completed before any of the RSA results can be computed. NeuroVault pre-computed maps are available, which would allow figure reproduction without re-running the searchlight — but the individual-differences prediction requires individual data, not group maps.</p>
+
+  <p>The assessment claim <code>rsa-roi-derived-from-searchlight</code> surfaces a structural feature that the narrative does not foreground. The ROIs used in Figures 4B and 5D are derived from the same searchlight analysis conducted on the same dataset — a procedure known as double dipping or circularity of ROI selection. The searchlight identifies regions with significant pattern similarity; subsequent RSA analyses in those same regions using the same data then inherit that significance by construction. FDR correction across voxels corrects for multiple comparisons in the searchlight, but it does not correct for the selection bias introduced by using searchlight-identified ROIs for confirmatory RSA in the same participants. All result claims downstream of Figures 4B and 5D depend on this assessment node. The pattern similarity results in those figures are not independent tests of the RSA hypotheses — they are confirmations in regions pre-selected to show the effect. This is a common analysis pattern in fMRI RSA research and does not invalidate the paper's findings, but it does constrain what those findings demonstrate: the effect is real in these regions, in this sample; whether it would replicate in an independently selected ROI in a new sample is an open question the current design cannot answer.</p>
+
+  <h3>Gädeke — Guilt and insula <span style="font-weight:400;color:var(--muted)">(fMRI/behavioral, 18 claims)</span></h3>
+
+  <p>This fMRI paper studies the neural basis of interpersonal guilt through a social monetary decision task. The analysis chain is documented in detail: the GitHub repository maps each MATLAB script to a figure, behavioral data are in <code>.mat</code> files, and pre-computed group NIfTI results enable figure reproduction without re-running first-level GLMs.</p>
+
+  <p>All eight claims are unverified because the primary analysis environment is MATLAB/SPM12. There is no Python path. The pre-computed results enable figure reproduction from processed data, but the complete analysis chain — from behavioral <code>.mat</code> files through computational guilt model to first-level GLM — requires MATLAB. This is a MATLAB dependency, not a data availability problem.</p>
+
+  <h3>Rozak — NOVAS3D pipeline <span style="font-weight:400;color:var(--muted)">(deep learning, 17 claims)</span></h3>
+
+  <p>This paper presents a deep learning pipeline for volumetric vessel segmentation. The contribution is the pipeline itself; the quantitative claims (24 ± 28% vessel radius heterogeneity, 4% efficiency increase, 152 ± 65% assortativity increase) are measurements from the pipeline applied to a specific dataset and mouse model.</p>
+
+  <p>The assessment claim <code>dl-model-scope-single-pipeline</code> is the most important node in the dependency graph. All result claims are conditional on the pipeline having been trained and applied to a specific preparation (Thy1-ChR2-YFP, optogenetic stimulation, 6–12 month old mice). The claims are therefore not generalizable to other preparations without additional validation. This scope constraint appears in the methods but is not foregrounded in the abstract. The claim graph makes it a first-class node.</p>
+
+  <p>The re-extraction added <code>responder-threshold-2sd-untested</code> as an assessment claim. The paper classifies vessels as responders using a 2×SD threshold applied to baseline variability. All quantitative spatial claims — the 4% efficiency increase, the 152 ± 65% assortativity increase, the comparisons between dilations and constrictions — and all downstream network biology findings are conditional on this threshold. The paper includes a sensitivity analysis in the appendix, but it is qualitative: it notes that the pattern of results is preserved at alternative thresholds without providing quantitative comparison across thresholds. The assessment claim records that the threshold has not been tested quantitatively. This propagates epistemic uncertainty upward through every result claim that depends on the responder classification, which is the majority of the paper's quantitative spatial findings. The effect is not that the results are wrong — it is that their robustness to the central threshold choice has not been formally demonstrated.</p>
+
+  <h3>Kolb — iGABASnFR2 sensor <span style="font-weight:400;color:var(--muted)">(wet-lab tools, 15 claims)</span></h3>
+
+  <p>This paper presents iGABASnFR2, an improved GABA sensor resulting from high-throughput mutagenesis screening of 3,947 variants. The primary claims require the sensor constructs and specialized equipment (stopped-flow kinetics, two-photon spectroscopy). Zenodo deposits contain the source data for figure reproduction from pre-measured traces, but not the measurements themselves.</p>
+
+  <p>The assessment claim <code>screening-scope-wet-lab-only</code> is the most important and most immediately verifiable node: it records that the reproduction barrier is material, not informational. Source data are available. Code is available. What is not available is the capacity to perform the measurements. This distinction — data availability versus measurement availability — is normally invisible in print. The claim graph makes it explicit.</p>
+
+  <h3>Artiushin — Spider brain atlas <span style="font-weight:400;color:var(--muted)">(anatomical atlas, 17 claims)</span></h3>
+
+  <p>This paper describes a 3D immunofluorescence atlas of the <em>Uloborus diversus</em> synganglion. The claims are anatomical observations — neuropil identification, neurotransmitter immunoreactivity patterns, novel structures. Verification means atlas inspection, not analysis re-execution.</p>
+
+  <p>The claim <code>protocerebral-bridge-candidate-central-complex</code> is assigned <code>weak</code> epistemic weight because it is a homology interpretation: the paper proposes that a structure in the spider brain is a candidate homolog of the insect protocerebral bridge. This interpretation requires comparative neuroanatomy expertise that lies outside the usual reproducibility framework. The claim graph records it as a first-class claim with appropriate epistemic weight, rather than folding it into the paper's narrative framing.</p>
+
+  <hr class="section-rule">
+
+  <!-- ══════════════════════════════════════════════════════════
+       4. CROSS-CORPUS PATTERNS
+  ══════════════════════════════════════════════════════════ -->
+  <h2>4. Cross-Corpus Patterns</h2>
+
+  <h3>Three reproducibility tiers</h3>
+
+  <p>The 10 papers fall into three tiers based on the structural nature of their reproduction barrier, not on the quality of their data-sharing.</p>
+
+  <p><strong>Tier 1</strong> (papers 4, 6, 9) — computational papers with clear reproduction paths. All three have code in GitHub, data in standard deposits, and pre-computed arrays that allow plotting without re-running expensive simulations. Paper 9 (Ejdrup) achieved the highest verification count in the corpus: 13 of 20 claims verified. The remaining barriers are a one-line matplotlib fix and compute time. Paper 6 (Headley) has all pre-computed data available on Dryad; the barrier is execution time. Paper 4 (Scheller) has all data on OSF and a preregistered analysis; the barrier is Stan/R environment setup. All three satisfy eLife's data availability requirement — and in all three, that requirement is genuinely met in the sense that the data needed to reproduce the figures is accessible.</p>
+
+  <p><strong>Tier 2</strong> (papers 1, 2, 5, 10) — fMRI and deep learning papers where figure reproduction from pre-computed outputs is feasible but full re-analysis is blocked by MATLAB, GPU requirements, or data volume. Paper 2 (Gädeke) requires MATLAB/SPM12 throughout; pre-computed NIfTI results enable figure reproduction but not analysis chain reproduction. Papers 5 and 10 require compute-intensive MVPA pipelines, but NeuroVault and standard Python stacks make figure reproduction tractable. Paper 1 requires GPU inference, but a pre-trained model and Tutorial notebook provide a clear path. In all four, the data availability statement accurately describes what was deposited. What varies is whether the deposited materials enable re-analysis versus figure reproduction, and whether the required compute environment is broadly accessible.</p>
+
+  <p><strong>Tier 3</strong> (papers 3, 7, 8) — wet-lab and atlas papers where the primary reproduction barrier is material rather than informational. Paper 3 (Kolb) requires sensor constructs and specialized optical equipment. Paper 7 (Wengert) requires a knock-in mouse line. Paper 8 (Artiushin) requires large-scale confocal volumes. All three deposit data and code — the deposited data allow figure reproduction from pre-measured traces, and in Wengert's case G-Node contains raw electrophysiology enabling statistical figure reproduction. The claim graph is the first thing that makes visible the difference between "data available" and "primary phenomenon re-measurable."</p>
+
+  <h3>Data availability and executable analysis are not the same</h3>
+
+  <p>All 10 papers satisfy eLife's data availability requirement at the level of the data availability statement. In 4 of 10 papers, that satisfaction is genuine in the strongest sense: the data are accessible, the code runs, and the figures can be reproduced. In 3 of 10 papers, the data are accessible and the deposited traces allow figure and analysis reproduction, but re-collection of primary measurements would require equipment the statement does not mention. In the remaining 3, reproduction of primary claims requires compute infrastructure (GPU, MATLAB, MVPA pipelines) that the statement also does not mention. These are distinct situations. They currently look identical in print — both appear as "data available on Zenodo" or equivalent.</p>
+
+  <p>This is not a criticism of any paper. It is a consequence of the current data availability statement format, which records where data are deposited but not what the data enable. A statement that a dataset is on Zenodo answers the question "was the data deposited?" It does not answer "can I reproduce Figure 4 from this deposit?" The two questions have different answers in most papers in this corpus.</p>
+
+  <h3>Assessment claims as an invisible claim type</h3>
+
+  <p>Every paper in the corpus contains claims about its own scope, parameterization, and analytical assumptions that function as claims but do not appear as such. These are what the method calls assessment claims: structural properties of models, analytical frameworks, or scope delimitations that downstream result claims depend on.</p>
+
+  <p>Assessment claims share two properties that make them important. First, they are consistently verifiable: they can be confirmed by reading the code, the methods section, or the preregistration. Unlike result claims, which may require data, specialized equipment, or significant compute, assessment claims are almost always accessible. Second, they are almost always present: every paper in this corpus had at least one assessment claim that, once explicit, changed what a reader could know about the downstream results.</p>
+
+  <p>Across 10 papers, 14 assessment claims were extracted and 13 were verified (by code inspection, preregistration inspection, or methods reading). This 93% verification rate is the highest of any claim type in the corpus, and it holds regardless of paper type — wet-lab, computational, or fMRI. Assessment claims are a universal and consistently accessible claim type that is currently invisible in the published record.</p>
+
+  <h3>The narrative hiding pattern</h3>
+
+  <p>In 9 of 10 papers, the claim graph exposed a structural feature that the prose did not foreground. The cases are worth enumerating because the pattern is consistent and not attributable to any deficiency in the specific papers.</p>
+
+  <p>In Ejdrup, the architectural decoupling of the nanoclustering model. In Headley, the interpretive gap between simulation result and PV/SST interneuron correspondence. In Scheller, the inversion of narrative emphasis — the null result in the social decision condition is more theoretically important than the positive result in the perceptual decision condition. In Kämmer, the ambiguity of the IPS driver claim's evidential grounding — and, from the re-extraction, the post-manuscript preregistration timestamp, which changes the protection that "preregistered design" affords. In Wengert, the epistemic asymmetry of the excitatory-sparing claim. In Bouyeure, the position of the individual-differences prediction behind the most compute-intensive analysis node — and, from the re-extraction, the double-dipping structure of the searchlight-derived ROIs used in Figures 4B and 5D. In Rozak, the absence of a quantitative sensitivity analysis for the 2×SD responder threshold that conditions all spatial and network biology claims.</p>
+
+  <p>That is 9 of 10 papers with structural features the claim graph surfaces that the narrative did not foreground. The one exception is Kolb, where the primary assessment claim is about material barriers to reproduction rather than about an analytical choice or structural gap in the argument.</p>
+
+  <p>These are not failures of those papers. Narrative writing integrates argument structure into a rhetorical sequence — it foregrounds what is striking, sequences results for readability, and presents conclusions before their grounds. This is appropriate for human readers. It is also why the structural features a claim graph reveals are not visible in the paper: they were suppressed in the service of a coherent argument. The claim graph does not improve the papers. It makes a different kind of structure visible.</p>
+
+  <hr class="section-rule">
+
+  <!-- ══════════════════════════════════════════════════════════
+       5. WHAT THE METHOD LEARNED ABOUT ITSELF
+  ══════════════════════════════════════════════════════════ -->
+  <h2>5. What the Method Learned About Itself</h2>
+
+  <p>Six methodological issues arose during the corpus run and were resolved during processing. They are documented here not as limitations to disclaim but as findings about papers and how they work.</p>
+
+  <p><strong>Issue 1: Assessment claims need their own status vocabulary — and their existence as a claim type is itself a finding.</strong> The method initially had no clear way to classify a claim verified by reading code rather than running it. The fix was simple: assessment claims are <span class="badge badge-verified">verified</span> when inspection confirms the structural property, with a note that verification was by code reading rather than execution. But the necessity of this fix revealed something more fundamental: papers contain a large class of structural commitments that are checkable by code inspection, consistently present, and currently invisible in publication. Making them first-class claims changes what peer review can address.</p>
+
+  <p><strong>Issue 2: "Unverified" is not a status — it is an absence of status.</strong> The method initially used bare <span class="badge badge-unverified">unverified</span> as a catch-all. During processing it became clear that <span class="badge badge-unverified">unverified</span> conceals more than it reveals: <code>unverified:no-data</code>, <code>unverified:no-code</code>, <code>unverified:code-error</code>, <code>unverified:compute-infeasible</code>, and <code>unverified</code> (not yet attempted) are editorially different. The full status vocabulary matters because each status implies different remedies: a <code>no-data</code> claim is addressed by deposition, a <code>code-error</code> claim by a software fix, a <code>compute-infeasible</code> claim by pre-computed arrays.</p>
+
+  <p><strong>Issue 3: Visualization code breaks differently from analysis code — the distinction is editorially meaningful.</strong> In Ejdrup, three claims were blocked by a matplotlib 3.8 API change that affected only the 3D figure rendering code, not the simulation. The underlying simulation outputs are reproducible; the figure generation is not. A code error in the visualization step should not be treated as a failed analysis.</p>
+
+  <p><strong>Issue 4: "Verification" is not one act — it depends on claim type.</strong> For result claims in computational papers, verification means re-executing the analysis and comparing output to figure. For assessment claims, it means structural code inspection. For anatomical atlas claims, it means atlas inspection. The method initially had a single verification concept. The atlas paper (Artiushin) forced explicit recognition that verification is a family of acts, and the reproduction block should specify which act was performed.</p>
+
+  <p><strong>Issue 5: HTML pages truncate under automated fetching; eLife's JATS XML is the right programmatic interface.</strong> eLife article HTML pages truncated during automated retrieval in this prototype — results sections, figure captions beyond approximately Figure 2, and methods sections were unavailable via HTML fetch. eLife's JATS XML CDN endpoint returns complete, machine-readable documents and is the correct interface for programmatic access to article content. The method was updated accordingly. The long-term recommendation: use eLife's JATS XML CDN as the primary extraction interface.</p>
+
+  <p><strong>Issue 6: The wet-lab/atlas ceiling is material, not informational — the claim graph makes this visible rather than solving it.</strong> Papers 3, 7, and 8 have primary measurements that cannot be re-collected without the physical sensor constructs, the knock-in mouse, or the confocal microscope. The deposited data allow figure and analysis reproduction from the deposit, which is the standard applied here. What the deposit cannot provide is the capacity for independent re-measurement. A data availability statement that says "source data available on Zenodo" conceals this distinction. An assessment claim that says "all primary claims require sensor constructs and specialized fluorescence equipment" makes it first-class and visible.</p>
+
+  <hr class="section-rule">
+
+  <!-- ══════════════════════════════════════════════════════════
+       6. IMPLICATIONS FOR ELIFE'S EDITORIAL PROCESS
+  ══════════════════════════════════════════════════════════ -->
+  <h2>6. Implications for eLife's Editorial Process</h2>
+
+  <p>The findings above suggest four questions for eLife to consider. These are offered as genuine questions, not recommendations. eLife may have editorial reasons — practical, policy, or community-relations — to answer any of them differently than the prototype suggests.</p>
+
+  <p><strong>Could submission require a structured claim table in addition to a prose data availability statement?</strong> The current data availability statement records where data were deposited. A structured claim table — panel, data deposit DOI, script name, compute requirements, feasibility flag — would record what the deposited data enable. The two answers are not the same, and in 6 of the 10 papers in this corpus they differ in ways that are editorially relevant. A structured table would not require authors to do more work: it would require them to make explicit what they already know about their own data and code.</p>
+
+  <p><strong>Should eLife distinguish between figure reproduction from deposited traces and independent re-measurement?</strong> In 5 of the 10 papers, deposited data enable figure reproduction from pre-processed or pre-computed outputs without enabling re-analysis from raw data or re-measurement from scratch. In 3 papers (the Tier 3 cases), deposited data enable figure reproduction from pre-measured traces but not the primary measurements. These are different levels of openness, and they currently look identical in print.</p>
+
+  <p><strong>For computational papers where reproduction is part of the contribution: should container specifications be required rather than environment files?</strong> In this corpus, Papers 6, 4, and 9 — the Tier 1 papers — each had a conda environment file. In Paper 9, the matplotlib breakage was precisely a version incompatibility that a container specification would have prevented. A Docker or Singularity container provides a reproducible environment by definition, rather than a best-effort specification. For papers where the computational environment is the artifact — pipeline papers, simulation papers — the case for containers is stronger.</p>
+
+  <p><strong>Should peer review surface claims that rest on discussion reasoning rather than reported analysis?</strong> The Kämmer paper's IPS driver claim is classified <span class="badge badge-unverified">unverified:no-code</span> because it could not be determined whether it is supported by a reported functional connectivity analysis or is an inference from the discussion. This distinction — reported analysis versus discussion inference — is meaningful for what a reader should believe. Asking reviewers to flag claims in this category is a modest change to review guidance that would surface a class of problem currently invisible in peer review.</p>
+
+  <hr class="section-rule">
+
+  <!-- ══════════════════════════════════════════════════════════
+       7. WHAT A CLAIM-READY PAPER LOOKS LIKE
+  ══════════════════════════════════════════════════════════ -->
+  <h2>7. What a Claim-Ready Paper Looks Like</h2>
+
+  <p>Two papers in the corpus most closely approach what a claim-ready submission would require: Kämmer (paper 10) and Headley (paper 6).</p>
+
+  <p>Kämmer's preregistered design is the single most useful structural feature in the corpus for claim extraction. The preregistration specifies the analysis plan, the hypothesis, and the analysis decisions, and the correspondence between the preregistration and the reported analyses is exact — there is no question about which analysis was the primary one, whether any parameters were adjusted after seeing the data, or whether the reported figures represent the pre-specified tests. The preregistration allowed the assessment claim <code>preregistered-design-validates-mvpa</code> to be classified as <span class="badge badge-verified">verified:moderate</span> by inspection. The ambiguity of the IPS claim is the exception that proves the rule: because everything else is preregistered, the one unregistered claim stands out.</p>
+
+  <p>Headley's GitHub repository provided a mapping from notebook to figure, a conda environment specification, pre-computed data on Dryad, and documentation in the README sufficient to assign every claim to a panel and a code path without reading the full paper. The reproduction path was clear at code inspection, before any execution. What would get Headley from "clear path" to "executed" is straightforward: the environment specification would need to be hardened, and the Dryad deposit would need a brief README explaining which data file corresponds to which figure.</p>
+
+  <p>What a claim-ready author would need to add to either paper is modest. A structured claim table — ten to twenty rows, one per panel, with a data pointer and a script name — would answer the questions that took the most time in this prototype. For most papers, the answers already exist in the GitHub README or in the methods section; the structured table would consolidate them. The incremental authorial effort is small; the information created is substantial.</p>
+
+  <hr class="section-rule">
+
+  <!-- ══════════════════════════════════════════════════════════
+       8. INTEGRATION WITH THE ELIFE READING EXPERIENCE
+  ══════════════════════════════════════════════════════════ -->
+  <h2>8. Integration with the eLife Reading Experience</h2>
+
+  <p>The standalone site demonstrates the concept. The practical question for eLife is how the claim graph enters the reading experience — whether it requires a reader to navigate away from the article, or whether it can be present alongside it. Three integration models exist, each requiring a different level of eLife involvement.</p>
+
+  <p><strong>Reader-installed extension.</strong> A browser extension that detects eLife article URLs and injects a collapsible claim graph panel into the article page requires no eLife involvement at all. This is available today for any reader who installs it. It provides a proof of concept for what integrated reading looks like. It does not scale to readers who do not install extensions, and it is not a partnership in any meaningful sense. Its value is demonstrative, not distributional.</p>
+
+  <p><strong>Embedded widget.</strong> eLife includes a lightweight script tag or iframe on article pages for papers that have associated claim graphs. The panel renders inline — collapsible, sitting between abstract and introduction, or as a sidebar — without the reader leaving the article. This requires minimal eLife engineering: one script include per article, conditional on a claim graph existing for that paper. The claim graph site serves the data; eLife controls the placement, the visual integration, and the decision about which papers carry the widget. This is the concrete near-term proposal — what eLife could trial with the ten papers in this corpus without committing to any policy or infrastructure change. Authors of those papers would know their claim graphs are being surfaced to real readers; eLife would have a real-traffic test of whether readers engage with the panel; and the entire trial is reversible by removing a script tag.</p>
+
+  <p><strong>Native integration.</strong> Claim tables become part of the submission and publication record. eLife stores claim data in their own infrastructure, renders claim graphs natively in their article template, and surfaces claim status as part of the editorial record. This requires three changes that the embedded widget does not: a policy change (structured claim table required at submission), an editorial workflow change (reviewers engage with the claim table as part of their assessment), and engineering investment (claim data in eLife's own storage and rendering pipeline). It is also the only integration model that creates the feedback loop between submission, review, and publication that makes claim graphs editorially valuable rather than retrospective annotations.</p>
+
+  <p>The embedded widget is what this document asks for. It is also where the conversation is pointing. If the widget generates reader engagement, if authors of the ten papers find the claim graphs recognizable and editorially accurate, and if reviewers find that the claim table format surfaces information they would have wanted during their review, then the case for native integration follows from the evidence rather than from advocacy.</p>
+
+  <hr class="section-rule">
+
+  <!-- ══════════════════════════════════════════════════════════
+       9. THE WEBSITE
+  ══════════════════════════════════════════════════════════ -->
+  <h2>9. The Website</h2>
+
+  <p>A website at <a href="https://zmainen.github.io/elife-claim-trees/">https://zmainen.github.io/elife-claim-trees/</a> presents browsable claim graphs for all 10 papers. Each paper has an index page with the claim table, the dependency graph, and the reproduction status for each claim. Individual claim pages record the proposition, the panel, the data pointer, the code pointer, and the reproduction status with notes.</p>
+
+  <p>We would welcome eLife sharing the site with the 10 corresponding authors and inviting their responses. Authors are the people best positioned to identify errors in the claim extraction — a claim assigned to the wrong panel, a dependency edge that is incorrect, a reproduction status that mischaracterizes what the deposit enables. They are also the people most likely to have views on whether the claim graph adds information they think a reader should have, or whether it misrepresents the paper in ways the narrative format would not. Author feedback on their own claim graphs is the next most valuable data point after the corpus run itself.</p>
+
+  <p>The most useful author responses would address three questions: whether the claims as written accurately represent what the paper asserts; whether the dependency edges correctly capture what depends on what; and whether the reproduction status for each claim matches the author's own knowledge of what the deposited materials enable. Disagreement on any of these points is informative. If authors consistently find that the claim graph makes their papers legible in ways they recognize and endorse, that is a signal. If they consistently find that it misrepresents something that the narrative format represents correctly, that is also a signal.</p>
+
+  <p>The prototype is one team's reading of ten papers, performed by a single analyst with assistance, under the constraints described above. Its value is not in any individual claim or status — it is in the pattern across ten papers, in the six methodological issues it surfaced, and in the demonstration that the extraction is feasible and produces editorially relevant information. What it cannot do is validate itself. That requires the authors.</p>
+
+  <!-- ══════════════════════════════════════════════════════════
+       FOOTER
+  ══════════════════════════════════════════════════════════ -->
+  <footer class="doc-footer">
+    Correspondence: <a href="mailto:z.mainen@neuro.fchampalimaud.org">z.mainen@neuro.fchampalimaud.org</a>
+  </footer>
+
+</div>
+</body>
+</html>
