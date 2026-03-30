@@ -6,6 +6,8 @@ import tailwindcss from '@tailwindcss/vite';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://zmainen.github.io',
+  base: '/elife-claim-trees',
   integrations: [react()],
 
   vite: {
