@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Art Intelligence — A Proposal for Beowolff Capital</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --accent:   #2563eb;
+    --accent-lt:#dbeafe;
+    --text:     #111827;
+    --muted:    #6b7280;
+    --border:   #e5e7eb;
+    --bg:       #ffffff;
+  }
+
+  html { font-size: 10pt; }
+
+  body {
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    color: var(--text);
+    background: var(--bg);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2.8rem 1.5rem 3rem;
+  }
+
+  /* ── Header ──────────────────────────────────────────────── */
+  .doc-header {
+    padding-bottom: 1.4rem;
+    border-bottom: 2.5px solid var(--accent);
+    margin-bottom: 1.8rem;
+  }
+
+  .doc-title {
+    font-size: 26pt;
+    font-weight: 700;
+    color: var(--accent);
+    line-height: 1.15;
+    margin-bottom: 0.4rem;
+    letter-spacing: -0.5px;
+  }
+
+  .doc-subtitle {
+    font-size: 10.5pt;
+    color: var(--muted);
+    margin-bottom: 0.7rem;
+    font-weight: 500;
+  }
+
+  .doc-meta {
+    font-size: 8.5pt;
+    color: var(--muted);
+    letter-spacing: 0.01em;
+  }
+
+  /* ── Sections ────────────────────────────────────────────── */
+  .section {
+    margin-bottom: 1.4rem;
+  }
+
+  .section-header {
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-left: 3px solid var(--accent);
+    padding-left: 0.6rem;
+    margin-bottom: 0.55rem;
+    line-height: 1.3;
+  }
+
+  p {
+    font-size: 10pt;
+    line-height: 1.62;
+    color: var(--text);
+    margin: 0;
+  }
+
+  strong {
+    font-weight: 600;
+    color: var(--text);
+  }
+
+  /* ── Footer ──────────────────────────────────────────────── */
+  .footer {
+    margin-top: 2rem;
+    padding-top: 0.8rem;
+    border-top: 1px solid var(--border);
+    font-size: 8pt;
+    color: var(--muted);
+  }
+
+  /* ── Print / PDF ─────────────────────────────────────────── */
+  @page {
+    size: A4;
+    margin: 2cm 2.4cm;
+  }
+
+  @media print {
+    html { font-size: 10pt; }
+    body { background: #fff; }
+    .page { padding: 0; max-width: 100%; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <header class="doc-header">
+    <div class="doc-title">Art Intelligence</div>
+    <div class="doc-subtitle">A proposal for Beowolff Capital &nbsp;·&nbsp; March 2026</div>
+    <div class="doc-meta">Zachary F. Mainen &nbsp;·&nbsp; Kyo Iigaya &nbsp;·&nbsp; Daniel McNamee &nbsp;·&nbsp; Stella Dong</div>
+  </header>
+
+  <div class="section">
+    <div class="section-header">What we are building</div>
+    <p>A recommendation and valuation engine for art grounded in neuroscience. Not collaborative filtering — a model of aesthetic preference built from visual science, trained on art market data, and extended through a structured entity graph (Iconclass, Getty AAT, artnet, Artsy). The engine tells a collector not just what others have bought but what they will find beautiful and why. The same infrastructure that powers recommendation powers attribution: when data contributes to a sale, the contribution is measured and compensated automatically. This is the moat. Trust compounds on both sides — artists and galleries share more; the model improves; collectors trust the platform more. No other system in the art market is building this.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">What we need</div>
+    <p>Three things: data, a technical counterpart, and time. Specifically — access to artnet's Postgres database, Artsy's behavioral dataset, and ArtFacts' knowledge graph for a 90-day proof of concept. A technical counterpart at Artsy or artnet who can facilitate data access and review outputs. Twelve to eighteen months of runway at approximately $50K to deliver a working recommendation engine, a validated taste-cluster model, and a prototype attribution system. The IP structure is clear: HAAK (the underlying platform) is open source; the model trained on partnership data belongs to this partnership. Competitors can use the platform. They cannot use what we build on your data.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">What you get</div>
+    <p>Within one week of data access: art preference scores ("art betas") for a sample of works. Within six months: a full visual and semantic feature extraction pipeline and preliminary taste profiles. Within twelve months: a working recommendation engine and an attribution prototype that traces which data contributed to which sale. Within eighteen months: a deployable system. The scientific network behind this — Iigaya, Simoncelli, Bethge, DiCarlo — does not exist anywhere else in the art market. Neither does the attribution architecture. Both compound over time.</p>
+  </div>
+
+  <div class="section">
+    <div class="section-header">Why now</div>
+    <p>The art market is consolidating around a small number of platforms with access to large behavioral datasets. The window to build a recommendation engine with a principled scientific foundation and a fair-attribution moat is open, but not indefinitely. Artsy, artnet, and ArtFacts are each sitting on data they do not know how to use for recommendation. They will eventually be approached by someone who does. We are that someone, and we have the science. The question is whether we build this together or whether someone else does it without the attribution architecture — and without the trust that comes with it.</p>
+  </div>
+
+  <footer class="footer">
+    Beowolff Capital &nbsp;·&nbsp; Confidential
+  </footer>
+
+</div>
+</body>
+</html>
