@@ -36,9 +36,11 @@ reproductions:
     date: 2026-03-30
     status: unverified:compute-infeasible
     notes: >
-      Supplementary figure; specific statistics for V2/V3 not quoted in the caption or main text
-      beyond "the results from V1 generalize to other regions." Two-source confidence (B caption,
-      C structure). No specific statistics available for this claim from the text — treat as moderate.
+      Blocker (2026-03-30): Same pipeline as V1 decoding but with vareas=[2] and vareas=[3] passed
+      to prepare_all_data(). Supplementary figure only; no per-area statistics in main text.
+      Requires full fMRIPrep → FSL FEAT → MVPA pipeline (~100 CPU-hours). No pre-computed V2/V3
+      pairwise results in repo. Two-source confidence (caption, structure); no per-area statistics
+      available from text extraction — moderate epistemic status maintained.
 ---
 
 The caption states the results "generalize" but provides no statistics for V2 and V3 directly. The supplement is described as showing the same pattern. Without per-area statistics, this claim is moderate rather than strong — it relies on the caption assertion of generalization without quantitative confirmation extractable from the full text.

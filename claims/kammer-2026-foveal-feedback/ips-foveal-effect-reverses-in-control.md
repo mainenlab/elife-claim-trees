@@ -35,10 +35,13 @@ reproductions:
     date: 2026-03-30
     status: unverified:compute-infeasible
     notes: >
-      Control condition parametric modulation. The sign reversal is interpretable: in the control
-      condition, IPS activity (related to eye movements) would be anti-correlated with foveal
-      stimulus decoding because eye movements reduce foveal stimulation. Two-source confidence
-      (B caption, A results text).
+      Blocker (2026-03-30): Control condition parametric modulation, supplementary figure. Requires
+      same FSL FEAT parametric modulation GLM as the experimental condition IPS analysis, run on
+      control-condition runs (run separately from experimental). IPS control: t(27)=−3.61, p=0.004,
+      difference=11.6 (sign reversal from +4.22 experimental). Same hard-coded path blocker
+      (/home/lkaemmer/…/control_regressors.pkl) applies. Two-source confidence (B caption, A results
+      text). The sign reversal mechanistically supports IPS-as-feedback-driver but requires same
+      ~100 CPU-hours minimum pipeline to verify.
 ---
 
 The reversal in the control condition is an important specificity check. If IPS activity were simply a proxy for brain-state variance or signal-to-noise, it would correlate with foveal decoding in both conditions. The fact that IPS correlates positively with foveal decoding in the experimental condition (eye movements → feedback → IPS active → better foveal decoding) but negatively in the control condition (eye movements → gaze away from foveal stimulus → IPS active → worse foveal decoding) is mechanistically coherent and supports the IPS-as-feedback-driver interpretation.

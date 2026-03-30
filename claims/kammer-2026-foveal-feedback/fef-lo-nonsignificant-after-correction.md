@@ -34,9 +34,11 @@ reproductions:
     date: 2026-03-30
     status: unverified:compute-infeasible
     notes: >
-      This is a negative result claim — FEF and LO fail to survive correction. FEF shows a trend
-      (t(27)=2.07, p=0.072, uncorrected) that would survive without correction. Two-source
-      confidence (A and B); C (structure pass) notes this is exploratory and Bonferroni-corrected.
+      Blocker (2026-03-30): Same parametric modulation pipeline as ips-candidate-driver-foveal-feedback
+      (FSL FEAT → ROI averaging, Bonferroni correction across IPS/FEF/LO). FEF: t(27)=2.07, p=0.072
+      uncorrected (threshold p<0.0167 with Bonferroni for 3 ROIs); LO: t(27)=0.67, p=0.767. Both fail
+      correction. Code path: same as IPS claim including the hard-coded pickle path blocker.
+      Two-source confidence (A results text, B caption); exploratory analysis.
 ---
 
 Note that FEF (p=0.072 uncorrected) is borderline: with three ROIs and Bonferroni correction, the threshold would be p<0.0167. FEF passes only if you ignore the correction. The paper appropriately reports this as non-significant after correction. This negative result matters because it makes the IPS finding more specific rather than a global brain-state effect.

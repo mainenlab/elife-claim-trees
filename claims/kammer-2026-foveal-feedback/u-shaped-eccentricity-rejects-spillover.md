@@ -33,9 +33,13 @@ reproductions:
     date: 2026-03-30
     status: unverified:compute-infeasible
     notes: >
-      Requires retinotopic ROI construction and eccentricity-binned decoding. Control condition shows
-      monotonic decay from center, confirming the U-shape is specific to the experimental condition.
-      Three-source confidence: found by all three extraction passes.
+      Blocker (2026-03-30): Requires retinotopic ROI construction (FSL retinotopic localizer FEAT →
+      thresh_zstat{d}.nii.gz per eccentricity degree) plus eccentricity-binned decoding across 10 bins
+      (5 retinotopy-based, 5 Benson atlas-based). Implemented in decoding_by_eccentricity.py via
+      prepare_all_data(retinotopy=True, eccen=True). Both ROI construction and MVPA require the full
+      preprocessed data pipeline (fMRIPrep → FSL FEAT → zstat NIfTIs; same ~100 CPU-hour requirement).
+      No pre-computed eccentricity-binned results exist in the repo. Three-source confidence: found by
+      all three extraction passes.
 ---
 
 The U-shaped eccentricity profile is the key control ruling out the peripheral-spillover alternative. If decoding in foveal V1 were driven by large receptive fields reaching into the periphery (cf Williams et al. 2008), one would expect a monotonic relationship between peripheral and foveal decoding in the experimental condition. Instead, the decoding dip at parafoveal eccentricities dissociates foveal feedback from direct peripheral activation. The control condition shows the expected monotonic decay (strongest at center), providing a clean contrast. All three quadratic curvature tests survive at p<0.05 (one-sided), though the preregistration did not preregister this specific test.

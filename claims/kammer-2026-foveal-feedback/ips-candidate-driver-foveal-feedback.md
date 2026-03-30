@@ -34,13 +34,15 @@ reproductions:
     date: 2026-03-30
     status: unverified:compute-infeasible
     notes: >
-      RESOLVED from unverified:no-code. Full text (JATS XML, Results section) confirms this is a
-      reported analysis with statistics, not a discussion inference. The parametric modulation
-      analysis correlates block-by-block classifier decision values with ROI BOLD signal. IPS:
-      t(27)=2.53, p=0.026, difference=4.22. The analysis is exploratory (explicitly not preregistered
-      — see parametric-modulation-exploratory-not-preregistered). Analysis code is in
-      Lucakaemmer/FovealFeedback GitHub repo. Status updated from unverified:no-code to
-      unverified:compute-infeasible (data and code accessible, compute required).
+      RESOLVED from unverified:no-code (2026-03-30). Full text (JATS XML, Results section) confirms
+      this is a reported analysis with statistics. Parametric modulation correlates block-by-block
+      classifier decision values with Neurosynth IPS ROI BOLD signal (100-voxel selection, Bonferroni
+      correction across 3 ROIs: IPS, FEF, LO). IPS: t(27)=2.53, p=0.026, difference=4.22. Pipeline:
+      FSL FEAT parametric modulation GLM → MNI-space registration → ROI averaging; requires same full
+      fMRIPrep preprocessing. Code: analysis_eye/main_analysis/ (parametric_modulation/ subdirectory
+      referenced in foveal_decoding.py). Additional blocker: hard-coded pickle output path
+      (/home/lkaemmer/repos/FovealDecoding/…/control_regressors.pkl) — path must be updated to run
+      locally. Exploratory, not preregistered — see parametric-modulation-exploratory-not-preregistered.
 ---
 
 The claim has been upgraded from `unverified:no-code` to `unverified:compute-infeasible`. Full text extraction from the JATS XML confirms that Figure 4 reports a parametric modulation analysis in the Results section under "The role of IPS in mediating foveal feedback," with specific statistics: IPS t(27)=2.53, p=0.026. This is a reported analysis, not a discussion inference. The analysis is explicitly labeled exploratory in the Methods: "with the exception of the exploratory parametric modulation analysis." This limits confirmatory weight — the IPS finding is a single Bonferroni-corrected positive result from three ROIs in an exploratory analysis. The `requires` relation to `parametric-modulation-exploratory-not-preregistered` makes this conditionality explicit in the graph.

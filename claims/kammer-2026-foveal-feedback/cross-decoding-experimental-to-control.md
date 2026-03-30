@@ -31,5 +31,9 @@ reproductions:
     date: 2026-03-30
     status: unverified:compute-infeasible
     notes: >
-      Cross-decoding analysis. Not yet executed.
+      Blocker (2026-03-30): Requires same full pipeline as foveal-v1-decodes-peripheral-saccade-target.
+      Cross-decoding (train on experimental, test on control) is implemented in run_cross_condition_classifier()
+      in foveal_decoding.py using sklearn cross_val_predict. Both conditions' zstat files must be present.
+      No pre-computed cross-decoding matrices exist in the repo or OpenNeuro. Same ~100 CPU-hour
+      minimum requirement as the within-condition decoding claim.
 ---

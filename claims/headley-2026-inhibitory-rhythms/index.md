@@ -99,6 +99,13 @@ Verification status: 2026-03-30, agent: mainen-z (code inspection + pre-computed
 
 **Key finding (2026-03-30):** Pre-computed data in `data/Figure*.csv` and `data/spikes.h5` are sufficient to verify the core quantitative claims (Figs 2-4) without downloading the full Dryad deposit. Figs 7-10 (oscillation frequency sweeps) are the only reproducibility gap — they require the DendCompOscPublic/ Dryad data.
 
-**Key blocker:** Dryad deposit (doi:10.5061/dryad.v6wwpzhb8) contains oscillation frequency-sweep simulation outputs needed for Figs 5, 7-10. Environment: `environment.yml` requires `holoviews` and Python 3.9; base conda env lacks `holoviews` — install before running notebooks.
+**Key blocker (updated 2026-03-30):** Dryad deposit (doi:10.5061/dryad.v6wwpzhb8) contains oscillation frequency-sweep simulation outputs needed for Figs 5, 7-10. Dryad API confirmed: deposit is a single monolithic zip file (Headley_etal_eLifeDRYAD.zip, 1.88 GB compressed) — there is no individual-file download path via the API. The zip must be downloaded whole; it contains the DendCompOscPublic/ directory with simulation outputs. Environment: `environment.yml` requires `holoviews` and Python 3.9; base conda env lacks `holoviews` — install before running notebooks.
 
-**Reproduction path (verified):** Core claims (Figs 2-4) reproducible directly from pre-computed CSVs without NEURON or Dryad download. Oscillation claims (Figs 7-10): download Dryad, install environment, run Fig7-10.ipynb.
+**Specific file requirements per claim:**
+- Fig7.ipynb (beta-optimal-distal-dendritic-entrainment, beta-bidirectional-dendritic-control): DendCompOscPublic/ frequency sweep simulations, 0.5–80 Hz distal inhibition conditions
+- Fig8.ipynb (gamma-optimal-perisomatic-ap-modulation): DendCompOscPublic/ 11-frequency perisomatic sweep, 0.5–80 Hz
+- Fig9.ipynb (burst-effects-emerge-first-cycles): output_burst_16Hz_dist and output_burst_64Hz_prox sets + modulatory_trace_16Hz.npy and modulatory_trace_64Hz.npy (the .npy files confirmed absent from GitHub data/)
+- Fig10.ipynb (beta-gates-distal-apical-inputs, gamma-gates-proximal-basal-inputs): exc_stim_aux_spikes2.h5 (confirmed absent from GitHub — only spikes.h5 present)
+- Fig4.ipynb E/I lag sweep (ei-lag-sensitivity-firing-rate): DendCompOscPublic/Fig4/ directory with prox500_dist_4 and related lag conditions (Figure4a-f.csv covers only the doubling experiment, not the lag sweep)
+
+**Reproduction path (verified):** Core claims (Figs 2-4) reproducible directly from pre-computed CSVs without NEURON or Dryad download. Oscillation claims (Figs 7-10 and E/I lag sweep): download Headley_etal_eLifeDRYAD.zip (1.88 GB from datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8 — requires account), extract, install environment.yml (Python 3.9 + holoviews), run Fig4.ipynb (lag sweep) and Fig7-10.ipynb.

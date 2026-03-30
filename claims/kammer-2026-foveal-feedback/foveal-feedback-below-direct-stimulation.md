@@ -30,5 +30,9 @@ reproductions:
     date: 2026-03-30
     status: unverified:compute-infeasible
     notes: >
-      Same analysis as foveal-v1-decodes-peripheral-saccade-target. Not yet executed.
+      Blocker (2026-03-30): Same pipeline as foveal-v1-decodes-peripheral-saccade-target —
+      requires full fMRIPrep + FSL FEAT + MVPA pipeline on ds005933 (61 GB). The control condition
+      (direct foveal stimulation, 84.06%) is analyzed in the same notebook (decoding_shape_category.ipynb,
+      condition="control" branch). Both conditions require the same preprocessed zstat NIfTI files.
+      No control-condition-specific shortcut exists.
 ---

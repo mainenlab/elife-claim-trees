@@ -40,8 +40,10 @@ reproductions:
       Fig4.ipynb requires Dryad simulation files from DendCompOscPublic/Fig4/ directory
       (multiple E/I lag conditions: prox500_dist_4, etc.). These files are not in the
       GitHub repo. Figure4a-f.csv in data/ cover the main doubling experiment but not
-      the E/I lag sweep (4–500 ms). Dryad deposit (doi:10.5061/dryad.v6wwpzhb8) contains
-      required simulation outputs; download required to execute the lag sweep analysis.
+      the E/I lag sweep (4–500 ms). Dryad API confirmed (2026-03-30): monolithic zip only
+      (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract
+      DendCompOscPublic/Fig4/, install environment.yml (Python 3.9 + holoviews), run Fig4.ipynb
+      E/I lag sweep sections (distinct from the Fig4a-f.csv doubling experiment sections).
 ---
 
 This result is a boundary/null finding that constrains the model's parameter sensitivity. The 4 ms E/I lag used in the baseline simulations was chosen to reflect feedforward inhibition timing; the finding that varying it from 4 to 500 ms doesn't strongly affect total firing rate suggests the main results (firing rate suppression by distal vs perisomatic inhibition) are not an artefact of this timing choice. However, the large effect on which compartments drive APs shows that timing is not irrelevant — it shapes the internal dynamics even when the output rate appears stable.

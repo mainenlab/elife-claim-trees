@@ -42,9 +42,10 @@ reproductions:
     status: unverified:no-data
     notes: >
       Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5 and associated
-      simulation outputs from DendCompOscPublic/). exc_stim_aux_spikes2.h5 is not in
-      GitHub repo data/ (only spikes.h5 is present). Blocked pending Dryad download
-      (doi:10.5061/dryad.v6wwpzhb8).
+      simulation outputs from DendCompOscPublic/). exc_stim_aux_spikes2.h5 confirmed NOT in
+      GitHub repo data/ (only spikes.h5 is present). Dryad API confirmed (2026-03-30): monolithic
+      zip only (1.88 GB); no individual file access. Download Headley_etal_eLifeDRYAD.zip, extract
+      DendCompOscPublic/, install environment.yml (Python 3.9 + holoviews), run Fig10.ipynb.
 ---
 
 Figure 10 is the paper's functional payoff: it demonstrates that the phase-modulation results from Figures 5–9 translate directly into selective gating of specific input streams. Beta rhythms at distal locations gate apical (top-down) inputs in a phase-dependent way. This is the direct mechanistic link between the SST+/beta association and the functional role proposed for these interneurons in controlling top-down processing. The strong epistemic status reflects that this is a direct simulation of the gating function rather than an inference from firing rate changes.

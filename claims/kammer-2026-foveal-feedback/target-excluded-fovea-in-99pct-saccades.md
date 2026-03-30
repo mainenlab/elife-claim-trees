@@ -31,5 +31,12 @@ reproductions:
     date: 2026-03-30
     status: unverified:compute-infeasible
     notes: >
-      Eye-tracking data analysis. Not yet executed.
+      Blocker (2026-03-30): Eye-tracking data are NOT on OpenNeuro. The README states "Eye Tracking
+      data can be obtained upon request." The gaze analysis pipeline reads raw eye-tracker CSV files
+      from /BULK/lkaemmer/data/foveal_decoding/data_eye/{sub}/*data*C1*.csv and computes per-saccade
+      post-flip gaze distance (gaze_analysis.py). The 99.27% figure comes from the package_data()
+      exclusion step using threshold 2.5° from foveal center. Without the eye-tracking CSV files
+      (not publicly available), this specific validity statistic cannot be reproduced. Status
+      unverified:compute-infeasible correctly reflects accessible code; however this particular
+      claim also requires non-public eye data — contact dbheadley@newark.rutgers.edu or repo author.
 ---

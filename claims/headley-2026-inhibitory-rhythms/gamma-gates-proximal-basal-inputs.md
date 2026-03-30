@@ -42,8 +42,9 @@ reproductions:
     status: unverified:no-data
     notes: >
       Script: Fig10.ipynb requires Dryad files (exc_stim_aux_spikes2.h5). Same blocker as
-      beta-gates-distal-apical-inputs. Blocked pending Dryad download
-      (doi:10.5061/dryad.v6wwpzhb8).
+      beta-gates-distal-apical-inputs. Dryad API confirmed (2026-03-30): monolithic zip only
+      (1.88 GB). Download Headley_etal_eLifeDRYAD.zip, extract DendCompOscPublic/, install
+      environment.yml (Python 3.9 + holoviews), run Fig10.ipynb.
 ---
 
 The gamma/proximal gating result is the counterpart to the beta/distal gating: together they establish that the two inhibitory streams independently gate two different input pathways. Gamma perisomatic inhibition modulates AP threshold timing without suppressing dendritic spikes, so it controls which proximal/basal depolarizations cross threshold at the axon initial segment. The distal dendritic inputs (top-down) are relatively spared by perisomatic gamma because the Ca²⁺/NMDA spikes initiated in distal compartments are not directly controlled by perisomatic conductances.

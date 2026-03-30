@@ -31,5 +31,16 @@ reproductions:
     date: 2026-03-30
     status: unverified:compute-infeasible
     notes: >
-      OpenNeuro data accessible. GitHub analysis code (Python, nilearn/sklearn). MVPA across cross-validation folds is compute-intensive. Preregistered analysis plan (osf.io/rxacd). Not yet executed.
+      Blocker (2026-03-30): No pre-computed results anywhere in repo or OpenNeuro.
+      OpenNeuro ds005933 (61 GB raw BIDS) contains only raw BOLD NIfTI files — no derivatives folder,
+      no pre-computed betas or zstats. Code path: (1) fMRIPrep v20.2.0 (Docker) on raw BOLD → MNI-space
+      preprocessed data at /BULK/lkaemmer/…/data_out/{sub}/foveal_decoding/run_N/stats/zstat*.nii.gz;
+      (2) FSL FEAT on each run (feat_foveal_decoding_template.fsf) to generate per-block z-stats;
+      (3) decoding_shape_category.ipynb / decoding_by_eccentricity.py (sklearn SVC, nilearn masking)
+      reads those z-stats and runs leave-one-run-out cross-validation across 28 subjects.
+      Minimum steps to verify 57.43%: download ds005933 (~61 GB), run fMRIPrep per subject (~4h GPU
+      each × 28 subjects), run FSL FEAT GLM per run (~1h × 10 runs × 28 subjects), then run
+      decoding notebook (~30 min). Total: ~100 CPU-hours minimum, GPU required for fMRIPrep.
+      No shortcut: eye-tracking data (needed for trial exclusion, constitute=99.27% saccade check)
+      are explicitly not on OpenNeuro ("available upon request" per README).
 ---

@@ -31,5 +31,10 @@ reproductions:
     date: 2026-03-30
     status: unverified:compute-infeasible
     notes: >
-      Requires running decoding analysis separately for shape vs category features. Not yet executed.
+      Blocker (2026-03-30): Interpretive claim synthesized from fig3 (V1) and fig3B (LO) pairwise
+      decoding results. Requires the full fMRIPrep + FSL FEAT + MVPA pipeline on ds005933 (61 GB).
+      Pairwise decoding (shape pairs: horn vs guitar, tiger vs kangaroo; category pairs: horn vs tiger,
+      guitar vs kangaroo) uses decoding_shape_category.ipynb with comparison='shape' and comparison='category'
+      branches. No pre-computed pairwise decoding matrices in repo. Same pipeline as within-condition
+      decoding; ~100 CPU-hours minimum.
 ---
