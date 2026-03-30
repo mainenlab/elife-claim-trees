@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
 import ReactFlow, {
   Background,
   Controls,
@@ -34,44 +34,59 @@ interface Props {
   paperSlug: string;
 }
 
+// Truncate slug to ~4 words for readability
+function shortLabel(slug: string): string {
+  const words = slug.replace(/-/g, ' ');
+  const parts = words.split(' ');
+  if (parts.length <= 4) return words;
+  return parts.slice(0, 4).join(' ') + '…';
+}
+
 // Custom node renderer
-function ClaimNode({ data, selected }: { data: any; selected: boolean }) {
+function ClaimNode({ data }: { data: any }) {
   const color = nodeColor(data.status);
   const isAssessment = data.isAssessment;
-  const size = Math.max(80, Math.min(160, 80 + data.dependentCount * 8));
 
   return (
     <div
       title={data.claim}
       style={{
-        width: size,
-        height: 36,
-        border: `2px ${isAssessment ? 'dashed' : 'solid'} ${color}`,
+        width: 160,
+        border: `1.5px ${isAssessment ? 'dashed' : 'solid'} ${color}`,
         borderRadius: 6,
-        background: selected ? `${color}22` : data.highlighted ? `${color}18` : `${color}10`,
+        background: '#ffffff',
         display: 'flex',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '0 8px',
+        gap: 6,
+        padding: '8px 10px',
         cursor: 'pointer',
-        transition: 'all 0.15s',
-        outline: selected ? `2px solid ${color}` : 'none',
-        outlineOffset: 2,
+        boxSizing: 'border-box',
+        opacity: data.dimmed ? 0.35 : 1,
+        transition: 'opacity 0.15s',
       }}
     >
       <span
         style={{
-          fontSize: 10,
+          width: 8,
+          height: 8,
+          borderRadius: '50%',
+          background: color,
+          flexShrink: 0,
+        }}
+      />
+      <span
+        style={{
+          fontSize: 11,
           fontWeight: 500,
-          color: '#111',
-          textOverflow: 'ellipsis',
+          color: '#111827',
           overflow: 'hidden',
+          textOverflow: 'ellipsis',
           whiteSpace: 'nowrap',
-          width: '100%',
-          textAlign: 'center',
+          flex: 1,
+          minWidth: 0,
         }}
       >
-        {data.slug}
+        {shortLabel(data.slug)}
       </span>
     </div>
   );
@@ -79,23 +94,16 @@ function ClaimNode({ data, selected }: { data: any; selected: boolean }) {
 
 const nodeTypes: NodeTypes = { claimNode: ClaimNode as any };
 
+const NODE_WIDTH = 160;
+const NODE_HEIGHT = 36;
+
 function layoutGraph(claims: Claim[]): { nodes: Node[]; edges: Edge[] } {
   const g = new dagre.graphlib.Graph();
   g.setDefaultEdgeLabel(() => ({}));
-  g.setGraph({ rankdir: 'LR', nodesep: 20, ranksep: 60, marginx: 20, marginy: 20 });
-
-  // Count dependents for sizing
-  const dependentCount: Record<string, number> = {};
-  for (const c of claims) {
-    if (!dependentCount[c.slug]) dependentCount[c.slug] = 0;
-    for (const req of c.requires) {
-      dependentCount[req] = (dependentCount[req] || 0) + 1;
-    }
-  }
+  g.setGraph({ rankdir: 'LR', nodesep: 24, ranksep: 70, marginx: 24, marginy: 24 });
 
   for (const c of claims) {
-    const size = Math.max(80, Math.min(160, 80 + (dependentCount[c.slug] || 0) * 8));
-    g.setNode(c.slug, { width: size, height: 36 });
+    g.setNode(c.slug, { width: NODE_WIDTH, height: NODE_HEIGHT });
   }
 
   const edges: Edge[] = [];
@@ -132,16 +140,11 @@ function layoutGraph(claims: Claim[]): { nodes: Node[]; edges: Edge[] } {
 
   const nodes: Node[] = claims.map(c => {
     const pos = g.node(c.slug);
-    const size = Math.max(80, Math.min(160, 80 + (dependentCount[c.slug] || 0) * 8));
     return {
       id: c.slug,
       type: 'claimNode',
-      position: { x: pos.x - size / 2, y: pos.y - 18 },
-      data: {
-        ...c,
-        dependentCount: dependentCount[c.slug] || 0,
-        highlighted: false,
-      },
+      position: { x: pos.x - NODE_WIDTH / 2, y: pos.y - NODE_HEIGHT / 2 },
+      data: { ...c, dimmed: false },
     };
   });
 
@@ -150,12 +153,10 @@ function layoutGraph(claims: Claim[]): { nodes: Node[]; edges: Edge[] } {
 
 function DAGInner({ claims, paperSlug }: Props) {
   const { nodes: initialNodes, edges: initialEdges } = useMemo(() => layoutGraph(claims), [claims]);
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
+  const [nodes, setNodes] = useNodesState(initialNodes);
+  const [edges, setEdges] = useEdgesState(initialEdges);
   const [selected, setSelected] = useState<Claim | null>(null);
   const { fitView } = useReactFlow();
-
-  useEffect(() => { setTimeout(() => fitView({ padding: 0.15 }), 50); }, []);
 
   // Build adjacency for highlighting
   const claimBySlug = useMemo(() => {
@@ -169,7 +170,6 @@ function DAGInner({ claims, paperSlug }: Props) {
     if (!claim) return;
     setSelected(claim);
 
-    // Compute ancestors and descendants
     const ancestors = new Set<string>();
     const descendants = new Set<string>();
 
@@ -191,33 +191,29 @@ function DAGInner({ claims, paperSlug }: Props) {
     walkUp(node.id);
     walkDown(node.id);
 
+    const active = new Set([node.id, ...ancestors, ...descendants]);
+
     setNodes(nds => nds.map(n => ({
       ...n,
-      data: {
-        ...n.data,
-        highlighted: ancestors.has(n.id) ? 'ancestor' : descendants.has(n.id) ? 'descendant' : false,
-      },
-      style: {
-        opacity: (n.id === node.id || ancestors.has(n.id) || descendants.has(n.id)) ? 1 : 0.35,
-      },
+      data: { ...n.data, dimmed: !active.has(n.id) },
     })));
 
     setEdges(eds => eds.map(e => ({
       ...e,
       style: {
         ...e.style,
-        opacity: (e.source === node.id || e.target === node.id ||
-          ancestors.has(e.source) || ancestors.has(e.target) ||
-          descendants.has(e.source) || descendants.has(e.target)) ? 1 : 0.15,
+        opacity: (active.has(e.source) && active.has(e.target)) ? 1 : 0.15,
       },
     })));
   }, [claimBySlug, claims]);
 
   const onPaneClick = useCallback(() => {
     setSelected(null);
-    setNodes(nds => nds.map(n => ({ ...n, style: { opacity: 1 }, data: { ...n.data, highlighted: false } })));
+    setNodes(nds => nds.map(n => ({ ...n, data: { ...n.data, dimmed: false } })));
     setEdges(eds => eds.map(e => ({ ...e, style: { ...e.style, opacity: 1 } })));
   }, []);
+
+  const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 
   return (
     <div className="flex h-full">
@@ -227,11 +223,13 @@ function DAGInner({ claims, paperSlug }: Props) {
           nodes={nodes}
           edges={edges}
           nodeTypes={nodeTypes}
-          onNodesChange={onNodesChange}
-          onEdgesChange={onEdgesChange}
           onNodeClick={onNodeClick}
           onPaneClick={onPaneClick}
+          nodesDraggable={false}
+          nodesConnectable={false}
+          elementsSelectable={true}
           fitView
+          fitViewOptions={{ padding: 0.15 }}
           minZoom={0.2}
           maxZoom={3}
           proOptions={{ hideAttribution: true }}
@@ -312,7 +310,7 @@ function DAGInner({ claims, paperSlug }: Props) {
                   {selected.requires.map(r => (
                     <a
                       key={r}
-                      href={`${import.meta.env.BASE_URL}papers/${paperSlug}/${r}`}
+                      href={`${base}/papers/${paperSlug}/${r}/`}
                       className="text-xs text-blue-600 hover:underline truncate"
                     >{r}</a>
                   ))}
@@ -327,7 +325,7 @@ function DAGInner({ claims, paperSlug }: Props) {
                   {selected.supports.map(s => (
                     <a
                       key={s}
-                      href={`${import.meta.env.BASE_URL}papers/${paperSlug}/${s}`}
+                      href={`${base}/papers/${paperSlug}/${s}/`}
                       className="text-xs text-green-700 hover:underline truncate"
                     >{s}</a>
                   ))}
@@ -343,7 +341,7 @@ function DAGInner({ claims, paperSlug }: Props) {
             )}
 
             <a
-              href={`${import.meta.env.BASE_URL}papers/${paperSlug}/${selected.slug}`}
+              href={`${base}/papers/${paperSlug}/${selected.slug}/`}
               className="block text-xs text-center py-1.5 px-3 border border-gray-200 rounded hover:bg-gray-50 text-gray-600 no-underline"
             >
               View full claim →
