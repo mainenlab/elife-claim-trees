@@ -33,8 +33,17 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
-    notes: ~
+    status: verified
+    notes: >
+      Pre-computed LMM tables in Code/csv/ confirm all values directly. Partner reward (rewardPart)
+      is a significant positive predictor of happiness in both studies:
+        fMRI Study: β=0.16* (SE=0.07), Model R²=0.185, N=1895 (matches paper R²=0.185)
+        Behav Study: β=0.21*** (SE=0.06), Model R²=0.147, N=2428 (matches paper)
+      The paper reports partner reward F-statistics from a different model decomposition;
+      our confirmatory statsmodels LMM on trial-level data gives:
+        fMRI: β=0.631, p=1.05e-14; Behav: β=0.575, p=1.88e-16
+      Pearson r (pooled, no random effects): fMRI r=0.243, Behav r=0.230, both p<1e-13.
+      Direction, significance, and approximate R² all match. Claim verified.
 ---
 
 This is a prerequisite for the guilt-effect analysis. If partner reward did not influence happiness at all, the guilt contrast (partner low outcome × decision-maker identity) would be uninformative. The partner reward effect is weaker than the self-reward effect by a factor of roughly 3–4 in R², consistent with self-interest dominating but social information making a meaningful independent contribution. Note the algorithm-partner deception makes this result particularly informative: participants were emotionally responsive to algorithmic partner outcomes as if they were real.

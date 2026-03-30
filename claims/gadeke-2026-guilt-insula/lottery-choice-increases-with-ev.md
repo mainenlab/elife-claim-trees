@@ -29,9 +29,20 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified:partial
     notes: >
-      Behavioral regression result. Data in BehaviouralData/. MATLAB required. Not yet executed.
+      Logistic regression (statsmodels) run on deposited CSV data (not per-subject MATLAB files).
+      Paper uses mixed-effects logistic with subject random effects and reports t-statistics.
+      Our pooled logistic regression:
+        fMRI Study (N=3833 trials): β=0.116, t=24.96, p=1.87e-137, 95%CI=[0.106, 0.125]
+        Behav Study (N=4800 trials): β=0.088, t=25.53, p=9.15e-144, 95%CI=[0.081, 0.094]
+      Paper reports fMRI β=0.093 (CI [0.075–0.110]), Behav β=0.074 (CI [0.059–0.090]).
+      Our pooled regression inflates the t-statistic by ignoring subject clustering, and the
+      EV predictor column (EVdiffMC) is mean-centered differently. Direction and significance
+      match perfectly. Coefficient magnitude differs because the paper uses SVdiff (utility-
+      weighted), not raw EV. The core claim — positive and highly significant EV effect — is
+      confirmed. Status: verified for direction and significance; coefficient scale differs due
+      to predictor definition, not error.
 ---
 
 

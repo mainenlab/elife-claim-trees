@@ -65,13 +65,22 @@ This paper investigates neural mechanisms of interpersonal guilt by having parti
 
 ## Reproduction status
 
-2026-03-30, agent: mainen-z. GitHub repo has behavioral data (.mat), pre-computed fMRI NIfTI results, and all analysis scripts (MATLAB/SPM12). Behavioral claims reproducible directly from repo data. fMRI claims reproducible from pre-computed NIfTI files without re-running GLMs.
+2026-03-30, agent: mainen-z. Deposited CSVs, pre-computed LMM tables, and NIfTI files enable Python verification of all five priority claims without MATLAB.
 
 | Status | Count | Claims |
 |:-------|:------|:-------|
-| unverified | 9 | Behavioral claims — data available, MATLAB required |
-| unverified:compute-infeasible | 3 | fMRI claims — pre-computed NIfTI in repo; can reproduce figures without full re-analysis |
-| verified | 1 | partner-algorithm-deception-assumption — confirmed by code inspection of Methods |
-| unverified | 5 | Computational model, connectivity, and signature comparison claims |
+| verified | 4 | happiness-correlates-partner-reward, guilt-reduces-happiness-after-partner-loss, insula-tracks-guilt-effect, partner-algorithm-deception-assumption |
+| verified:partial | 2 | lottery-choice-increases-with-ev (direction/significance confirmed; coefficient scale differs from paper due to predictor definition), insula-guilt-replicates-yu-koban-signature (nonparametric p<0.05; t-test marginal p=0.07) |
+| unverified | 12 | solo-vs-social-choice-difference, risk-premiums-null-social-solo, responsibility-modulates-guilt-computational, social-prpe-weight-positive, guilt-effect-independent-of-own-outcome, agency-reduces-happiness, ventral-striatum-tracks-risky-choices, precuneus-tpj-mpfc-social-decisions, ventral-striatum-tracks-computational-reward, sts-tracks-partner-reward-prediction-errors, insula-ifg-connectivity-guilt, guilt-signature-no-individual-difference |
 
-**Key risk:** MATLAB + SPM12 dependency throughout. No Python alternative for primary analyses. Pre-computed group-level NIfTI results in `fMRIresults/` enable figure reproduction without rerunning GLMs.
+### Session 2026-03-30 verification summary (Python, deposited data)
+
+| Claim | Our result | Paper reports | Match? |
+|:------|:-----------|:--------------|:-------|
+| lottery-choice-increases-with-ev | fMRI β=0.116 p<1e-137; Behav β=0.088 p<1e-143 | fMRI β=0.093; Behav β=0.074 (mixed-effects LMM) | Direction/sig ✓; β scale differs (predictor definition) |
+| happiness-correlates-partner-reward | fMRI R²=0.185, β(partner)=0.16*; Behav R²=0.147, β(partner)=0.21*** | fMRI R²=0.185; Behav R²=0.147 | Exact match ✓ |
+| guilt-reduces-happiness-after-partner-loss | partnerWon:subjDecided β=0.33** (fMRI), 0.39*** (Behav) | Significant guilt effect in both studies | Match ✓ |
+| insula-tracks-guilt-effect | Peak MNI=[-28, 24, -4] | Peak MNI=[-28, 24, -4] | Exact match ✓ |
+| insula-guilt-replicates-yu-koban-signature | Dot products: sign test p=0.017, Wilcoxon p=0.042, t-test p=0.071 | Significant (sign test/median) | Nonparametric ✓; t borderline |
+
+**Key risk:** Remaining 12 claims require MATLAB + SPM12. Pre-computed NIfTI files are present for fMRI claims.

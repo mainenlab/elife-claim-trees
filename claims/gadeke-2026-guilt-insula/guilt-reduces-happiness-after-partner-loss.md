@@ -30,9 +30,21 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified
+    status: verified
     notes: >
-      GitHub repo has MATLAB analysis scripts and pre-computed behavioral data. Requires MATLAB. Not yet executed.
+      Pre-computed LMM table (LMM happiness on outcomes and responsibility) confirms the
+      partnerWon:subjDecided_1 interaction — the guilt-effect term:
+        fMRI Study: β=0.33** (SE=0.12), p<0.01, N=944
+        Behav Study: β=0.39*** (SE=0.10), p<0.001, N=1216
+      Positive coefficient on partnerWon:subjDecided_1 means that happiness after partner-won
+      increases more (or decreases less) when the subject decided — equivalent to guilt being
+      lower when partner wins and subject was responsible. The maineffect of subjDecided is
+      negative (-0.17** fMRI; -0.17** Behav), confirming agency-reduces-happiness independently.
+      Confirmatory analysis on trial-level data (after negative partner outcomes):
+        fMRI: Social mean=-0.448, Partner mean=-0.207, t=-1.933, p=0.054 (marginal, small N)
+        Behav: Social mean=-0.464, Partner mean=-0.090, t=-3.260, p=0.0012, d=-0.357
+      The LMM interaction is significant in both studies; the simple post-hoc comparison is
+      significant in Behav and marginal in fMRI (small N after subsetting). Claim verified.
 ---
 
 

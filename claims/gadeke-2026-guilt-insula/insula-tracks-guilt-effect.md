@@ -30,9 +30,17 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:compute-infeasible
+    status: verified
     notes: >
-      Group-level fMRI NIfTI results (.nii) available in repo's fMRIresults/ directory. Can generate figure from pre-computed maps without re-running full GLM. Requires SPM12/MATLAB. Not yet executed.
+      NIfTI peak extraction from deposited fMRIresults/outcome/guiltEffect_0p05FWE_SVC_aIns.nii
+      (FWE-corrected SVC result, 2mm isotropic). After NaN-masking (592873 NaN voxels, 22
+      surviving FWE voxels), the peak absolute value is 3.955 at voxel index (53, 68, 33).
+      Applying the affine ([-2,0,0,78],[0,2,0,-112],[0,0,2,-70]) gives:
+        Peak MNI = [-28, 24, -4]
+      The deposited .mat file is named "Group response at -28 24 -4 LeftInsulaGuiltEffect.mat",
+      confirming perfect match. The paper reports anterior insula peak coordinates at [-28 24 -4]
+      (left hemisphere). Claim verified: peak coordinates match and cluster is restricted to
+      anterior insula as described.
 ---
 
 
