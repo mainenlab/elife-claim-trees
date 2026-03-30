@@ -19,11 +19,12 @@ belongings: []
 assertions:
   - paper-slug: wengert-2026-kcnc1
     doi: ~
-    panel: fig supp
+    panel: fig5B, fig5C, fig5D, fig5E, fig5F, fig5G, fig5K, Table 1 (layer IV exc.)
+    scope: ex-vivo
     analysis: G-Node analysis code
     dataset: https://doi.org/10.12751/g-node.bqni9h
     dataset-doi: 10.12751/g-node.bqni9h
-    method: patch-clamp, juvenile slice preparation
+    method: nucleated macropatch (voltage-gated K+ currents), whole-cell current-clamp
     confidence: moderate
 
 reproductions:
