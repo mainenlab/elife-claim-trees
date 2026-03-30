@@ -50,47 +50,51 @@ function ClaimNode({ data }: { data: any }) {
   const isAssessment = data.isAssessment;
 
   return (
-    <div
-      title={data.claim}
-      style={{
-        width: 160,
-        border: `1.5px ${isAssessment ? 'dashed' : 'solid'} ${color}`,
-        borderRadius: 6,
-        background: '#ffffff',
-        display: 'flex',
-        alignItems: 'center',
-        gap: 6,
-        padding: '8px 10px',
-        cursor: 'pointer',
-        boxSizing: 'border-box',
-        opacity: data.dimmed ? 0.35 : 1,
-        transition: 'opacity 0.15s',
-      }}
-    >
-      <span
+    <>
+      <Handle type="target" position={Position.Left} style={{ visibility: 'hidden' }} />
+      <div
+        title={data.claim}
         style={{
-          width: 8,
-          height: 8,
-          borderRadius: '50%',
-          background: color,
-          flexShrink: 0,
-        }}
-      />
-      <span
-        style={{
-          fontSize: 11,
-          fontWeight: 500,
-          color: '#111827',
-          overflow: 'hidden',
-          textOverflow: 'ellipsis',
-          whiteSpace: 'nowrap',
-          flex: 1,
-          minWidth: 0,
+          width: 160,
+          border: `1.5px ${isAssessment ? 'dashed' : 'solid'} ${color}`,
+          borderRadius: 6,
+          background: '#ffffff',
+          display: 'flex',
+          alignItems: 'center',
+          gap: 6,
+          padding: '8px 10px',
+          cursor: 'pointer',
+          boxSizing: 'border-box',
+          opacity: data.dimmed ? 0.35 : 1,
+          transition: 'opacity 0.15s',
         }}
       >
-        {shortLabel(data.slug)}
-      </span>
-    </div>
+        <span
+          style={{
+            width: 8,
+            height: 8,
+            borderRadius: '50%',
+            background: color,
+            flexShrink: 0,
+          }}
+        />
+        <span
+          style={{
+            fontSize: 11,
+            fontWeight: 500,
+            color: '#111827',
+            overflow: 'hidden',
+            textOverflow: 'ellipsis',
+            whiteSpace: 'nowrap',
+            flex: 1,
+            minWidth: 0,
+          }}
+        >
+          {shortLabel(data.slug)}
+        </span>
+      </div>
+      <Handle type="source" position={Position.Right} style={{ visibility: 'hidden' }} />
+    </>
   );
 }
 
