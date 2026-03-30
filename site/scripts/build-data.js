@@ -82,6 +82,7 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
       dataset: fm.assertions?.[0]?.dataset || null,
       analysis: fm.assertions?.[0]?.analysis || null,
       method: fm.assertions?.[0]?.method || null,
+      script: fm.assertions?.[0]?.script || null,
     });
   }
 
