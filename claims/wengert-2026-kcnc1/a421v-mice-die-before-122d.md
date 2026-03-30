@@ -31,6 +31,7 @@ reproductions:
     date: 2026-03-30
     status: verified:with-nuance
     script: verification/wengert-2026-kcnc1/verify.py
+    figure: verification/wengert-2026-kcnc1/figures/fig-survival.png
     notes: >
       Data extracted from Wengert et al_eLife_Electrophysiology Analysis.xlsx (G-Node,
       Survival sheet, fig1E). n=33 KI, n=46 WT confirmed exactly. 30/33 KI mice died

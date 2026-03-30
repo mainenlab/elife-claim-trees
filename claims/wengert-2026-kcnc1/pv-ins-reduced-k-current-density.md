@@ -31,6 +31,7 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/wengert-2026-kcnc1/verify.py
+    figure: verification/wengert-2026-kcnc1/figures/fig-k-current-density.png
     notes: >
       Data extracted from G-Node Excel summary (PV-IN K+ currents sheet). n=13 WT,
       n=17 KI confirmed exactly (matches paper). Peak current density at +40mV:
