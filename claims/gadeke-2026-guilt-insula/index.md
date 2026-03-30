@@ -14,6 +14,7 @@ url: https://elifesciences.org/articles/105391
 github: https://github.com/BonnSocialNeuroscienceUnit/ResponsibilityExperiment
 openneuro: https://openneuro.org/datasets/ds005588
 added: 2026-03-30
+badge: gold
 claim-count: 18
 ---
 

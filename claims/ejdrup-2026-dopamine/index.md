@@ -16,6 +16,7 @@ url: https://elifesciences.org/articles/105214
 github: https://github.com/Gether-Lab/striatal-dopamine-model
 zenodo: https://doi.org/10.5281/zenodo.17664800
 added: 2026-03-29
+badge: silver
 claim-count: 20
 ---
 

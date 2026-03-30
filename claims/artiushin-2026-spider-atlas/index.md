@@ -11,6 +11,7 @@ url: https://elifesciences.org/articles/107732
 github: https://github.com/GordusLab/Artiushin-elastix-eLife
 bil: https://doi.org/10.35077/ace-owl-gum
 added: 2026-03-30
+badge: none-structural
 claim-count: 17
 ---
 

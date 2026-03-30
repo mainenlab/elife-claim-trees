@@ -10,6 +10,7 @@ zenodo-data: https://doi.org/10.5281/zenodo.17971101
 zenodo-code: https://doi.org/10.5281/zenodo.17971100
 pdb: https://doi.org/10.2210/pdb9D57/pdb
 added: 2026-03-30
+badge: silver
 claim-count: 15
 ---
 

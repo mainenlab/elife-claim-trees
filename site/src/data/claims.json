@@ -13,6 +13,7 @@
       "github": "https://github.com/GordusLab/Artiushin-elastix-eLife",
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
+      "badge": "none-structural",
       "claimCount": 17,
       "statusCounts": {
         "unverified:no-data": 15,
@@ -340,6 +341,7 @@
       "github": "https://github.com/AntoineBouyeure/Representational-properties-of-cues-and-contexts-shape-fear-learning-and-reversal",
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
+      "badge": "silver",
       "claimCount": 22,
       "statusCounts": {
         "verified:partial": 4,
@@ -789,6 +791,7 @@
       "github": "https://github.com/Gether-Lab/striatal-dopamine-model",
       "journal": "eLife",
       "added": "2026-03-29T00:00:00.000Z",
+      "badge": "silver",
       "claimCount": 20,
       "statusCounts": {
         "verified": 13,
@@ -1193,6 +1196,7 @@
       "github": "https://github.com/BonnSocialNeuroscienceUnit/ResponsibilityExperiment",
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
+      "badge": "gold",
       "claimCount": 18,
       "statusCounts": {
         "unverified": 7,
@@ -1538,6 +1542,7 @@
       "github": "https://github.com/dbheadley/InhibOnDendComp",
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
+      "badge": "silver",
       "claimCount": 17,
       "statusCounts": {
         "unverified:no-data": 7,
@@ -1927,6 +1932,7 @@
       "github": "https://github.com/Lucakaemmer/FovealFeedback",
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
+      "badge": "none-gap",
       "claimCount": 15,
       "statusCounts": {
         "unverified:compute-infeasible": 12,
@@ -2219,6 +2225,7 @@
       "github": null,
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
+      "badge": "silver",
       "claimCount": 15,
       "statusCounts": {
         "verified": 2,
@@ -2517,6 +2524,7 @@
       "github": "https://github.com/AICONSlab/novas3d",
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
+      "badge": "none-compute",
       "claimCount": 17,
       "statusCounts": {
         "unverified": 15,
@@ -2864,6 +2872,7 @@
       "github": null,
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
+      "badge": "silver",
       "claimCount": 14,
       "statusCounts": {
         "verified": 10,
@@ -3166,6 +3175,7 @@
       "github": null,
       "journal": "eLife",
       "added": "2026-03-30T00:00:00.000Z",
+      "badge": "silver",
       "claimCount": 18,
       "statusCounts": {
         "unverified:no-data": 10,

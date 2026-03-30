@@ -16,6 +16,7 @@ github: https://github.com/AntoineBouyeure/Representational-properties-of-cues-a
 neurovault: https://identifiers.org/neurovault.collection:23032
 osf: https://doi.org/10.17605/OSF.IO/NGWKA
 added: 2026-03-30
+badge: silver
 claim-count: 19
 ---
 

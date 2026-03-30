@@ -100,6 +100,7 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
     github: paperMeta.github || null,
     journal: paperMeta.journal || 'eLife',
     added: paperMeta.added || null,
+    badge: paperMeta.badge || null,
     claimCount: claims.length,
     statusCounts,
     claims,

@@ -13,6 +13,7 @@ url: https://elifesciences.org/articles/100932
 osf: https://osf.io/a62df
 osf-preregistration: https://osf.io/ehu75
 added: 2026-03-30
+badge: silver
 claim-count: 15
 ---
 

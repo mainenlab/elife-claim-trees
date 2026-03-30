@@ -9,6 +9,7 @@ url: https://elifesciences.org/articles/95525
 github: https://github.com/AICONSlab/novas3d
 frdr: https://doi.org/10.20383/103.01588
 added: 2026-03-30
+badge: none-compute
 claim-count: 17
 ---
 

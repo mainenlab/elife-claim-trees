@@ -14,6 +14,7 @@ github: https://github.com/Lucakaemmer/FovealFeedback
 openneuro: https://doi.org/10.18112/openneuro.ds005933.v1.0.0
 osf-preregistration: https://osf.io/rxacd/
 added: 2026-03-30
+badge: none-gap
 claim-count: 15
 ---
 

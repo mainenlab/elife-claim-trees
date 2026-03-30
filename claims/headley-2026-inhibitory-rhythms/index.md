@@ -13,6 +13,7 @@ github: https://github.com/dbheadley/InhibOnDendComp
 modeldb: https://modeldb.science/2019883
 dryad: https://doi.org/10.5061/dryad.v6wwpzhb8
 added: 2026-03-30
+badge: silver
 claim-count: 17
 ---
 
