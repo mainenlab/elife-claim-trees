@@ -24,7 +24,7 @@ assertions:
     analysis: roi_lme_analysis.R, master_stats.R
     dataset: https://doi.org/10.17605/OSF.IO/NGWKA
     dataset-doi: 10.17605/OSF.IO/NGWKA
-    method: correlation: RSA context specificity × behavioral fear renewal
+    method: "correlation: RSA context specificity × behavioral fear renewal"
     confidence: moderate
 
 reproductions:
