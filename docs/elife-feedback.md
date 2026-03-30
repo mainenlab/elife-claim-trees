@@ -206,7 +206,21 @@ What a claim-ready author would need to add to either paper is modest. A structu
 
 ---
 
-## 8. The Website
+## 8. Integration with the eLife Reading Experience
+
+The standalone site demonstrates the concept. The practical question for eLife is how the claim graph enters the reading experience — whether it requires a reader to navigate away from the article, or whether it can be present alongside it. Three integration models exist, each requiring a different level of eLife involvement.
+
+**Reader-installed extension.** A browser extension that detects eLife article URLs and injects a collapsible claim graph panel into the article page, fetching data from the claim trees site, requires no eLife involvement at all. This is available today for any reader who installs it. It provides a proof of concept for what integrated reading looks like — what it means to have the claim table visible while reading the results section, or the dependency graph open while following a citation chain. It does not scale to readers who do not install extensions, and it is not a partnership in any meaningful sense. Its value is demonstrative, not distributional.
+
+**Embedded widget.** eLife includes a lightweight script tag or iframe on article pages for papers that have associated claim graphs. The panel renders inline — collapsible, sitting between abstract and introduction, or as a sidebar — without the reader leaving the article. This requires minimal eLife engineering: one script include per article, conditional on a claim graph existing for that paper. The claim graph site serves the data; eLife controls the placement, the visual integration, and the decision about which papers carry the widget. This is the concrete near-term proposal — what eLife could trial with the ten papers in this corpus without committing to any policy or infrastructure change. Authors of those papers would know their claim graphs are being surfaced to real readers; eLife would have a real-traffic test of whether readers engage with the panel; and the entire trial is reversible by removing a script tag.
+
+**Native integration.** Claim tables become part of the submission and publication record. eLife stores claim data in their own infrastructure, renders claim graphs natively in their article template, and surfaces claim status as part of the editorial record. This requires three changes that the embedded widget does not: a policy change (structured claim table required at submission), an editorial workflow change (reviewers engage with the claim table as part of their assessment), and engineering investment (claim data in eLife's own storage and rendering pipeline). It is also the only integration model that creates the feedback loop between submission, review, and publication that makes claim graphs editorially valuable rather than retrospective annotations. A claim graph published alongside a paper tells a reader something. A claim graph that a reviewer engaged with during review — that shaped which claims were flagged, which dependencies were questioned, which reproduction paths were confirmed — tells the reader something different and more meaningful. The editorial value of the format depends on that loop being closed.
+
+The embedded widget is what this document asks for. It is also where the conversation is pointing. If the widget generates reader engagement, if authors of the ten papers find the claim graphs recognizable and editorially accurate, and if reviewers find that the claim table format surfaces information they would have wanted during their review, then the case for native integration follows from the evidence rather than from advocacy. The trial design is already in place: ten papers, one script tag per article, and the author feedback process described in the section above.
+
+---
+
+## 9. The Website
 
 A website at [https://github.com/zmainen/elife-claim-trees](https://github.com/zmainen/elife-claim-trees) presents browsable claim graphs for all 10 papers. Each paper has an index page with the claim table, the dependency graph, and the reproduction status for each claim. Individual claim pages record the proposition, the panel, the data pointer, the code pointer, and the reproduction status with notes.
 
