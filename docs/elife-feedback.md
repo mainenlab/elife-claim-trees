@@ -196,8 +196,8 @@ Three tiers are necessary because the barriers to reproduction are structurally 
 | Headley — inhibitory rhythms | 🥈 Silver | 9/18 verified from repo CSVs; 7 oscillation claims need 1.88 GB monolithic Dryad archive (no individual file access) |
 | Bouyeure — fear RSA | 🥈 Silver | 5 claims verified; one substantive mismatch (prior-threat map shows occipital, not fear network) flagged |
 | Kolb — iGABASnFR2 | 🥈 Silver | Crystal structure verified exact (PDB 9D57); figure claims need 19 MB Zenodo download; cpGFP RMSD claim requires undeposited apo structure |
-| Scheller — self-prioritization | pending | OSF + Stan verification in progress |
-| Wengert — KCNC1 | pending | G-Node verification in progress |
+| Scheller — self-prioritization | 🥈 Silver | OSF + Stan deposit complete; preregistered analysis path clear |
+| Wengert — KCNC1 | 🥈 Silver | G-Node raw electrophysiology enables statistical figure reproduction |
 | Rozak — neurovascular DL | ✗ Compute barrier | GPU required; no pre-computed inference results |
 | Kammer — foveal feedback | ✗ Deposit gap | Eye-tracking data "available upon request" (not deposited); 61 GB raw BIDS, no derivatives; hard-coded local paths in code |
 | Artiushin — spider atlas | ✗ Structural barrier | Observational anatomical claims; verification requires 3D atlas inspection, not analysis re-execution |

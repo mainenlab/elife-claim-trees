@@ -361,7 +361,7 @@
           <td class="num">18</td>
           <td class="center"><span class="badge badge-unverified">0</span></td>
           <td>MATLAB + SPM12 dependency throughout</td>
-          <td><span class="rbadge rbadge-compute">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></td>
+          <td><span class="rbadge rbadge-gold"><span style="color:#fcd34d">●</span> GOLD</span></td>
         </tr>
         <tr>
           <td class="num">3</td>
@@ -370,7 +370,7 @@
           <td class="num">15</td>
           <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
           <td>Sensor constructs and stopped-flow equipment</td>
-          <td><span class="rbadge rbadge-structural">NO BADGE <span style="opacity:0.7;font-weight:400">/ structural</span></span></td>
+          <td><span class="rbadge rbadge-silver"><span style="color:#cbd5e1">●</span> SILVER</span></td>
         </tr>
         <tr>
           <td class="num">4</td>
@@ -388,7 +388,7 @@
           <td class="num">22</td>
           <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
           <td>BrainIAK searchlight compute; multi-language stack</td>
-          <td><span class="rbadge rbadge-compute">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></td>
+          <td><span class="rbadge rbadge-silver"><span style="color:#cbd5e1">●</span> SILVER</span></td>
         </tr>
         <tr>
           <td class="num">6</td>
@@ -397,7 +397,7 @@
           <td class="num">17</td>
           <td class="center"><span class="badge badge-verified">9 (7 result + 2 assessment)</span></td>
           <td>Not yet executed (clear path, pre-computed data)</td>
-          <td><span class="rbadge rbadge-gold"><span style="color:#fcd34d">●</span> GOLD</span></td>
+          <td><span class="rbadge rbadge-silver"><span style="color:#cbd5e1">●</span> SILVER</span></td>
         </tr>
         <tr>
           <td class="num">7</td>
@@ -424,7 +424,7 @@
           <td class="num">20</td>
           <td class="center"><span class="badge badge-verified">13 (9 result + 4 assessment)</span></td>
           <td>matplotlib 3.8 API breakage; tissue-scale compute</td>
-          <td><span class="rbadge rbadge-gold"><span style="color:#fcd34d">●</span> GOLD</span></td>
+          <td><span class="rbadge rbadge-silver"><span style="color:#cbd5e1">●</span> SILVER</span></td>
         </tr>
         <tr>
           <td class="num">10</td>
@@ -433,7 +433,7 @@
           <td class="num">15</td>
           <td class="center"><span class="badge badge-assessment">1 (assessment)</span></td>
           <td>OpenNeuro data volume; MVPA compute</td>
-          <td><span class="rbadge rbadge-compute">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></td>
+          <td><span class="rbadge rbadge-gap">NO BADGE <span style="opacity:0.7;font-weight:400">/ gap</span></span></td>
         </tr>
       </tbody>
     </table>
@@ -450,7 +450,7 @@
   ══════════════════════════════════════════════════════════ -->
   <h2>3. Paper-by-Paper Findings</h2>
 
-  <h3>Ejdrup — Dopamine dynamics model <span style="font-weight:400;color:var(--muted)">(computational, 20 claims)</span> <span class="rbadge rbadge-gold" style="margin-left:6px"><span style="color:#fcd34d">●</span> GOLD</span></h3>
+  <h3>Ejdrup — Dopamine dynamics model <span style="font-weight:400;color:var(--muted)">(computational, 20 claims)</span> <span class="rbadge rbadge-silver" style="margin-left:6px"><span style="color:#cbd5e1">●</span> SILVER</span></h3>
 
   <p>This paper builds a reaction-diffusion model of striatal dopamine dynamics to explain the functional difference between dorsal and ventral striatum. The primary finding — that DAT Vmax is the dominant determinant of regional contrast — is well-supported by the parameter sweep in Figures 3B–G, and the claim <code>vmax-only-parameter-driving-regional-difference</code> is among the most strongly epistemic claims in the corpus. Thirteen of the 20 claims were verified in this prototype run, including 9 result claims and 4 assessment claims verified by code inspection.</p>
 
@@ -460,7 +460,7 @@
 
   <p>Three claims are blocked by a matplotlib 3.8 API change (<code>Axes3D.w_xaxis</code> was renamed to <code>xaxis</code>). This is a one-line fix per script. The simulation code is correct; only the figure rendering is broken.</p>
 
-  <h3>Headley — Inhibitory rhythms <span style="font-weight:400;color:var(--muted)">(computational biophysics, 17 claims)</span> <span class="rbadge rbadge-gold" style="margin-left:6px"><span style="color:#fcd34d">●</span> GOLD</span></h3>
+  <h3>Headley — Inhibitory rhythms <span style="font-weight:400;color:var(--muted)">(computational biophysics, 17 claims)</span> <span class="rbadge rbadge-silver" style="margin-left:6px"><span style="color:#cbd5e1">●</span> SILVER</span></h3>
 
   <p>This paper uses a multicompartmental NEURON model of a layer 5 pyramidal neuron to show that distal-dendritic inhibition at beta frequencies gates Ca²⁺/NMDA spike occurrence while perisomatic inhibition at gamma frequencies modulates action potential threshold — two distinct computational operations performed by two distinct circuit motifs. The model is a single cell, and the assessment claim <code>l5-model-single-cell-scope</code> records this explicitly: all 17 result claims are predictions of a single-cell model with no network dynamics or population-level effects.</p>
 
@@ -476,7 +476,7 @@
 
   <p>The reproduction path is clear. Data and notebooks are on OSF; the preregistration specifies the analysis plan. The primary dependency is Stan/R for the hierarchical Bayesian model.</p>
 
-  <h3>Kämmer — Foveal feedback <span style="font-weight:400;color:var(--muted)">(fMRI/MVPA, 15 claims)</span> <span class="rbadge rbadge-compute" style="margin-left:6px">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></h3>
+  <h3>Kämmer — Foveal feedback <span style="font-weight:400;color:var(--muted)">(fMRI/MVPA, 15 claims)</span> <span class="rbadge rbadge-gap" style="margin-left:6px">NO BADGE <span style="opacity:0.7;font-weight:400">/ gap</span></span></h3>
 
   <p>This paper uses a gaze-contingent fMRI paradigm to show that peripheral saccade targets, which disappear before fixation in 99.27% of trials, are nonetheless decodable from foveal V1 BOLD signal (57.43% decoding accuracy, t(27)=8.81, p&lt;0.001). The preregistered design is a structural strength: the analysis plan is fully documented before data collection, making the reproduction path completely unambiguous.</p>
 
@@ -494,7 +494,7 @@
 
   <p>G-Node contains the raw electrophysiology traces, which would allow statistical figure reproduction from deposited data. But reproducing figures from deposited data is not the same as re-measuring the phenotype. The claim graph records both the accessibility of deposited data and the nature of what it does and does not enable.</p>
 
-  <h3>Bouyeure — Fear and reversal RSA <span style="font-weight:400;color:var(--muted)">(fMRI/RSA, 22 claims)</span> <span class="rbadge rbadge-compute" style="margin-left:6px">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></h3>
+  <h3>Bouyeure — Fear and reversal RSA <span style="font-weight:400;color:var(--muted)">(fMRI/RSA, 22 claims)</span> <span class="rbadge rbadge-silver" style="margin-left:6px"><span style="color:#cbd5e1">●</span> SILVER</span></h3>
 
   <p>This paper uses fMRI and representational similarity analysis across a multi-day fear conditioning paradigm to show that reversal learning employs two simultaneous representational strategies: generalization for newly threatening cues, and item-specificity for cues whose threat value changed.</p>
 
@@ -502,7 +502,7 @@
 
   <p>The assessment claim <code>rsa-roi-derived-from-searchlight</code> surfaces a structural feature that the narrative does not foreground. The ROIs used in Figures 4B and 5D are derived from the same searchlight analysis conducted on the same dataset — a procedure known as double dipping or circularity of ROI selection. The searchlight identifies regions with significant pattern similarity; subsequent RSA analyses in those same regions using the same data then inherit that significance by construction. FDR correction across voxels corrects for multiple comparisons in the searchlight, but it does not correct for the selection bias introduced by using searchlight-identified ROIs for confirmatory RSA in the same participants. All result claims downstream of Figures 4B and 5D depend on this assessment node. The pattern similarity results in those figures are not independent tests of the RSA hypotheses — they are confirmations in regions pre-selected to show the effect. This is a common analysis pattern in fMRI RSA research and does not invalidate the paper's findings, but it does constrain what those findings demonstrate: the effect is real in these regions, in this sample; whether it would replicate in an independently selected ROI in a new sample is an open question the current design cannot answer.</p>
 
-  <h3>Gädeke — Guilt and insula <span style="font-weight:400;color:var(--muted)">(fMRI/behavioral, 18 claims)</span> <span class="rbadge rbadge-compute" style="margin-left:6px">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span></h3>
+  <h3>Gädeke — Guilt and insula <span style="font-weight:400;color:var(--muted)">(fMRI/behavioral, 18 claims)</span> <span class="rbadge rbadge-gold" style="margin-left:6px"><span style="color:#fcd34d">●</span> GOLD</span></h3>
 
   <p>This fMRI paper studies the neural basis of interpersonal guilt through a social monetary decision task. The analysis chain is documented in detail: the GitHub repository maps each MATLAB script to a figure, behavioral data are in <code>.mat</code> files, and pre-computed group NIfTI results enable figure reproduction without re-running first-level GLMs.</p>
 
