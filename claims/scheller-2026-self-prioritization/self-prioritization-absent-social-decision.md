@@ -40,6 +40,7 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/scheller-2026-self-prioritization/verify.py
+    original_figure: verification/originals/scheller-2026-self-prioritization/fig5.jpg
     figure: verification/scheller-2026-self-prioritization/figures/fig-social-decision-inversion.png
     notes: >
       Verified from estimates_indiv_C.csv (Exp1, OSF https://osf.io/a62df). Social condition

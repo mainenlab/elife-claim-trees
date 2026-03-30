@@ -35,6 +35,7 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/headley-2026-inhibitory-rhythms/verify.py
+    original_figure: verification/originals/headley-2026-inhibitory-rhythms/fig3.jpg
     figure: verification/headley-2026-inhibitory-rhythms/figures/fig3a-nmda-coupling.png
     notes: >
       Verified from pre-computed Figure3a.csv in repo data/. NMDA STA peak times by apical

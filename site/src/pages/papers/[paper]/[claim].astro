@@ -188,20 +188,32 @@ if (claimData.script) {
       </div>
     )}
 
-    <!-- Reproduced figure -->
-    {claimData.figure && (
-      <div class="mb-8 p-5 bg-gray-50 border border-gray-200 rounded-xl">
-        <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-1">Reproduced panel</h2>
-        <p class="text-xs text-gray-400 mb-3">
-          Generated from deposited data.{' '}
-          <a href={`${GITHUB_BASE}/${claimData.figure}`} target="_blank" class="text-blue-500 hover:underline">View source ↗</a>
-        </p>
-        <img
-          src={`${base}/${claimData.figure}`}
-          alt={`Reproduced figure for ${claimData.slug}`}
-          class="max-w-full rounded-lg border border-gray-200"
-        />
-      </div>
+    <!-- Figure comparison -->
+    {(claimData.figure || claimData.original_figure) && (
+      <section class="figure-comparison mb-8">
+        <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-4">Panel reproduction</h2>
+        <div class="figure-grid">
+          {claimData.original_figure && (
+            <div class="figure-panel">
+              <div class="figure-label">Original (paper)</div>
+              <img src={`${base}/${claimData.original_figure}`} alt="Original figure from paper" class="rounded-lg" />
+              <div class="figure-caption">From eLife · {claimData.panel}</div>
+            </div>
+          )}
+          {claimData.figure && (
+            <div class="figure-panel">
+              <div class={`figure-label ${claimData.status === 'verified' ? 'figure-label-verified' : claimData.status?.startsWith('failed') ? 'figure-label-mismatch' : 'figure-label-reproduced'}`}>
+                Reproduced · {claimData.status === 'verified' ? '✓ Match' : claimData.status === 'failed:mismatch' ? '✗ Mismatch' : claimData.status?.startsWith('verified') ? '~ Partial' : claimData.status}
+              </div>
+              <img src={`${base}/${claimData.figure}`} alt="Reproduced figure" class="rounded-lg" />
+              <div class="figure-caption">
+                From deposited data ·{' '}
+                {claimData.script && <a href={`${GITHUB_BASE}/${claimData.script}`} target="_blank" class="hover:underline">code ↗</a>}
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
     )}
 
     <div class="border-t border-gray-100 pt-6">
@@ -211,3 +223,43 @@ if (claimData.script) {
     </div>
   </div>
 </Layout>
+
+<style>
+  .figure-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+    margin-top: 0.5rem;
+  }
+  .figure-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .figure-panel img {
+    width: 100%;
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+  }
+  .figure-label {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #6b7280;
+  }
+  .figure-label-reproduced { color: #2563eb; }
+  .figure-label-verified { color: #16a34a; }
+  .figure-label-mismatch { color: #dc2626; }
+  .figure-caption {
+    font-size: 0.7rem;
+    color: #9ca3af;
+  }
+  .figure-caption a {
+    color: #9ca3af;
+    text-decoration: underline;
+  }
+  @media (max-width: 640px) {
+    .figure-grid { grid-template-columns: 1fr; }
+  }
+</style>

@@ -31,6 +31,7 @@ reproductions:
     date: 2026-03-30
     status: verified:partial
     script: verification/gadeke-2026-guilt-insula/verify.py
+    original_figure: verification/originals/gadeke-2026-guilt-insula/fig2.jpg
     figure: verification/gadeke-2026-guilt-insula/figures/fig-lottery-choice-ev.png
     notes: >
       Logistic regression (statsmodels) run on deposited CSV data (not per-subject MATLAB files).

@@ -38,6 +38,7 @@ reproductions:
     date: 2026-03-30
     status: verified:partial
     script: verification/bouyeure-2026-fear-rsa/verify.py
+    original_figure: verification/originals/bouyeure-2026-fear-rsa/fig2.jpg
     figure: verification/bouyeure-2026-fear-rsa/figures/fig-prior-threat-mismatch.png
     notes: >
       NeuroVault map downloaded (run2_previousvalencecontrast_TFCE_nlog10p.nii.gz, collection 23032).

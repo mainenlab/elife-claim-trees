@@ -80,6 +80,7 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
       supports,
       notes: notes.trim(),
       figure: fm.reproductions?.[0]?.figure || null,
+      original_figure: fm.reproductions?.[0]?.original_figure || null,
       dataset: fm.assertions?.[0]?.dataset || null,
       analysis: fm.assertions?.[0]?.analysis || null,
       method: fm.assertions?.[0]?.method || null,

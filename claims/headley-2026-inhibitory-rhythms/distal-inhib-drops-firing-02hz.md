@@ -41,6 +41,7 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/headley-2026-inhibitory-rhythms/verify.py
+    original_figure: verification/originals/headley-2026-inhibitory-rhythms/fig4.jpg
     figure: verification/headley-2026-inhibitory-rhythms/figures/fig4a-firing-rates.png
     notes: >
       Verified directly from Figure4a.csv in repo data/. Pre-computed firing rates (30

@@ -32,6 +32,7 @@ reproductions:
     date: 2026-03-30
     status: verified
     script: verification/gadeke-2026-guilt-insula/verify.py
+    original_figure: verification/originals/gadeke-2026-guilt-insula/fig4.jpg
     figure: verification/gadeke-2026-guilt-insula/figures/fig-insula-peak.png
     notes: >
       NIfTI peak extraction from deposited fMRIresults/outcome/guiltEffect_0p05FWE_SVC_aIns.nii
