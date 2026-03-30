@@ -16,12 +16,13 @@ priority: 2026-03-30
 epistemic: moderate
 
 belongings:
-[]
+  - relation: extends
+    target: unetr-outperforms-ilastik-hd95
 
 assertions:
   - paper-slug: rozak-2026-neurovascular-dl
-    doi: ~
-    panel: figs 2-4
+    doi: 10.7554/eLife.95525
+    panel: fig3, fig4
     analysis: Tutorial.ipynb
     dataset: https://doi.org/10.20383/103.01588
     dataset-doi: 10.20383/103.01588

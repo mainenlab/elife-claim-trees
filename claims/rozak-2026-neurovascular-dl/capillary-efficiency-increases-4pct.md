@@ -14,12 +14,15 @@ priority: 2026-03-30
 epistemic: moderate
 
 belongings:
-[]
+  - relation: requires
+    target: responder-threshold-2sd-untested
+  - relation: requires
+    target: radius-estimation-r2-0p68
 
 assertions:
   - paper-slug: rozak-2026-neurovascular-dl
-    doi: ~
-    panel: fig8, fig9
+    doi: 10.7554/eLife.95525
+    panel: fig9C
     analysis: Tutorial.ipynb
     dataset: https://doi.org/10.20383/103.01588
     dataset-doi: 10.20383/103.01588
