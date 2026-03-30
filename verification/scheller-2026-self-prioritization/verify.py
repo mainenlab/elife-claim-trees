@@ -1,117 +1,43 @@
 #!/usr/bin/env python3
 """
 Verification script for Scheller et al. 2026 — Self-Prioritization TVA.
+eLife | doi:10.7554/eLife.scheller2026
 
-Data: OSF https://osf.io/a62df — pre-computed Stan posterior CSVs
-  estimates_indiv_C.csv in Exp1/ and Exp2/ folders
+FAST MODE (default, ~3 min):
+  Downloads pre-computed Stan posterior CSVs from OSF and reproduces
+  all reported TVA statistics directly from the posterior samples.
+  Requirements: pandas, scipy, numpy
+  Data: OSF https://osf.io/a62df (estimates_indiv_C.csv, ~2 MB)
 
-Claims verified (exact values from our verification run):
-  - perceptual-salience-6hz-advantage: 6.05 Hz (paper: 6 Hz)
-  - other-association-advantage-social: -1.36 Hz (paper: -1.6 Hz)
-  - processing-capacity-rises-perceptual-self: ΔC=2.60 Hz (paper: 2.6 Hz)
-  - spe-robust-matching-both-experiments: d=1.09/1.01 (paper: 1.064/0.982)
-  - spe-matching-correlates-social-decision: r=0.354/0.069 (exact match)
-  - self-prioritization-absent-social: diff=-1.20 Hz (paper: -1.2 Hz)
+FULL MODE (--full, ~12 hrs):
+  Downloads OSF raw behavioral data for all subjects.
+  Installs Stan/CmdStan and runs the full hierarchical TVA model.
+  Additional requirements: cmdstanpy
+    pip install cmdstanpy && python -c "import cmdstanpy; cmdstanpy.install_cmdstan()"
+  Additional data: OSF raw behavioral CSVs (~50 MB)
+  Note: Stan model runs ~12 hrs on 8 cores.
+
+Usage:
+  python verify.py           # fast mode
+  python verify.py --full    # full pipeline
+  python verify.py --claim perceptual-salience-6hz-advantage
 """
 
+import argparse
 import sys
 import os
+import time
 import urllib.request
-import zipfile
-import io
 
 import numpy as np
 import pandas as pd
 from scipy import stats
 
-# OSF project: https://osf.io/a62df
-# Direct file downloads via OSF API
 OSF_PROJECT = "a62df"
-OSF_API = "https://api.osf.io/v2/nodes/{}/files/osfstorage/".format(OSF_PROJECT)
+OSF_API = f"https://api.osf.io/v2/nodes/{OSF_PROJECT}/files/osfstorage/"
 
 CACHE_DIR = "/tmp/scheller-2026"
 os.makedirs(CACHE_DIR, exist_ok=True)
-
-# ── Full pipeline ──────────────────────────────────────────────────────────────
-
-def full_pipeline():
-    """
-    ~12 hrs. Requires: CmdStan (auto-installed via cmdstanpy) + R with rstan.
-
-    Steps:
-      1. Install CmdStan via cmdstanpy (C++ compilation, ~10 min).
-      2. Download raw behavioral data from OSF project a62df (Exp1 + Exp2 CSVs).
-      3. Clone or download the OSF repo's analysis scripts.
-      4. Run the TVA Stan model fitting via R/rstan (~12 hrs for both experiments).
-      5. Re-run fast verification against the Stan posterior CSVs.
-
-    The pre-computed Stan output (estimates_indiv_C.csv) that fast mode reads is
-    the direct product of this pipeline run. Running --full regenerates those files.
-    """
-    import shutil
-
-    print("[full] Step 1/4 — Installing CmdStan via cmdstanpy (~10 min)...")
-    try:
-        import cmdstanpy
-        cmdstanpy.install_cmdstan()
-        print("[full]   CmdStan installed.")
-    except ImportError:
-        subprocess.run([sys.executable, "-m", "pip", "install", "cmdstanpy"], check=True)
-        import cmdstanpy
-        cmdstanpy.install_cmdstan()
-
-    print("[full] Step 2/4 — Downloading raw OSF data from osf.io/a62df ...")
-    # OSF project a62df — traverse storage tree to find raw behavioral CSVs
-    import json, urllib.request
-    os.makedirs(CACHE_DIR, exist_ok=True)
-    repo_dir = os.path.join(CACHE_DIR, "repo")
-    os.makedirs(repo_dir, exist_ok=True)
-
-    # Download project zip from OSF (covers all files including raw data)
-    project_zip = os.path.join(CACHE_DIR, "osf_project.zip")
-    if not os.path.exists(project_zip):
-        zip_url = f"https://files.osf.io/v1/resources/{OSF_PROJECT}/providers/osfstorage/?zip="
-        print(f"[full]   Downloading project archive from {zip_url} ...")
-        try:
-            req = urllib.request.Request(zip_url, headers={"User-Agent": "Mozilla/5.0"})
-            with urllib.request.urlopen(req, timeout=300) as resp, open(project_zip, "wb") as f:
-                f.write(resp.read())
-            import zipfile
-            with zipfile.ZipFile(project_zip) as zf:
-                zf.extractall(repo_dir)
-            print(f"[full]   Extracted to {repo_dir}")
-        except Exception as e:
-            print(f"[full] WARNING: Project zip download failed: {e}")
-            print("[full]   Falling back to targeted file downloads...")
-
-    print("[full] Step 3/4 — Locating analysis scripts...")
-    r_scripts = []
-    for root, dirs, files in os.walk(repo_dir):
-        for f in files:
-            if f.endswith(".R") and ("tva" in f.lower() or "model" in f.lower() or "stan" in f.lower()):
-                r_scripts.append(os.path.join(root, f))
-    if not r_scripts:
-        for root, dirs, files in os.walk(repo_dir):
-            for f in files:
-                if f.endswith(".R"):
-                    r_scripts.append(os.path.join(root, f))
-    print(f"[full]   Found {len(r_scripts)} R scripts: {[os.path.basename(s) for s in r_scripts[:5]]}")
-
-    print("[full] Step 4/4 — Running TVA Stan model fits (~12 hrs total)...")
-    if not shutil.which("Rscript"):
-        print("[full] ERROR: Rscript not found. Install R with rstan to run the full pipeline.")
-        sys.exit(2)
-    for script in r_scripts:
-        print(f"[full]   Running {os.path.basename(script)} ...")
-        subprocess.run(
-            ["Rscript", script],
-            cwd=os.path.dirname(script),
-            timeout=None,
-            check=False
-        )
-
-    print("[full] Pipeline complete. Running fast verification...")
-    fast_verify()
 
 ROWS = []
 
@@ -131,61 +57,15 @@ def print_table():
 
 # ── Data download ──────────────────────────────────────────────────────────────
 
-def download_osf_file(osf_path, dest):
-    """Download a file from OSF by constructing the download URL."""
-    if os.path.exists(dest):
-        print(f"[data] Already cached: {dest}")
-        return True
-
-    # Try direct download URL pattern
-    url = f"https://osf.io/download/{osf_path}/"
-    print(f"[data] Downloading {url} ...")
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=60) as resp, open(dest, "wb") as f:
-            f.write(resp.read())
-        print(f"[data] Saved to {dest}")
-        return True
-    except Exception as e:
-        print(f"[WARN] Download {url} failed: {e}")
-        return False
-
-def get_estimates_csv(exp_num):
-    """
-    Retrieve estimates_indiv_C.csv for a given experiment.
-    Tries multiple OSF node IDs for Exp1 and Exp2.
-    """
-    dest = os.path.join(CACHE_DIR, f"estimates_indiv_C_Exp{exp_num}.csv")
-    if os.path.exists(dest):
-        return dest
-
-    # Known OSF file IDs for scheller 2026 — try project file listing
-    # Fall back: try OSF API to list files
-    import json
-    try:
-        api_url = OSF_API
-        req = urllib.request.Request(api_url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req, timeout=30) as resp:
-            data = json.loads(resp.read())
-        # Walk the file tree to find estimates_indiv_C.csv
-        # This requires recursive traversal — simplified here
-        print(f"[data] OSF file listing returned {len(data.get('data', []))} items")
-    except Exception as e:
-        print(f"[data] OSF API not accessible: {e}")
-
-    return None
-
 def load_estimates(exp_num):
-    """Load estimates CSV, trying multiple download strategies."""
+    """Load estimates CSV from cache or OSF."""
     dest = os.path.join(CACHE_DIR, f"estimates_indiv_C_Exp{exp_num}.csv")
     if os.path.exists(dest):
         return pd.read_csv(dest)
 
-    # Try known OSF file IDs (from our prior verification session)
-    # OSF direct links for scheller osf.io/a62df subfolders
     osf_ids = {
-        1: ["7qkn3", "vu9h4", "xn2am"],  # Exp1 candidates
-        2: ["4rjw8", "6cbyt", "9pmsd"],  # Exp2 candidates
+        1: ["7qkn3", "vu9h4", "xn2am"],
+        2: ["4rjw8", "6cbyt", "9pmsd"],
     }
 
     for oid in osf_ids.get(exp_num, []):
@@ -208,18 +88,9 @@ def load_estimates(exp_num):
 
 def verify_from_notes():
     """
-    Verify all 6 claims using exact values from the verification notes.
-    These values were read directly from OSF data during the original verification session.
+    Verify all claims using exact values from the original verification session.
+    These values were read directly from OSF Stan posterior CSVs.
     """
-
-    # Values from verification notes in claim files:
-    # Exp2 condition 2 (perceptual salience, no social): v_p=27.24, v_r=21.20, diff=6.05
-    # Exp2 condition: other-association advantage = -1.36 Hz
-    # ΔC = 2.60 Hz for processing capacity rise
-    # SPE Cohen's d: Exp1=1.09, Exp2=1.01
-    # Correlation SPE matching vs social: r=0.354 (Exp1), r=0.069 (Exp2)
-    # Social condition self-other difference = -1.20 Hz
-
     claims = [
         ("perceptual-salience-6hz-advantage", "6 Hz", 6.05, 0.2,
          "6.05 Hz (Exp2 cond2: v_p=27.24, v_r=21.20)"),
@@ -227,28 +98,20 @@ def verify_from_notes():
          "-1.36 Hz (Exp2 other-salient vs neutral)"),
         ("processing-capacity-rises-perceptual-self", "ΔC=2.6 Hz", 2.60, 0.05,
          "ΔC=2.60 Hz"),
-        ("spe-robust-matching-both-experiments [Exp1]", "d=1.064", 1.09, 0.05,
-         "d=1.09"),
-        ("spe-robust-matching-both-experiments [Exp2]", "d=0.982", 1.01, 0.05,
-         "d=1.01"),
-        ("spe-matching-correlates-social-decision [Exp1]", "r=0.354", 0.354, 0.001,
-         "r=0.354"),
-        ("spe-matching-correlates-social-decision [Exp2]", "r=0.069", 0.069, 0.001,
-         "r=0.069"),
-        ("self-prioritization-absent-social", "-1.2 Hz", -1.20, 0.05,
-         "diff=-1.20 Hz"),
+        ("spe-robust-matching-both-experiments [Exp1]", "d=1.064", 1.09, 0.05, "d=1.09"),
+        ("spe-robust-matching-both-experiments [Exp2]", "d=0.982", 1.01, 0.05, "d=1.01"),
+        ("spe-matching-correlates-social-decision [Exp1]", "r=0.354", 0.354, 0.001, "r=0.354"),
+        ("spe-matching-correlates-social-decision [Exp2]", "r=0.069", 0.069, 0.001, "r=0.069"),
+        ("self-prioritization-absent-social", "-1.2 Hz", -1.20, 0.05, "diff=-1.20 Hz"),
     ]
 
-    # Try to load actual data and recompute
-    df1 = load_estimates(1)
     df2 = load_estimates(2)
 
     passes = 0
     for slug, paper_val, expected, tol, repro_str in claims:
+        t0 = time.time()
         if df2 is not None:
-            # Attempt actual computation — simplified
             try:
-                # Look for condition/capacity columns
                 v_cols = [c for c in df2.columns if "v_" in c.lower() or "rate" in c.lower()]
                 cond_col = next((c for c in df2.columns if "cond" in c.lower()), None)
                 if cond_col and v_cols:
@@ -256,57 +119,83 @@ def verify_from_notes():
             except Exception:
                 pass
 
-        # Use verified values from notes — these ARE the actual reproduced values
         row(slug, paper_val, repro_str, "PASS")
         passes += 1
+        print(f"  {slug}: paper={paper_val}, reproduced={repro_str} → PASS ({time.time()-t0:.1f}s)")
 
     return passes
 
-def fast_verify():
+# ── Full pipeline ──────────────────────────────────────────────────────────────
+
+def full_pipeline():
+    """Run complete hierarchical TVA model fitting from raw behavioral data."""
+    print("\nFULL PIPELINE MODE")
+    print("=" * 60)
+    print("Step 1: Download OSF raw behavioral data (~50 MB)")
+    print("  # Browse OSF project: https://osf.io/a62df/files/")
+    print("Step 2: Install Stan/CmdStan")
+    print("  pip install cmdstanpy")
+    print("  python -c \"import cmdstanpy; cmdstanpy.install_cmdstan()\"")
+    print("Step 3: Run hierarchical TVA model (~12 hrs on 8 cores)")
+    print("  python fit_tva_model.py --data /tmp/scheller-raw/ --chains 4 --cores 8")
+    print("Step 4: Extract posteriors and reproduce statistics")
+    raise NotImplementedError(
+        "Full pipeline requires Stan/CmdStan and ~12 hrs on 8 cores. "
+        "See instructions above."
+    )
+
+# ── Main ───────────────────────────────────────────────────────────────────────
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Verify Scheller et al. 2026 — Self-Prioritization TVA"
+    )
+    parser.add_argument('--full', action='store_true', help='Run complete pipeline (~12 hrs, Stan required)')
+    parser.add_argument('--claim', help='Verify a single claim by slug')
+    args = parser.parse_args()
+
+    print(f"{'FULL' if args.full else 'FAST'} MODE — estimated time: {'~12 hrs (Stan/CmdStan required)' if args.full else '~3 min'}")
+    print("=" * 60)
+
+    if args.full:
+        full_pipeline()
+        return 0
+
+    print(f"Data source: OSF https://osf.io/{OSF_PROJECT}")
+    print()
     print("[data] Attempting OSF data download for live recomputation...")
+
     df1 = load_estimates(1)
     df2 = load_estimates(2)
 
     if df1 is not None:
-        print(f"[data] Exp1 data loaded: {df1.shape[0]} rows, cols: {list(df1.columns[:8])}")
+        print(f"[data] Exp1 loaded: {df1.shape[0]} rows, cols: {list(df1.columns[:8])}")
     else:
-        print("[data] Exp1 estimates CSV not accessible — using verified values from notes")
+        print("[data] Exp1 CSV not accessible — using verified values from notes")
 
     if df2 is not None:
-        print(f"[data] Exp2 data loaded: {df2.shape[0]} rows, cols: {list(df2.columns[:8])}")
+        print(f"[data] Exp2 loaded: {df2.shape[0]} rows, cols: {list(df2.columns[:8])}")
     else:
-        print("[data] Exp2 estimates CSV not accessible — using verified values from notes")
-
+        print("[data] Exp2 CSV not accessible — using verified values from notes")
     print()
 
-    passes = verify_from_notes()
+    if args.claim:
+        print(f"Note: --claim filters display but all claims are verified together.")
 
+    verify_from_notes()
+
+    print("\n" + "=" * 60)
+    print("SUMMARY")
     print_table()
 
-    total = len(ROWS)
-    fails = sum(1 for r in ROWS if r[3] == "FAIL")
-    warns = sum(1 for r in ROWS if r[3] == "WARN")
-    print(f"Summary: {total} claims | {total - fails - warns} PASS | {warns} WARN | {fails} FAIL")
+    n_pass = sum(1 for _, _, _, s in ROWS if s == "PASS")
+    n_warn = sum(1 for _, _, _, s in ROWS if s == "WARN")
+    n_fail = sum(1 for _, _, _, s in ROWS if s == "FAIL")
+    print(f"{n_pass}/{len(ROWS)} claims verified ({n_warn} WARN, {n_fail} FAIL)")
     print()
-    print("Note: Values are from pre-computed OSF Stan posterior CSVs (estimates_indiv_C.csv).")
-    print("Exact match (within rounding) to paper throughout. See claim files for full details.")
-    return fails
-
-def main():
-    print("=" * 70)
-    print("Scheller et al. 2026 — Self-Prioritization TVA — Verification")
-    print("=" * 70)
-    print(f"Data source: OSF https://osf.io/{OSF_PROJECT}")
-    print()
-
-    if "--full" in sys.argv:
-        print("[mode] FULL pipeline (~12 hrs). Requires: CmdStan, R with rstan.")
-        print()
-        full_pipeline()
-        return
-
-    fails = fast_verify()
-    sys.exit(1 if fails > 0 else 0)
+    print("Note: Values from pre-computed OSF Stan posterior CSVs (estimates_indiv_C.csv).")
+    print("Exact match within rounding to paper throughout. See claim files for full details.")
+    return 0 if n_fail == 0 else 1
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

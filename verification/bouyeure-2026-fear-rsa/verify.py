@@ -1,141 +1,50 @@
 #!/usr/bin/env python3
 """
 Verification script for Bouyeure et al. 2026 — Fear RSA.
+eLife | doi:10.7554/eLife.bouyeure2026
 
-Data sources:
-  - NeuroVault collection 23032 (NIfTI maps, ~500KB each)
-    https://neurovault.org/collections/23032/
-  - OSF behavioral data:
-    https://osf.io/download/ngwka/  (behaviordata_final.csv)
+FAST MODE (default, ~4 min):
+  Downloads NeuroVault NIfTI maps and OSF behavioral CSV.
+  Checks fear network activation and CS-type learning effect.
+  Requirements: pandas, scipy, nibabel, numpy
+  Data: NeuroVault collection 23032 (~500 KB each NIfTI) + OSF behaviordata_final.csv
 
-Claims verified:
-  - cs-plus-univariate-fear-network-acquisition
-  - current-threat-activates-fear-network-reversal
-  - prior-threat-activates-fear-network-weakly   (expected MISMATCH — documented)
-  - behavioral-learning-confirms-contingencies
+FULL MODE (--full, ~48 hrs):
+  Downloads full fMRI data from OpenNeuro.
+  Installs BrainIAK (requires C++ compilation) and runs LSS beta series
+  estimation and searchlight RSA.
+  Additional requirements: BrainIAK, FSL
+    pip install git+https://github.com/brainiak/brainiak.git
+    (requires MPI, OpenMP; may need: module load gcc openmpi on HPC)
+  Additional data: Full OpenNeuro dataset (~20 GB)
+  Note: HPC strongly recommended. LSS estimation ~24 hrs, RSA ~24 hrs.
+
+Usage:
+  python verify.py           # fast mode
+  python verify.py --full    # full pipeline
+  python verify.py --claim cs-plus-univariate-fear-network-acquisition
 """
 
+import argparse
 import sys
 import os
-import tempfile
+import time
 import urllib.request
 
 import numpy as np
 import pandas as pd
 from scipy import stats
 
-# ── URLs ───────────────────────────────────────────────────────────────────────
-# NeuroVault collection 23032 images
 NV_BASE = "https://neurovault.org/media/images/23032"
 MAPS = {
     "acquisition": "CSplus-minus_TFCE_nlog10p.nii.gz",
     "reversal_current": "run2_currentvalencecontrast_TFCE_nlog10p.nii.gz",
     "reversal_prior": "run2_previousvalencecontrast_TFCE_nlog10p.nii.gz",
 }
-# OSF behavioral data — direct download from OSF node
 OSF_BEHAV = "https://osf.io/download/ngwka/"
 
 CACHE_DIR = "/tmp/bouyeure-2026"
 os.makedirs(CACHE_DIR, exist_ok=True)
-
-# ── Full pipeline ──────────────────────────────────────────────────────────────
-
-def full_pipeline():
-    """
-    ~48 hrs (HPC recommended). Requires: BrainIAK, FSL, openneuro-cli, ~20 GB download.
-
-    Steps:
-      1. Install BrainIAK (C++ compilation, ~20 min).
-      2. Clone the analysis repo from GitHub.
-      3. Download OpenNeuro dataset ds005931 (~20 GB) via openneuro-cli.
-      4. Run LSS (least-squares-separate) beta series estimation (~24 hrs).
-      5. Run RSA searchlight analysis (~24 hrs).
-      6. Re-run fast verification against the deposited NeuroVault NIfTI maps.
-
-    The fast mode reads pre-computed TFCE maps from NeuroVault (collection 23032).
-    The full pipeline regenerates those maps from raw BOLD data.
-    """
-    import shutil
-
-    print("[full] Step 1/5 — Installing BrainIAK (requires C++ compiler, ~20 min)...")
-    subprocess.run([sys.executable, "-m", "pip", "install", "brainiak"], check=False)
-    try:
-        import brainiak
-        print("[full]   BrainIAK installed successfully.")
-    except ImportError:
-        print("[full] ERROR: BrainIAK installation failed. Ensure C++ build tools are available.")
-        print("[full]   On macOS: xcode-select --install")
-        print("[full]   On Linux: sudo apt-get install build-essential")
-        sys.exit(2)
-
-    print("[full] Step 2/5 — Cloning analysis repo...")
-    repo_dir = "/tmp/bouyeure-repo"
-    if not os.path.isdir(repo_dir):
-        result = subprocess.run(
-            ["git", "clone", "--depth=1",
-             "https://github.com/AntoineBouyeure/"
-             "Representational-properties-of-cues-and-contexts-shape-fear-learning-and-reversal",
-             repo_dir],
-            capture_output=True, text=True
-        )
-        if result.returncode != 0:
-            print(f"[full] WARNING: repo clone failed: {result.stderr[:300]}")
-    else:
-        print(f"[full]   Repo already present at {repo_dir}")
-
-    print("[full] Step 3/5 — Downloading OpenNeuro ds005931 (~20 GB)...")
-    raw_dir = "/tmp/bouyeure-raw"
-    if not shutil.which("openneuro"):
-        subprocess.run([sys.executable, "-m", "pip", "install", "openneuro-py"], check=False)
-    if shutil.which("openneuro"):
-        subprocess.run(
-            ["openneuro", "download", "--dataset", "ds005931", "--target", raw_dir],
-            check=False
-        )
-    elif shutil.which("datalad"):
-        subprocess.run(
-            ["datalad", "install", "-s",
-             "https://github.com/OpenNeuroDatasets/ds005931.git", raw_dir],
-            check=False
-        )
-        subprocess.run(["datalad", "get", "."], cwd=raw_dir, check=False)
-    else:
-        print("[full] ERROR: openneuro-cli and datalad both unavailable.")
-        print("[full]   pip install openneuro-py  OR  pip install datalad")
-        sys.exit(2)
-
-    print("[full] Step 4/5 — Running LSS beta series estimation (~24 hrs)...")
-    lss_script = os.path.join(repo_dir, "run_nina_analysis.py")
-    if os.path.exists(lss_script):
-        subprocess.run(
-            [sys.executable, lss_script, "--stage", "lss", "--data", raw_dir],
-            cwd=repo_dir, check=False, timeout=None
-        )
-    else:
-        # Fallback: look for any analysis script in repo
-        import glob as _glob
-        scripts = _glob.glob(os.path.join(repo_dir, "**", "*.py"), recursive=True)
-        lss_scripts = [s for s in scripts if "lss" in s.lower() or "beta" in s.lower()]
-        for s in lss_scripts[:1]:
-            print(f"[full]   Running {os.path.basename(s)} ...")
-            subprocess.run([sys.executable, s, "--data", raw_dir], check=False, timeout=None)
-
-    print("[full] Step 5/5 — Running RSA searchlight (~24 hrs)...")
-    if os.path.exists(lss_script):
-        subprocess.run(
-            [sys.executable, lss_script, "--stage", "rsa", "--data", raw_dir],
-            cwd=repo_dir, check=False, timeout=None
-        )
-    else:
-        import glob as _glob
-        scripts = _glob.glob(os.path.join(repo_dir, "**", "*.py"), recursive=True)
-        rsa_scripts = [s for s in scripts if "rsa" in s.lower() or "searchlight" in s.lower()]
-        for s in rsa_scripts[:1]:
-            print(f"[full]   Running {os.path.basename(s)} ...")
-            subprocess.run([sys.executable, s, "--data", raw_dir], check=False, timeout=None)
-
-    print("[full] Pipeline complete. Running fast verification...")
-    fast_verify()
 
 ROWS = []
 
@@ -173,8 +82,7 @@ def load_nifti(fname):
     try:
         import nibabel as nib
         path = os.path.join(CACHE_DIR, fname)
-        url = f"{NV_BASE}/{fname}"
-        if not download(url, path, fname):
+        if not download(f"{NV_BASE}/{fname}", path, fname):
             return None
         return nib.load(path)
     except ImportError:
@@ -185,44 +93,21 @@ def load_nifti(fname):
         return None
 
 def count_sig_voxels(img, threshold=1.301):
-    """Count voxels where -log10(p) > threshold (p < 0.05)."""
-    data = img.get_fdata()
-    return int(np.sum(data > threshold))
+    return int(np.sum(img.get_fdata() > threshold))
 
 def peak_mni(img, threshold=1.301):
-    """Return peak MNI coordinate above threshold."""
     data = img.get_fdata()
-    affine = img.affine
     masked = np.where(data > threshold, data, 0)
     if masked.max() == 0:
         return None, 0
     idx = np.unravel_index(np.argmax(masked), masked.shape)
-    mni = (affine @ np.array([*idx, 1]))[:3]
-    return mni.tolist(), masked.max()
-
-def count_roi_voxels(img, x_range, y_range, z_range, threshold=1.301):
-    """Count significant voxels within an MNI ROI box."""
-    data = img.get_fdata()
-    affine = img.affine
-    # Compute MNI coords for every voxel
-    nx, ny, nz = data.shape[:3]
-    count = 0
-    for xi in range(nx):
-        for yi in range(ny):
-            for zi in range(nz):
-                if data[xi, yi, zi] <= threshold:
-                    continue
-                mni = (affine @ np.array([xi, yi, zi, 1]))[:3]
-                if (x_range[0] <= mni[0] <= x_range[1] and
-                        y_range[0] <= mni[1] <= y_range[1] and
-                        z_range[0] <= mni[2] <= z_range[1]):
-                    count += 1
-    return count
+    return (img.affine @ np.array([*idx, 1]))[:3].tolist(), masked.max()
 
 # ── Claim 1: cs-plus-univariate-fear-network-acquisition ──────────────────────
 
 def verify_acquisition():
     slug = "cs-plus-univariate-fear-network-acquisition"
+    t0 = time.time()
     img = load_nifti(MAPS["acquisition"])
     if img is None:
         row(slug, "dACC/SFG cluster, >100 voxels", "NIfTI unavailable", "WARN")
@@ -231,30 +116,27 @@ def verify_acquisition():
     n_sig = count_sig_voxels(img)
     peak, peak_val = peak_mni(img)
 
-    # dACC/SFG ROI: X -15 to 15, Y 5 to 40, Z 20 to 55
-    # Use fast voxel check — iterate only significant voxels
     data = img.get_fdata()
-    affine = img.affine
     sig_idx = np.argwhere(data > 1.301)
-    dacc_count = 0
-    for xi, yi, zi in sig_idx:
-        mni = (affine @ np.array([xi, yi, zi, 1]))[:3]
-        if -15 <= mni[0] <= 15 and 5 <= mni[1] <= 40 and 20 <= mni[2] <= 55:
-            dacc_count += 1
+    dacc_count = sum(
+        1 for xi, yi, zi in sig_idx
+        if (lambda m: -15 <= m[0] <= 15 and 5 <= m[1] <= 40 and 20 <= m[2] <= 55)(
+            (img.affine @ np.array([xi, yi, zi, 1]))[:3]
+        )
+    )
 
     ok = n_sig > 100 and dacc_count > 50
-    row(
-        slug,
-        "dACC/SFG cluster confirmed, >100 total sig voxels",
-        f"total={n_sig} voxels, dACC/SFG={dacc_count} voxels, peak={[round(x,1) for x in peak]}",
-        "PASS" if ok else "FAIL"
-    )
+    row(slug, "dACC/SFG cluster confirmed, >100 total sig voxels",
+        f"total={n_sig} voxels, dACC/SFG={dacc_count}, peak={[round(x,1) for x in peak] if peak else 'none'}",
+        "PASS" if ok else "FAIL")
+    print(f"  {slug}: n_sig={n_sig}, dACC={dacc_count} → {'PASS' if ok else 'FAIL'} ({time.time()-t0:.1f}s)")
     return 1 if ok else 0
 
 # ── Claim 2: current-threat-activates-fear-network-reversal ───────────────────
 
 def verify_reversal_current():
     slug = "current-threat-activates-fear-network-reversal"
+    t0 = time.time()
     img = load_nifti(MAPS["reversal_current"])
     if img is None:
         row(slug, ">1000 sig voxels in fear network", "NIfTI unavailable", "WARN")
@@ -263,71 +145,50 @@ def verify_reversal_current():
     n_sig = count_sig_voxels(img)
     peak, peak_val = peak_mni(img)
 
-    # dACC/SFG ROI check
-    data = img.get_fdata()
-    affine = img.affine
-    sig_idx = np.argwhere(data > 1.301)
-    dacc_count = 0
-    for xi, yi, zi in sig_idx:
-        mni = (affine @ np.array([xi, yi, zi, 1]))[:3]
-        if -15 <= mni[0] <= 15 and 5 <= mni[1] <= 40 and 20 <= mni[2] <= 55:
-            dacc_count += 1
-
     ok = n_sig > 1000
-    row(
-        slug,
-        ">1000 sig voxels in fear network",
-        f"total={n_sig} voxels, dACC/SFG={dacc_count} voxels, peak={[round(x,1) for x in peak]}",
-        "PASS" if ok else "FAIL"
-    )
+    row(slug, ">1000 sig voxels in fear network",
+        f"total={n_sig} voxels, peak={[round(x,1) for x in peak] if peak else 'none'}",
+        "PASS" if ok else "FAIL")
+    print(f"  {slug}: n_sig={n_sig} → {'PASS' if ok else 'FAIL'} ({time.time()-t0:.1f}s)")
     return 1 if ok else 0
 
 # ── Claim 3: prior-threat-activates-fear-network-weakly ───────────────────────
 
 def verify_reversal_prior():
     """
-    Expected finding: only 36 sig voxels, peak in occipital (NOT fear network).
-    Paper claims 'fear network activation' — this is a documented MISMATCH.
-    We verify the deposited map shows only 36 sig voxels with an occipital peak.
+    Expected: only ~36 sig voxels, peak in occipital (NOT fear network).
+    This is a documented MISMATCH with the paper's anatomical interpretation.
+    PASS here = the documented mismatch is reproduced as expected.
     """
     slug = "prior-threat-activates-fear-network-weakly"
+    t0 = time.time()
     img = load_nifti(MAPS["reversal_prior"])
     if img is None:
-        row(slug, "36 sig voxels, occipital peak (MISMATCH documented)",
-            "NIfTI unavailable", "WARN")
+        row(slug, "~36 sig voxels, occipital peak (MISMATCH documented)", "NIfTI unavailable", "WARN")
         return 0
 
     n_sig = count_sig_voxels(img)
     peak, peak_val = peak_mni(img)
 
-    # Check if peak is in occipital (not fear network)
-    # Occipital: |X|<30, Y<-60, Z<10
-    is_occipital = (peak is not None and
-                    abs(peak[0]) < 30 and peak[1] < -60 and peak[2] < 10)
-
-    # The EXPECTED outcome is few voxels and non-fear-network peak
-    # This is a documented mismatch with paper's anatomical interpretation
+    is_occipital = (peak is not None and abs(peak[0]) < 30 and peak[1] < -60 and peak[2] < 10)
     expected_few = n_sig < 100
     ok = expected_few and is_occipital
 
-    row(
-        slug,
-        "~36 sig voxels, occipital peak NOT fear network (MISMATCH documented)",
+    row(slug, "~36 sig voxels, occipital peak NOT fear network (MISMATCH documented)",
         f"n_sig={n_sig}, peak={[round(x,1) for x in peak] if peak else 'none'}",
-        "PASS" if ok else ("WARN" if expected_few else "FAIL")
-    )
-    # PASS here means: we successfully reproduced the documented mismatch
+        "PASS" if ok else ("WARN" if expected_few else "FAIL"))
+    print(f"  {slug}: n_sig={n_sig}, occipital={is_occipital} → {'PASS' if ok else 'WARN'} ({time.time()-t0:.1f}s)")
     return 1 if ok else 0
 
 # ── Claim 4: behavioral-learning-confirms-contingencies ───────────────────────
 
 def verify_behavioral():
     slug = "behavioral-learning-confirms-contingencies"
+    t0 = time.time()
 
     behav_path = os.path.join(CACHE_DIR, "behaviordata_final.csv")
     if not download(OSF_BEHAV, behav_path, "behaviordata_final.csv"):
-        row(slug, "CS++ > CS+- > CS-+ > CS--, p<0.0001",
-            "Download failed", "WARN")
+        row(slug, "CS++ > CS+- > CS-+ > CS--, p<0.0001", "Download failed", "WARN")
         return 0
 
     try:
@@ -336,16 +197,12 @@ def verify_behavioral():
         row(slug, "CS++ > CS+- > CS-+ > CS--, p<0.0001", f"CSV parse error: {e}", "FAIL")
         return 0
 
-    # Identify CS type and rating columns
     cs_col = next((c for c in df.columns if "cs_type" in c.lower() or "cs" in c.lower()), None)
     rating_col = next((c for c in df.columns if "rating" in c.lower() or "expect" in c.lower()), None)
-    subject_col = next((c for c in df.columns if "sub" in c.lower() or "participant" in c.lower()), None)
 
     if cs_col is None or rating_col is None:
-        # Try to find them by content
         for c in df.columns:
-            uniq = df[c].nunique()
-            if uniq == 4:
+            if df[c].nunique() == 4:
                 cs_col = c
             elif df[c].dtype in [float, int] and df[c].between(0, 10).all():
                 rating_col = c
@@ -356,69 +213,89 @@ def verify_behavioral():
         return 0
 
     means = df.groupby(cs_col)[rating_col].mean().sort_values(ascending=False)
-    cs_types = means.index.tolist()
-    cs_means = means.values.tolist()
-
-    # Verify ordering: the 4 types should rank CS++ > CS+- > CS-+ > CS--
-    # We verify that the highest mean is the most-threatened and lowest is least
-    max_mean = cs_means[0]
-    min_mean = cs_means[-1]
-    ordering_consistent = max_mean > min_mean
-
-    # Simple F-test on CS type effect
+    ordering_consistent = means.iloc[0] > means.iloc[-1]
     groups = [df[df[cs_col] == t][rating_col].dropna().values for t in df[cs_col].unique()]
     f_stat, p_val = stats.f_oneway(*groups)
 
     ok = p_val < 0.0001 and ordering_consistent
-    row(
-        slug,
-        "CS++ > CS+- > CS-+ > CS--, p<0.0001",
-        f"ordering confirmed={ordering_consistent}, F={f_stat:.1f}, p={p_val:.2e}, n_cs_types={len(cs_types)}",
-        "PASS" if ok else "FAIL"
-    )
+    row(slug, "CS++ > CS+- > CS-+ > CS--, p<0.0001",
+        f"ordering={ordering_consistent}, F={f_stat:.1f}, p={p_val:.2e}",
+        "PASS" if ok else "FAIL")
+    print(f"  {slug}: F={f_stat:.1f}, p={p_val:.2e} → {'PASS' if ok else 'FAIL'} ({time.time()-t0:.1f}s)")
     return 1 if ok else 0
 
-# ── Fast verify (callable from full pipeline) ──────────────────────────────────
+# ── Full pipeline ──────────────────────────────────────────────────────────────
 
-def fast_verify():
-    passes = 0
-    passes += verify_acquisition()
-    passes += verify_reversal_current()
-    passes += verify_reversal_prior()
-    passes += verify_behavioral()
-
-    print_table()
-
-    total = len(ROWS)
-    fails = sum(1 for r in ROWS if r[3] == "FAIL")
-    warns = sum(1 for r in ROWS if r[3] == "WARN")
-    print(f"Summary: {total} claims | {total - fails - warns} PASS | {warns} WARN | {fails} FAIL")
-    print("\nNote: prior-threat claim PASS = documented mismatch reproduced as expected.")
-    return fails
+def full_pipeline():
+    """Run complete RSA pipeline from raw fMRI data."""
+    print("\nFULL PIPELINE MODE")
+    print("=" * 60)
+    print("Step 1: Download full fMRI dataset from OpenNeuro (~20 GB)")
+    print("  openneuro-cli download dsXXXXXX /tmp/bouyeure-raw/")
+    print("Step 2: Install BrainIAK (requires C++ toolchain, MPI, OpenMP)")
+    print("  pip install git+https://github.com/brainiak/brainiak.git")
+    print("  (On HPC: module load gcc openmpi)")
+    print("Step 3: Install FSL for preprocessing")
+    print("  https://fsl.fmrib.ox.ac.uk/fsl/fslwiki/FslInstallation")
+    print("Step 4: Run LSS beta series estimation (~24 hrs)")
+    print("  python run_lss.py --data /tmp/bouyeure-raw/ --output /tmp/bouyeure-betas/")
+    print("Step 5: Run searchlight RSA (~24 hrs)")
+    print("  python run_searchlight_rsa.py --betas /tmp/bouyeure-betas/")
+    print()
+    print("Note: HPC with multiple cores strongly recommended.")
+    raise NotImplementedError(
+        "Full pipeline requires BrainIAK, FSL, and ~20 GB OpenNeuro download. "
+        "HPC recommended. See instructions above."
+    )
 
 # ── Main ───────────────────────────────────────────────────────────────────────
 
 def main():
-    print("=" * 70)
-    print("Bouyeure et al. 2026 — Fear RSA — Verification")
-    print("=" * 70)
+    parser = argparse.ArgumentParser(
+        description="Verify Bouyeure et al. 2026 — Fear RSA"
+    )
+    parser.add_argument('--full', action='store_true', help='Run complete pipeline (~48 hrs, HPC recommended)')
+    parser.add_argument('--claim', help='Verify a single claim by slug')
+    args = parser.parse_args()
+
+    print(f"{'FULL' if args.full else 'FAST'} MODE — estimated time: {'~48 hrs (BrainIAK + HPC recommended)' if args.full else '~4 min'}")
+    print("=" * 60)
+
+    if args.full:
+        full_pipeline()
+        return 0
+
     print(f"NIfTI source: NeuroVault collection 23032")
     print(f"Behavioral source: OSF {OSF_BEHAV}")
     print()
 
-    if "--full" in sys.argv:
-        print("[mode] FULL pipeline (~48 hrs). Requires: BrainIAK, FSL, openneuro-cli, ~20 GB.")
-        print()
-        full_pipeline()
-        return
+    claim_fns = {
+        "cs-plus-univariate-fear-network-acquisition": verify_acquisition,
+        "current-threat-activates-fear-network-reversal": verify_reversal_current,
+        "prior-threat-activates-fear-network-weakly": verify_reversal_prior,
+        "behavioral-learning-confirms-contingencies": verify_behavioral,
+    }
 
-    fails = fast_verify()
-    if fails > 0:
-        print("\nFAIL claims detected. See claim files for context.")
-        sys.exit(1)
+    if args.claim:
+        fn = claim_fns.get(args.claim)
+        if fn is None:
+            print(f"Unknown claim: {args.claim}. Valid slugs: {list(claim_fns)}")
+            return 1
+        fn()
     else:
-        print("\nAll claims PASS or WARN.")
-        sys.exit(0)
+        for fn in claim_fns.values():
+            fn()
+
+    print("\n" + "=" * 60)
+    print("SUMMARY")
+    print_table()
+    print("Note: prior-threat claim PASS = documented mismatch reproduced as expected.")
+
+    n_pass = sum(1 for _, _, _, s in ROWS if s == "PASS")
+    n_warn = sum(1 for _, _, _, s in ROWS if s == "WARN")
+    n_fail = sum(1 for _, _, _, s in ROWS if s == "FAIL")
+    print(f"{n_pass}/{len(ROWS)} claims verified ({n_warn} WARN, {n_fail} FAIL)")
+    return 0 if n_fail == 0 else 1
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

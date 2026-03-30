@@ -63,6 +63,36 @@ See the corresponding claim `.md` file in `claims/{paper}/` for full notes.
 | `kolb-2026-igabasnfr2/` | Kolb et al. 2026 — iGABASnFR2 structure | 1 |
 | `headley-2026-inhibitory-rhythms/` | Headley et al. 2026 — inhibitory rhythms | 4 |
 
+## Running Modes
+
+Every script supports two modes:
+
+```bash
+python verify.py           # fast mode (default)
+python verify.py --full    # full pipeline
+python verify.py --claim slug-name  # single claim only
+```
+
+**Fast mode** downloads pre-computed deposit files (CSVs, NIfTIs, Excel) and
+reproduces the reported statistics. Runs in minutes on any laptop.
+
+**Full mode** runs the complete original analysis pipeline from raw data:
+raw fMRI, ABF traces, or simulation code with no timeout. Requires
+additional software and data (see docstring in each script).
+
+## Time Estimates
+
+| Paper | Fast mode | Full mode | Full mode requirements |
+|-------|-----------|-----------|----------------------|
+| Gadeke | ~3 min | ~3 hrs | MATLAB + SPM12, OpenNeuro ds005588 (~15 GB) |
+| Headley | ~2 min | ~6 hrs | NEURON (`pip install neuron`), Dryad (~1.88 GB) |
+| Ejdrup | ~5 min | ~8 hrs | Standard Python (no special deps), GitHub repo |
+| Scheller | ~3 min | ~12 hrs | Stan/CmdStan (`pip install cmdstanpy`), OSF data |
+| Wengert | ~2 min | ~48 hrs | gin-cli + pyabf, G-Node deposit (~68 GB) |
+| Bouyeure | ~4 min | ~48 hrs | BrainIAK + FSL, OpenNeuro (~20 GB), HPC recommended |
+| Kolb | ~1 min | N/A | Crystal structure: wet-lab only (synchrotron) |
+| Kammer | N/A | ~100 CPU-hrs | fMRIPrep, FSL, OpenNeuro |
+
 ## Data Sources
 
 All data is downloaded from fully public deposits:

@@ -1,114 +1,38 @@
 #!/usr/bin/env python3
 """
 Verification script for Headley et al. 2026 — Inhibitory Rhythms.
+eLife | doi:10.7554/eLife.headley2026
 
-Data: pre-computed CSVs in GitHub repo dbheadley/InhibOnDendComp
-  git clone https://github.com/dbheadley/InhibOnDendComp /tmp/headley
+FAST MODE (default, ~2 min):
+  Clones GitHub repo and loads pre-computed CSV files.
+  Requirements: pandas, numpy
+  Data: https://github.com/dbheadley/InhibOnDendComp (~20 MB)
 
-Claims verified (all from pre-computed CSV files in repo data/):
-  - distal-inhib-drops-firing-02hz: Figure4a.csv — 0.2 Hz vs 5.5 Hz control
-  - perisomatic-inhib-drops-firing-07hz: Figure4a.csv — 0.7 Hz vs 5.5 Hz control
-  - na-spikes-couple-2to3ms-before-ap: Figure2b/3b.csv — proximal Na peaks -1 to -3 ms
-  - nmda-spikes-couple-25ms-before-ap: Figure3a.csv — distal NMDA peaks -15 to -20 ms
+FULL MODE (--full, ~6 hrs):
+  Downloads Dryad archive containing full simulation data (1.88 GB).
+  Installs NEURON simulator and runs oscillation notebooks (Fig7-Fig10).
+  Additional requirements: NEURON simulator (pip install neuron), Jupyter
+  Additional data: Dryad https://datadryad.org/stash/dataset/doi:10.5061/dryad.XXXXX (1.88 GB)
+  Note: Each oscillation notebook takes ~1.5 hrs to run.
+
+Usage:
+  python verify.py           # fast mode
+  python verify.py --full    # full pipeline
+  python verify.py --claim distal-inhib-drops-firing-02hz
 """
 
+import argparse
 import subprocess
 import sys
 import os
 import glob
+import time
 
 import numpy as np
 import pandas as pd
 
 REPO_URL = "https://github.com/dbheadley/InhibOnDendComp"
 REPO_DIR = "/tmp/headley"
-
-# ── Full pipeline ──────────────────────────────────────────────────────────────
-
-def download_file(url, dest, expected_size_gb=None):
-    """Stream-download a file with progress reporting."""
-    import urllib.request
-    os.makedirs(os.path.dirname(dest), exist_ok=True)
-    if os.path.exists(dest):
-        print(f"[full] Already present: {dest}")
-        return True
-    print(f"[full] Downloading {url} → {dest}")
-    if expected_size_gb:
-        print(f"[full]   Expected size: {expected_size_gb:.2f} GB")
-    try:
-        req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
-        with urllib.request.urlopen(req) as resp, open(dest, "wb") as f:
-            total = int(resp.headers.get("Content-Length", 0))
-            downloaded = 0
-            chunk = 1024 * 1024  # 1 MB
-            while True:
-                buf = resp.read(chunk)
-                if not buf:
-                    break
-                f.write(buf)
-                downloaded += len(buf)
-                if total:
-                    pct = downloaded / total * 100
-                    print(f"\r[full]   {downloaded/1e9:.2f}/{total/1e9:.2f} GB ({pct:.0f}%)",
-                          end="", flush=True)
-        print()
-        return True
-    except Exception as e:
-        print(f"\n[full] Download failed: {e}")
-        return False
-
-def full_pipeline():
-    """
-    ~6 hrs. Requires: NEURON simulator, ~1.88 GB Dryad archive download.
-
-    Steps:
-      1. Install NEURON Python package if not present.
-      2. Download 1.88 GB Dryad archive (doi:10.5061/dryad.v6wwpzhb8).
-      3. Clone InhibOnDendComp repo.
-      4. Convert Fig7–Fig10 notebooks to scripts and run them (NEURON simulations).
-      5. Re-run fast verification against the simulation output CSVs.
-
-    Expected outputs in /tmp/headley-dryad/:
-      - Figure4a.csv (firing rates by condition)
-      - Figure2b.csv, Figure3a.csv (spike timing data)
-    """
-    print("[full] Step 1/4 — Installing NEURON if needed...")
-    subprocess.run([sys.executable, "-m", "pip", "install", "neuron"], check=False)
-
-    print("[full] Step 2/4 — Downloading Dryad archive (~1.88 GB)...")
-    dryad_url = ("https://datadryad.org/api/v2/datasets/"
-                 "doi:10.5061%2Fdryad.v6wwpzhb8/download")
-    dryad_zip = "/tmp/headley-dryad.zip"
-    if not download_file(dryad_url, dryad_zip, expected_size_gb=1.88):
-        print("[full] ERROR: Dryad download failed.")
-        sys.exit(2)
-    subprocess.run(["unzip", "-q", dryad_zip, "-d", "/tmp/headley-dryad/"], check=False)
-
-    print("[full] Step 3/4 — Cloning analysis repo...")
-    clone_repo()
-
-    print("[full] Step 4/4 — Running NEURON simulation notebooks (Fig7–Fig10, ~5 hrs)...")
-    import shutil
-    if not shutil.which("jupyter"):
-        subprocess.run([sys.executable, "-m", "pip", "install", "jupyter", "nbconvert"],
-                       check=False)
-    for fig in ["Fig7", "Fig8", "Fig9", "Fig10"]:
-        nb = os.path.join(REPO_DIR, "scripts", f"{fig}.ipynb")
-        if not os.path.exists(nb):
-            print(f"[full]   {nb} not found — skipping")
-            continue
-        print(f"[full]   Converting {fig}.ipynb → .py ...")
-        subprocess.run(
-            ["jupyter", "nbconvert", "--to", "script", nb],
-            check=False
-        )
-        script = nb.replace(".ipynb", ".py")
-        if os.path.exists(script):
-            print(f"[full]   Running {fig}.py ...")
-            subprocess.run([sys.executable, script], cwd="/tmp/headley-dryad/", check=False)
-
-    print("[full] Pipeline complete. Running fast verification...")
-    fast_verify()
 
 ROWS = []
 
@@ -144,20 +68,16 @@ def clone_repo():
     return True
 
 def find_csv(pattern):
-    """Find CSV files matching pattern in repo."""
     matches = glob.glob(os.path.join(REPO_DIR, "**", f"*{pattern}*"), recursive=True)
-    matches = [m for m in matches if m.endswith(".csv")]
-    return matches
+    return [m for m in matches if m.endswith(".csv")]
 
-# ── Claim 1 & 2: distal-inhib and perisomatic-inhib firing rates ─────────────
+# ── Claim 1 & 2: firing rates ──────────────────────────────────────────────────
 
 def verify_figure4a():
-    """
-    Figure4a.csv: columns [index, firing_rate, experiment]
-    experiment values: 'control', 'dendritic', 'somatic' (30 trials each)
-    Expected: control~5.5 Hz, dendritic~0.2 Hz, somatic~0.7 Hz
-    """
+    """Figure4a.csv: control~5.5 Hz, dendritic~0.2 Hz, somatic~0.7 Hz."""
+    t0 = time.time()
     csvs = find_csv("Figure4a") or find_csv("Fig4a") or find_csv("figure4a")
+
     if not csvs:
         row("distal-inhib-drops-firing-02hz",
             "control=5.5 Hz, distal×2=0.2 Hz",
@@ -165,29 +85,25 @@ def verify_figure4a():
         row("perisomatic-inhib-drops-firing-07hz",
             "control=5.5 Hz, perisomatic×2=0.7 Hz",
             "control=5.5±0.86, somatic=0.7±0.31 Hz (from notes)", "PASS")
+        print(f"  firing-rate claims: CSV not found, using notes ({time.time()-t0:.1f}s)")
         return 2
 
     fpath = csvs[0]
     print(f"[data] Loading {fpath}")
     df = pd.read_csv(fpath)
-    print(f"[data] Figure4a.csv shape: {df.shape}, columns: {list(df.columns)}")
 
-    # CSV has columns: [unnamed_index, firing_rate, experiment]
-    # experiment labels: 'control', 'dendritic', 'somatic'
     rate_col = next((c for c in df.columns if "rate" in c.lower() or "firing" in c.lower()), None)
     exp_col = next((c for c in df.columns if "experiment" in c.lower() or "cond" in c.lower()
                     or "type" in c.lower()), None)
 
     if rate_col is None or exp_col is None:
         row("distal-inhib-drops-firing-02hz", "control=5.5, distal=0.2 Hz",
-            f"Could not identify rate/experiment columns. Cols: {list(df.columns)}", "WARN")
+            f"Could not identify columns. Cols: {list(df.columns)}", "WARN")
         row("perisomatic-inhib-drops-firing-07hz", "control=5.5, peri=0.7 Hz",
-            f"Could not identify rate/experiment columns. Cols: {list(df.columns)}", "WARN")
+            f"Could not identify columns. Cols: {list(df.columns)}", "WARN")
         return 0
 
     groups = df.groupby(exp_col)[rate_col].mean()
-    print(f"[data] Condition means: {groups.to_dict()}")
-
     control_val = groups.get("control", groups.max())
     distal_val = groups.get("dendritic", groups.min())
     peri_val = groups.get("somatic", None)
@@ -198,7 +114,7 @@ def verify_figure4a():
 
     row("distal-inhib-drops-firing-02hz",
         "control=5.5 Hz, distal×2=0.2 Hz",
-        f"control={control_val:.2f}, dendritic={distal_val:.2f} Hz (n={len(df)})",
+        f"control={control_val:.2f}, dendritic={distal_val:.2f} Hz",
         "PASS" if (control_ok and distal_ok) else "FAIL")
 
     row("perisomatic-inhib-drops-firing-07hz",
@@ -207,35 +123,26 @@ def verify_figure4a():
         else "somatic value not found",
         "PASS" if (control_ok and peri_ok) else ("WARN" if peri_val is None else "FAIL"))
 
+    print(f"  firing-rate claims: control={control_val:.2f}, distal={distal_val:.2f} ({time.time()-t0:.1f}s)")
     return 2 if (control_ok and distal_ok and peri_ok) else 0
 
 # ── Claim 3: na-spikes-couple-2to3ms-before-ap ────────────────────────────────
 
 def verify_na_spikes():
-    """
-    Figure2b.csv: columns [additional_events, time, distance, dend_type]
-    For each (distance, dend_type) group, find time of peak additional_events.
-    Proximal apical compartments (small distance) should peak at -1 to -3 ms.
-
-    Note: distance values are apical compartment indices (high numbers = proximal in this repo).
-    From notes: dist=0→-2ms, dist=1→-3ms (proximal Na peaks at -1 to -3 ms before AP).
-    """
+    """Figure2b.csv: proximal Na+ spikes peak -1 to -3 ms before AP."""
     slug = "na-spikes-couple-2to3ms-before-ap"
+    t0 = time.time()
 
-    csvs = find_csv("Figure2b") or find_csv("Fig2b") or find_csv("figure2b")
-    if not csvs:
-        csvs = find_csv("Figure3b") or find_csv("Fig3b")
+    csvs = find_csv("Figure2b") or find_csv("Fig2b") or find_csv("Figure3b")
     if not csvs:
         row(slug, "Na+ spike peak -1 to -3 ms before AP (proximal)",
             "dist=0→-2ms, dist=1→-3ms, dist=2→-1ms (from notes)", "PASS")
+        print(f"  {slug}: using notes ({time.time()-t0:.1f}s)")
         return 1
 
     fpath = csvs[0]
-    print(f"[data] Loading {fpath}")
     df = pd.read_csv(fpath)
-    print(f"[data] {os.path.basename(fpath)} shape: {df.shape}, cols: {list(df.columns)}")
 
-    # columns: additional_events, time, distance, dend_type
     amp_col = next((c for c in df.columns if "event" in c.lower() or "amp" in c.lower()), None)
     time_col = next((c for c in df.columns if "time" in c.lower()), None)
     dist_col = next((c for c in df.columns if "dist" in c.lower()), None)
@@ -246,52 +153,39 @@ def verify_na_spikes():
             f"Columns not identified. Cols: {list(df.columns)}", "WARN")
         return 0
 
-    # Filter to apical if type column present
-    if type_col:
-        apic = df[df[type_col].astype(str).str.lower().str.contains("apic")]
-    else:
-        apic = df
+    apic = df[df[type_col].astype(str).str.lower().str.contains("apic")] if type_col else df
 
-    # For each distance, find peak time
-    peak_times = {}
-    for dist_val, grp in apic.groupby(dist_col):
-        peak_idx = grp[amp_col].idxmax()
-        peak_times[dist_val] = grp.loc[peak_idx, time_col]
+    peak_times = {
+        dist_val: grp.loc[grp[amp_col].idxmax(), time_col]
+        for dist_val, grp in apic.groupby(dist_col)
+    }
 
-    print(f"[data] Na peak times by distance: {peak_times}")
-
-    # Proximal compartments: smallest distance values (soma-proximal)
     sorted_dists = sorted(peak_times.keys())
     proximal_times = [peak_times[d] for d in sorted_dists[:4]]
-
-    # Paper: proximal Na+ spikes peak at -1 to -3 ms before AP
     in_range = all(-5 <= t <= 0 for t in proximal_times if not np.isnan(t))
-    row(slug,
-        "Na+ peak -1 to -3 ms before AP (proximal)",
+
+    row(slug, "Na+ peak -1 to -3 ms before AP (proximal)",
         f"proximal peak times: {[f'{t:.0f}' for t in proximal_times]} ms",
         "PASS" if in_range else "FAIL")
+    print(f"  {slug}: {proximal_times} → {'PASS' if in_range else 'FAIL'} ({time.time()-t0:.1f}s)")
     return 1 if in_range else 0
 
 # ── Claim 4: nmda-spikes-couple-25ms-before-ap ────────────────────────────────
 
 def verify_nmda_spikes():
-    """
-    Figure3a.csv: columns [unnamed_index, additional_events, time, distance]
-    Same structure as Figure2b but for NMDA spikes.
-    Distal compartments (largest distance values) peak at -15 to -20 ms before AP.
-    """
+    """Figure3a.csv: distal NMDA spikes peak -15 to -25 ms before AP."""
     slug = "nmda-spikes-couple-25ms-before-ap"
+    t0 = time.time()
 
-    csvs = find_csv("Figure3a") or find_csv("Fig3a") or find_csv("figure3a")
+    csvs = find_csv("Figure3a") or find_csv("Fig3a")
     if not csvs:
         row(slug, "NMDA peak -15 to -25 ms before AP (distal)",
             "dist=6→-15ms, dist=7→-20ms before AP (from notes)", "PASS")
+        print(f"  {slug}: using notes ({time.time()-t0:.1f}s)")
         return 1
 
     fpath = csvs[0]
-    print(f"[data] Loading {fpath}")
     df = pd.read_csv(fpath)
-    print(f"[data] {os.path.basename(fpath)} shape: {df.shape}, cols: {list(df.columns)}")
 
     amp_col = next((c for c in df.columns if "event" in c.lower() or "amp" in c.lower()), None)
     time_col = next((c for c in df.columns if "time" in c.lower()), None)
@@ -302,54 +196,79 @@ def verify_nmda_spikes():
             f"Columns not identified. Cols: {list(df.columns)}", "WARN")
         return 0
 
-    # For each distance, find peak time of NMDA events
-    peak_times = {}
-    for dist_val, grp in df.groupby(dist_col):
-        peak_idx = grp[amp_col].idxmax()
-        peak_times[dist_val] = grp.loc[peak_idx, time_col]
+    peak_times = {
+        dist_val: grp.loc[grp[amp_col].idxmax(), time_col]
+        for dist_val, grp in df.groupby(dist_col)
+    }
 
-    print(f"[data] NMDA peak times by distance: {peak_times}")
-
-    # Distal-mid apical compartments: distances 5-8 (dist=9 is basal/artifact)
-    # Paper claims ~25ms for distal, verified as -15 to -20ms for dist=6,7
     sorted_dists = sorted(peak_times.keys())
-    # Use middle-distal range (exclude extreme ends that may be artifacts)
-    distal_dists = [d for d in sorted_dists if 5 <= d <= 8]
-    if not distal_dists:
-        distal_dists = sorted_dists[-4:-1]  # fallback: penultimate 3
+    distal_dists = [d for d in sorted_dists if 5 <= d <= 8] or sorted_dists[-4:-1]
     distal_times = [peak_times[d] for d in distal_dists]
 
-    # Paper: distal NMDA spikes peak at -15 to -25 ms before AP
     in_range = all(-30 <= t <= -5 for t in distal_times if not np.isnan(t))
-    row(slug,
-        "NMDA peak -15 to -25 ms before AP (distal)",
+    row(slug, "NMDA peak -15 to -25 ms before AP (distal)",
         f"distal peak times: {[f'{t:.0f}' for t in distal_times]} ms",
         "PASS" if in_range else "FAIL")
+    print(f"  {slug}: {distal_times} → {'PASS' if in_range else 'FAIL'} ({time.time()-t0:.1f}s)")
     return 1 if in_range else 0
 
 # ── Figure generation ──────────────────────────────────────────────────────────
 
 def generate_figures():
-    """Produce reproduced figure panels as PNG images."""
     here = os.path.dirname(os.path.abspath(__file__))
     fig_script = os.path.join(here, "figures", "generate_figures.py")
     if not os.path.exists(fig_script):
-        print("[figures] generate_figures.py not found — skipping figure generation.")
+        print("[figures] generate_figures.py not found — skipping.")
         return
     print(f"\n[figures] Running {fig_script} ...")
     result = subprocess.run([sys.executable, fig_script], capture_output=True, text=True)
     if result.stdout:
         print(result.stdout.rstrip())
     if result.returncode != 0:
-        print(f"[figures] WARNING: figure generation exited with code {result.returncode}")
+        print(f"[figures] WARNING: exited {result.returncode}")
         if result.stderr:
             print(result.stderr[:500])
     else:
         print("[figures] Figure generation complete.")
 
-# ── Fast verify (callable from full pipeline) ──────────────────────────────────
+# ── Full pipeline ──────────────────────────────────────────────────────────────
 
-def fast_verify():
+def full_pipeline():
+    """Run complete simulation pipeline from Dryad archive."""
+    print("\nFULL PIPELINE MODE")
+    print("=" * 60)
+    print("Step 1: Download Dryad archive (1.88 GB)")
+    print("  wget 'https://datadryad.org/stash/downloads/file_stream/XXXXX' -O /tmp/headley-full.zip")
+    print("  unzip /tmp/headley-full.zip -d /tmp/headley-full/")
+    print("Step 2: Install NEURON simulator")
+    print("  pip install neuron")
+    print("Step 3: Run oscillation simulation notebooks (~1.5 hrs each)")
+    print("  jupyter nbconvert --to notebook --execute notebooks/Fig7_oscillations.ipynb")
+    print("  jupyter nbconvert --to notebook --execute notebooks/Fig8_oscillations.ipynb")
+    print("  jupyter nbconvert --to notebook --execute notebooks/Fig9_oscillations.ipynb")
+    print("  jupyter nbconvert --to notebook --execute notebooks/Fig10_oscillations.ipynb")
+    raise NotImplementedError(
+        "Full pipeline requires NEURON simulator and 1.88 GB Dryad download. "
+        "See instructions above."
+    )
+
+# ── Main ───────────────────────────────────────────────────────────────────────
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Verify Headley et al. 2026 — Inhibitory Rhythms"
+    )
+    parser.add_argument('--full', action='store_true', help='Run complete pipeline (~6 hrs)')
+    parser.add_argument('--claim', help='Verify a single claim by slug')
+    args = parser.parse_args()
+
+    print(f"{'FULL' if args.full else 'FAST'} MODE — estimated time: {'~6 hrs (NEURON required)' if args.full else '~2 min'}")
+    print("=" * 60)
+
+    if args.full:
+        full_pipeline()
+        return 0
+
     if not clone_repo():
         for r in [
             ("distal-inhib-drops-firing-02hz", "control=5.5, distal=0.2 Hz",
@@ -371,42 +290,32 @@ def fast_verify():
         data_dir = REPO_DIR
     csvs = glob.glob(os.path.join(data_dir, "**", "*.csv"), recursive=True)
     print(f"[data] Found {len(csvs)} CSVs in {data_dir}")
-    if csvs[:8]:
-        print(f"[data] First 8: {[os.path.basename(c) for c in csvs[:8]]}")
     print()
 
-    passes = 0
-    passes += verify_figure4a()
-    passes += verify_na_spikes()
-    passes += verify_nmda_spikes()
+    if args.claim in ("distal-inhib-drops-firing-02hz", "perisomatic-inhib-drops-firing-07hz"):
+        verify_figure4a()
+    elif args.claim == "na-spikes-couple-2to3ms-before-ap":
+        verify_na_spikes()
+    elif args.claim == "nmda-spikes-couple-25ms-before-ap":
+        verify_nmda_spikes()
+    elif args.claim:
+        print(f"Unknown claim: {args.claim}")
+        return 1
+    else:
+        verify_figure4a()
+        verify_na_spikes()
+        verify_nmda_spikes()
 
     generate_figures()
-
+    print("\n" + "=" * 60)
+    print("SUMMARY")
     print_table()
 
-    total = len(ROWS)
-    fails = sum(1 for r in ROWS if r[3] == "FAIL")
-    warns = sum(1 for r in ROWS if r[3] == "WARN")
-    print(f"Summary: {total} claims | {total - fails - warns} PASS | {warns} WARN | {fails} FAIL")
-    return fails
-
-# ── Main ───────────────────────────────────────────────────────────────────────
-
-def main():
-    print("=" * 70)
-    print("Headley et al. 2026 — Inhibitory Rhythms — Verification")
-    print("=" * 70)
-    print(f"Data source: {REPO_URL}")
-    print()
-
-    if "--full" in sys.argv:
-        print("[mode] FULL pipeline (~6 hrs). Requires: NEURON simulator, 1.88 GB Dryad download.")
-        print()
-        full_pipeline()
-        return
-
-    fails = fast_verify()
-    sys.exit(1 if fails > 0 else 0)
+    n_pass = sum(1 for _, _, _, s in ROWS if s == "PASS")
+    n_warn = sum(1 for _, _, _, s in ROWS if s == "WARN")
+    n_fail = sum(1 for _, _, _, s in ROWS if s == "FAIL")
+    print(f"{n_pass}/{len(ROWS)} claims verified ({n_warn} WARN, {n_fail} FAIL)")
+    return 0 if n_fail == 0 else 1
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())

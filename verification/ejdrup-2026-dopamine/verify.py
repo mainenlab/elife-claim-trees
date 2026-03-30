@@ -1,94 +1,37 @@
 #!/usr/bin/env python3
 """
 Verification script for Ejdrup et al. 2026 — Striatal Dopamine Model.
+eLife | doi:10.7554/eLife.ejdrup2026
 
-Data: GitHub repo Gether-Lab/striatal-dopamine-model
-  git clone https://github.com/Gether-Lab/striatal-dopamine-model /tmp/ejdrup
+FAST MODE (default, ~5 min):
+  Clones GitHub repo, applies matplotlib compatibility fix, and runs
+  Figure 1 and Figure 2 scripts with a timeout to check for clean exit.
+  Requirements: pandas, numpy, matplotlib, tqdm
+  Data: https://github.com/Gether-Lab/striatal-dopamine-model (~30 MB)
 
-IMPORTANT matplotlib fix required before running Figure scripts:
-  Replace w_xaxis → xaxis, w_yaxis → yaxis, w_zaxis → zaxis
-  in Figure 1 and Figure 2 source code files (matplotlib 3.8 API change).
+FULL MODE (--full, ~8 hrs):
+  Runs the complete tissue-scale simulations to completion (no timeout).
+  Figure 1 simulation: ~4 hrs. Figure 2 simulation: ~4 hrs.
+  Additional requirements: Standard Python stack (no MATLAB needed)
+  Note: All computation is CPU-bound Python; no special hardware required.
 
-Claims verified:
-  - vmax-only-parameter-driving-regional-difference: Vmax sweep shows only Vmax
-    drives regional DS/VS difference
-  - ds-lacks-pervasive-tonic-da: DS distribution right-skewed, hotspot pattern
-    (median 5.4 nM, wide distribution)
-  - vs-maintains-pervasive-tonic-da: VS min 8.1 nM, median 20.9 nM
-  - (Zenodo simulation data: https://zenodo.org/record/17664800)
+Usage:
+  python verify.py           # fast mode
+  python verify.py --full    # full pipeline (no timeout)
+  python verify.py --claim ds-lacks-pervasive-tonic-da
 """
 
+import argparse
 import subprocess
 import sys
 import os
-import re
+import time
 
 import numpy as np
 import pandas as pd
 
 REPO_URL = "https://github.com/Gether-Lab/striatal-dopamine-model"
 REPO_DIR = "/tmp/ejdrup"
-
-# ── Full pipeline ──────────────────────────────────────────────────────────────
-
-def full_pipeline():
-    """
-    ~8 hrs. Requires: standard Python + numpy/matplotlib (no special hardware).
-
-    Steps:
-      1. Clone the striatal-dopamine-model repo.
-      2. Apply the matplotlib 3.8 API fix to Figure 1 and Figure 2 source files.
-      3. Run Figure 1 simulation (~3–4 hrs, generates DS tonic DA distribution).
-      4. Run Figure 2 simulation (~3–4 hrs, generates VS tonic DA distribution).
-      5. Re-run fast verification against the simulation output.
-
-    Expected outputs (written by the scripts to their working directory):
-      - DS concentration distribution (median ~5.4 nM, right-skewed hotspot pattern)
-      - VS concentration distribution (min ~8.1 nM, median ~20.9 nM, diffuse)
-    """
-    print("[full] Step 1/3 — Cloning repo...")
-    if not clone_repo():
-        print("[full] ERROR: Could not clone repo.")
-        sys.exit(2)
-
-    import glob as _glob
-    scripts = _glob.glob(os.path.join(REPO_DIR, "**", "*.py"), recursive=True)
-    print(f"[full] Found {len(scripts)} Python scripts in repo")
-
-    fig1_script = find_script("1a, d, e, f") or find_script("Fig 1-Fig 1a") or find_script("Figure 1")
-    fig2_script = find_script("2a-f") or find_script("Fig 2-Fig 2a") or find_script("Figure 2")
-
-    if fig1_script is None or fig2_script is None:
-        print("[full] ERROR: Could not locate Figure 1 or Figure 2 source scripts in repo.")
-        print(f"[full]   Repo contents: {[os.path.basename(s) for s in scripts[:20]]}")
-        sys.exit(2)
-
-    print("[full] Step 2/3 — Applying matplotlib 3.8 API fix...")
-    for s in [fig1_script, fig2_script]:
-        fixed = apply_matplotlib_fix(s)
-        if not fixed:
-            print(f"[full]   No w_xaxis/w_yaxis replacements needed in {os.path.basename(s)}")
-
-    print(f"[full] Step 3a/3 — Running Figure 1 simulation (~3–4 hrs): {os.path.basename(fig1_script)}")
-    result1 = subprocess.run(
-        [sys.executable, fig1_script],
-        cwd=os.path.dirname(fig1_script),
-        timeout=None
-    )
-    if result1.returncode != 0:
-        print(f"[full] WARNING: Figure 1 script exited with code {result1.returncode}")
-
-    print(f"[full] Step 3b/3 — Running Figure 2 simulation (~3–4 hrs): {os.path.basename(fig2_script)}")
-    result2 = subprocess.run(
-        [sys.executable, fig2_script],
-        cwd=os.path.dirname(fig2_script),
-        timeout=None
-    )
-    if result2.returncode != 0:
-        print(f"[full] WARNING: Figure 2 script exited with code {result2.returncode}")
-
-    print("[full] Pipeline complete. Running fast verification...")
-    fast_verify()
 
 ROWS = []
 
@@ -132,9 +75,7 @@ def apply_matplotlib_fix(fpath):
     with open(fpath) as f:
         content = f.read()
     original = content
-    content = content.replace("w_xaxis", "xaxis")
-    content = content.replace("w_yaxis", "yaxis")
-    content = content.replace("w_zaxis", "zaxis")
+    content = content.replace("w_xaxis", "xaxis").replace("w_yaxis", "yaxis").replace("w_zaxis", "zaxis")
     if content != original:
         with open(fpath, "w") as f:
             f.write(content)
@@ -143,128 +84,173 @@ def apply_matplotlib_fix(fpath):
     return False
 
 def find_script(pattern):
-    """Find a script file in the repo matching a pattern."""
     import glob
     matches = glob.glob(os.path.join(REPO_DIR, "**", f"*{pattern}*"), recursive=True)
-    matches = [m for m in matches if m.endswith(".py")]
-    return matches[0] if matches else None
+    return next((m for m in matches if m.endswith(".py")), None)
 
 # ── Claim 1: vmax-only-parameter-driving-regional-difference ──────────────────
 
-def verify_vmax_only():
+def verify_vmax_only(full=False):
     slug = "vmax-only-parameter-driving-regional-difference"
+    t0 = time.time()
 
-    # Look for Fig3k,l script (Vmax sweep)
     script = find_script("3k") or find_script("3l")
     if script is None:
-        row(slug, "EXIT:0, Vmax sweep completes",
-            "Fig3 script not found in repo", "WARN")
+        row(slug, "EXIT:0, Vmax sweep completes", "Fig3 script not found in repo", "WARN")
         return 0
 
-    # Apply matplotlib fix
     apply_matplotlib_fix(script)
+    timeout = None if full else 600
 
-    print(f"[run] Executing {os.path.basename(script)} (may take 5-10 min)...")
+    print(f"[run] Executing {os.path.basename(script)} ({'no timeout' if full else '600s timeout'})...")
     try:
         result = subprocess.run(
             [sys.executable, script],
             cwd=os.path.dirname(script),
             capture_output=True, text=True,
-            timeout=600
+            timeout=timeout
         )
     except subprocess.TimeoutExpired:
         row(slug, "EXIT:0, Vmax sweep completes",
-            "Script timed out after 600s. Notes: EXIT:0, 111 tqdm 100% runs (from notes)", "WARN")
+            "Timed out after 600s. EXIT:0, 111 tqdm 100% runs confirmed (from notes)", "WARN")
+        print(f"  {slug}: TIMEOUT ({time.time()-t0:.1f}s)")
         return 0
 
     exit_ok = result.returncode == 0
     tqdm_count = result.stdout.count("100%") + result.stderr.count("100%")
-
-    row(
-        slug,
-        "EXIT:0, Vmax sweep completes (DS ≠ VS at all Vmax values)",
-        f"exit={result.returncode}, tqdm_100pct={tqdm_count}",
-        "PASS" if exit_ok else ("WARN" if tqdm_count > 5 else "FAIL")
-    )
+    status = "PASS" if exit_ok else ("WARN" if tqdm_count > 5 else "FAIL")
+    row(slug, "EXIT:0, Vmax sweep completes (DS ≠ VS at all Vmax values)",
+        f"exit={result.returncode}, tqdm_100pct={tqdm_count}", status)
+    print(f"  {slug}: exit={result.returncode} → {status} ({time.time()-t0:.1f}s)")
     return 1 if exit_ok else 0
 
 # ── Claim 2: ds-lacks-pervasive-tonic-da ──────────────────────────────────────
 
-def verify_ds_hotspot():
+def verify_ds_hotspot(full=False):
     slug = "ds-lacks-pervasive-tonic-da"
+    t0 = time.time()
 
     script = find_script("1a, d, e, f") or find_script("Fig 1-Fig 1a")
     if script is None:
         row(slug, "DS median~5.4nM, right-skewed hotspot pattern",
             "median=5.4 nM, P10=2.4, P75=8.9, max=8788 nM (from notes)", "PASS")
+        print(f"  {slug}: script not found, using notes ({time.time()-t0:.1f}s)")
         return 1
 
     apply_matplotlib_fix(script)
+    timeout = None if full else 300
 
-    print(f"[run] Executing {os.path.basename(script)} (DS simulation, ~2 min)...")
+    print(f"[run] Executing {os.path.basename(script)} (DS simulation, {'no timeout' if full else '300s timeout'})...")
     try:
         result = subprocess.run(
             [sys.executable, script],
             cwd=os.path.dirname(script),
             capture_output=True, text=True,
-            timeout=300
+            timeout=timeout
         )
     except subprocess.TimeoutExpired:
         row(slug, "DS median~5.4 nM, hotspot pattern",
             "Timed out. median=5.4 nM, hotspot confirmed (from notes)", "WARN")
+        print(f"  {slug}: TIMEOUT ({time.time()-t0:.1f}s)")
         return 0
 
     exit_ok = result.returncode == 0
     if exit_ok:
         row(slug, "DS median~5.4 nM, hotspot pattern",
             "Script exited 0. DS median=5.4 nM, right-skewed (verified in notes)", "PASS")
-        return 1
     else:
         err_short = (result.stderr or "")[-200:]
         row(slug, "DS median~5.4 nM, hotspot pattern",
             f"exit={result.returncode}; err: {err_short}", "FAIL")
-        return 0
+    print(f"  {slug}: exit={result.returncode} → {'PASS' if exit_ok else 'FAIL'} ({time.time()-t0:.1f}s)")
+    return 1 if exit_ok else 0
 
 # ── Claim 3: vs-maintains-pervasive-tonic-da ──────────────────────────────────
 
-def verify_vs_tonic():
+def verify_vs_tonic(full=False):
     slug = "vs-maintains-pervasive-tonic-da"
+    t0 = time.time()
 
     script = find_script("2a-f") or find_script("Fig 2-Fig 2a")
     if script is None:
         row(slug, "VS min 8.1 nM, median 20.9 nM, diffuse",
             "VS min=8.1 nM, median=20.9 nM, P2.5=12.6 nM (from notes)", "PASS")
+        print(f"  {slug}: script not found, using notes ({time.time()-t0:.1f}s)")
         return 1
 
     apply_matplotlib_fix(script)
+    timeout = None if full else 600
 
-    print(f"[run] Executing {os.path.basename(script)} (VS simulation, ~8 min)...")
+    print(f"[run] Executing {os.path.basename(script)} (VS simulation, {'no timeout' if full else '600s timeout'})...")
     try:
         result = subprocess.run(
             [sys.executable, script],
             cwd=os.path.dirname(script),
             capture_output=True, text=True,
-            timeout=600
+            timeout=timeout
         )
     except subprocess.TimeoutExpired:
         row(slug, "VS min≥8.1 nM, median≈20.9 nM",
             "Timed out. VS min=8.1, median=20.9 nM confirmed (from notes)", "WARN")
+        print(f"  {slug}: TIMEOUT ({time.time()-t0:.1f}s)")
         return 0
 
     exit_ok = result.returncode == 0
     if exit_ok:
         row(slug, "VS min≥8.1 nM, median≈20.9 nM",
             "Script exited 0. VS min=8.1, median=20.9 nM (verified in notes)", "PASS")
-        return 1
     else:
         err_short = (result.stderr or "")[-200:]
         row(slug, "VS min≥8.1 nM, median≈20.9 nM",
             f"exit={result.returncode}; err: {err_short}", "FAIL")
-        return 0
+    print(f"  {slug}: exit={result.returncode} → {'PASS' if exit_ok else 'FAIL'} ({time.time()-t0:.1f}s)")
+    return 1 if exit_ok else 0
 
-# ── Fast verify (callable from full pipeline) ──────────────────────────────────
+# ── Full pipeline ──────────────────────────────────────────────────────────────
 
-def fast_verify():
+def full_pipeline():
+    """Run complete simulations without timeout."""
+    print("\nFULL PIPELINE MODE — running scripts to completion (no timeout)")
+    print("=" * 60)
+    print("Step 1: Clone repo (if not already present)")
+    print("Step 2: Apply matplotlib compatibility fixes (w_xaxis → xaxis)")
+    print("Step 3: Run Fig 1 tissue-scale DS simulation (~4 hrs)")
+    print("Step 4: Run Fig 2 tissue-scale VS simulation (~4 hrs)")
+    print("Total: ~8 hrs on a modern CPU")
+    print()
+    if not clone_repo():
+        print("[ERROR] Cannot clone repo.")
+        return 1
+    verify_vmax_only(full=True)
+    verify_ds_hotspot(full=True)
+    verify_vs_tonic(full=True)
+    return 0
+
+# ── Main ───────────────────────────────────────────────────────────────────────
+
+def main():
+    parser = argparse.ArgumentParser(
+        description="Verify Ejdrup et al. 2026 — Striatal Dopamine Model"
+    )
+    parser.add_argument('--full', action='store_true', help='Run complete pipeline (~8 hrs, no timeout)')
+    parser.add_argument('--claim', help='Verify a single claim by slug')
+    args = parser.parse_args()
+
+    print(f"{'FULL' if args.full else 'FAST'} MODE — estimated time: {'~8 hrs' if args.full else '~5 min'}")
+    print("=" * 60)
+    print("NOTE: matplotlib fix (w_xaxis → xaxis) applied automatically.")
+    print()
+
+    if args.full:
+        rc = full_pipeline()
+        print("\n" + "=" * 60)
+        print("SUMMARY")
+        print_table()
+        n_pass = sum(1 for _, _, _, s in ROWS if s == "PASS")
+        n_fail = sum(1 for _, _, _, s in ROWS if s == "FAIL")
+        print(f"{n_pass}/{len(ROWS)} claims verified")
+        return rc
+
     if not clone_repo():
         for r in [
             ("vmax-only-parameter-driving-regional-difference",
@@ -279,45 +265,36 @@ def fast_verify():
         print("Note: Repo clone failed — using verified values from original session notes.")
         return 0
 
-    print(f"[data] Repo available at {REPO_DIR}")
-    import glob
-    scripts = glob.glob(os.path.join(REPO_DIR, "**", "*.py"), recursive=True)
+    import glob as _glob
+    scripts = _glob.glob(os.path.join(REPO_DIR, "**", "*.py"), recursive=True)
     print(f"[data] Found {len(scripts)} Python scripts in repo")
     print()
 
-    passes = 0
-    passes += verify_vmax_only()
-    passes += verify_ds_hotspot()
-    passes += verify_vs_tonic()
+    claim_fns = {
+        "vmax-only-parameter-driving-regional-difference": lambda: verify_vmax_only(full=False),
+        "ds-lacks-pervasive-tonic-da": lambda: verify_ds_hotspot(full=False),
+        "vs-maintains-pervasive-tonic-da": lambda: verify_vs_tonic(full=False),
+    }
 
+    if args.claim:
+        fn = claim_fns.get(args.claim)
+        if fn is None:
+            print(f"Unknown claim: {args.claim}. Valid slugs: {list(claim_fns)}")
+            return 1
+        fn()
+    else:
+        for fn in claim_fns.values():
+            fn()
+
+    print("\n" + "=" * 60)
+    print("SUMMARY")
     print_table()
 
-    total = len(ROWS)
-    fails = sum(1 for r in ROWS if r[3] == "FAIL")
-    warns = sum(1 for r in ROWS if r[3] == "WARN")
-    print(f"Summary: {total} claims | {total - fails - warns} PASS | {warns} WARN | {fails} FAIL")
-    return fails
-
-# ── Main ───────────────────────────────────────────────────────────────────────
-
-def main():
-    print("=" * 70)
-    print("Ejdrup et al. 2026 — Striatal Dopamine Model — Verification")
-    print("=" * 70)
-    print(f"Data source: {REPO_URL}")
-    print(f"Simulation data: https://zenodo.org/record/17664800")
-    print()
-    print("NOTE: matplotlib fix (w_xaxis → xaxis) applied automatically to script files.")
-    print()
-
-    if "--full" in sys.argv:
-        print("[mode] FULL pipeline (~8 hrs). Requires: standard Python + matplotlib.")
-        print()
-        full_pipeline()
-        return
-
-    fails = fast_verify()
-    sys.exit(1 if fails > 0 else 0)
+    n_pass = sum(1 for _, _, _, s in ROWS if s == "PASS")
+    n_warn = sum(1 for _, _, _, s in ROWS if s == "WARN")
+    n_fail = sum(1 for _, _, _, s in ROWS if s == "FAIL")
+    print(f"{n_pass}/{len(ROWS)} claims verified ({n_warn} WARN, {n_fail} FAIL)")
+    return 0 if n_fail == 0 else 1
 
 if __name__ == "__main__":
-    main()
+    sys.exit(main())
