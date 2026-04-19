@@ -10,6 +10,7 @@ claim-note: >
   p-value and sample sizes disputed by Zenodo data (record 18046987): n=13 DS, n=12 VS,
   Welch p=0.029 two-tailed. Direction confirmed. See reproduction entry 2026-03-26.
 claim-type: empirical
+role: empirical
 concepts:
   - DAT nanoclustering
   - dSTORM
@@ -19,9 +20,17 @@ concepts:
 priority: 2026-03-29
 epistemic: moderate
 
+tests:
+  - hypothesis-nanoclustering-regulates-vmax
+
+supports:
+  - hypothesis-nanoclustering-regulates-vmax
+
 belongings:
   - relation: supports
     target: dat-nanoclustering-slows-clearance
+  - relation: supports
+    target: hypothesis-nanoclustering-regulates-vmax
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

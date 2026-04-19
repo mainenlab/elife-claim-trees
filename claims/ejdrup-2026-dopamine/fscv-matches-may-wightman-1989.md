@@ -6,6 +6,7 @@ claim: >
   Simulated FSCV responses to 10, 30, and 60 Hz stimulation closely replicate May & Wightman
   (1989): VS reaches considerably higher peak DA than DS at all three stimulation frequencies.
 claim-type: empirical
+role: empirical
 concepts:
   - FSCV
   - dopamine release
@@ -15,11 +16,24 @@ concepts:
 priority: 2026-03-29
 epistemic: moderate
 
+tests:
+  - hypothesis-vmax-explains-regional-difference
+
+validates:
+  - vs-maintains-pervasive-tonic-da
+  - ds-lacks-pervasive-tonic-da
+  - ds-vs-vmax-ratio-assumed
+
+supports:
+  - hypothesis-vmax-explains-regional-difference
+
 belongings:
   - relation: requires
     target: vs-maintains-pervasive-tonic-da
   - relation: requires
     target: ds-vs-vmax-ratio-assumed
+  - relation: supports
+    target: hypothesis-vmax-explains-regional-difference
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

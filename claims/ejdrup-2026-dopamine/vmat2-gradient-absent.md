@@ -7,6 +7,7 @@ claim: >
   one-sided t-test, n=4 mice), ruling out differential release capacity as the primary
   explanation for regional DA differences.
 claim-type: empirical
+role: control
 concepts:
   - VMAT2
   - vesicular monoamine transporter
@@ -16,7 +17,18 @@ concepts:
 priority: 2026-03-29
 epistemic: moderate
 
-belongings: []
+rules-out:
+  - "differential VMAT2 expression / vesicular release capacity as the explanation for the DS/VS DA difference"
+
+validates:
+  - hypothesis-vmax-explains-regional-difference
+
+supports:
+  - hypothesis-vmax-explains-regional-difference
+
+belongings:
+  - relation: supports
+    target: hypothesis-vmax-explains-regional-difference
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

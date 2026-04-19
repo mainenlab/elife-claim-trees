@@ -18,7 +18,7 @@ priority: 2026-03-30
 epistemic: moderate
 
 tests:
-  - hypothesis-distinct-compartmental-roles
+  - prediction-perisomatic-threshold-mechanism
 
 belongings:
   - relation: requires

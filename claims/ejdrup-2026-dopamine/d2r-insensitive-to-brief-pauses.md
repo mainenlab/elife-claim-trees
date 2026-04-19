@@ -6,6 +6,7 @@ claim: >
   A complete 1 s pause in firing reduces D2R occupancy from approximately 0.55 to 0.45 only;
   this finding is robust across an order of magnitude of D2R affinity (2–20 nM).
 claim-type: empirical
+role: empirical
 concepts:
   - D2 receptor
   - pause in firing
@@ -14,11 +15,19 @@ concepts:
 priority: 2026-03-29
 epistemic: weak
 
+tests:
+  - hypothesis-d1-d2-temporal-distinction
+
+supports:
+  - hypothesis-d1-d2-temporal-distinction
+
 belongings:
   - relation: requires
     target: d2r-integrates-over-seconds
   - relation: requires
     target: d2r-initialization-unjustified
+  - relation: supports
+    target: hypothesis-d1-d2-temporal-distinction
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

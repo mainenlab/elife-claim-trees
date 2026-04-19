@@ -1,6 +1,7 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import ClaimTreeNode from '../../components/ClaimTreeNode.astro';
+import ClaimStructure from '../../components/ClaimStructure.astro';
 import AbstractAlignment from '../../components/AbstractAlignment.astro';
 import ArgumentFromGraph from '../../components/ArgumentFromGraph.astro';
 import corpus from '../../data/claims.json';
@@ -30,8 +31,6 @@ const badge = badgeConfig[(paperData as any).badge ?? 'pending'] ?? badgeConfig.
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const url = (path: string) => `${base}${path}/`;
 
-const statusOrder = ['verified', 'unverified:code-error', 'unverified:compute-infeasible', 'unverified', 'unverified:no-data', 'unverified:no-code', 'failed', 'unknown'];
-
 const statusGroups = [
   { key: 'verified', label: 'Verified', color: '#22c55e' },
   { key: 'failed', label: 'Failed', color: '#ef4444' },
@@ -42,45 +41,35 @@ const statusGroups = [
   { key: 'unverified', label: 'Unverified', color: '#9ca3af' },
 ];
 
-// Hierarchical cascade rendering — default for all papers.
-// Headley keeps a paper-specific two-tier split (primary conclusions vs
-// additional standalone claims); every other paper renders a single tier.
-const isHeadley = paperSlug === 'headley-2026-inhibitory-rhythms';
-
 const claimsBySlug: Record<string, any> = {};
 for (const c of paperData.claims) claimsBySlug[c.slug] = c;
 
+// Detect whether this paper carries role markers — if any claim has a non-null
+// `role`, the new role-grouped view renders. Otherwise we fall back to the
+// existing requires-cascade.
+const hasRoles = paperData.claims.some(c => (c as any).role);
+
+// Cascade fallback (non-role papers).
 const requiredSet = new Set<string>();
 for (const c of paperData.claims) {
   for (const r of (c.requires ?? [])) requiredSet.add(r);
 }
 const rootClaims = paperData.claims.filter(c => !requiredSet.has(c.slug));
-
-// Headley two-tier split: primary conclusions vs additional standalone claims.
-// Hardcoded primary IDs for now; generalization later.
-const primaryConclusionIds = ['pv-gamma-sst-beta-correspondence', 'ei-lag-sensitivity-firing-rate'];
-const primaryRoots = primaryConclusionIds
-  .map(id => rootClaims.find(r => r.slug === id))
-  .filter(Boolean) as typeof rootClaims;
-const additionalRoots = rootClaims
-  .filter(r => !primaryConclusionIds.includes(r.slug))
-  .sort((a, b) => a.slug.localeCompare(b.slug));
-
-// Default (non-Headley) single-tier roots, alphabetised for stable ordering.
 const defaultRoots = [...rootClaims].sort((a, b) => a.slug.localeCompare(b.slug));
 const conclusionsHeading = defaultRoots.length === 1 ? 'Conclusion' : 'Conclusions';
 
-// Sorted alphabetical index for the bottom of the cascade page.
+// Sorted alphabetical index for the bottom of the page.
 const alphaClaims = [...paperData.claims].sort((a, b) => a.slug.localeCompare(b.slug));
 
 // Resolve abstract-to-claims mapping for this paper, if one exists.
 const mappingKey = Object.keys(abstractMappings).find(k => k.endsWith(`/${paperSlug}.json`));
 const abstractMapping = mappingKey ? abstractMappings[mappingKey].default : null;
 
-// Resolve synthesis (v2) for this paper, if one exists.
+// Resolve synthesis for this paper. Prefer v3 if present; fall back to v2.
 const synthesisKey = Object.keys(synthesisFiles).find(k => k.endsWith(`/${paperSlug}.json`));
 const synthesisData = synthesisKey ? synthesisFiles[synthesisKey].default : null;
-const synthesisV2 = synthesisData?.synthesisV2 ?? null;
+const synthesisBlock = synthesisData?.synthesisV3 ?? synthesisData?.synthesisV2 ?? null;
+const synthesisVersion = synthesisData?.synthesisV3 ? 'v3' : (synthesisData?.synthesisV2 ? 'v2' : null);
 ---
 
 <Layout title={paperData.title}>
@@ -126,67 +115,20 @@ const synthesisV2 = synthesisData?.synthesisV2 ?? null;
       <div class="ml-auto text-sm text-gray-500">{paperData.claimCount} claims total</div>
     </div>
 
-    {abstractMapping && (
-      <AbstractAlignment
-        mapping={abstractMapping}
+    <!-- Framing line -->
+    <p class="text-sm text-gray-500 italic mb-8 leading-relaxed max-w-3xl">
+      {hasRoles
+        ? "This page reconstructs the paper's argument from its structured claim graph, then compares to the published abstract and the LLM-synthesized argument the graph alone implies."
+        : "The root claims of this paper's argument tree. Each conclusion descends into the claims that support it, down to the figure panels and data. Read top-down for the takeaway, or follow the descent to inspect the evidence."}
+    </p>
+
+    {hasRoles ? (
+      <ClaimStructure
+        paper={paperData}
         paperSlug={paperSlug}
         baseUrl={base}
         claimsBySlug={claimsBySlug}
       />
-    )}
-
-    {synthesisV2 && (
-      <ArgumentFromGraph synthesisV2={synthesisV2} />
-    )}
-
-    <!-- Framing line -->
-    <p class="text-sm text-gray-500 italic mb-8 leading-relaxed max-w-3xl">
-      The root claims of this paper's argument tree. Each conclusion descends into the claims that support it, down to the figure panels and data. Read top-down for the takeaway, or follow the descent to inspect the evidence.
-    </p>
-
-    {isHeadley ? (
-      <>
-        <!-- Section 1: Primary Conclusions -->
-        <section class="mb-10">
-          <h2 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-5">
-            Primary conclusions
-          </h2>
-          {primaryRoots.map(root => (
-            <ClaimTreeNode
-              claim={root}
-              depth={0}
-              paperSlug={paperSlug}
-              baseUrl={base}
-              allClaims={claimsBySlug}
-              tier="primary"
-              foldable={true}
-            />
-          ))}
-        </section>
-
-        <hr class="my-12 border-gray-200" />
-
-        <!-- Section 2: Additional Standalone Claims -->
-        <section class="mb-10">
-          <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-3">
-            Additional standalone claims
-          </h2>
-          <p class="text-xs text-gray-500 italic mb-6 leading-relaxed max-w-3xl">
-            These claims also have no other claim depending on them in the current graph. They may be intermediate results not yet linked to a higher synthesis, or genuinely standalone observations. Surfacing them honestly is part of the claim-graph methodology — the schema reports what the data says, not what the narrative selects.
-          </p>
-          {additionalRoots.map(root => (
-            <ClaimTreeNode
-              claim={root}
-              depth={0}
-              paperSlug={paperSlug}
-              baseUrl={base}
-              allClaims={claimsBySlug}
-              tier="secondary"
-              foldable={true}
-            />
-          ))}
-        </section>
-      </>
     ) : (
       <section class="mb-10">
         <h2 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-5">
@@ -210,6 +152,19 @@ const synthesisV2 = synthesisData?.synthesisV2 ?? null;
           ))
         )}
       </section>
+    )}
+
+    {abstractMapping && (
+      <AbstractAlignment
+        mapping={abstractMapping}
+        paperSlug={paperSlug}
+        baseUrl={base}
+        claimsBySlug={claimsBySlug}
+      />
+    )}
+
+    {synthesisBlock && (
+      <ArgumentFromGraph synthesis={synthesisBlock} version={synthesisVersion} />
     )}
 
     <!-- Compact alphabetical index -->

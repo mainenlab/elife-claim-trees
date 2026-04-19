@@ -20,10 +20,10 @@ epistemic: moderate
 
 tests:
   - prediction-v1-category-drops-shape-preserved
-scopes:
-  - hypothesis-feedback-carries-shape-not-category
 
 belongings:
+  - relation: supports
+    target: hypothesis-feedback-carries-shape-not-category
   - relation: extends
     target: decoding-shape-sensitive-not-semantic
   - relation: extends

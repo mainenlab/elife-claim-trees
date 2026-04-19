@@ -19,9 +19,7 @@ epistemic: strong
 scopes:
   - preregistered-design-validates-mvpa
 
-belongings:
-  - relation: requires
-    target: preregistered-design-validates-mvpa
+belongings: []
 
 assertions:
   - paper-slug: kammer-2026-foveal-feedback

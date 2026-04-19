@@ -9,6 +9,7 @@ claim: >
   models and no effective-Vmax output from the nanoclustering simulation feeds into the tissue
   simulation.
 claim-type: assessment
+role: scope
 concepts:
   - DAT nanoclustering
   - multiscale modelling
@@ -16,6 +17,10 @@ concepts:
   - spatial scale
 priority: 2026-03-29
 epistemic: moderate
+
+scopes:
+  - dat-nanoclustering-slows-clearance
+  - hypothesis-nanoclustering-regulates-vmax
 
 belongings: []
 

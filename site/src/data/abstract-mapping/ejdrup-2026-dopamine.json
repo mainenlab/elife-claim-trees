@@ -1,0 +1,92 @@
+{
+  "paperSlug": "ejdrup-2026-dopamine",
+  "abstract": "Striatal dopamine (DA) release regulates reward-related learning and motivation and is believed to consist of a short-lived phasic and continuous tonic component. Here, we build a large-scale three-dimensional model of extracellular DA dynamics in dorsal (DS) and ventral striatum (VS). The model predicts rapid dynamics in DS with little to no basal DA and slower dynamics in the VS enabling build-up of tonic DA levels. These regional differences do not reflect release-related phenomena but rather differential dopamine transporter (DAT) activity. Interestingly, our simulations posit DAT nanoclustering as a possible regulator of this activity. Receptor binding simulations show that D1 receptor occupancy follows extracellular DA concentration with milliseconds delay, while D2 receptors do not respond to brief pauses in firing but rather integrate DA signal over seconds. Summarised, our model distills recent experimental observations into a computational framework that challenges prevailing paradigms of striatal DA signalling.",
+  "sentences": [
+    {
+      "n": 1,
+      "text": "Striatal dopamine (DA) release regulates reward-related learning and motivation and is believed to consist of a short-lived phasic and continuous tonic component.",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "Generic framing of striatal DA function and the phasic/tonic distinction this paper inherits and refines. Not itself a claim of this paper."
+    },
+    {
+      "n": 2,
+      "text": "Here, we build a large-scale three-dimensional model of extracellular DA dynamics in dorsal (DS) and ventral striatum (VS).",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "Methods framing. The corpus does not include a dedicated tissue-scale model scope claim (only the inherited Vmax ratio assumption and the varicosity-vs-tissue scale separation are flagged); this sentence is treated as architectural framing rather than a mapped claim."
+    },
+    {
+      "n": 3,
+      "text": "The model predicts rapid dynamics in DS with little to no basal DA and slower dynamics in the VS enabling build-up of tonic DA levels.",
+      "type": "claim",
+      "claims": [
+        "ds-lacks-pervasive-tonic-da",
+        "vs-maintains-pervasive-tonic-da"
+      ],
+      "kind": "combined",
+      "note": "The central regional dissociation (DS hotspots vs VS pervasive tonic). Pairs the two complementary spatial-dynamics empirical claims that together constitute the paper's headline finding."
+    },
+    {
+      "n": 4,
+      "text": "These regional differences do not reflect release-related phenomena but rather differential dopamine transporter (DAT) activity.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-vmax-explains-regional-difference",
+        "vmax-only-parameter-driving-regional-difference",
+        "vmat2-gradient-absent"
+      ],
+      "kind": "synthesis",
+      "note": "Asserts the paper's central hypothesis (Vmax explains regional difference) together with the empirical parameter sweep that rules out release-related parameters and the VMAT2 control that rules out differential vesicular release capacity. Three claims compressed into one mechanistic conclusion."
+    },
+    {
+      "n": 5,
+      "text": "Interestingly, our simulations posit DAT nanoclustering as a possible regulator of this activity.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-nanoclustering-regulates-vmax",
+        "dat-nanoclustering-slows-clearance",
+        "dat-clustering-greater-in-vs"
+      ],
+      "kind": "synthesis",
+      "note": "The nanoclustering subhypothesis with both legs of its empirical support: the varicosity-scale simulation showing dense clusters slow clearance and the dSTORM observation that VS has more nanoclustering than DS. The 'possible regulator' hedge in the abstract reflects the architectural gap flagged by nanoclustering-model-varicosity-scale."
+    },
+    {
+      "n": 6,
+      "text": "Receptor binding simulations show that D1 receptor occupancy follows extracellular DA concentration with milliseconds delay, while D2 receptors do not respond to brief pauses in firing but rather integrate DA signal over seconds.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-d1-d2-temporal-distinction",
+        "d1r-tracks-da-50ms-delay",
+        "d2r-integrates-over-seconds",
+        "d2r-insensitive-to-brief-pauses"
+      ],
+      "kind": "combined",
+      "note": "The D1/D2 temporal-distinction hypothesis stated almost verbatim alongside the three empirical findings (D1 ms-delay, D2 seconds-integration, D2 pause-insensitivity) that operationalise it."
+    },
+    {
+      "n": 7,
+      "text": "Summarised, our model distills recent experimental observations into a computational framework that challenges prevailing paradigms of striatal DA signalling.",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "Closing meta-summary about the contribution; not a specific claim in the corpus."
+    }
+  ],
+  "orphanClaims": [
+    "ds-vs-vmax-ratio-assumed",
+    "d2r-initialization-unjustified",
+    "nanoclustering-model-varicosity-scale",
+    "nanoclustering-constant-vmax-constraint",
+    "low-burst-no-spillover-high-burst-does",
+    "d2r-occupancy-higher-in-vs",
+    "vs-lowest-percentiles-above-10nm",
+    "fscv-matches-may-wightman-1989",
+    "vmax-modulation-larger-impact-in-vs",
+    "vs-low-active-fraction-resembles-ds-distribution",
+    "dat-immunostaining-dorsoventral-gradient"
+  ],
+  "orphanSentences": []
+}

@@ -20,7 +20,7 @@ priority: 2026-03-30
 epistemic: strong
 
 tests:
-  - hypothesis-distinct-compartmental-roles
+  - prediction-perisomatic-threshold-mechanism
 
 dissociates-with:
   - distal-inhib-drops-firing-02hz

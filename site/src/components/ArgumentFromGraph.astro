@@ -7,7 +7,7 @@ type ComparisonRow = {
   note?: string;
 };
 
-type SynthesisV2 = {
+type SynthesisBlock = {
   synthesizerPrompt?: string;
   synthesis?: string;
   traceback?: any[];
@@ -19,29 +19,34 @@ type SynthesisV2 = {
 };
 
 type Props = {
-  synthesisV2: SynthesisV2 | null | undefined;
+  synthesis?: SynthesisBlock | null;
+  version?: string | null;
+  /** @deprecated kept for backward compatibility */
+  synthesisV2?: SynthesisBlock | null;
 };
 
-const { synthesisV2 } = Astro.props as Props;
+const props = Astro.props as Props;
+const block = props.synthesis ?? props.synthesisV2 ?? null;
+const version = props.version ?? (props.synthesisV2 && !props.synthesis ? 'v2' : null);
 
-// If no synthesisV2 object at all, render nothing.
-const hasAny = synthesisV2 && (
-  (synthesisV2.synthesis ?? '').trim() ||
-  (synthesisV2.comparison ?? '').trim() ||
-  (synthesisV2.diagnosticDivergence ?? '').trim() ||
-  (synthesisV2.inferentialStructureNote ?? '').trim() ||
-  (synthesisV2.comparisonTable?.length ?? 0) > 0 ||
-  (synthesisV2.synthesizerPrompt ?? '').trim() ||
-  (synthesisV2.comparatorPrompt ?? '').trim()
+// If no synthesis block at all, render nothing.
+const hasAny = block && (
+  (block.synthesis ?? '').trim() ||
+  (block.comparison ?? '').trim() ||
+  (block.diagnosticDivergence ?? '').trim() ||
+  (block.inferentialStructureNote ?? '').trim() ||
+  (block.comparisonTable?.length ?? 0) > 0 ||
+  (block.synthesizerPrompt ?? '').trim() ||
+  (block.comparatorPrompt ?? '').trim()
 );
 
-const synthesis = (synthesisV2?.synthesis ?? '').trim();
-const comparison = (synthesisV2?.comparison ?? '').trim();
-const diagnosticDivergence = (synthesisV2?.diagnosticDivergence ?? '').trim();
-const inferentialStructureNote = (synthesisV2?.inferentialStructureNote ?? '').trim();
-const comparisonTable = synthesisV2?.comparisonTable ?? [];
-const synthesizerPrompt = synthesisV2?.synthesizerPrompt ?? '';
-const comparatorPrompt = synthesisV2?.comparatorPrompt ?? '';
+const synthesis = (block?.synthesis ?? '').trim();
+const comparison = (block?.comparison ?? '').trim();
+const diagnosticDivergence = (block?.diagnosticDivergence ?? '').trim();
+const inferentialStructureNote = (block?.inferentialStructureNote ?? '').trim();
+const comparisonTable = block?.comparisonTable ?? [];
+const synthesizerPrompt = block?.synthesizerPrompt ?? '';
+const comparatorPrompt = block?.comparatorPrompt ?? '';
 
 const kindLabel: Record<string, string> = {
   aligned: 'aligned',
@@ -53,8 +58,11 @@ const kindLabel: Record<string, string> = {
 
 {hasAny && (
   <section class="mb-12">
-    <h2 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-3">
-      Argument from the graph
+    <h2 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-3 flex items-baseline gap-2">
+      <span>Argument from the graph</span>
+      {version && (
+        <span class="text-[10px] font-medium normal-case tracking-normal text-gray-400 font-mono">{version}</span>
+      )}
     </h2>
     <p class="text-sm text-gray-500 italic mb-8 leading-relaxed max-w-3xl">
       An LLM was given only this paper's enriched claim graph — claims, panel references, roles, and the relations between them — with no access to the abstract, paper prose, or any external context. It was asked to reconstruct the argument. Below: the reconstructed argument, then a comparison to the published abstract above. The two prompts that produced these texts are at the bottom, available for inspection.

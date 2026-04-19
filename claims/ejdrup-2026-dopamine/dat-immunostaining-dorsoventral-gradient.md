@@ -6,6 +6,7 @@ claim: >
   DAT expression is significantly higher in dorsal than ventral striatum (p=0.0021, one-sided
   t-test, n=4 mice), corroborating the 3:1 Vmax ratio assumed in the model.
 claim-type: empirical
+role: empirical
 concepts:
   - DAT
   - dopamine transporter
@@ -15,9 +16,18 @@ concepts:
 priority: 2026-03-29
 epistemic: moderate
 
+validates:
+  - ds-vs-vmax-ratio-assumed
+  - hypothesis-vmax-explains-regional-difference
+
+supports:
+  - hypothesis-vmax-explains-regional-difference
+
 belongings:
   - relation: supports
     target: ds-vs-vmax-ratio-assumed
+  - relation: supports
+    target: hypothesis-vmax-explains-regional-difference
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

@@ -1,0 +1,719 @@
+---
+import { STATUS_TAILWIND, EPISTEMIC_TAILWIND, STATUS_LABEL } from '../lib/status';
+
+type Claim = {
+  slug: string;
+  claim: string;
+  displayClaim?: string;
+  panel?: string;
+  status: string;
+  epistemic: string;
+  isAssessment?: boolean;
+  requires?: string[];
+  figureUrl?: string | null;
+  role?: string | null;
+  scopes?: string[];
+  'enables-method'?: string[];
+  entails?: string[];
+  tests?: string[];
+  supports?: string[];
+  refutes?: string[];
+  'dissociates-with'?: string[];
+  'rules-out'?: string[];
+  validates?: string[];
+  interprets?: string[];
+  'derived-from'?: string[];
+};
+
+type Props = {
+  paper: { slug: string; claims: Claim[] };
+  paperSlug: string;
+  baseUrl: string;
+  claimsBySlug: Record<string, Claim>;
+};
+
+const { paper, paperSlug, baseUrl, claimsBySlug } = Astro.props as Props;
+const url = (path: string) => `${baseUrl}${path}/`;
+
+const all = paper.claims;
+const byRole = (r: string) => all.filter(c => c.role === r);
+
+const scopeStar = byRole('scope').filter(c => (c.scopes ?? []).includes('*'));
+const scopeTargeted = byRole('scope').filter(c => {
+  const s = c.scopes ?? [];
+  return s.length > 0 && !s.includes('*');
+});
+const methodological = byRole('methodological');
+const hypotheses = byRole('hypothesis');
+const interpretations = byRole('interpretation');
+const synthesis = byRole('synthesis');
+const controls = byRole('control').filter(c => (c['rules-out']?.length ?? 0) > 0 || (c.validates?.length ?? 0) > 0);
+
+// Dissociation pairs — de-duplicated
+type Pair = { a: Claim; b: Claim; key: string };
+const dissocPairs: Pair[] = [];
+const seen = new Set<string>();
+for (const c of all) {
+  for (const otherSlug of (c['dissociates-with'] ?? [])) {
+    const other = claimsBySlug[otherSlug];
+    if (!other) continue;
+    const key = [c.slug, otherSlug].sort().join('|');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    dissocPairs.push({ a: c, b: other, key });
+  }
+}
+const dissocSlugs = new Set<string>();
+dissocPairs.forEach(p => { dissocSlugs.add(p.a.slug); dissocSlugs.add(p.b.slug); });
+
+// Standalone empirical: role:empirical, no `tests`, not in any dissociation pair
+const standaloneEmpirical = byRole('empirical').filter(c =>
+  (c.tests?.length ?? 0) === 0 && !dissocSlugs.has(c.slug)
+);
+
+// Helper: which claims have `tests` pointing at a given prediction/hypothesis slug?
+const testsOf = (targetSlug: string): Claim[] =>
+  all.filter(c => (c.tests ?? []).includes(targetSlug));
+
+// Support/refute relation between an observation and a hypothesis, read from
+// explicit fields on the observation. Returns 'supports' | 'refutes' | 'tests'.
+type SRRel = 'supports' | 'refutes' | 'tests';
+const srRel = (obs: Claim, hypothesisSlug: string | undefined): SRRel => {
+  if (!hypothesisSlug) return 'tests';
+  if ((obs.supports ?? []).includes(hypothesisSlug)) return 'supports';
+  if ((obs.refutes ?? []).includes(hypothesisSlug)) return 'refutes';
+  return 'tests';
+};
+const srChip: Record<SRRel, string> = {
+  supports: 'bg-green-100 text-green-800 border border-green-200',
+  refutes:  'bg-red-100 text-red-800 border border-red-200',
+  tests:    'bg-gray-100 text-gray-600 border border-gray-200',
+};
+const srLabel: Record<SRRel, string> = {
+  supports: '\u2192 supports',
+  refutes:  '\u2192 refutes',
+  tests:    '\u2192 tests',
+};
+// For a given observation, find any hypothesis it explicitly supports/refutes.
+const srAnyHypothesis = (obs: Claim): { rel: SRRel; target?: string } => {
+  const sup = (obs.supports ?? [])[0];
+  if (sup) return { rel: 'supports', target: sup };
+  const ref = (obs.refutes ?? [])[0];
+  if (ref) return { rel: 'refutes', target: ref };
+  return { rel: 'tests' };
+};
+
+// Role tag color palette
+const roleStyle: Record<string, string> = {
+  hypothesis:     'bg-violet-100 text-violet-800 border-violet-300',
+  prediction:     'bg-indigo-100 text-indigo-800 border-indigo-300',
+  empirical:      'bg-sky-100 text-sky-800 border-sky-300',
+  control:        'bg-emerald-100 text-emerald-800 border-emerald-300',
+  interpretation: 'bg-amber-100 text-amber-800 border-amber-300',
+  synthesis:      'bg-rose-100 text-rose-800 border-rose-300',
+  methodological: 'bg-teal-100 text-teal-800 border-teal-300',
+  scope:          'bg-slate-100 text-slate-700 border-slate-300',
+};
+
+const roleLabel = (r?: string | null) => (r ?? '').toUpperCase();
+
+const claimText = (c: Claim) => (c.displayClaim?.trim() || c.claim);
+
+// fold default open if <= threshold cards
+const foldOpen = (n: number) => n <= 3;
+
+// section ids (for in-page anchoring)
+const sectionId = (slug: string) => `structure-${slug}`;
+---
+
+<section class="mb-12">
+  <h2 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-3">
+    Argumentative structure
+  </h2>
+  <p class="text-sm text-gray-500 italic mb-6 leading-relaxed max-w-3xl">
+    Claims grouped by their role in the paper's argument. Hypotheses entail predictions; predictions are tested by empirical observations; controls rule out alternatives; interpretations reframe findings.
+  </p>
+
+  {/* SCOPE banner */}
+  {scopeStar.length > 0 && (
+    <div class="mb-8 p-4 md:p-5 rounded-lg border border-slate-300 bg-slate-50/70">
+      <div class="flex items-center gap-2 mb-2">
+        <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle.scope}`}>SCOPE</span>
+        <span class="text-xs text-slate-700 italic">All claims below are bounded by the following scope qualifiers.</span>
+      </div>
+      <ul class="mt-3 space-y-2">
+        {scopeStar.map(c => (
+          <li
+            id={`claim-card-${c.slug}`}
+            data-claim-slug={c.slug}
+            class="text-sm text-gray-800 bg-white border border-slate-200 rounded px-3 py-2 hover:border-slate-400"
+          >
+            <a href={url(`/papers/${paperSlug}/${c.slug}`)} class="block no-underline text-gray-900">
+              <div class="leading-snug">{claimText(c)}</div>
+              <div class="text-[11px] text-gray-400 font-mono mt-1">{c.slug}</div>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  {/* METHODOLOGICAL WARRANTS */}
+  {methodological.length > 0 && (
+    <details class="claim-section mb-10" open={foldOpen(methodological.length)}>
+      <summary class="claim-section-summary cursor-pointer select-none">
+        <h3 class="inline text-sm font-semibold text-gray-900 uppercase tracking-wide">
+          <span class="claim-section-chevron mr-1 text-gray-400">▸</span>Methodological warrants
+          <span class="ml-2 text-xs text-gray-400 font-normal">({methodological.length})</span>
+        </h3>
+      </summary>
+      <p class="text-xs text-gray-500 italic mt-2 mb-4 leading-relaxed max-w-3xl">
+        These methodological capabilities enable interpretation of downstream claims.
+      </p>
+      <div class="space-y-3">
+        {methodological.map(c => (
+          <div
+            id={`claim-card-${c.slug}`}
+            data-claim-slug={c.slug}
+            class="role-card p-4 rounded-lg border bg-white border-teal-200 hover:border-teal-400"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle.methodological}`}>METHODOLOGICAL</span>
+              {c.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{c.panel}</span>}
+            </div>
+            <a href={url(`/papers/${paperSlug}/${c.slug}`)} class="block no-underline">
+              <p class="text-sm text-gray-900 leading-snug mb-2">{claimText(c)}</p>
+            </a>
+            {(c['enables-method']?.length ?? 0) > 0 && (
+              <div class="text-xs text-gray-600 mt-2">
+                <span class="text-gray-500">Enables:</span>{' '}
+                {c['enables-method']!.map((s, i) => (
+                  <>
+                    {i > 0 && <span class="text-gray-400">, </span>}
+                    <a href={`#claim-card-${s}`} class="font-mono text-blue-600 hover:underline structure-xref" data-target-claim={s}>{s}</a>
+                  </>
+                ))}
+              </div>
+            )}
+            <div class="flex items-center gap-2 flex-wrap mt-3">
+              <span class={`text-xs px-1.5 py-0.5 rounded ${STATUS_TAILWIND[c.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[c.status] ?? c.status}</span>
+              <span class={`text-xs px-1.5 py-0.5 rounded ${EPISTEMIC_TAILWIND[c.epistemic] ?? 'bg-gray-50 text-gray-500'}`}>{c.epistemic}</span>
+              <span class="text-xs text-gray-400 ml-auto font-mono">{c.slug}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </details>
+  )}
+
+  {/* HYPOTHESES AND THEIR TESTS */}
+  {hypotheses.length > 0 && (
+    <details class="claim-section mb-10" open={true}>
+      <summary class="claim-section-summary cursor-pointer select-none">
+        <h3 class="inline text-sm font-semibold text-gray-900 uppercase tracking-wide">
+          <span class="claim-section-chevron mr-1 text-gray-400">▸</span>Hypotheses tested
+          <span class="ml-2 text-xs text-gray-400 font-normal">({hypotheses.length})</span>
+        </h3>
+      </summary>
+      <p class="text-xs text-gray-500 italic mt-2 mb-4 leading-relaxed max-w-3xl">
+        Each hypothesis entails predictions; each prediction is tested by empirical observations that support or refute it. Where a hypothesis entails an empirical claim directly, the prediction layer is implicit.
+      </p>
+      <div class="space-y-6">
+        {hypotheses.map(h => {
+          const entailed = (h.entails ?? []).map(s => claimsBySlug[s]).filter(Boolean) as Claim[];
+          const predictions = entailed.filter(e => e.role === 'prediction');
+          const directlyTested = entailed.filter(e => e.role !== 'prediction');
+          return (
+            <div
+              id={`claim-card-${h.slug}`}
+              data-claim-slug={h.slug}
+              class="role-card p-5 md:p-6 rounded-lg border-2 border-violet-300 bg-violet-50/40 hover:border-violet-400 shadow-sm"
+            >
+              <div class="flex items-center gap-2 mb-2">
+                <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle.hypothesis}`}>HYPOTHESIS</span>
+                {h.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{h.panel}</span>}
+              </div>
+              <a href={url(`/papers/${paperSlug}/${h.slug}`)} class="block no-underline">
+                <p class="text-base md:text-lg text-gray-900 leading-snug font-medium mb-2">{claimText(h)}</p>
+              </a>
+              <div class="flex items-center gap-2 flex-wrap mt-2 mb-3">
+                <span class={`text-xs px-1.5 py-0.5 rounded ${STATUS_TAILWIND[h.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[h.status] ?? h.status}</span>
+                <span class={`text-xs px-1.5 py-0.5 rounded ${EPISTEMIC_TAILWIND[h.epistemic] ?? 'bg-gray-50 text-gray-500'}`}>{h.epistemic}</span>
+                <span class="text-xs text-gray-400 ml-auto font-mono">{h.slug}</span>
+              </div>
+
+              {predictions.length > 0 && (
+                <div class="mt-4 ml-4 pl-4 border-l-2 border-indigo-200">
+                  <div class="text-[11px] font-semibold text-indigo-700 uppercase tracking-wider mb-2">Predictions entailed</div>
+                  <div class="space-y-3">
+                    {predictions.map(p => {
+                      const tests = testsOf(p.slug);
+                      return (
+                        <div
+                          id={`claim-card-${p.slug}`}
+                          data-claim-slug={p.slug}
+                          class="role-card p-4 rounded-lg border border-indigo-200 bg-white hover:border-indigo-400"
+                        >
+                          <div class="flex items-center gap-2 mb-2">
+                            <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle.prediction}`}>PREDICTION</span>
+                            {p.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{p.panel}</span>}
+                          </div>
+                          <a href={url(`/papers/${paperSlug}/${p.slug}`)} class="block no-underline">
+                            <p class="text-sm text-gray-900 leading-snug mb-2">{claimText(p)}</p>
+                          </a>
+                          <div class="flex items-center gap-2 flex-wrap mt-2">
+                            <span class={`text-xs px-1.5 py-0.5 rounded ${STATUS_TAILWIND[p.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[p.status] ?? p.status}</span>
+                            <span class={`text-xs px-1.5 py-0.5 rounded ${EPISTEMIC_TAILWIND[p.epistemic] ?? 'bg-gray-50 text-gray-500'}`}>{p.epistemic}</span>
+                            <span class="text-xs text-gray-400 ml-auto font-mono">{p.slug}</span>
+                          </div>
+                          {tests.length > 0 && (
+                            <details class="mt-3 ml-2 pl-3 border-l-2 border-sky-200" open={tests.length <= 3}>
+                              <summary class="cursor-pointer select-none text-[11px] font-semibold text-sky-700 uppercase tracking-wider py-1">
+                                Tested by ({tests.length})
+                              </summary>
+                              <div class="mt-2 space-y-2">
+                                {tests.map(t => {
+                                  const hypTarget = (p['derived-from'] ?? [])[0] ?? h.slug;
+                                  const rel = srRel(t, hypTarget);
+                                  return (
+                                  <div
+                                    id={`claim-card-${t.slug}`}
+                                    data-claim-slug={t.slug}
+                                    class={`role-card p-3 rounded border bg-white ${t.role === 'control' ? 'border-emerald-200 hover:border-emerald-400' : 'border-sky-200 hover:border-sky-400'}`}
+                                  >
+                                    <div class="flex items-center gap-2 mb-1.5">
+                                      <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle[t.role ?? 'empirical'] ?? roleStyle.empirical}`}>{roleLabel(t.role)}</span>
+                                      {t.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{t.panel}</span>}
+                                      <span class={`text-[10px] px-1.5 py-0.5 rounded ${srChip[rel]}`}>
+                                        {srLabel[rel]}
+                                      </span>
+                                    </div>
+                                    <a href={url(`/papers/${paperSlug}/${t.slug}`)} class="block no-underline">
+                                      <p class="text-xs text-gray-900 leading-snug">{claimText(t)}</p>
+                                    </a>
+                                    <div class="flex items-center gap-2 flex-wrap mt-2">
+                                      <span class={`text-[10px] px-1.5 py-0.5 rounded ${STATUS_TAILWIND[t.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[t.status] ?? t.status}</span>
+                                      <span class="text-[10px] text-gray-400 ml-auto font-mono">{t.slug}</span>
+                                    </div>
+                                  </div>
+                                  );
+                                })}
+                              </div>
+                            </details>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+
+              {directlyTested.length > 0 && (
+                <div class="mt-4 ml-4 pl-4 border-l-2 border-sky-200">
+                  <div class="text-[11px] font-semibold text-sky-700 uppercase tracking-wider mb-2">Tested by</div>
+                  <div class="space-y-2">
+                    {directlyTested.map(t => {
+                      const rel = srRel(t, h.slug);
+                      return (
+                      <div
+                        id={`claim-card-${t.slug}`}
+                        data-claim-slug={t.slug}
+                        class={`role-card p-3 rounded border bg-white ${t.role === 'control' ? 'border-emerald-200 hover:border-emerald-400' : 'border-sky-200 hover:border-sky-400'}`}
+                      >
+                        <div class="flex items-center gap-2 mb-1.5">
+                          <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle[t.role ?? 'empirical'] ?? roleStyle.empirical}`}>{roleLabel(t.role)}</span>
+                          {t.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{t.panel}</span>}
+                          <span class={`text-[10px] px-1.5 py-0.5 rounded ${srChip[rel]}`}>
+                            {srLabel[rel]}
+                          </span>
+                        </div>
+                        <a href={url(`/papers/${paperSlug}/${t.slug}`)} class="block no-underline">
+                          <p class="text-xs text-gray-900 leading-snug">{claimText(t)}</p>
+                        </a>
+                        <div class="flex items-center gap-2 flex-wrap mt-2">
+                          <span class={`text-[10px] px-1.5 py-0.5 rounded ${STATUS_TAILWIND[t.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[t.status] ?? t.status}</span>
+                          <span class="text-[10px] text-gray-400 ml-auto font-mono">{t.slug}</span>
+                        </div>
+                      </div>
+                      );
+                    })}
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </details>
+  )}
+
+  {/* DISSOCIATIONS */}
+  {dissocPairs.length > 0 && (
+    <details class="claim-section mb-10" open={foldOpen(dissocPairs.length)}>
+      <summary class="claim-section-summary cursor-pointer select-none">
+        <h3 class="inline text-sm font-semibold text-gray-900 uppercase tracking-wide">
+          <span class="claim-section-chevron mr-1 text-gray-400">▸</span>Dissociations
+          <span class="ml-2 text-xs text-gray-400 font-normal">({dissocPairs.length})</span>
+        </h3>
+      </summary>
+      <p class="text-xs text-gray-500 italic mt-2 mb-4 leading-relaxed max-w-3xl">
+        Pairs of claims that jointly establish a contrast — the contrast itself is part of the argument.
+      </p>
+      <div class="space-y-4">
+        {dissocPairs.map(({ a, b }) => (
+          <div class="rounded-lg border border-cyan-200 bg-cyan-50/40 p-3 md:p-4">
+            <div class="grid grid-cols-1 md:grid-cols-[1fr_auto_1fr] gap-3 md:gap-4 items-stretch">
+              {[a, b].map((c, i) => (
+                <>
+                  <div
+                    id={`claim-card-${c.slug}`}
+                    data-claim-slug={c.slug}
+                    class="role-card p-3 rounded border border-sky-200 bg-white hover:border-sky-400"
+                  >
+                    <div class="flex items-center gap-2 mb-1.5">
+                      <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle[c.role ?? 'empirical'] ?? roleStyle.empirical}`}>{roleLabel(c.role)}</span>
+                      {c.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{c.panel}</span>}
+                    </div>
+                    <a href={url(`/papers/${paperSlug}/${c.slug}`)} class="block no-underline">
+                      <p class="text-xs text-gray-900 leading-snug">{claimText(c)}</p>
+                    </a>
+                    <div class="flex items-center gap-2 flex-wrap mt-2">
+                      <span class={`text-[10px] px-1.5 py-0.5 rounded ${STATUS_TAILWIND[c.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[c.status] ?? c.status}</span>
+                      <span class="text-[10px] text-gray-400 ml-auto font-mono">{c.slug}</span>
+                    </div>
+                  </div>
+                  {i === 0 && (
+                    <div class="hidden md:flex items-center justify-center text-cyan-500 text-2xl select-none" aria-hidden="true">↔</div>
+                  )}
+                </>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </details>
+  )}
+
+  {/* ELIMINATIONS / CONTROLS */}
+  {controls.length > 0 && (
+    <details class="claim-section mb-10" open={foldOpen(controls.length)}>
+      <summary class="claim-section-summary cursor-pointer select-none">
+        <h3 class="inline text-sm font-semibold text-gray-900 uppercase tracking-wide">
+          <span class="claim-section-chevron mr-1 text-gray-400">▸</span>Eliminations &amp; validating controls
+          <span class="ml-2 text-xs text-gray-400 font-normal">({controls.length})</span>
+        </h3>
+      </summary>
+      <p class="text-xs text-gray-500 italic mt-2 mb-4 leading-relaxed max-w-3xl">
+        Claims that ruled out alternatives or validated other claims via disconfirming controls.
+      </p>
+      <div class="space-y-3">
+        {controls.map(c => (
+          <div
+            id={`claim-card-${c.slug}`}
+            data-claim-slug={c.slug}
+            class="role-card p-4 rounded-lg border bg-white border-emerald-200 hover:border-emerald-400"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle.control}`}>CONTROL</span>
+              {c.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{c.panel}</span>}
+            </div>
+            <a href={url(`/papers/${paperSlug}/${c.slug}`)} class="block no-underline">
+              <p class="text-sm text-gray-900 leading-snug mb-2">{claimText(c)}</p>
+            </a>
+            {(c['rules-out']?.length ?? 0) > 0 && (
+              <div class="text-xs text-gray-700 mt-2">
+                <span class="text-gray-500">Rules out:</span>
+                <ul class="mt-1 ml-4 list-disc space-y-0.5">
+                  {c['rules-out']!.map(r => {
+                    const target = claimsBySlug[r];
+                    return (
+                      <li>
+                        {target ? (
+                          <a href={`#claim-card-${target.slug}`} class="font-mono text-blue-600 hover:underline structure-xref" data-target-claim={target.slug}>{target.slug}</a>
+                        ) : (
+                          <span class="italic text-gray-700">{r}</span>
+                        )}
+                      </li>
+                    );
+                  })}
+                </ul>
+              </div>
+            )}
+            {(c.validates?.length ?? 0) > 0 && (
+              <div class="text-xs text-gray-700 mt-2">
+                <span class="text-gray-500">Validates:</span>{' '}
+                {c.validates!.map((s, i) => (
+                  <>
+                    {i > 0 && <span class="text-gray-400">, </span>}
+                    <a href={`#claim-card-${s}`} class="font-mono text-blue-600 hover:underline structure-xref" data-target-claim={s}>{s}</a>
+                  </>
+                ))}
+              </div>
+            )}
+            <div class="flex items-center gap-2 flex-wrap mt-3">
+              <span class={`text-xs px-1.5 py-0.5 rounded ${STATUS_TAILWIND[c.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[c.status] ?? c.status}</span>
+              <span class={`text-xs px-1.5 py-0.5 rounded ${EPISTEMIC_TAILWIND[c.epistemic] ?? 'bg-gray-50 text-gray-500'}`}>{c.epistemic}</span>
+              <span class="text-xs text-gray-400 ml-auto font-mono">{c.slug}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </details>
+  )}
+
+  {/* INTERPRETATIONS */}
+  {interpretations.length > 0 && (
+    <details class="claim-section mb-10" open={foldOpen(interpretations.length)}>
+      <summary class="claim-section-summary cursor-pointer select-none">
+        <h3 class="inline text-sm font-semibold text-gray-900 uppercase tracking-wide">
+          <span class="claim-section-chevron mr-1 text-gray-400">▸</span>Interpretations
+          <span class="ml-2 text-xs text-gray-400 font-normal">({interpretations.length})</span>
+        </h3>
+      </summary>
+      <p class="text-xs text-gray-500 italic mt-2 mb-4 leading-relaxed max-w-3xl">
+        Claims that reframe empirical findings through a theoretical lens. These are interpretive moves, not direct measurements.
+      </p>
+      <div class="space-y-3">
+        {interpretations.map(c => (
+          <div
+            id={`claim-card-${c.slug}`}
+            data-claim-slug={c.slug}
+            class="role-card p-4 rounded-lg border-l-4 border border-amber-300 border-l-amber-400 bg-amber-50/30 hover:border-amber-500"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle.interpretation}`}>INTERPRETATION</span>
+              {c.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{c.panel}</span>}
+            </div>
+            <a href={url(`/papers/${paperSlug}/${c.slug}`)} class="block no-underline">
+              <p class="text-sm text-gray-900 leading-snug mb-2">{claimText(c)}</p>
+            </a>
+            {(c.interprets?.length ?? 0) > 0 && (
+              <div class="text-xs text-gray-700 mt-2">
+                <span class="text-gray-500">Reframes:</span>{' '}
+                {c.interprets!.map((s, i) => (
+                  <>
+                    {i > 0 && <span class="text-gray-400">, </span>}
+                    <a href={`#claim-card-${s}`} class="font-mono text-blue-600 hover:underline structure-xref" data-target-claim={s}>{s}</a>
+                  </>
+                ))}
+              </div>
+            )}
+            <div class="flex items-center gap-2 flex-wrap mt-3">
+              <span class={`text-xs px-1.5 py-0.5 rounded ${STATUS_TAILWIND[c.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[c.status] ?? c.status}</span>
+              <span class={`text-xs px-1.5 py-0.5 rounded ${EPISTEMIC_TAILWIND[c.epistemic] ?? 'bg-gray-50 text-gray-500'}`}>{c.epistemic}</span>
+              <span class="text-xs text-gray-400 ml-auto font-mono">{c.slug}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </details>
+  )}
+
+  {/* SYNTHESIS */}
+  {synthesis.length > 0 && (
+    <details class="claim-section mb-10" open={foldOpen(synthesis.length)}>
+      <summary class="claim-section-summary cursor-pointer select-none">
+        <h3 class="inline text-sm font-semibold text-gray-900 uppercase tracking-wide">
+          <span class="claim-section-chevron mr-1 text-gray-400">▸</span>Synthesis claims
+          <span class="ml-2 text-xs text-gray-400 font-normal">({synthesis.length})</span>
+        </h3>
+      </summary>
+      <p class="text-xs text-gray-500 italic mt-2 mb-4 leading-relaxed max-w-3xl">
+        Claims that combine multiple empirical findings into a single conclusion.
+      </p>
+      <div class="space-y-3">
+        {synthesis.map(c => {
+          const sources = [
+            ...((c['derived-from'] ?? []).map(s => ({ s, kind: 'derives' as const }))),
+            ...((c.interprets ?? []).map(s => ({ s, kind: 'interprets' as const }))),
+            ...((c.requires ?? []).map(s => ({ s, kind: 'requires' as const }))),
+          ];
+          return (
+            <div
+              id={`claim-card-${c.slug}`}
+              data-claim-slug={c.slug}
+              class="role-card p-4 rounded-lg border bg-white border-rose-200 hover:border-rose-400"
+            >
+              <div class="flex items-center gap-2 mb-2">
+                <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle.synthesis}`}>SYNTHESIS</span>
+                {c.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{c.panel}</span>}
+              </div>
+              <a href={url(`/papers/${paperSlug}/${c.slug}`)} class="block no-underline">
+                <p class="text-sm text-gray-900 leading-snug mb-2">{claimText(c)}</p>
+              </a>
+              {sources.length > 0 && (
+                <div class="text-xs text-gray-700 mt-2">
+                  <span class="text-gray-500">Derived from:</span>{' '}
+                  {sources.map((src, i) => (
+                    <>
+                      {i > 0 && <span class="text-gray-400">, </span>}
+                      <a href={`#claim-card-${src.s}`} class="font-mono text-blue-600 hover:underline structure-xref" data-target-claim={src.s}>{src.s}</a>
+                    </>
+                  ))}
+                </div>
+              )}
+              <div class="flex items-center gap-2 flex-wrap mt-3">
+                <span class={`text-xs px-1.5 py-0.5 rounded ${STATUS_TAILWIND[c.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[c.status] ?? c.status}</span>
+                <span class={`text-xs px-1.5 py-0.5 rounded ${EPISTEMIC_TAILWIND[c.epistemic] ?? 'bg-gray-50 text-gray-500'}`}>{c.epistemic}</span>
+                <span class="text-xs text-gray-400 ml-auto font-mono">{c.slug}</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </details>
+  )}
+
+  {/* STANDALONE EMPIRICAL */}
+  {standaloneEmpirical.length > 0 && (
+    <details class="claim-section mb-10" open={foldOpen(standaloneEmpirical.length)}>
+      <summary class="claim-section-summary cursor-pointer select-none">
+        <h3 class="inline text-sm font-semibold text-gray-900 uppercase tracking-wide">
+          <span class="claim-section-chevron mr-1 text-gray-400">▸</span>Standalone empirical findings
+          <span class="ml-2 text-xs text-gray-400 font-normal">({standaloneEmpirical.length})</span>
+        </h3>
+      </summary>
+      <p class="text-xs text-gray-500 italic mt-2 mb-4 leading-relaxed max-w-3xl">
+        Empirical claims that are not parts of an explicit hypothesis-test loop or dissociation.
+      </p>
+      <div class="space-y-2">
+        {standaloneEmpirical.map(c => {
+          const sr = srAnyHypothesis(c);
+          return (
+          <div
+            id={`claim-card-${c.slug}`}
+            data-claim-slug={c.slug}
+            class="role-card p-3 rounded border bg-white border-sky-200 hover:border-sky-400"
+          >
+            <div class="flex items-center gap-2 mb-1.5">
+              <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle.empirical}`}>EMPIRICAL</span>
+              {c.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{c.panel}</span>}
+              {sr.target && (
+                <span class={`text-[10px] px-1.5 py-0.5 rounded ${srChip[sr.rel]}`}>
+                  {srLabel[sr.rel]}{' '}
+                  <a href={`#claim-card-${sr.target}`} class="font-mono underline structure-xref" data-target-claim={sr.target}>{sr.target}</a>
+                </span>
+              )}
+            </div>
+            <a href={url(`/papers/${paperSlug}/${c.slug}`)} class="block no-underline">
+              <p class="text-sm text-gray-900 leading-snug">{claimText(c)}</p>
+            </a>
+            <div class="flex items-center gap-2 flex-wrap mt-2">
+              <span class={`text-xs px-1.5 py-0.5 rounded ${STATUS_TAILWIND[c.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[c.status] ?? c.status}</span>
+              <span class={`text-xs px-1.5 py-0.5 rounded ${EPISTEMIC_TAILWIND[c.epistemic] ?? 'bg-gray-50 text-gray-500'}`}>{c.epistemic}</span>
+              <span class="text-xs text-gray-400 ml-auto font-mono">{c.slug}</span>
+            </div>
+          </div>
+          );
+        })}
+      </div>
+    </details>
+  )}
+
+  {/* TARGETED SCOPE QUALIFIERS */}
+  {scopeTargeted.length > 0 && (
+    <details class="claim-section mb-10" open={foldOpen(scopeTargeted.length)}>
+      <summary class="claim-section-summary cursor-pointer select-none">
+        <h3 class="inline text-sm font-semibold text-gray-900 uppercase tracking-wide">
+          <span class="claim-section-chevron mr-1 text-gray-400">▸</span>Scope qualifiers
+          <span class="ml-2 text-xs text-gray-400 font-normal">({scopeTargeted.length})</span>
+        </h3>
+      </summary>
+      <p class="text-xs text-gray-500 italic mt-2 mb-4 leading-relaxed max-w-3xl">
+        These claims qualify or constrain specific other claims rather than the paper as a whole.
+      </p>
+      <div class="space-y-3">
+        {scopeTargeted.map(c => (
+          <div
+            id={`claim-card-${c.slug}`}
+            data-claim-slug={c.slug}
+            class="role-card p-4 rounded-lg border bg-white border-slate-300 hover:border-slate-500"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle.scope}`}>SCOPE</span>
+              {c.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{c.panel}</span>}
+            </div>
+            <a href={url(`/papers/${paperSlug}/${c.slug}`)} class="block no-underline">
+              <p class="text-sm text-gray-900 leading-snug mb-2">{claimText(c)}</p>
+            </a>
+            {(c.scopes?.length ?? 0) > 0 && (
+              <div class="text-xs text-gray-700 mt-2">
+                <span class="text-gray-500">Qualifies:</span>{' '}
+                {c.scopes!.map((s, i) => (
+                  <>
+                    {i > 0 && <span class="text-gray-400">, </span>}
+                    {claimsBySlug[s] ? (
+                      <a href={`#claim-card-${s}`} class="font-mono text-blue-600 hover:underline structure-xref" data-target-claim={s}>{s}</a>
+                    ) : (
+                      <span class="font-mono italic text-gray-700">{s}</span>
+                    )}
+                  </>
+                ))}
+              </div>
+            )}
+            <div class="flex items-center gap-2 flex-wrap mt-3">
+              <span class={`text-xs px-1.5 py-0.5 rounded ${STATUS_TAILWIND[c.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[c.status] ?? c.status}</span>
+              <span class={`text-xs px-1.5 py-0.5 rounded ${EPISTEMIC_TAILWIND[c.epistemic] ?? 'bg-gray-50 text-gray-500'}`}>{c.epistemic}</span>
+              <span class="text-xs text-gray-400 ml-auto font-mono">{c.slug}</span>
+            </div>
+          </div>
+        ))}
+      </div>
+    </details>
+  )}
+</section>
+
+<style>
+  details.claim-section > summary {
+    list-style: none;
+  }
+  details.claim-section > summary::-webkit-details-marker {
+    display: none;
+  }
+  details.claim-section > summary .claim-section-chevron {
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  details.claim-section[open] > summary .claim-section-chevron {
+    transform: rotate(90deg);
+  }
+  .role-card {
+    transition: border-color 0.12s ease, background-color 0.12s ease, box-shadow 0.12s ease;
+  }
+</style>
+
+<script>
+  // Cross-references: clicking a structure-xref should open <details> ancestors
+  // of the target card and scroll/highlight, matching AbstractAlignment behaviour.
+  function findCard(slug: string): HTMLElement | null {
+    return document.getElementById(`claim-card-${slug}`)
+      ?? document.querySelector(`[data-claim-slug="${slug}"]`);
+  }
+
+  function highlight(slug: string, on: boolean) {
+    const el = findCard(slug);
+    if (!el) return;
+    el.classList.toggle('claim-card-highlight', on);
+  }
+
+  document.querySelectorAll<HTMLAnchorElement>('.structure-xref').forEach(a => {
+    const slug = a.dataset.targetClaim;
+    if (!slug) return;
+    a.addEventListener('mouseenter', () => highlight(slug, true));
+    a.addEventListener('mouseleave', () => highlight(slug, false));
+    a.addEventListener('click', (e) => {
+      const card = findCard(slug);
+      if (!card) return;
+      e.preventDefault();
+      let n: HTMLElement | null = card;
+      while (n) {
+        if (n.tagName === 'DETAILS') (n as HTMLDetailsElement).open = true;
+        n = n.parentElement;
+      }
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      // brief visual flash
+      highlight(slug, true);
+      setTimeout(() => highlight(slug, false), 1400);
+    });
+  });
+</script>

@@ -8,6 +8,7 @@ claim: >
   far exceeds tonic [DA] of ~10 nM in DS, making burst events the effective threshold for D1R
   engagement.
 claim-type: empirical
+role: empirical
 concepts:
   - D1 receptor
   - receptor occupancy
@@ -16,9 +17,20 @@ concepts:
 priority: 2026-03-29
 epistemic: moderate
 
+tests:
+  - hypothesis-d1-d2-temporal-distinction
+
+dissociates-with:
+  - d2r-integrates-over-seconds
+
+supports:
+  - hypothesis-d1-d2-temporal-distinction
+
 belongings:
   - relation: requires
     target: ds-lacks-pervasive-tonic-da
+  - relation: supports
+    target: hypothesis-d1-d2-temporal-distinction
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

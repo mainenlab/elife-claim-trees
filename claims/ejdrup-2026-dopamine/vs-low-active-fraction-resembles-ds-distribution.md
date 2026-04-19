@@ -7,6 +7,7 @@ claim: >
   terminals, demonstrating VS operates in a low-focality high-coverage regime while DS requires
   dense terminal participation for equivalent spatial reach.
 claim-type: empirical
+role: empirical
 concepts:
   - active terminal fraction
   - spatial DA distribution
@@ -15,9 +16,17 @@ concepts:
 priority: 2026-03-29
 epistemic: moderate
 
+tests:
+  - hypothesis-vmax-explains-regional-difference
+
+supports:
+  - hypothesis-vmax-explains-regional-difference
+
 belongings:
   - relation: requires
     target: vs-maintains-pervasive-tonic-da
+  - relation: supports
+    target: hypothesis-vmax-explains-regional-difference
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

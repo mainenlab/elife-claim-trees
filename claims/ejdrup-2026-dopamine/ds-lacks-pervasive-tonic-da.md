@@ -7,6 +7,7 @@ claim: >
   with large fractions of the simulated volume devoid of DA — there is no pervasive tonic
   baseline.
 claim-type: empirical
+role: empirical
 concepts:
   - dorsal striatum
   - tonic dopamine
@@ -15,9 +16,20 @@ concepts:
 priority: 2026-03-29
 epistemic: moderate
 
+tests:
+  - hypothesis-vmax-explains-regional-difference
+
+dissociates-with:
+  - vs-maintains-pervasive-tonic-da
+
+supports:
+  - hypothesis-vmax-explains-regional-difference
+
 belongings:
   - relation: requires
     target: ds-vs-vmax-ratio-assumed
+  - relation: supports
+    target: hypothesis-vmax-explains-regional-difference
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

@@ -8,6 +8,7 @@ claim: >
   uptake capacity is identical; if DAT nanoclustering co-occurs with increased total DAT
   expression in biology, the clearance-slowing result would not hold.
 claim-type: assessment
+role: scope
 concepts:
   - DAT nanoclustering
   - model constraint
@@ -15,6 +16,10 @@ concepts:
   - simulation design
 priority: 2026-03-29
 epistemic: moderate
+
+scopes:
+  - dat-nanoclustering-slows-clearance
+  - hypothesis-nanoclustering-regulates-vmax
 
 belongings: []
 

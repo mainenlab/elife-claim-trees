@@ -21,7 +21,7 @@ priority: 2026-03-30
 epistemic: strong
 
 tests:
-  - hypothesis-frequency-compartment-matching
+  - prediction-beta-optimal-distal
 
 belongings:
   - relation: requires

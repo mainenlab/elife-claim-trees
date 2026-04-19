@@ -8,6 +8,7 @@ claim: >
   the directional conclusion is robust but absolute occupancy values are sensitive to the
   initialization assumption.
 claim-type: empirical
+role: empirical
 concepts:
   - D2 receptor
   - receptor kinetics
@@ -16,11 +17,22 @@ concepts:
 priority: 2026-03-29
 epistemic: weak
 
+tests:
+  - hypothesis-d1-d2-temporal-distinction
+
+dissociates-with:
+  - d1r-tracks-da-50ms-delay
+
+supports:
+  - hypothesis-d1-d2-temporal-distinction
+
 belongings:
   - relation: requires
     target: ds-lacks-pervasive-tonic-da
   - relation: requires
     target: d2r-initialization-unjustified
+  - relation: supports
+    target: hypothesis-d1-d2-temporal-distinction
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

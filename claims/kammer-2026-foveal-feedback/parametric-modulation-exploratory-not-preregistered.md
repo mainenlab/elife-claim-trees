@@ -22,9 +22,7 @@ scopes:
   - fef-lo-nonsignificant-after-correction
   - ips-foveal-effect-reverses-in-control
 
-belongings:
-  - relation: requires
-    target: ips-candidate-driver-foveal-feedback
+belongings: []
 
 assertions:
   - paper-slug: kammer-2026-foveal-feedback

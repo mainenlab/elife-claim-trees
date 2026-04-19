@@ -7,6 +7,7 @@ claim: >
   firing rate, only DAT Vmax generates differential responses between DS and VS; all other
   parameters shift both regions proportionally without altering the regional contrast.
 claim-type: empirical
+role: empirical
 concepts:
   - DAT Vmax
   - parameter sensitivity
@@ -15,9 +16,23 @@ concepts:
 priority: 2026-03-29
 epistemic: strong
 
+tests:
+  - hypothesis-vmax-explains-regional-difference
+
+rules-out:
+  - "differential active terminal fraction as the explanation for the DS/VS DA difference"
+  - "differential quantal release size as the explanation for the DS/VS DA difference"
+  - "differential release probability as the explanation for the DS/VS DA difference"
+  - "differential pacemaker firing rate as the explanation for the DS/VS DA difference"
+
+supports:
+  - hypothesis-vmax-explains-regional-difference
+
 belongings:
   - relation: requires
     target: vs-maintains-pervasive-tonic-da
+  - relation: supports
+    target: hypothesis-vmax-explains-regional-difference
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

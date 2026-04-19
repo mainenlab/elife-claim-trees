@@ -22,7 +22,7 @@ priority: 2026-03-30
 epistemic: strong
 
 tests:
-  - hypothesis-distinct-compartmental-roles
+  - prediction-distal-dendritic-spike-mechanism
 
 dissociates-with:
   - perisomatic-inhib-drops-firing-07hz

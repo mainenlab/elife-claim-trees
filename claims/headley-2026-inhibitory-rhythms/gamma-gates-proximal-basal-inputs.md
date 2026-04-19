@@ -21,7 +21,7 @@ priority: 2026-03-30
 epistemic: strong
 
 tests:
-  - hypothesis-distinct-compartmental-roles
+  - prediction-orthogonal-input-gating
 
 dissociates-with:
   - beta-gates-distal-apical-inputs

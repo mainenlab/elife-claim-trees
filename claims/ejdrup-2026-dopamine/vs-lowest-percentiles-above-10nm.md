@@ -6,6 +6,7 @@ claim: >
   Even the lowest DA concentration percentiles in VS exceed 10 nM during 4 Hz pacemaker
   activity.
 claim-type: empirical
+role: empirical
 concepts:
   - ventral striatum
   - tonic dopamine

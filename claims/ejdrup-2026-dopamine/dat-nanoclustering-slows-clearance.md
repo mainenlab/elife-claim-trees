@@ -7,6 +7,7 @@ claim: >
   compared to approximately 200 ms for unclustered DAT, because local [DA] at the cluster
   surface drops near zero creating a diffusion-limited bottleneck.
 claim-type: empirical
+role: empirical
 concepts:
   - DAT nanoclustering
   - dopamine clearance
@@ -15,11 +16,19 @@ concepts:
 priority: 2026-03-29
 epistemic: moderate
 
+tests:
+  - hypothesis-nanoclustering-regulates-vmax
+
+supports:
+  - hypothesis-nanoclustering-regulates-vmax
+
 belongings:
   - relation: requires
     target: nanoclustering-model-varicosity-scale
   - relation: requires
     target: nanoclustering-constant-vmax-constraint
+  - relation: supports
+    target: hypothesis-nanoclustering-regulates-vmax
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

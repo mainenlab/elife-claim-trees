@@ -25,8 +25,8 @@ epistemic: hypothesis
 belongings: []
 
 entails:
-  - beta-optimal-distal-dendritic-entrainment
-  - gamma-optimal-perisomatic-ap-modulation
+  - prediction-beta-optimal-distal
+  - prediction-gamma-optimal-perisomatic
 
 assertions:
   - paper-slug: headley-2026-inhibitory-rhythms

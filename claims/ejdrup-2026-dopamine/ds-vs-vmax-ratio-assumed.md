@@ -8,6 +8,7 @@ claim: >
   (Figure 2—supplement 1) corroborates this assumption at the protein level but does not
   directly establish the functional Vmax ratio.
 claim-type: assessment
+role: scope
 concepts:
   - DAT Vmax
   - dorsal striatum
@@ -15,6 +16,8 @@ concepts:
   - model parameterization
 priority: 2026-03-29
 epistemic: moderate
+
+scopes: ["*"]
 
 belongings: []
 

@@ -8,6 +8,7 @@ claim: >
   in DS, equilibrium occupancy would be approximately 0.59. No sensitivity analysis over this
   initialization is reported.
 claim-type: assessment
+role: methodological
 concepts:
   - D2 receptor
   - receptor occupancy
@@ -15,6 +16,11 @@ concepts:
   - dopamine kinetics
 priority: 2026-03-29
 epistemic: weak
+
+scopes:
+  - d2r-integrates-over-seconds
+  - d2r-insensitive-to-brief-pauses
+  - d2r-occupancy-higher-in-vs
 
 belongings: []
 

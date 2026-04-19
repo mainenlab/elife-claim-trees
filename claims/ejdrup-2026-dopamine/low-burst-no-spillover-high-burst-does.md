@@ -7,6 +7,7 @@ claim: >
   and 12 APs at 40 Hz cause frequency-dependent spillover exposing 10× and 30× the burst volume
   to concentrations above 100 nM respectively.
 claim-type: empirical
+role: empirical
 concepts:
   - burst firing
   - dopamine spillover

@@ -25,12 +25,10 @@ epistemic: hypothesis
 belongings: []
 
 entails:
-  - perisomatic-inhib-drops-firing-07hz
-  - distal-inhib-drops-firing-02hz
-  - perisomatic-inhib-subtractive-divisive
-  - gamma-perisomatic-no-dendritic-spike-change
-  - beta-gates-distal-apical-inputs
-  - gamma-gates-proximal-basal-inputs
+  - prediction-perisomatic-threshold-mechanism
+  - prediction-distal-dendritic-spike-mechanism
+  - prediction-perisomatic-input-output-shaping
+  - prediction-orthogonal-input-gating
 
 assertions:
   - paper-slug: headley-2026-inhibitory-rhythms

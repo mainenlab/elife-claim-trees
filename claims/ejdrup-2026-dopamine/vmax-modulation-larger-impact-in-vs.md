@@ -6,6 +6,7 @@ claim: >
   A ±50% change in DAT Vmax shifts tonic DA by 38 nM in VS but only 11 nM in DS, indicating
   VS operates closer to the Km saturation regime and is more sensitive to DAT modulation.
 claim-type: empirical
+role: empirical
 concepts:
   - DAT Vmax
   - Michaelis-Menten kinetics
@@ -15,11 +16,19 @@ concepts:
 priority: 2026-03-29
 epistemic: moderate
 
+tests:
+  - hypothesis-vmax-explains-regional-difference
+
+supports:
+  - hypothesis-vmax-explains-regional-difference
+
 belongings:
   - relation: requires
     target: vmax-only-parameter-driving-regional-difference
   - relation: requires
     target: ds-vs-vmax-ratio-assumed
+  - relation: supports
+    target: hypothesis-vmax-explains-regional-difference
 
 assertions:
   - paper-slug: ejdrup-2026-dopamine

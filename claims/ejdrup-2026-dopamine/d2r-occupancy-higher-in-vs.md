@@ -6,6 +6,7 @@ claim: >
   D2R occupancy during pacemaker activity is approximately 0.8 in VS versus approximately 0.55
   in DS, consistent with higher prevailing tonic DA in VS.
 claim-type: empirical
+role: empirical
 concepts:
   - D2 receptor
   - receptor occupancy

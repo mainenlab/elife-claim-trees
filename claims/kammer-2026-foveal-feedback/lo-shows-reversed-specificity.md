@@ -24,6 +24,8 @@ dissociates-with:
 
 belongings:
   - relation: supports
+    target: hypothesis-feedback-carries-shape-not-category
+  - relation: supports
     target: decoding-shape-sensitive-not-semantic
   - relation: extends
     target: v1-category-decoding-drops-in-feedback
