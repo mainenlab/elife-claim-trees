@@ -8,7 +8,12 @@ claim: >
   PV+ neurons target perisomatic locations where gamma is optimal for AP threshold modulation,
   while SST+ neurons target distal dendrites where beta is optimal for dendritic spike
   entrainment.
+displayClaim: >
+  Layer 5 inhibitory streams are functionally matched to interneuron type — perisomatic
+  gamma-frequency inhibition (PV+) controls somatic spike timing, while distal beta-frequency
+  inhibition (SST+) gates dendritic integration of top-down inputs.
 claim-type: interpretive
+role: interpretation
 concepts:
   - parvalbumin interneurons
   - somatostatin interneurons
@@ -18,15 +23,13 @@ concepts:
 priority: 2026-03-30
 epistemic: moderate
 
-belongings:
-  - relation: requires
-    target: beta-optimal-distal-dendritic-entrainment
-  - relation: requires
-    target: gamma-optimal-perisomatic-ap-modulation
-  - relation: requires
-    target: beta-gates-distal-apical-inputs
-  - relation: requires
-    target: gamma-gates-proximal-basal-inputs
+interprets:
+  - beta-optimal-distal-dendritic-entrainment
+  - gamma-optimal-perisomatic-ap-modulation
+  - beta-gates-distal-apical-inputs
+  - gamma-gates-proximal-basal-inputs
+
+belongings: []
 
 assertions:
   - paper-slug: headley-2026-inhibitory-rhythms

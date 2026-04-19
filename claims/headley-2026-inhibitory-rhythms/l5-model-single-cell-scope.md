@@ -7,7 +7,12 @@ claim: >
   no network dynamics, recurrent excitation, or population-level inhibitory effects are
   simulated, and all firing rate effects are for a single isolated neuron receiving
   naturalistic presynaptic drive.
+displayClaim: >
+  All results come from a single-cell compartmental model of one L5 pyramidal neuron driven by
+  naturalistic synaptic input — no network dynamics, no recurrent excitation, no population
+  effects.
 claim-type: assessment
+role: scope
 concepts:
   - layer 5 pyramidal neuron
   - computational model scope
@@ -15,6 +20,8 @@ concepts:
   - network dynamics
 priority: 2026-03-30
 epistemic: moderate
+
+scopes: ["*"]
 
 belongings: []
 

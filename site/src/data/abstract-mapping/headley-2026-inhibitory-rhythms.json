@@ -1,0 +1,112 @@
+{
+  "paperSlug": "headley-2026-inhibitory-rhythms",
+  "abstract": "Pyramidal neurons form dense recurrently connected networks with multiple types of inhibitory interneurons. A major differentiator between interneuron subtypes is whether they synapse onto perisomatic or dendritic regions. They can also engender local inhibitory rhythms, beta (12–35 Hz) and gamma (40–80 Hz). The interaction between the rhythmicity of inhibition and its spatial targeting on the neuron may determine how it regulates neuronal integration. Thus, we sought to understand how rhythmic perisomatic and distal dendritic inhibition impacted integration in a layer 5 pyramidal neuron model with realistic dendrites supporting Na+, NMDA, and Ca²⁺ spikes. We found that inhibition regulated the coupling between dendritic spikes and action potentials in a location and rhythm-dependent manner. Perisomatic inhibition principally regulated action potential generation, while distal dendritic inhibition regulated the incidence of dendritic spikes and their temporal coupling with action potentials. Perisomatic inhibition was most effective when provided at gamma frequencies, while distal dendritic inhibition functioned best at beta. Moreover, beta modulated responsiveness to distal inputs in a phase-dependent manner, while gamma did so for proximal inputs. These results may provide a functional interpretation for the reported association of soma-targeting parvalbumin-positive interneurons with gamma and dendrite-targeting somatostatin interneurons with beta.",
+  "sentences": [
+    {
+      "n": 1,
+      "text": "Pyramidal neurons form dense recurrently connected networks with multiple types of inhibitory interneurons.",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "Generic anatomy framing; no claim in the graph corresponds to it."
+    },
+    {
+      "n": 2,
+      "text": "A major differentiator between interneuron subtypes is whether they synapse onto perisomatic or dendritic regions.",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "Standard interneuron-taxonomy framing; sets up the perisomatic vs distal distinction the model will exploit."
+    },
+    {
+      "n": 3,
+      "text": "They can also engender local inhibitory rhythms, beta (12–35 Hz) and gamma (40–80 Hz).",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "Names the two frequency bands; not itself a claim of this paper."
+    },
+    {
+      "n": 4,
+      "text": "The interaction between the rhythmicity of inhibition and its spatial targeting on the neuron may determine how it regulates neuronal integration.",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "Hypothesis statement that motivates the study. The synthesis claim (pv-gamma-sst-beta-correspondence) operationalizes this mechanistically; here the abstract phrases it as motivation."
+    },
+    {
+      "n": 5,
+      "text": "Thus, we sought to understand how rhythmic perisomatic and distal dendritic inhibition impacted integration in a layer 5 pyramidal neuron model with realistic dendrites supporting Na+, NMDA, and Ca²⁺ spikes.",
+      "type": "claim",
+      "claims": [
+        "l5-model-single-cell-scope"
+      ],
+      "kind": "direct",
+      "note": "Methods/scope sentence — names the L5 single-cell compartmental model with the three dendritic spike types. Maps directly to the scope assessment claim."
+    },
+    {
+      "n": 6,
+      "text": "We found that inhibition regulated the coupling between dendritic spikes and action potentials in a location and rhythm-dependent manner.",
+      "type": "claim",
+      "claims": [
+        "na-spikes-couple-2to3ms-before-ap",
+        "nmda-spikes-couple-25ms-before-ap",
+        "ca-spikes-couple-20ms-before-ap"
+      ],
+      "kind": "synthesis",
+      "note": "High-level summary of the dendritic-spike↔AP coupling result. The graph decomposes this into three spike-type-specific STA findings (Na+, NMDA, Ca²⁺)."
+    },
+    {
+      "n": 7,
+      "text": "Perisomatic inhibition principally regulated action potential generation, while distal dendritic inhibition regulated the incidence of dendritic spikes and their temporal coupling with action potentials.",
+      "type": "claim",
+      "claims": [
+        "perisomatic-inhib-drops-firing-07hz",
+        "perisomatic-inhib-subtractive-divisive",
+        "distal-inhib-drops-firing-02hz"
+      ],
+      "kind": "combined",
+      "note": "The dual-stream functional dissociation. Compresses the perisomatic AP-threshold result and the distal dendritic-spike-suppression result into one coordinated sentence."
+    },
+    {
+      "n": 8,
+      "text": "Perisomatic inhibition was most effective when provided at gamma frequencies, while distal dendritic inhibition functioned best at beta.",
+      "type": "claim",
+      "claims": [
+        "gamma-optimal-perisomatic-ap-modulation",
+        "beta-optimal-distal-dendritic-entrainment"
+      ],
+      "kind": "combined",
+      "note": "The two frequency-sweep optima fused into one sentence — the heart of the paper's frequency × compartment matching result."
+    },
+    {
+      "n": 9,
+      "text": "Moreover, beta modulated responsiveness to distal inputs in a phase-dependent manner, while gamma did so for proximal inputs.",
+      "type": "claim",
+      "claims": [
+        "beta-gates-distal-apical-inputs",
+        "gamma-gates-proximal-basal-inputs",
+        "beta-bidirectional-dendritic-control"
+      ],
+      "kind": "combined",
+      "note": "Phase-dependent input gating result. Pairs the beta-distal-apical and gamma-perisomatic-basal gating claims; the bidirectional-by-phase aspect rides along on the beta side."
+    },
+    {
+      "n": 10,
+      "text": "These results may provide a functional interpretation for the reported association of soma-targeting parvalbumin-positive interneurons with gamma and dendrite-targeting somatostatin interneurons with beta.",
+      "type": "claim",
+      "claims": [
+        "pv-gamma-sst-beta-correspondence"
+      ],
+      "kind": "direct",
+      "note": "Clean 1-to-1 with the synthesis root claim that connects the model to the empirical PV/SST literature."
+    }
+  ],
+  "orphanClaims": [
+    "naturalistic-drive-parameterization",
+    "gamma-perisomatic-no-dendritic-spike-change",
+    "burst-effects-emerge-first-cycles",
+    "ei-lag-sensitivity-firing-rate"
+  ],
+  "orphanSentences": []
+}

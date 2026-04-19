@@ -4,7 +4,10 @@ slug: lo-shows-reversed-specificity
 doi: ~
 claim: >
   In lateral occipital cortex (LO), the information-content pattern reverses relative to foveal V1: cross-shape decoding drops significantly (experimental: t(27)=3.41, p=0.002, difference=5.31%; control: t(27)=7.25, p<0.001, difference=6.7%) while cross-category decoding remains high, indicating that LO captures semantic category rather than low-level shape.
+displayClaim: >
+  Lateral occipital cortex shows the inverse profile to foveal V1 — cross-shape decoding drops while cross-category decoding survives — yielding a double dissociation that rules out a generic sensitivity argument for the V1 result.
 claim-type: empirical
+role: empirical
 concepts:
   - lateral occipital cortex
   - LO
@@ -13,6 +16,11 @@ concepts:
   - representational hierarchy
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-lo-inverse-pattern
+dissociates-with:
+  - v1-category-decoding-drops-in-feedback
 
 belongings:
   - relation: supports

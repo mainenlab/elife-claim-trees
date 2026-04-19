@@ -7,7 +7,12 @@ claim: >
   total somatic firing rate but substantially alters which dendritic compartments contribute
   most to driving action potentials, demonstrating that timing shapes dendritic computation
   even when overall output rate is similar.
+displayClaim: >
+  E-I coupling lag (4–500 ms) barely changes total firing rate but substantially reshuffles
+  which dendritic compartments drive spiking — timing reorganizes the internal computation
+  without changing the bulk output.
 claim-type: empirical
+role: empirical
 concepts:
   - E/I coupling lag
   - dendritic compartment contribution

@@ -4,7 +4,10 @@ slug: foveal-v1-decodes-peripheral-saccade-target
 doi: ~
 claim: >
   Saccade target identity (4 stimuli varying in shape and semantic category) can be decoded from foveal V1 BOLD signal above chance in the experimental condition where targets disappear before fixation: 57.43% accuracy (t(27)=8.81, p<0.001), significantly above 50% chance.
+displayClaim: >
+  Foveal V1 carries decodable information about peripheral saccade targets even when those targets are extinguished before the eye lands, demonstrating retinotopically anticipatory feedback into early visual cortex.
 claim-type: empirical
+role: empirical
 concepts:
   - foveal V1
   - decoding accuracy

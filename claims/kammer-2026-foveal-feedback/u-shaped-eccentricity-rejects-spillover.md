@@ -4,7 +4,10 @@ slug: u-shaped-eccentricity-rejects-spillover
 doi: ~
 claim: >
   Decoding accuracy in the experimental condition follows a U-shaped function of eccentricity — stronger at foveal and peripheral regions, weaker at parafoveal regions — in all early visual areas (V1: t(27)=3.98, p=0.008; V2: t(27)=3.03, p=0.02; V3: t(27)=2.776, p=0.025, one-sided quadratic curvature), ruling out peripheral spillover as an explanation for foveal decoding.
+displayClaim: >
+  Decoding accuracy across V1, V2, and V3 dips at parafoveal eccentricities and rises again at the fovea, a U-shaped profile that is incompatible with passive spillover from large peripheral receptive fields.
 claim-type: empirical
+role: control
 concepts:
   - eccentricity
   - peripheral spillover
@@ -14,9 +17,16 @@ concepts:
 priority: 2026-03-30
 epistemic: strong
 
+tests:
+  - prediction-u-shape-eccentricity
+rules-out:
+  - "passive spillover from large peripheral receptive fields"
+
 belongings:
   - relation: supports
     target: foveal-v1-decodes-peripheral-saccade-target
+  - relation: supports
+    target: hypothesis-feedback-not-spillover
 
 assertions:
   - paper-slug: kammer-2026-foveal-feedback

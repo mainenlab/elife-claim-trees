@@ -6,7 +6,11 @@ claim: >
   Beta-frequency rhythms at distal dendritic locations produce bidirectional control of
   dendritic spike probability: enhanced dendritic spike occurrence during inhibitory troughs
   and suppressed occurrence during inhibitory peaks within the same oscillatory cycle.
+displayClaim: >
+  Beta-frequency distal inhibition controls dendritic spikes bidirectionally within each
+  cycle — enhancing them during inhibitory troughs and suppressing them during peaks.
 claim-type: empirical
+role: empirical
 concepts:
   - beta rhythm
   - bidirectional control

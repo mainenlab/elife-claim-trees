@@ -6,7 +6,11 @@ claim: >
   Na+ dendritic spikes in proximal compartments peak in spike-triggered averages 2–3 ms
   before somatic action potentials, with coupling strength declining with electrotonic
   distance from the soma.
+displayClaim: >
+  Sodium dendritic spikes in proximal compartments lead somatic action potentials by 2–3 ms,
+  with coupling strength falling off as one moves distally.
 claim-type: empirical
+role: empirical
 concepts:
   - Na+ dendritic spikes
   - spike-triggered average

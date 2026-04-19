@@ -4,7 +4,10 @@ slug: v1-category-decoding-drops-in-feedback
 doi: ~
 claim: >
   In foveal V1, decoding across semantic category drops significantly relative to baseline in the experimental condition (t(27)=2.25, p=0.033, difference=3.03%), while decoding across visual shape remains high, indicating that foveal feedback carries shape but not category information.
+displayClaim: >
+  Within foveal V1, cross-category decoding drops significantly under feedback while cross-shape decoding is preserved, marking shape as the feature dimension carried by the feedback signal.
 claim-type: empirical
+role: empirical
 concepts:
   - semantic category
   - shape decoding
@@ -13,6 +16,11 @@ concepts:
   - feedback specificity
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-v1-category-drops-shape-preserved
+dissociates-with:
+  - lo-shows-reversed-specificity
 
 belongings:
   - relation: supports

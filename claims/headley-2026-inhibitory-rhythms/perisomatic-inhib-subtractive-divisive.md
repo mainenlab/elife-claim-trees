@@ -6,7 +6,12 @@ claim: >
   Perisomatic inhibition reduces both the baseline firing rate (subtractive effect) and the
   slope of the input-output relationship (divisive effect), thereby compressing the neuron's
   dynamic range rather than merely shifting its operating point.
+displayClaim: >
+  Perisomatic inhibition acts on the input-output curve in two ways at once — it shifts the
+  threshold (subtractive) and reduces the slope (divisive) — compressing the neuron's
+  dynamic range rather than just translating it.
 claim-type: empirical
+role: empirical
 concepts:
   - perisomatic inhibition
   - input-output relationship
@@ -16,11 +21,16 @@ concepts:
 priority: 2026-03-30
 epistemic: moderate
 
+tests:
+  - hypothesis-distinct-compartmental-roles
+
 belongings:
   - relation: requires
     target: perisomatic-inhib-drops-firing-07hz
   - relation: requires
     target: l5-model-single-cell-scope
+  - relation: supports
+    target: hypothesis-distinct-compartmental-roles
 
 assertions:
   - paper-slug: headley-2026-inhibitory-rhythms

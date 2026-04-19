@@ -51,7 +51,7 @@ function ClaimNode({ data }: { data: any }) {
 
   return (
     <>
-      <Handle type="target" position={Position.Left} style={{ visibility: 'hidden' }} />
+      <Handle type="target" position={Position.Bottom} style={{ visibility: 'hidden' }} />
       <div
         title={data.claim}
         style={{
@@ -93,7 +93,7 @@ function ClaimNode({ data }: { data: any }) {
           {shortLabel(data.slug)}
         </span>
       </div>
-      <Handle type="source" position={Position.Right} style={{ visibility: 'hidden' }} />
+      <Handle type="source" position={Position.Top} style={{ visibility: 'hidden' }} />
     </>
   );
 }
@@ -106,7 +106,7 @@ const NODE_HEIGHT = 60;
 function layoutGraph(claims: Claim[]): { nodes: Node[]; edges: Edge[] } {
   const g = new dagre.graphlib.Graph();
   g.setDefaultEdgeLabel(() => ({}));
-  g.setGraph({ rankdir: 'LR', ranksep: 80, nodesep: 40, edgesep: 20, marginx: 20, marginy: 20 });
+  g.setGraph({ rankdir: 'BT', ranksep: 80, nodesep: 40, edgesep: 20, marginx: 20, marginy: 20 });
 
   for (const c of claims) {
     g.setNode(c.slug, { width: NODE_WIDTH, height: NODE_HEIGHT });

@@ -15,32 +15,39 @@ openneuro: https://doi.org/10.18112/openneuro.ds005933.v1.0.0
 osf-preregistration: https://osf.io/rxacd/
 added: 2026-03-30
 badge: none-gap
-claim-count: 15
+claim-count: 22
 ---
 
 ## Abstract
 
-This paper uses a gaze-contingent fMRI paradigm where peripheral saccade targets disappear before fixation (success in 99.27% of saccades) to show that target identity is nonetheless decodable from foveal V1 BOLD signal. Decoding: 57.43% (t(27)=8.81, p<0.001) in feedback condition vs 84.06% (direct stimulation). Cross-decoding (feedback→direct) yields 57.2% (t(27)=5.22, p<0.001), indicating shared representational format. A U-shaped eccentricity profile rules out peripheral spillover. Feedback is shape-sensitive but not semantic-category sensitive (V1 drops category; LO shows reversed pattern with shape drop). IPS selectively correlates with foveal decoding in an exploratory parametric modulation analysis (t(27)=2.53, p=0.026). Preregistered design, though preregistration was submitted to OSF after manuscript submission.
+Human vision is characterized by frequent eye movements and constant shifts in visual input, yet our perception of the world remains remarkably stable. Here, we directly demonstrate image-specific foveal feedback to primary visual cortex in the context of saccadic eye movements. To this end, we used a gaze-contingent fMRI paradigm, in which peripheral saccade targets disappeared before they could be fixated. Despite no direct foveal stimulation, we were able to decode peripheral saccade targets from foveal retinotopic areas, demonstrating that image-specific feedback during saccade preparation may underlie this effect. Decoding was sensitive to shape but not semantic category of natural images, indicating feedback of only low-to-mid-level information. Cross-decoding to a control condition with foveal stimulus presentation indicates a shared representational format between foveal feedback and direct stimulation. Moreover, eccentricity-dependent analyses showed a U-shaped decoding curve, confirming that these results are not explained by spillover of peripheral activity or large receptive fields. Finally, fluctuations in foveal decodability covaried with activity in the intraparietal sulcus, thus providing a candidate region for driving foveal feedback. These findings suggest that foveal cortex predicts the features of incoming stimuli through feedback from higher cortical areas, which offers a candidate mechanism underlying stable perception.
 
 ## Claims
 
-| Slug | Panel | Epistemic | Status |
-|:-----|:------|:----------|:-------|
-| [preregistered-design-validates-mvpa](preregistered-design-validates-mvpa.md) | methods | moderate | verified (preregistration inspection; epistemic downgraded — timing anomaly) |
-| [preregistration-submitted-after-manuscript](preregistration-submitted-after-manuscript.md) | methods | strong | verified (methods text) |
-| [target-excluded-fovea-in-99pct-saccades](target-excluded-fovea-in-99pct-saccades.md) | fig1C | strong | unverified:compute-infeasible |
-| [foveal-v1-decodes-peripheral-saccade-target](foveal-v1-decodes-peripheral-saccade-target.md) | fig2A | strong | unverified:compute-infeasible |
-| [foveal-feedback-below-direct-stimulation](foveal-feedback-below-direct-stimulation.md) | fig2A | strong | unverified:compute-infeasible |
-| [cross-decoding-experimental-to-control](cross-decoding-experimental-to-control.md) | fig2B | strong | unverified:compute-infeasible |
-| [u-shaped-eccentricity-rejects-spillover](u-shaped-eccentricity-rejects-spillover.md) | fig2B | strong | unverified:compute-infeasible |
-| [decoding-shape-sensitive-not-semantic](decoding-shape-sensitive-not-semantic.md) | fig3 | moderate | unverified:compute-infeasible |
-| [v1-category-decoding-drops-in-feedback](v1-category-decoding-drops-in-feedback.md) | fig3B | moderate | unverified:compute-infeasible |
-| [lo-shows-reversed-specificity](lo-shows-reversed-specificity.md) | fig3B | strong | unverified:compute-infeasible |
-| [v2-v3-generalize-shape-not-category](v2-v3-generalize-shape-not-category.md) | fig3-suppl1 | moderate | unverified:compute-infeasible |
-| [ips-candidate-driver-foveal-feedback](ips-candidate-driver-foveal-feedback.md) | fig4B | moderate | unverified:compute-infeasible (resolved from no-code) |
-| [parametric-modulation-exploratory-not-preregistered](parametric-modulation-exploratory-not-preregistered.md) | methods | strong | verified (methods text) |
-| [fef-lo-nonsignificant-after-correction](fef-lo-nonsignificant-after-correction.md) | fig4B | moderate | unverified:compute-infeasible |
-| [ips-foveal-effect-reverses-in-control](ips-foveal-effect-reverses-in-control.md) | fig4-suppl1 | strong | unverified:compute-infeasible |
+| Slug | Panel | Role | Epistemic | Status |
+|:-----|:------|:-----|:----------|:-------|
+| [hypothesis-feedback-not-spillover](hypothesis-feedback-not-spillover.md) | hypothesis | hypothesis | hypothesis | N/A |
+| [prediction-u-shape-eccentricity](prediction-u-shape-eccentricity.md) | hypothesis | prediction | prediction | N/A |
+| [hypothesis-shared-representational-format](hypothesis-shared-representational-format.md) | hypothesis | hypothesis | hypothesis | N/A |
+| [prediction-cross-decoding-generalizes](prediction-cross-decoding-generalizes.md) | hypothesis | prediction | prediction | N/A |
+| [hypothesis-feedback-carries-shape-not-category](hypothesis-feedback-carries-shape-not-category.md) | hypothesis | hypothesis | hypothesis | N/A |
+| [prediction-v1-category-drops-shape-preserved](prediction-v1-category-drops-shape-preserved.md) | hypothesis | prediction | prediction | N/A |
+| [prediction-lo-inverse-pattern](prediction-lo-inverse-pattern.md) | hypothesis | prediction | prediction | N/A |
+| [preregistered-design-validates-mvpa](preregistered-design-validates-mvpa.md) | methods | methodological | moderate | verified (preregistration inspection; epistemic downgraded — timing anomaly) |
+| [preregistration-submitted-after-manuscript](preregistration-submitted-after-manuscript.md) | methods | scope | strong | verified (methods text) |
+| [target-excluded-fovea-in-99pct-saccades](target-excluded-fovea-in-99pct-saccades.md) | fig1C | methodological | strong | unverified:compute-infeasible |
+| [foveal-v1-decodes-peripheral-saccade-target](foveal-v1-decodes-peripheral-saccade-target.md) | fig2A | empirical | strong | unverified:compute-infeasible |
+| [foveal-feedback-below-direct-stimulation](foveal-feedback-below-direct-stimulation.md) | fig2A | empirical | strong | unverified:compute-infeasible |
+| [cross-decoding-experimental-to-control](cross-decoding-experimental-to-control.md) | fig2B | empirical | strong | unverified:compute-infeasible |
+| [u-shaped-eccentricity-rejects-spillover](u-shaped-eccentricity-rejects-spillover.md) | fig2B | control | strong | unverified:compute-infeasible |
+| [decoding-shape-sensitive-not-semantic](decoding-shape-sensitive-not-semantic.md) | fig3 | synthesis | moderate | unverified:compute-infeasible |
+| [v1-category-decoding-drops-in-feedback](v1-category-decoding-drops-in-feedback.md) | fig3B | empirical | moderate | unverified:compute-infeasible |
+| [lo-shows-reversed-specificity](lo-shows-reversed-specificity.md) | fig3B | empirical | strong | unverified:compute-infeasible |
+| [v2-v3-generalize-shape-not-category](v2-v3-generalize-shape-not-category.md) | fig3-suppl1 | empirical | moderate | unverified:compute-infeasible |
+| [ips-candidate-driver-foveal-feedback](ips-candidate-driver-foveal-feedback.md) | fig4B | synthesis | moderate | unverified:compute-infeasible (resolved from no-code) |
+| [parametric-modulation-exploratory-not-preregistered](parametric-modulation-exploratory-not-preregistered.md) | methods | scope | strong | verified (methods text) |
+| [fef-lo-nonsignificant-after-correction](fef-lo-nonsignificant-after-correction.md) | fig4B | control | moderate | unverified:compute-infeasible |
+| [ips-foveal-effect-reverses-in-control](ips-foveal-effect-reverses-in-control.md) | fig4-suppl1 | control | strong | unverified:compute-infeasible |
 
 ## Reproduction status
 

@@ -6,7 +6,11 @@ claim: >
   In a sweep across 11 frequencies from 0.5 to 80 Hz, gamma frequencies (40–80 Hz) produce
   the strongest phase-dependent modulation of somatic action potential voltage threshold by
   perisomatic rhythmic inhibition.
+displayClaim: >
+  Across an 11-frequency sweep from 0.5 to 80 Hz, perisomatic inhibition at gamma (40–80 Hz)
+  most strongly phase-modulates the somatic AP voltage threshold.
 claim-type: empirical
+role: empirical
 concepts:
   - gamma rhythm
   - AP voltage threshold
@@ -15,6 +19,9 @@ concepts:
   - phase modulation
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - hypothesis-frequency-compartment-matching
 
 belongings:
   - relation: requires
@@ -25,6 +32,8 @@ belongings:
     target: gamma-gates-proximal-basal-inputs
   - relation: supports
     target: pv-gamma-sst-beta-correspondence
+  - relation: supports
+    target: hypothesis-frequency-compartment-matching
 
 assertions:
   - paper-slug: headley-2026-inhibitory-rhythms

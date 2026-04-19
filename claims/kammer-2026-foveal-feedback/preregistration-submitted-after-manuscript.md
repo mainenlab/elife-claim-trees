@@ -4,7 +4,10 @@ slug: preregistration-submitted-after-manuscript
 doi: ~
 claim: >
   Despite the preregistration text (osf.io/rxacd) being written before data collection, it was submitted to OSF only after the manuscript was submitted, with the authors relying on website timestamps to establish that the text predates data collection and was not altered.
+displayClaim: >
+  The preregistration was uploaded to OSF only after the manuscript was submitted, so its evidentiary weight rests on author-cited website timestamps rather than on a public deposit predating data collection.
 claim-type: assessment
+role: scope
 concepts:
   - preregistration
   - timing
@@ -12,6 +15,9 @@ concepts:
   - registered report
 priority: 2026-03-30
 epistemic: strong
+
+scopes:
+  - preregistered-design-validates-mvpa
 
 belongings:
   - relation: requires

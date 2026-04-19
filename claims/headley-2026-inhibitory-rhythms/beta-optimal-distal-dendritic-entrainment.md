@@ -6,7 +6,11 @@ claim: >
   In a frequency sweep from 0.5 to 80 Hz, beta frequencies near 20 Hz produce the strongest
   phase-dependent entrainment of dendritic Ca²⁺ and NMDA spike onsets by distal rhythmic
   inhibition, as measured by Pairwise Phase Consistency.
+displayClaim: >
+  Across a 0.5–80 Hz frequency sweep, distal inhibition near 20 Hz (beta) most strongly
+  entrains the timing of dendritic Ca²⁺ and NMDA spike onsets.
 claim-type: empirical
+role: empirical
 concepts:
   - beta rhythm
   - dendritic spike entrainment
@@ -15,6 +19,9 @@ concepts:
   - Pairwise Phase Consistency
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - hypothesis-frequency-compartment-matching
 
 belongings:
   - relation: requires
@@ -25,6 +32,8 @@ belongings:
     target: beta-gates-distal-apical-inputs
   - relation: supports
     target: pv-gamma-sst-beta-correspondence
+  - relation: supports
+    target: hypothesis-frequency-compartment-matching
 
 assertions:
   - paper-slug: headley-2026-inhibitory-rhythms

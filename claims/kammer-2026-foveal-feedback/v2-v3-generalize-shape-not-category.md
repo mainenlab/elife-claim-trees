@@ -4,7 +4,10 @@ slug: v2-v3-generalize-shape-not-category
 doi: ~
 claim: >
   The shape-sensitive, category-insensitive pattern of foveal feedback decoding found in V1 generalizes to foveal regions of V2 and V3, as shown in supplementary figure analyses, suggesting that low-level feature specificity is a property of early visual cortex as a whole rather than V1 specifically.
+displayClaim: >
+  The shape-sensitive, category-insensitive feedback profile extends to foveal V2 and V3, locating the effect in early visual cortex broadly rather than in V1 alone.
 claim-type: empirical
+role: empirical
 concepts:
   - V2
   - V3
@@ -14,6 +17,11 @@ concepts:
   - foveal feedback
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-v1-category-drops-shape-preserved
+scopes:
+  - hypothesis-feedback-carries-shape-not-category
 
 belongings:
   - relation: extends

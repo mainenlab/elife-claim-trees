@@ -1,0 +1,106 @@
+{
+  "paperSlug": "kammer-2026-foveal-feedback",
+  "abstract": "Human vision is characterized by frequent eye movements and constant shifts in visual input, yet our perception of the world remains remarkably stable. Here, we directly demonstrate image-specific foveal feedback to primary visual cortex in the context of saccadic eye movements. To this end, we used a gaze-contingent fMRI paradigm, in which peripheral saccade targets disappeared before they could be fixated. Despite no direct foveal stimulation, we were able to decode peripheral saccade targets from foveal retinotopic areas, demonstrating that image-specific feedback during saccade preparation may underlie this effect. Decoding was sensitive to shape but not semantic category of natural images, indicating feedback of only low-to-mid-level information. Cross-decoding to a control condition with foveal stimulus presentation indicates a shared representational format between foveal feedback and direct stimulation. Moreover, eccentricity-dependent analyses showed a U-shaped decoding curve, confirming that these results are not explained by spillover of peripheral activity or large receptive fields. Finally, fluctuations in foveal decodability covaried with activity in the intraparietal sulcus, thus providing a candidate region for driving foveal feedback. These findings suggest that foveal cortex predicts the features of incoming stimuli through feedback from higher cortical areas, which offers a candidate mechanism underlying stable perception.",
+  "sentences": [
+    {
+      "n": 1,
+      "text": "Human vision is characterized by frequent eye movements and constant shifts in visual input, yet our perception of the world remains remarkably stable.",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "Generic perception-stability framing; sets the puzzle the paper addresses but does not assert any specific finding from this work."
+    },
+    {
+      "n": 2,
+      "text": "Here, we directly demonstrate image-specific foveal feedback to primary visual cortex in the context of saccadic eye movements.",
+      "type": "claim",
+      "claims": [
+        "foveal-v1-decodes-peripheral-saccade-target"
+      ],
+      "kind": "direct",
+      "note": "Headline thesis statement — maps to the central decoding claim that foveal V1 carries information about peripheral saccade targets."
+    },
+    {
+      "n": 3,
+      "text": "To this end, we used a gaze-contingent fMRI paradigm, in which peripheral saccade targets disappeared before they could be fixated.",
+      "type": "claim",
+      "claims": [
+        "target-excluded-fovea-in-99pct-saccades"
+      ],
+      "kind": "direct",
+      "note": "Methods sentence describing the gaze-contingent design. Maps to the validation claim that the target was successfully excluded from the fovea (the 99.27% figure isn't quoted in the abstract but is the operational support for this method)."
+    },
+    {
+      "n": 4,
+      "text": "Despite no direct foveal stimulation, we were able to decode peripheral saccade targets from foveal retinotopic areas, demonstrating that image-specific feedback during saccade preparation may underlie this effect.",
+      "type": "claim",
+      "claims": [
+        "foveal-v1-decodes-peripheral-saccade-target"
+      ],
+      "kind": "direct",
+      "note": "Restates and elaborates the headline result with the feedback-during-saccade-preparation interpretation. Same target claim as sentence 2 — the abstract says it twice (thesis + result statement)."
+    },
+    {
+      "n": 5,
+      "text": "Decoding was sensitive to shape but not semantic category of natural images, indicating feedback of only low-to-mid-level information.",
+      "type": "claim",
+      "claims": [
+        "decoding-shape-sensitive-not-semantic",
+        "v1-category-decoding-drops-in-feedback"
+      ],
+      "kind": "combined",
+      "note": "The shape-vs-category dissociation. Carries both the high-level feature-content claim and the V1-specific category drop. The LO double-dissociation (lo-shows-reversed-specificity) is in the graph but the abstract does not mention LO at all."
+    },
+    {
+      "n": 6,
+      "text": "Cross-decoding to a control condition with foveal stimulus presentation indicates a shared representational format between foveal feedback and direct stimulation.",
+      "type": "claim",
+      "claims": [
+        "cross-decoding-experimental-to-control"
+      ],
+      "kind": "direct",
+      "note": "Direct match to the cross-decoding generalization claim."
+    },
+    {
+      "n": 7,
+      "text": "Moreover, eccentricity-dependent analyses showed a U-shaped decoding curve, confirming that these results are not explained by spillover of peripheral activity or large receptive fields.",
+      "type": "claim",
+      "claims": [
+        "u-shaped-eccentricity-rejects-spillover"
+      ],
+      "kind": "direct",
+      "note": "Direct match to the spillover-rejection control."
+    },
+    {
+      "n": 8,
+      "text": "Finally, fluctuations in foveal decodability covaried with activity in the intraparietal sulcus, thus providing a candidate region for driving foveal feedback.",
+      "type": "claim",
+      "claims": [
+        "ips-candidate-driver-foveal-feedback"
+      ],
+      "kind": "direct",
+      "note": "Direct match to the IPS-candidate-driver claim. Notably, the abstract does NOT flag this as exploratory — the parametric-modulation-exploratory-not-preregistered caveat is absent here."
+    },
+    {
+      "n": 9,
+      "text": "These findings suggest that foveal cortex predicts the features of incoming stimuli through feedback from higher cortical areas, which offers a candidate mechanism underlying stable perception.",
+      "type": "unmappable",
+      "claims": [],
+      "kind": null,
+      "note": "Predictive-coding interpretation framed as a synthesis. The graph contains no claim that the paper itself demonstrates a predictive-coding mechanism or that the effect explains perceptual stability — these are interpretive extrapolations beyond the decoded results."
+    }
+  ],
+  "orphanClaims": [
+    "preregistered-design-validates-mvpa",
+    "preregistration-submitted-after-manuscript",
+    "foveal-feedback-below-direct-stimulation",
+    "lo-shows-reversed-specificity",
+    "v2-v3-generalize-shape-not-category",
+    "parametric-modulation-exploratory-not-preregistered",
+    "fef-lo-nonsignificant-after-correction",
+    "ips-foveal-effect-reverses-in-control"
+  ],
+  "orphanSentences": [
+    9
+  ]
+}

@@ -4,7 +4,10 @@ slug: target-excluded-fovea-in-99pct-saccades
 doi: ~
 claim: >
   The gaze-contingent paradigm successfully excluded the peripheral target from the central fovea (within 2° of visual angle) in 99.27% of saccades, validating that the decoded information was not due to direct foveal viewing of the target.
+displayClaim: >
+  The gaze-contingent display extinguished the peripheral target before it crossed into the central 2 degrees of visual angle on 99.27 percent of saccades, ruling out direct foveal stimulation as the source of the decoded signal.
 claim-type: empirical
+role: methodological
 concepts:
   - gaze-contingent
   - stimulus exclusion
@@ -13,6 +16,17 @@ concepts:
   - foveal eccentricity
 priority: 2026-03-30
 epistemic: strong
+
+enables-method:
+  - foveal-v1-decodes-peripheral-saccade-target
+  - decoding-shape-sensitive-not-semantic
+  - v1-category-decoding-drops-in-feedback
+  - v2-v3-generalize-shape-not-category
+  - cross-decoding-experimental-to-control
+  - foveal-feedback-below-direct-stimulation
+  - u-shaped-eccentricity-rejects-spillover
+  - ips-foveal-effect-reverses-in-control
+  - ips-candidate-driver-foveal-feedback
 
 belongings: []
 

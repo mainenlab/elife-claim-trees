@@ -6,7 +6,11 @@ claim: >
   Gamma-frequency rhythmic inhibition at perisomatic locations gates the transmission of
   clustered synaptic inputs from proximal and basal dendrites to somatic output in a
   phase-dependent manner, while leaving distal apical inputs relatively unaffected.
+displayClaim: >
+  Gamma-frequency perisomatic inhibition gates clustered proximal/basal inputs
+  phase-dependently while leaving distal apical inputs largely unaffected.
 claim-type: empirical
+role: empirical
 concepts:
   - gamma rhythm
   - perisomatic inhibition
@@ -15,6 +19,12 @@ concepts:
   - proximal inputs
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - hypothesis-distinct-compartmental-roles
+
+dissociates-with:
+  - beta-gates-distal-apical-inputs
 
 belongings:
   - relation: requires
@@ -25,6 +35,8 @@ belongings:
     target: l5-model-single-cell-scope
   - relation: supports
     target: pv-gamma-sst-beta-correspondence
+  - relation: supports
+    target: hypothesis-distinct-compartmental-roles
 
 assertions:
   - paper-slug: headley-2026-inhibitory-rhythms

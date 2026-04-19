@@ -6,7 +6,11 @@ claim: >
   Ca²⁺ spikes in apical tuft dendrites precede somatic action potentials by approximately
   20 ms in spike-triggered averages, with the strongest coupling in apical compartments
   distal from the soma.
+displayClaim: >
+  Apical-tuft Ca²⁺ spikes lead somatic action potentials by ~20 ms, with coupling strongest
+  in the most distal compartments.
 claim-type: empirical
+role: empirical
 concepts:
   - Ca2+ spikes
   - apical dendrites

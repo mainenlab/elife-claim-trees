@@ -6,7 +6,11 @@ claim: >
   Doubling perisomatic inhibition reduces somatic firing from approximately 5.5 Hz to
   approximately 0.7 Hz by elevating action potential voltage threshold, while dendritic
   spike rates are relatively preserved.
+displayClaim: >
+  Doubling perisomatic inhibition drops somatic firing from ~5.5 Hz to ~0.7 Hz by raising the
+  AP voltage threshold, leaving dendritic spike rates largely intact.
 claim-type: empirical
+role: empirical
 concepts:
   - perisomatic inhibition
   - action potential threshold
@@ -14,6 +18,12 @@ concepts:
   - subtractive inhibition
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - hypothesis-distinct-compartmental-roles
+
+dissociates-with:
+  - distal-inhib-drops-firing-02hz
 
 belongings:
   - relation: requires
@@ -24,6 +34,8 @@ belongings:
     target: perisomatic-inhib-subtractive-divisive
   - relation: supports
     target: gamma-perisomatic-no-dendritic-spike-change
+  - relation: supports
+    target: hypothesis-distinct-compartmental-roles
 
 assertions:
   - paper-slug: headley-2026-inhibitory-rhythms

@@ -4,7 +4,10 @@ slug: parametric-modulation-exploratory-not-preregistered
 doi: ~
 claim: >
   The parametric modulation analysis linking IPS, FEF, and LO activity to foveal decoding fluctuations (Figure 4) was explicitly conducted as an exploratory analysis and was not included in the preregistered analysis plan, reducing its confirmatory weight relative to the main MVPA decoding results.
+displayClaim: >
+  The parametric modulation analysis identifying IPS as a feedback driver was explicitly exploratory and outside the preregistered plan, so it carries the weight of a hypothesis-generating result rather than a confirmatory test.
 claim-type: assessment
+role: scope
 concepts:
   - preregistration
   - exploratory analysis
@@ -13,6 +16,11 @@ concepts:
   - IPS
 priority: 2026-03-30
 epistemic: strong
+
+scopes:
+  - ips-candidate-driver-foveal-feedback
+  - fef-lo-nonsignificant-after-correction
+  - ips-foveal-effect-reverses-in-control
 
 belongings:
   - relation: requires

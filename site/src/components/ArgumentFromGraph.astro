@@ -1,0 +1,155 @@
+---
+type ComparisonRow = {
+  kind: 'aligned' | 'reframed' | 'abstract-only' | 'synthesis-only' | string;
+  abstractSentence?: string;
+  synthesisSentence?: string;
+  category?: string;
+  note?: string;
+};
+
+type SynthesisV2 = {
+  synthesizerPrompt?: string;
+  synthesis?: string;
+  traceback?: any[];
+  comparatorPrompt?: string;
+  comparison?: string;
+  comparisonTable?: ComparisonRow[];
+  diagnosticDivergence?: string;
+  inferentialStructureNote?: string;
+};
+
+type Props = {
+  synthesisV2: SynthesisV2 | null | undefined;
+};
+
+const { synthesisV2 } = Astro.props as Props;
+
+// If no synthesisV2 object at all, render nothing.
+const hasAny = synthesisV2 && (
+  (synthesisV2.synthesis ?? '').trim() ||
+  (synthesisV2.comparison ?? '').trim() ||
+  (synthesisV2.diagnosticDivergence ?? '').trim() ||
+  (synthesisV2.inferentialStructureNote ?? '').trim() ||
+  (synthesisV2.comparisonTable?.length ?? 0) > 0 ||
+  (synthesisV2.synthesizerPrompt ?? '').trim() ||
+  (synthesisV2.comparatorPrompt ?? '').trim()
+);
+
+const synthesis = (synthesisV2?.synthesis ?? '').trim();
+const comparison = (synthesisV2?.comparison ?? '').trim();
+const diagnosticDivergence = (synthesisV2?.diagnosticDivergence ?? '').trim();
+const inferentialStructureNote = (synthesisV2?.inferentialStructureNote ?? '').trim();
+const comparisonTable = synthesisV2?.comparisonTable ?? [];
+const synthesizerPrompt = synthesisV2?.synthesizerPrompt ?? '';
+const comparatorPrompt = synthesisV2?.comparatorPrompt ?? '';
+
+const kindLabel: Record<string, string> = {
+  aligned: 'aligned',
+  reframed: 'reframed',
+  'abstract-only': 'abstract only',
+  'synthesis-only': 'synthesis only',
+};
+---
+
+{hasAny && (
+  <section class="mb-12">
+    <h2 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-3">
+      Argument from the graph
+    </h2>
+    <p class="text-sm text-gray-500 italic mb-8 leading-relaxed max-w-3xl">
+      An LLM was given only this paper's enriched claim graph — claims, panel references, roles, and the relations between them — with no access to the abstract, paper prose, or any external context. It was asked to reconstruct the argument. Below: the reconstructed argument, then a comparison to the published abstract above. The two prompts that produced these texts are at the bottom, available for inspection.
+    </p>
+
+    {synthesis && (
+      <div class="mb-8">
+        <h3 class="text-base font-semibold text-gray-900 mb-3">Reconstructed argument</h3>
+        <p class="text-base leading-relaxed text-gray-900 max-w-3xl whitespace-pre-wrap">{synthesis}</p>
+      </div>
+    )}
+
+    {(comparison || diagnosticDivergence || inferentialStructureNote) && (
+      <div class="mb-8">
+        <h3 class="text-base font-semibold text-gray-900 mb-3">Compared to the published abstract</h3>
+
+        {comparison && (
+          <p class="text-base leading-relaxed text-gray-900 max-w-3xl whitespace-pre-wrap mb-5">{comparison}</p>
+        )}
+
+        {diagnosticDivergence && (
+          <div class="max-w-3xl mb-4 border-l-4 border-amber-400 bg-amber-50/60 pl-4 pr-4 py-3 rounded-r-md">
+            <div class="text-xs font-semibold text-amber-800 uppercase tracking-wider mb-1">Diagnostic divergence</div>
+            <p class="text-sm leading-relaxed text-gray-800 whitespace-pre-wrap">{diagnosticDivergence}</p>
+          </div>
+        )}
+
+        {inferentialStructureNote && (
+          <div class="max-w-3xl mb-4 border-l-4 border-gray-300 bg-gray-50/70 pl-4 pr-4 py-3 rounded-r-md">
+            <div class="text-xs font-semibold text-gray-600 uppercase tracking-wider mb-1">On inferential structure recovered</div>
+            <p class="text-sm leading-relaxed text-gray-800 whitespace-pre-wrap">{inferentialStructureNote}</p>
+          </div>
+        )}
+      </div>
+    )}
+
+    {comparisonTable.length > 0 && (
+      <details class="mb-6 rounded-lg border border-gray-200 bg-gray-50/40">
+        <summary class="cursor-pointer select-none px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100/60 rounded-t-lg">
+          ▸ Show structured comparison table ({comparisonTable.length} rows)
+        </summary>
+        <div class="overflow-x-auto px-4 pb-4 pt-2">
+          <table class="w-full text-xs text-left border-collapse">
+            <thead>
+              <tr class="border-b border-gray-300 text-gray-500 uppercase tracking-wider">
+                <th class="py-2 pr-3 font-medium">Kind</th>
+                <th class="py-2 pr-3 font-medium">Abstract sentence</th>
+                <th class="py-2 pr-3 font-medium">Synthesis sentence</th>
+                <th class="py-2 pr-3 font-medium">Category</th>
+                <th class="py-2 font-medium">Note</th>
+              </tr>
+            </thead>
+            <tbody>
+              {comparisonTable.map(row => (
+                <tr class="border-b border-gray-200 align-top">
+                  <td class="py-2 pr-3 whitespace-nowrap">
+                    <span class={`inline-block px-1.5 py-0.5 rounded text-[10px] font-medium ${
+                      row.kind === 'aligned' ? 'bg-green-100 text-green-800' :
+                      row.kind === 'reframed' ? 'bg-blue-100 text-blue-800' :
+                      row.kind === 'abstract-only' ? 'bg-amber-100 text-amber-800' :
+                      row.kind === 'synthesis-only' ? 'bg-purple-100 text-purple-800' :
+                      'bg-gray-100 text-gray-700'
+                    }`}>{kindLabel[row.kind] ?? row.kind}</span>
+                  </td>
+                  <td class="py-2 pr-3 text-gray-800 leading-snug">{row.abstractSentence ?? ''}</td>
+                  <td class="py-2 pr-3 text-gray-800 leading-snug">{row.synthesisSentence ?? ''}</td>
+                  <td class="py-2 pr-3 text-gray-600 italic whitespace-nowrap">{row.category ?? ''}</td>
+                  <td class="py-2 text-gray-600 leading-snug">{row.note ?? ''}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      </details>
+    )}
+
+    {(synthesizerPrompt || comparatorPrompt) && (
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        {synthesizerPrompt && (
+          <details class="rounded-lg border border-gray-200 bg-gray-50/40">
+            <summary class="cursor-pointer select-none px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100/60 rounded-t-lg">
+              ▸ Show synthesizer prompt
+            </summary>
+            <pre class="m-0 px-4 pb-4 pt-2 text-xs text-gray-800 font-mono whitespace-pre-wrap break-words" style="max-height: 600px; overflow-y: auto;">{synthesizerPrompt}</pre>
+          </details>
+        )}
+        {comparatorPrompt && (
+          <details class="rounded-lg border border-gray-200 bg-gray-50/40">
+            <summary class="cursor-pointer select-none px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100/60 rounded-t-lg">
+              ▸ Show comparator prompt
+            </summary>
+            <pre class="m-0 px-4 pb-4 pt-2 text-xs text-gray-800 font-mono whitespace-pre-wrap break-words" style="max-height: 600px; overflow-y: auto;">{comparatorPrompt}</pre>
+          </details>
+        )}
+      </div>
+    )}
+  </section>
+)}

@@ -4,7 +4,10 @@ slug: cross-decoding-experimental-to-control
 doi: ~
 claim: >
   Cross-decoding from experimental (feedback) to control (direct stimulation) condition yields 57.2% accuracy (t(27)=5.22, p<0.001), indicating that the representational format of foveal feedback is similar to that of direct foveal stimulation.
+displayClaim: >
+  Classifiers trained on foveal feedback responses generalize to direct foveal stimulation, indicating that feedback uses a representational format shared with bottom-up sensory drive.
 claim-type: empirical
+role: empirical
 concepts:
   - cross-decoding
   - representational format
@@ -14,7 +17,12 @@ concepts:
 priority: 2026-03-30
 epistemic: strong
 
-belongings: []
+tests:
+  - prediction-cross-decoding-generalizes
+
+belongings:
+  - relation: supports
+    target: hypothesis-shared-representational-format
 
 assertions:
   - paper-slug: kammer-2026-foveal-feedback

@@ -7,6 +7,7 @@ claim: >
   substantially altering overall dendritic spike rates, demonstrating functional orthogonality
   between the perisomatic-gamma and distal-beta inhibitory streams.
 claim-type: empirical
+role: empirical
 concepts:
   - gamma rhythm
   - perisomatic inhibition
@@ -15,6 +16,9 @@ concepts:
   - AP threshold
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - hypothesis-distinct-compartmental-roles
 
 belongings:
   - relation: requires
@@ -25,6 +29,8 @@ belongings:
     target: l5-model-single-cell-scope
   - relation: supports
     target: pv-gamma-sst-beta-correspondence
+  - relation: supports
+    target: hypothesis-distinct-compartmental-roles
 
 assertions:
   - paper-slug: headley-2026-inhibitory-rhythms

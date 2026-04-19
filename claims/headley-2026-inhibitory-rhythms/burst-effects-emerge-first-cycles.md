@@ -6,7 +6,12 @@ claim: >
   Phase-dependent modulation of dendritic spike probability and action potential timing by
   oscillatory bursts of beta or gamma emerges within the first few cycles of the burst,
   indicating rapid engagement of the inhibitory control mechanism.
+displayClaim: >
+  Phase-dependent gating of dendritic spikes and AP timing by oscillatory inhibition kicks in
+  within the first few cycles of a burst — the inhibitory control engages on the same
+  timescale as the rhythm itself.
 claim-type: empirical
+role: empirical
 concepts:
   - oscillatory bursts
   - beta rhythm

@@ -9,6 +9,7 @@ claim: >
   typical in vivo layer 5 firing rates; no sensitivity analysis over these synaptic parameter
   choices is presented.
 claim-type: assessment
+role: scope
 concepts:
   - model parameterization
   - synaptic parameters
@@ -16,6 +17,8 @@ concepts:
   - baseline firing rate
 priority: 2026-03-30
 epistemic: moderate
+
+scopes: ["*"]
 
 belongings: []
 

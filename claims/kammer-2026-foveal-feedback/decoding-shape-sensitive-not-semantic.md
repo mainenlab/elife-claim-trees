@@ -4,7 +4,10 @@ slug: decoding-shape-sensitive-not-semantic
 doi: ~
 claim: >
   Foveal V1 feedback contains low-to-mid-level visual information (shape-sensitive) but not higher-level semantic category information (animal vs instrument not decodable), indicating that feedback signals represent low-level feature properties of the saccade target.
+displayClaim: >
+  Foveal feedback carries low-to-mid-level shape information but not semantic category, identifying the feedback content as visual features of the saccade target rather than its identity.
 claim-type: empirical
+role: synthesis
 concepts:
   - shape decoding
   - semantic category
@@ -13,6 +16,13 @@ concepts:
   - feedback content
 priority: 2026-03-30
 epistemic: moderate
+
+derived-from:
+  - v1-category-decoding-drops-in-feedback
+  - lo-shows-reversed-specificity
+  - v2-v3-generalize-shape-not-category
+interprets:
+  - hypothesis-feedback-carries-shape-not-category
 
 belongings: []
 

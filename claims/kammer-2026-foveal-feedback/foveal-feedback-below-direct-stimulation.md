@@ -4,7 +4,10 @@ slug: foveal-feedback-below-direct-stimulation
 doi: ~
 claim: >
   Foveal feedback decoding (57.43%) is significantly below direct foveal stimulation decoding (84.06%, t(27)=19.92, p<0.001), indicating that feedback information is weaker than direct sensory input in foveal V1.
+displayClaim: >
+  The feedback signal in foveal V1 is reliably weaker than the response to direct foveal stimulation, consistent with a low-bandwidth top-down channel rather than a fully reinstated sensory representation.
 claim-type: empirical
+role: empirical
 concepts:
   - foveal feedback
   - direct stimulation

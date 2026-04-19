@@ -4,7 +4,10 @@ slug: ips-foveal-effect-reverses-in-control
 doi: ~
 claim: >
   In the control condition (direct foveal stimulation), IPS activation is significantly negatively associated with foveal decoding (t(27)=−3.61, p=0.004, difference=11.6), the opposite direction to the experimental condition, confirming that the IPS–foveal decoding relationship is specific to the feedback context.
+displayClaim: >
+  Under direct foveal stimulation the IPS–foveal-decoding correlation reverses sign, confirming that the positive coupling seen during feedback is context-specific and not a generic effect of attention or arousal.
 claim-type: empirical
+role: control
 concepts:
   - IPS
   - control condition
@@ -13,6 +16,11 @@ concepts:
   - direct stimulation
 priority: 2026-03-30
 epistemic: strong
+
+validates:
+  - ips-candidate-driver-foveal-feedback
+rules-out:
+  - "generic brain-state or arousal explanation of IPS-foveal-decoding coupling"
 
 belongings:
   - relation: supports

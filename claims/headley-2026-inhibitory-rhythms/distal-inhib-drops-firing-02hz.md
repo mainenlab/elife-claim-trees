@@ -6,7 +6,12 @@ claim: >
   Doubling the strength of distal dendritic inhibition reduces somatic firing rate from a
   baseline of approximately 5.5 Hz to approximately 0.2 Hz, primarily by suppressing the
   occurrence of dendritic Ca²⁺ and NMDA spikes rather than by directly raising AP threshold.
+displayClaim: >
+  Doubling distal dendritic inhibition collapses somatic firing from ~5.5 Hz to ~0.2 Hz,
+  almost entirely by suppressing dendritic Ca²⁺ and NMDA spikes rather than by raising the
+  somatic AP threshold.
 claim-type: empirical
+role: empirical
 concepts:
   - distal dendritic inhibition
   - somatic firing rate
@@ -15,6 +20,12 @@ concepts:
   - NMDA spikes
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - hypothesis-distinct-compartmental-roles
+
+dissociates-with:
+  - perisomatic-inhib-drops-firing-07hz
 
 belongings:
   - relation: requires
@@ -25,6 +36,8 @@ belongings:
     target: beta-bidirectional-dendritic-control
   - relation: supports
     target: beta-gates-distal-apical-inputs
+  - relation: supports
+    target: hypothesis-distinct-compartmental-roles
 
 assertions:
   - paper-slug: headley-2026-inhibitory-rhythms

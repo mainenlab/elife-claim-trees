@@ -1,0 +1,276 @@
+---
+type Sentence = {
+  n: number;
+  text: string;
+  type: 'claim' | 'background' | 'unmappable';
+  claims: string[];
+  kind: 'direct' | 'combined' | 'synthesis' | null;
+  note?: string;
+};
+
+type Mapping = {
+  paperSlug: string;
+  abstract: string;
+  sentences: Sentence[];
+  orphanClaims: string[];
+  orphanSentences: number[];
+};
+
+type Claim = {
+  slug: string;
+  claim: string;
+  displayClaim?: string | null;
+  panel?: string;
+};
+
+type Props = {
+  mapping: Mapping;
+  paperSlug: string;
+  baseUrl: string;
+  claimsBySlug: Record<string, Claim>;
+};
+
+const { mapping, paperSlug, baseUrl, claimsBySlug } = Astro.props as Props;
+const url = (path: string) => `${baseUrl}${path}/`;
+
+// Split abstract into segments by matching each sentence in order.
+// Walk the abstract string, find each sentence text, capture any non-sentence
+// glue (whitespace) between matches.
+type Segment = { kind: 'sentence'; sentence: Sentence } | { kind: 'glue'; text: string };
+const segments: Segment[] = [];
+let cursor = 0;
+for (const s of mapping.sentences) {
+  const idx = mapping.abstract.indexOf(s.text, cursor);
+  if (idx === -1) {
+    // Fallback — render sentence as-is even if string match fails (whitespace drift, etc.)
+    segments.push({ kind: 'sentence', sentence: s });
+    continue;
+  }
+  if (idx > cursor) {
+    segments.push({ kind: 'glue', text: mapping.abstract.slice(cursor, idx) });
+  }
+  segments.push({ kind: 'sentence', sentence: s });
+  cursor = idx + s.text.length;
+}
+if (cursor < mapping.abstract.length) {
+  segments.push({ kind: 'glue', text: mapping.abstract.slice(cursor) });
+}
+
+const kindLabel: Record<string, string> = {
+  direct: 'direct map',
+  combined: 'combines multiple claims',
+  synthesis: 'synthesis across claims',
+};
+
+const orphanClaims = mapping.orphanClaims
+  .map(slug => claimsBySlug[slug])
+  .filter(Boolean);
+
+const orphanSentences = mapping.orphanSentences
+  .map(n => mapping.sentences.find(s => s.n === n))
+  .filter(Boolean) as Sentence[];
+
+// CSS-safe id for a claim card target
+const cardId = (slug: string) => `claim-card-${slug}`;
+---
+
+<section class="mb-12">
+  <h2 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-3">
+    Abstract mapped to claims
+  </h2>
+  <p class="text-sm text-gray-500 italic mb-6 leading-relaxed max-w-3xl">
+    The paper's abstract is shown with each sentence linked to the claim(s) it represents in the dependency graph. Hover or click a sentence to highlight the corresponding claim cards. Below: what the graph contains that the abstract leaves out, and vice versa.
+  </p>
+
+  <!-- Abstract -->
+  <div class="mb-8 p-5 md:p-6 rounded-lg border border-gray-200 bg-gray-50/40">
+    <div class="text-xs text-gray-500 uppercase tracking-wider mb-3 font-medium">Abstract</div>
+    <p class="text-base leading-relaxed text-gray-900 abstract-prose">
+      {segments.map(seg => seg.kind === 'glue'
+        ? <span>{seg.text}</span>
+        : (
+          <span
+            class={`abstract-sentence sentence-type-${seg.sentence.type}`}
+            data-sentence-n={seg.sentence.n}
+            data-claims={seg.sentence.claims.join(',')}
+            data-kind={seg.sentence.kind ?? ''}
+            title={seg.sentence.note ?? ''}
+          >
+            <sup class="sentence-number">{seg.sentence.n}</sup>{seg.sentence.text}
+          </span>
+        )
+      )}
+    </p>
+  </div>
+
+  <!-- Sentence-to-claim legend -->
+  <div class="mb-6 grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-2 text-xs text-gray-600">
+    {mapping.sentences.map(s => (
+      <div class="flex items-start gap-2">
+        <span class="font-mono text-gray-400 flex-shrink-0">[{s.n}]</span>
+        <div class="flex-1 min-w-0">
+          {s.type === 'claim' && s.claims.length > 0 ? (
+            <>
+              <span class="text-gray-500">{kindLabel[s.kind ?? 'direct'] ?? s.kind} →</span>{' '}
+              {s.claims.map((slug, i) => (
+                <>
+                  {i > 0 && <span class="text-gray-400">, </span>}
+                  <a
+                    href={`#${cardId(slug)}`}
+                    class="font-mono text-blue-600 hover:underline sentence-claim-link"
+                    data-target-claim={slug}
+                  >{slug}</a>
+                </>
+              ))}
+            </>
+          ) : s.type === 'background' ? (
+            <span class="text-gray-400 italic">background / framing — not a paper-specific claim</span>
+          ) : (
+            <span class="text-red-600 italic">no corresponding claim in the graph</span>
+          )}
+        </div>
+      </div>
+    ))}
+  </div>
+
+  <!-- Orphan claims panel -->
+  {orphanClaims.length > 0 && (
+    <div class="mb-6 p-4 md:p-5 rounded-lg border border-amber-200 bg-amber-50/40">
+      <div class="text-xs text-amber-800 uppercase tracking-wider mb-3 font-medium">
+        Claims in the graph not surfaced in the abstract
+      </div>
+      <ul class="space-y-2">
+        {orphanClaims.map(c => (
+          <li class="text-sm">
+            <a
+              href={url(`/papers/${paperSlug}/${c.slug}`)}
+              class="font-mono text-xs text-blue-600 hover:underline"
+            >{c.slug}</a>
+            {c.panel && <span class="text-xs text-gray-500 ml-2">{c.panel}</span>}
+            <div class="text-gray-700 leading-snug mt-0.5">
+              {c.displayClaim?.trim() || c.claim}
+            </div>
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+
+  <!-- Orphan sentences panel -->
+  {orphanSentences.length > 0 && (
+    <div class="mb-6 p-4 md:p-5 rounded-lg border border-red-200 bg-red-50/40">
+      <div class="text-xs text-red-800 uppercase tracking-wider mb-3 font-medium">
+        Abstract assertions without corresponding claims in the graph
+      </div>
+      <ul class="space-y-2">
+        {orphanSentences.map(s => (
+          <li class="text-sm text-gray-700">
+            <span class="font-mono text-xs text-gray-400 mr-2">[{s.n}]</span>
+            {s.text}
+          </li>
+        ))}
+      </ul>
+    </div>
+  )}
+</section>
+
+<style>
+  .abstract-prose {
+    font-size: 1rem;
+    line-height: 1.75;
+  }
+  .abstract-sentence {
+    cursor: pointer;
+    border-radius: 2px;
+    padding: 1px 2px;
+    margin: 0 -2px;
+    transition: background-color 0.12s ease, box-shadow 0.12s ease;
+    position: relative;
+  }
+  .abstract-sentence:hover {
+    background-color: #fef3c7;
+  }
+  .abstract-sentence.is-active {
+    background-color: #fde68a;
+  }
+  .sentence-number {
+    color: #9ca3af;
+    font-weight: 500;
+    font-size: 0.7em;
+    margin-right: 2px;
+    user-select: none;
+  }
+  .sentence-type-background {
+    color: #9ca3af;
+  }
+  .sentence-type-unmappable {
+    text-decoration: underline dotted #f87171;
+    text-underline-offset: 3px;
+  }
+  /* Claim card highlight target */
+  :global(.claim-card-highlight) {
+    outline: 3px solid #fbbf24 !important;
+    outline-offset: 4px;
+    transition: outline-color 0.4s ease;
+  }
+</style>
+
+<script>
+  // Wire abstract sentences <-> claim cards.
+  // Highlight on hover; click scrolls to first target.
+  function findCard(slug: string): HTMLElement | null {
+    return document.getElementById(`claim-card-${slug}`)
+      ?? document.querySelector(`[data-claim-slug="${slug}"]`);
+  }
+
+  function highlight(slug: string, on: boolean) {
+    const el = findCard(slug);
+    if (!el) return;
+    el.classList.toggle('claim-card-highlight', on);
+  }
+
+  document.querySelectorAll<HTMLElement>('.abstract-sentence').forEach(s => {
+    const claims = (s.dataset.claims ?? '').split(',').filter(Boolean);
+    if (claims.length === 0) return;
+
+    s.addEventListener('mouseenter', () => {
+      s.classList.add('is-active');
+      claims.forEach(c => highlight(c, true));
+    });
+    s.addEventListener('mouseleave', () => {
+      s.classList.remove('is-active');
+      claims.forEach(c => highlight(c, false));
+    });
+    s.addEventListener('click', () => {
+      const first = findCard(claims[0]);
+      if (!first) return;
+      // Open any collapsed <details> ancestors so the card is in the layout flow.
+      let n: HTMLElement | null = first;
+      while (n) {
+        if (n.tagName === 'DETAILS') (n as HTMLDetailsElement).open = true;
+        n = n.parentElement;
+      }
+      first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+
+  // Reverse: hover the legend's claim slug links to highlight the card,
+  // and intercept the click to open <details> ancestors before scrolling.
+  document.querySelectorAll<HTMLAnchorElement>('.sentence-claim-link').forEach(a => {
+    const slug = a.dataset.targetClaim;
+    if (!slug) return;
+    a.addEventListener('mouseenter', () => highlight(slug, true));
+    a.addEventListener('mouseleave', () => highlight(slug, false));
+    a.addEventListener('click', (e) => {
+      const card = findCard(slug);
+      if (!card) return;
+      e.preventDefault();
+      let n: HTMLElement | null = card;
+      while (n) {
+        if (n.tagName === 'DETAILS') (n as HTMLDetailsElement).open = true;
+        n = n.parentElement;
+      }
+      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    });
+  });
+</script>

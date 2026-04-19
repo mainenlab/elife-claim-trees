@@ -4,7 +4,10 @@ slug: ips-candidate-driver-foveal-feedback
 doi: ~
 claim: >
   IPS activity is significantly more strongly associated with foveal decoding than with peripheral decoding in the experimental condition (t(27)=2.53, p=0.026, difference=4.22), making IPS a candidate mediator of foveal feedback during saccade preparation.
+displayClaim: >
+  Trial-by-trial intraparietal sulcus activity tracks foveal decoding strength more closely than peripheral decoding strength, nominating IPS as a candidate source of the saccade-locked feedback signal.
 claim-type: interpretive
+role: synthesis
 concepts:
   - intraparietal sulcus
   - IPS
@@ -14,6 +17,10 @@ concepts:
   - foveal decoding
 priority: 2026-03-30
 epistemic: moderate
+
+derived-from:
+  - fef-lo-nonsignificant-after-correction
+  - ips-foveal-effect-reverses-in-control
 
 belongings:
   - relation: requires

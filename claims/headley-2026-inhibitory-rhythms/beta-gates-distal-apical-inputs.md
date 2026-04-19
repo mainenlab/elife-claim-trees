@@ -6,7 +6,11 @@ claim: >
   Beta-frequency rhythmic inhibition at distal dendritic locations gates the transmission of
   clustered synaptic inputs from apical dendrites to somatic output: inputs arriving during
   inhibitory troughs are transmitted, while inputs arriving during peaks are blocked.
+displayClaim: >
+  Beta-frequency distal inhibition gates clustered apical-dendrite inputs phase-by-phase:
+  inputs arriving in inhibitory troughs reach the soma, inputs arriving in peaks are blocked.
 claim-type: empirical
+role: empirical
 concepts:
   - beta rhythm
   - distal inhibition
@@ -15,6 +19,12 @@ concepts:
   - phase-dependent transmission
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - hypothesis-distinct-compartmental-roles
+
+dissociates-with:
+  - gamma-gates-proximal-basal-inputs
 
 belongings:
   - relation: requires
@@ -25,6 +35,8 @@ belongings:
     target: l5-model-single-cell-scope
   - relation: supports
     target: pv-gamma-sst-beta-correspondence
+  - relation: supports
+    target: hypothesis-distinct-compartmental-roles
 
 assertions:
   - paper-slug: headley-2026-inhibitory-rhythms

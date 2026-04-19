@@ -4,7 +4,10 @@ slug: preregistered-design-validates-mvpa
 doi: ~
 claim: >
   The preregistered analysis plan (osf.io/rxacd) specifies the MVPA decoding pipeline, ROI definitions, and statistical tests in advance, reducing the risk of analytic flexibility inflating the decoding accuracy results.
+displayClaim: >
+  The MVPA pipeline, ROI definitions, and statistical tests were preregistered, constraining analytic flexibility for the main decoding results — though the parametric modulation analysis was excluded from the registered plan.
 claim-type: assessment
+role: methodological
 concepts:
   - preregistration
   - MVPA
@@ -12,6 +15,16 @@ concepts:
   - validity
 priority: 2026-03-30
 epistemic: moderate
+
+enables-method:
+  - foveal-v1-decodes-peripheral-saccade-target
+  - foveal-feedback-below-direct-stimulation
+  - cross-decoding-experimental-to-control
+  - decoding-shape-sensitive-not-semantic
+  - v1-category-decoding-drops-in-feedback
+  - lo-shows-reversed-specificity
+  - v2-v3-generalize-shape-not-category
+  - u-shaped-eccentricity-rejects-spillover
 
 belongings:
   - relation: requires

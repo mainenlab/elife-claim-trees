@@ -20,6 +20,36 @@ function isAssessment(slug, fm) {
   return ASSESSMENT_SUFFIXES.some(s => slug.endsWith(s));
 }
 
+// Papers with bundled figure assets at site/public/figures/<slug>/.
+// Whole-figure granularity: panel "fig3B" → fig3.jpg.
+// Supplements: "fig3-figure-supplement-1" or "fig3-figsupp1" → fig3-figsupp1.jpg.
+const FIGURE_PAPERS = new Set([
+  'headley-2026-inhibitory-rhythms',
+  'kammer-2026-foveal-feedback',
+]);
+
+function panelToFigureFile(panel) {
+  if (!panel) return null;
+  // Take the first comma-separated token (e.g. "fig5, fig7" → "fig5").
+  const first = panel.split(',')[0].trim().toLowerCase();
+  // Supplement: fig3-figure-supplement-1 or fig3-figsupp1
+  const suppMatch = first.match(/^fig(\d+)[-\s]*(?:figure[-\s]*supplement[-\s]*|figsupp)(\d+)/);
+  if (suppMatch) return `fig${suppMatch[1]}-figsupp${suppMatch[2]}.jpg`;
+  // Plain figure with optional panel letter / qualifier
+  const figMatch = first.match(/^fig(\d+)/);
+  if (figMatch) return `fig${figMatch[1]}.jpg`;
+  return null;
+}
+
+function computeFigureUrl(paperSlug, panel) {
+  if (!FIGURE_PAPERS.has(paperSlug)) return null;
+  const file = panelToFigureFile(panel);
+  if (!file) return null;
+  const onDisk = join(__dirname, '../public/figures', paperSlug, file);
+  if (!fs.existsSync(onDisk)) return null;
+  return `/elife-claim-trees/figures/${paperSlug}/${file}`;
+}
+
 function normalizeStatus(reproductions) {
   if (!reproductions || reproductions.length === 0) return 'unknown';
   // Take the most recent reproduction
@@ -73,18 +103,34 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
       ? fs.readFileSync(logPath, 'utf8').slice(0, 3000)
       : null;
 
+    const panel = fm.assertions?.[0]?.panel || '';
     claims.push({
       uuid: fm.uuid || null,
       slug,
       paper: paperSlug,
-      panel: fm.assertions?.[0]?.panel || '',
+      panel,
+      figureUrl: computeFigureUrl(paperSlug, panel),
       claim: (fm.claim || '').trim(),
+      displayClaim: (fm.displayClaim || '').trim() || null,
       epistemic: fm.epistemic || 'unknown',
       status,
       'claim-type': fm['claim-type'] || 'empirical',
       isAssessment: isAssessment(slug, fm),
       requires,
       supports,
+      role: fm.role || null,
+      entails: fm.entails || [],
+      'derived-from': fm['derived-from'] || [],
+      tests: fm.tests || [],
+      refutes: fm.refutes || [],
+      'rules-out': fm['rules-out'] || [],
+      'dissociates-with': fm['dissociates-with'] || [],
+      validates: fm.validates || [],
+      predicts: fm.predicts || [],
+      confirms: fm.confirms || [],
+      interprets: fm.interprets || [],
+      'enables-method': fm['enables-method'] || [],
+      scopes: fm.scopes || [],
       notes: notes.trim(),
       figure: fm.reproductions?.[0]?.figure || null,
       original_figure: fm.reproductions?.[0]?.original_figure || null,

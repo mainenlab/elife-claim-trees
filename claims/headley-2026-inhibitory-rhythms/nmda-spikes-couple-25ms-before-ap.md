@@ -5,7 +5,11 @@ doi: ~
 claim: >
   NMDA spikes show peak spike-triggered average approximately 25 ms before somatic action
   potentials, reflecting their slower kinetics relative to Na+ spikes.
+displayClaim: >
+  NMDA spikes lead somatic action potentials by ~25 ms — a longer lead than sodium spikes,
+  reflecting NMDA's slower kinetics.
 claim-type: empirical
+role: empirical
 concepts:
   - NMDA spikes
   - spike-triggered average
