@@ -1,0 +1,121 @@
+---
+type Tab = { id: string; label: string };
+
+type Props = {
+  tabs: Tab[];
+  defaultTab?: string;
+};
+
+const { tabs, defaultTab = 'overview' } = Astro.props as Props;
+---
+
+<nav class="method-tabs" role="tablist" data-default-tab={defaultTab}>
+  {tabs.map(tab => (
+    <button
+      class="method-tab"
+      role="tab"
+      data-tab-id={tab.id}
+      aria-selected={tab.id === defaultTab ? 'true' : 'false'}
+      tabindex={tab.id === defaultTab ? 0 : -1}
+    >
+      {tab.label}
+    </button>
+  ))}
+</nav>
+
+<style>
+  .method-tabs {
+    display: flex;
+    gap: 1.5rem;
+    border-bottom: 1px solid #e5e7eb;
+    margin-bottom: 2rem;
+    padding: 0;
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .method-tab {
+    background: transparent;
+    border: none;
+    padding: 0.55rem 0 0.75rem;
+    margin: 0;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: 0.11em;
+    text-transform: uppercase;
+    font-variant: small-caps;
+    color: #9ca3af;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    margin-bottom: -1px;
+    white-space: nowrap;
+    transition: color 0.12s ease, border-color 0.12s ease;
+    font-family: inherit;
+  }
+  .method-tab:hover { color: #4b5563; }
+  .method-tab[aria-selected='true'] {
+    color: #269E8C;
+    border-bottom-color: #269E8C;
+  }
+  .method-tab:focus-visible {
+    outline: 2px solid #269E8C;
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+
+  :global(.method-tab-panel) {
+    display: none;
+  }
+  :global(.method-tab-panel[data-tab-active='true']) {
+    display: block;
+  }
+</style>
+
+<script>
+  const validTabs = new Set<string>();
+  const tabButtons = Array.from(document.querySelectorAll<HTMLButtonElement>('.method-tab'));
+  tabButtons.forEach(b => { if (b.dataset.tabId) validTabs.add(b.dataset.tabId); });
+
+  const nav = document.querySelector<HTMLElement>('.method-tabs');
+  const defaultTab = nav?.dataset.defaultTab ?? 'overview';
+
+  function readTab(): string {
+    const sp = new URLSearchParams(window.location.search);
+    const v = sp.get('section');
+    return v && validTabs.has(v) ? v : defaultTab;
+  }
+
+  function activate(tabId: string, pushState = true) {
+    if (!validTabs.has(tabId)) tabId = defaultTab;
+    if (pushState) {
+      const url = new URL(window.location.href);
+      if (tabId === defaultTab) url.searchParams.delete('section');
+      else url.searchParams.set('section', tabId);
+      window.history.pushState({}, '', url.toString());
+    }
+    tabButtons.forEach(b => {
+      const active = b.dataset.tabId === tabId;
+      b.setAttribute('aria-selected', active ? 'true' : 'false');
+      b.tabIndex = active ? 0 : -1;
+    });
+    document.querySelectorAll<HTMLElement>('.method-tab-panel').forEach(p => {
+      p.dataset.tabActive = p.dataset.tabId === tabId ? 'true' : 'false';
+    });
+    // Scroll to top of content area when switching tabs.
+    const content = document.querySelector<HTMLElement>('.method-content');
+    if (content && pushState) {
+      content.scrollIntoView({ behavior: 'instant', block: 'start' });
+    }
+  }
+
+  activate(readTab(), false);
+
+  tabButtons.forEach(b => {
+    b.addEventListener('click', () => {
+      const id = b.dataset.tabId;
+      if (!id) return;
+      activate(id, true);
+    });
+  });
+
+  window.addEventListener('popstate', () => activate(readTab(), false));
+</script>

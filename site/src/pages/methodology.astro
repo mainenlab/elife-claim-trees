@@ -1,0 +1,282 @@
+---
+import Layout from '../layouts/Layout.astro';
+import MethodTabs from '../components/MethodTabs.astro';
+import { readFileSync } from 'fs';
+import { join } from 'path';
+import { unified } from 'unified';
+import remarkParse from 'remark-parse';
+import remarkGfm from 'remark-gfm';
+import remarkRehype from 'remark-rehype';
+import rehypeShiki from '@shikijs/rehype';
+import rehypeStringify from 'rehype-stringify';
+
+// Read method.md at build time (path relative to site/, which is process.cwd() at build).
+const methodMd = readFileSync(join(process.cwd(), '../docs/method.md'), 'utf8');
+
+// Split the markdown by top-level "## " headings. The leading region (before the
+// first ## ) is the document intro / overview prose; everything after a `## N. Title`
+// heading is one tab section. We treat the leading intro as part of "Overview".
+type Section = { id: string; label: string; title: string; body: string };
+
+function splitSections(md: string): Section[] {
+  const lines = md.split('\n');
+  const sections: Section[] = [];
+  let currentTitle: string | null = null;
+  let currentLines: string[] = [];
+  let leadLines: string[] = [];
+  let inLead = true;
+
+  for (const line of lines) {
+    const m = line.match(/^## (.+)$/);
+    if (m) {
+      if (inLead) {
+        inLead = false;
+      } else if (currentTitle !== null) {
+        sections.push(makeSection(currentTitle, currentLines.join('\n')));
+      }
+      currentTitle = m[1].trim();
+      currentLines = [];
+    } else {
+      if (inLead) leadLines.push(line);
+      else currentLines.push(line);
+    }
+  }
+  if (currentTitle !== null) {
+    sections.push(makeSection(currentTitle, currentLines.join('\n')));
+  }
+
+  // Strip the leading H1 ("# Method") and horizontal rule from the lead block.
+  const leadMd = leadLines
+    .filter(l => !/^#\s/.test(l) && l.trim() !== '---')
+    .join('\n')
+    .trim();
+
+  // Prepend lead prose to the Overview section (first section).
+  if (leadMd && sections.length > 0 && sections[0].id === 'overview') {
+    sections[0].body = `${leadMd}\n\n${sections[0].body}`;
+  }
+
+  return sections;
+}
+
+// Map a heading like "1. Overview" or "8. Literature-context as cross-paper primitive"
+// to a short, lowercase tab id and a compact label.
+const labelOverrides: Record<string, { id: string; label: string }> = {
+  '1': { id: 'overview', label: 'Overview' },
+  '2': { id: 'corpus', label: 'Corpus' },
+  '3': { id: 'authoring', label: 'Authoring' },
+  '4': { id: 'schema', label: 'Schema' },
+  '5': { id: 'verification', label: 'Verification' },
+  '6': { id: 'summaries', label: 'Summaries' },
+  '7': { id: 'synthesis', label: 'Synthesis' },
+  '8': { id: 'literature', label: 'Literature-context' },
+  '9': { id: 'limits', label: 'Limits' },
+};
+
+function makeSection(title: string, body: string): Section {
+  const numMatch = title.match(/^(\d+)\.\s*(.+)$/);
+  if (numMatch) {
+    const n = numMatch[1];
+    const t = numMatch[2].trim();
+    const o = labelOverrides[n];
+    if (o) return { id: o.id, label: o.label, title: t, body };
+    return { id: t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, ''), label: t, title: t, body };
+  }
+  const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+  return { id, label: title, title, body };
+}
+
+// Configure the markdown processor: parse markdown + GFM (tables, strikethrough,
+// task lists), convert to HTML AST, stringify. allowDangerousHtml is fine here —
+// the source is our own trusted methodology document.
+const processor = unified()
+  .use(remarkParse)
+  .use(remarkGfm)
+  .use(remarkRehype, { allowDangerousHtml: true })
+  .use(rehypeShiki, { theme: 'github-dark', fallbackLanguage: 'text' })
+  .use(rehypeStringify, { allowDangerousHtml: true });
+
+async function renderMd(md: string): Promise<string> {
+  const file = await processor.process(md);
+  return String(file);
+}
+
+const sections = splitSections(methodMd);
+const renderedSections = await Promise.all(
+  sections.map(async s => ({ ...s, html: await renderMd(s.body) }))
+);
+
+const tabs = renderedSections.map(s => ({ id: s.id, label: s.label }));
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+---
+
+<Layout title="Methodology">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-10">
+    <header class="mb-8">
+      <h1 class="text-2xl font-semibold text-gray-900 m-0 mb-2">Methodology</h1>
+      <p class="text-sm text-gray-600 m-0">
+        Documented procedure for claim graph authoring, verification, and synthesis.
+      </p>
+    </header>
+
+    <MethodTabs tabs={tabs} defaultTab="overview" />
+
+    <div class="method-content">
+      {renderedSections.map((s, i) => (
+        <article
+          class="method-tab-panel method-prose"
+          data-tab-id={s.id}
+          data-tab-active={i === 0 ? 'true' : 'false'}
+        >
+          <h2 class="section-title">{s.title}</h2>
+          <div set:html={s.html} />
+        </article>
+      ))}
+    </div>
+
+    <footer class="mt-12 pt-6 border-t border-gray-100 text-sm">
+      <a href={`${base}/papers/`} class="text-gray-500 hover:text-gray-700 no-underline">&larr; Papers</a>
+    </footer>
+  </div>
+</Layout>
+
+<style is:global>
+  .method-prose {
+    color: #374151;
+    font-size: 15px;
+    line-height: 1.65;
+    max-width: none;
+  }
+  .method-prose .section-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #111827;
+    margin: 0 0 1.5rem 0;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid #f3f4f6;
+  }
+  .method-prose h1,
+  .method-prose h2 {
+    font-size: 1.15rem;
+    font-weight: 600;
+    color: #1f2937;
+    margin: 2rem 0 0.75rem;
+    line-height: 1.35;
+  }
+  .method-prose h3 {
+    font-size: 1rem;
+    font-weight: 600;
+    color: #374151;
+    margin: 1.5rem 0 0.5rem;
+  }
+  .method-prose h4 {
+    font-size: 0.95rem;
+    font-weight: 600;
+    color: #4b5563;
+    margin: 1.25rem 0 0.4rem;
+  }
+  .method-prose p {
+    margin: 0 0 1rem;
+  }
+  .method-prose strong { color: #111827; font-weight: 600; }
+  .method-prose em { font-style: italic; }
+
+  .method-prose ul,
+  .method-prose ol {
+    margin: 0 0 1rem;
+    padding-left: 1.5rem;
+  }
+  .method-prose ul { list-style: disc; }
+  .method-prose ol { list-style: decimal; }
+  .method-prose li {
+    margin: 0.25rem 0;
+  }
+  .method-prose li > p {
+    margin: 0.25rem 0;
+  }
+
+  .method-prose a {
+    color: #2563eb;
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+  .method-prose a:hover { color: #1d4ed8; }
+
+  .method-prose code {
+    background: #f3f4f6;
+    color: #be185d;
+    padding: 0.1rem 0.35rem;
+    border-radius: 3px;
+    font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+    font-size: 0.875em;
+    border: 1px solid #e5e7eb;
+  }
+  .method-prose pre {
+    background: #1f2937;
+    color: #f3f4f6;
+    padding: 1rem 1.25rem;
+    border-radius: 6px;
+    overflow-x: auto;
+    margin: 1rem 0;
+    font-size: 0.85em;
+    line-height: 1.5;
+  }
+  .method-prose pre code {
+    background: transparent;
+    color: inherit;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    font-size: inherit;
+  }
+
+  .method-prose blockquote {
+    border-left: 3px solid #d1d5db;
+    padding: 0.25rem 0 0.25rem 1rem;
+    margin: 1rem 0;
+    color: #4b5563;
+    font-style: italic;
+  }
+
+  .method-prose hr {
+    border: none;
+    border-top: 1px solid #e5e7eb;
+    margin: 2rem 0;
+  }
+
+  .method-prose table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1.25rem 0;
+    font-size: 0.9em;
+    display: block;
+    overflow-x: auto;
+  }
+  .method-prose table thead {
+    background: #f9fafb;
+  }
+  .method-prose table th {
+    text-align: left;
+    font-weight: 600;
+    color: #1f2937;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid #e5e7eb;
+    border-bottom: 2px solid #d1d5db;
+  }
+  .method-prose table td {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid #e5e7eb;
+    vertical-align: top;
+  }
+  .method-prose table tbody tr:nth-child(even) {
+    background: #fafafa;
+  }
+  .method-prose table th[align='right'],
+  .method-prose table td[align='right'] {
+    text-align: right;
+  }
+  .method-prose table th[align='center'],
+  .method-prose table td[align='center'] {
+    text-align: center;
+  }
+</style>
