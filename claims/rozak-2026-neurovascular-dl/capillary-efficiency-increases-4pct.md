@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Capillary network efficiency shows a median 4% increase during peak optogenetic stimulation, consistent with coordinated vasodilation improving local blood flow distribution.
 claim-type: empirical
+role: empirical
 concepts:
   - capillary network
   - efficiency
@@ -12,6 +13,12 @@ concepts:
   - neurovascular coupling
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-pipeline-reveals-network-coordination
+confirms:
+  - hypothesis-network-level-nvc-coordination
+  - synthesis-individual-vessel-measurements-insufficient
 
 belongings:
   - relation: requires

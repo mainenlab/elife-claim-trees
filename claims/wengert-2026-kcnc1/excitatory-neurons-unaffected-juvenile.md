@@ -5,6 +5,7 @@ doi: ~
 claim: >
   No significant differences in synaptic transmission or intrinsic excitability are observed in excitatory neurons at juvenile stage (P16-21), indicating the Kcnc1-A421V variant selectively impairs inhibitory PV-INs rather than excitatory neurons.
 claim-type: empirical
+role: control
 concepts:
   - excitatory neurons
   - cell-type selectivity
@@ -13,6 +14,14 @@ concepts:
   - specificity
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-excitatory-neurons-spared
+confirms:
+  - prediction-excitatory-neurons-spared
+validates:
+  - pv-ins-reduced-k-current-density
+  - pv-ins-impaired-maximal-firing
 
 belongings: []
 

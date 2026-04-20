@@ -8,6 +8,7 @@ claim: >
   (fur appearance, eye opening, ear canal opening, incisor eruption, motor benchmarks)
   assessed at P5–15.
 claim-type: empirical
+role: empirical
 concepts:
   - body weight
   - brain weight
@@ -16,6 +17,9 @@ concepts:
   - KCNC1
 priority: 2026-03-30
 epistemic: strong
+
+dissociates-with:
+  - a421v-spatial-learning-working-memory-impaired
 
 belongings:
   - relation: supports

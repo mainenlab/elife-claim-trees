@@ -5,6 +5,7 @@ doi: ~
 claim: >
   iGABASnFR2 detects volume-transmitted extracellular GABA signals in vivo in mouse barrel cortex (layers L2–L3, ~300 μm depth) evoked by rhythmic whisker stimulation, corresponding to a transient GABA concentration increase of approximately 2–2.5 μM at peak.
 claim-type: empirical
+role: empirical
 concepts:
   - iGABASnFR2
   - in vivo imaging
@@ -14,6 +15,11 @@ concepts:
   - GABA
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-improved-sensor-enables-new-measurements
+confirms:
+  - hypothesis-improved-sensor-enables-new-biology
 
 belongings:
   - relation: supports

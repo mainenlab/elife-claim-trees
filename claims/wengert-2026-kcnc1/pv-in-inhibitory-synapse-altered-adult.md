@@ -8,6 +8,7 @@ claim: >
   ratio (uIPSC2/uIPSC1) is significantly reduced across frequencies (*p<0.05), indicating
   developmentally emergent synaptic dysfunction in inhibitory neurotransmission.
 claim-type: empirical
+role: empirical
 concepts:
   - inhibitory synaptic transmission
   - uIPSC
@@ -18,6 +19,12 @@ concepts:
   - synaptic depression
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-progressive-synaptic-failure
+confirms:
+  - prediction-progressive-synaptic-failure
+  - hypothesis-pv-dysfunction-drives-encephalopathy
 
 belongings:
   - relation: extends

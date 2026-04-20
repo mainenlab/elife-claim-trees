@@ -8,6 +8,7 @@ claim: >
   current injection magnitudes (***p<0.001 for genotype × current injection interaction),
   consistent with the higher relative expression of Kv3.2 vs Kv3.1 in deeper cortical layers.
 claim-type: empirical
+role: empirical
 concepts:
   - layer V
   - PV interneurons
@@ -16,6 +17,14 @@ concepts:
   - laminar differences
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-impairment-grades-with-kv31-dependence
+confirms:
+  - prediction-impairment-grades-with-kv31-dependence
+  - hypothesis-pv-in-selective-vulnerability
+dissociates-with:
+  - pv-ins-impaired-maximal-firing
 
 belongings:
   - relation: extends

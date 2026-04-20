@@ -8,6 +8,7 @@ claim: >
   [HDI95: −0.96 to 2.7 Hz], with 63.9% of the HDI favoring the other-associated stimulus
   (1.2 Hz [HDI95: −0.78 to 3.1 Hz]).
 claim-type: empirical
+role: empirical
 concepts:
   - self-prioritization
   - social decision
@@ -16,6 +17,13 @@ concepts:
   - TVA processing rates
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-self-advantage-attenuated-social-decision
+confirms:
+  - hypothesis-self-association-alters-attentional-selection
+dissociates-with:
+  - self-prioritization-perceptual-decision-automatic
 
 belongings:
   - relation: requires

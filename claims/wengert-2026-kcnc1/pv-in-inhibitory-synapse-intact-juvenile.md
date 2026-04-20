@@ -8,6 +8,7 @@ claim: >
   ratios, and synaptic latency are all not significantly different from WT (32.8% connection
   rate WT vs 34.9% Kcnc1-A421V/+; n=21/64 and 15/43 connected pairs respectively).
 claim-type: empirical
+role: empirical
 concepts:
   - inhibitory synaptic transmission
   - uIPSC
@@ -17,6 +18,11 @@ concepts:
   - Kv3.1
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-progressive-synaptic-failure
+dissociates-with:
+  - pv-in-inhibitory-synapse-altered-adult
 
 belongings:
   - relation: contradicts

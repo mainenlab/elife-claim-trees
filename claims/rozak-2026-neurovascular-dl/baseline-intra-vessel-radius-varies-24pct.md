@@ -7,6 +7,7 @@ claim: >
   baseline frames, such that point measurements of vessel caliber cannot accurately estimate
   microvessel volume changes.
 claim-type: empirical
+role: empirical
 concepts:
   - intra-vessel radius heterogeneity
   - capillary morphology
@@ -14,6 +15,12 @@ concepts:
   - vessel volume
 priority: 2026-03-30
 epistemic: moderate
+
+confirms:
+  - hypothesis-network-level-nvc-coordination
+  - synthesis-individual-vessel-measurements-insufficient
+rules-out:
+  - novas3d-outperforms-ilastik
 
 belongings:
   - relation: supports

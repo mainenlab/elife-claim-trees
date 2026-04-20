@@ -9,6 +9,7 @@ claim: >
   physical salience capture attention through separate processing streams rather than a
   single shared resource.
 claim-type: interpretive
+role: interpretation
 concepts:
   - social salience
   - perceptual salience
@@ -17,6 +18,13 @@ concepts:
   - additivity
 priority: 2026-03-30
 epistemic: moderate
+
+interprets:
+  - self-social-additive-perceptual
+  - self-salience-reduces-perceptual-benefit
+  - perceptual-salience-6hz-advantage
+confirms:
+  - hypothesis-social-perceptual-independent-mechanisms
 
 belongings:
   - relation: requires

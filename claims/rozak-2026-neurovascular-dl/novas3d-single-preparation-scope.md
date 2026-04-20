@@ -8,6 +8,7 @@ claim: >
   isoflurane anesthesia); quantitative performance metrics are not reported for any other
   preparation, strain, species, or imaging modality.
 claim-type: assessment
+role: scope
 concepts:
   - model scope
   - training distribution
@@ -15,6 +16,21 @@ concepts:
   - generalization
 priority: 2026-03-30
 epistemic: strong
+
+scopes:
+  - unetr-outperforms-ilastik-hd95
+  - novas3d-outperforms-ilastik
+  - registration-doubles-vessel-count
+  - radius-estimation-r2-0p68
+  - vessel-radius-heterogeneity-stimulation
+  - baseline-intra-vessel-radius-varies-24pct
+  - dilations-nearer-neurons-than-constrictions
+  - constrictions-deeper-than-dilations
+  - blue-light-dilations-exceed-green-control
+  - artery-dilates-venule-unchanged-at-low-power
+  - network-assortativity-increases-stimulation
+  - capillary-efficiency-increases-4pct
+  - novas3d-generalizes-qualitatively-ood
 
 belongings:
   - relation: extends

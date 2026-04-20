@@ -5,6 +5,7 @@ doi: ~
 claim: >
   iGABASnFR2 displays high selectivity for GABA over structurally related compounds, none of which interfere with GABA binding as competitive or non-competitive antagonists at 1 mM concentrations.
 claim-type: empirical
+role: control
 concepts:
   - iGABASnFR2
   - GABA selectivity
@@ -12,6 +13,13 @@ concepts:
   - off-target binding
 priority: 2026-03-30
 epistemic: strong
+
+validates:
+  - igabasnfr2-retina-direction-selectivity
+  - igabasnfr2-single-bouton-hippocampus
+  - igabasnfr2-invivo-barrel-cortex
+rules-out:
+  - igabasnfr2-fourfold-sensitivity-gain
 
 belongings: []
 

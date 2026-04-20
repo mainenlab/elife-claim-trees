@@ -9,6 +9,7 @@ claim: >
   indicating a sub-additive interaction when social self-relevance and perceptual salience
   co-occur.
 claim-type: empirical
+role: empirical
 concepts:
   - sub-additive interaction
   - self-salience
@@ -17,6 +18,11 @@ concepts:
   - obligatory self-prioritization
 priority: 2026-03-30
 epistemic: moderate
+
+refutes:
+  - hypothesis-social-perceptual-independent-mechanisms
+dissociates-with:
+  - self-social-additive-perceptual
 
 belongings:
   - relation: requires

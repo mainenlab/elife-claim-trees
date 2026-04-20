@@ -8,6 +8,7 @@ claim: >
   percentage of spontaneous alternations in the Y-maze, indicating impairment in both
   spatial learning and spatial working memory, with long-term memory retention intact.
 claim-type: empirical
+role: empirical
 concepts:
   - cognitive function
   - spatial learning
@@ -17,6 +18,12 @@ concepts:
   - KCNC1
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-cognitive-deficits
+confirms:
+  - prediction-cognitive-deficits
+  - hypothesis-pv-dysfunction-drives-encephalopathy
 
 belongings:
   - relation: requires

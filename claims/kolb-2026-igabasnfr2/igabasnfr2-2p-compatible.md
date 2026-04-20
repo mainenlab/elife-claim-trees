@@ -5,6 +5,7 @@ doi: ~
 claim: >
   iGABASnFR2 has two-photon excitation spectra similar to its one-photon spectra and is compatible with two-photon imaging; both v2 sensors show reduced pH dependence compared to iGABASnFR1.
 claim-type: empirical
+role: methodological
 concepts:
   - iGABASnFR2
   - two-photon imaging
@@ -13,6 +14,13 @@ concepts:
   - photophysics
 priority: 2026-03-30
 epistemic: strong
+
+enables-method:
+  - igabasnfr2-retina-direction-selectivity
+  - igabasnfr2-single-bouton-hippocampus
+  - igabasnfr2-invivo-barrel-cortex
+dissociates-with:
+  - igabasnfr2-fourfold-sensitivity-gain
 
 belongings:
   - relation: supports

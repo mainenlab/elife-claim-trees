@@ -8,6 +8,7 @@ claim: >
   weight=0.86 pooled across N=140 participants), indicating that social salience changes absolute
   processing rates rather than merely redistributing attentional weights.
 claim-type: assessment
+role: methodological
 concepts:
   - TVA model comparison
   - processing capacity
@@ -15,6 +16,19 @@ concepts:
   - leave-one-out cross-validation
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-capacity-model-outperforms-weights-only
+confirms:
+  - hypothesis-capacity-mechanism-not-weights
+enables-method:
+  - self-prioritization-perceptual-decision-automatic
+  - self-prioritization-absent-social-decision
+  - processing-capacity-rises-perceptual-self
+  - other-association-advantage-social-condition
+  - perceptual-salience-6hz-advantage
+  - self-social-additive-perceptual
+  - self-salience-reduces-perceptual-benefit
 
 belongings: []
 

@@ -10,6 +10,7 @@ claim: >
   in attentional selection is an early, pre-conscious process distinct from later social
   cognition.
 claim-type: interpretive
+role: interpretation
 concepts:
   - self-prioritization
   - automatic processing
@@ -18,6 +19,13 @@ concepts:
   - social cognition
 priority: 2026-03-30
 epistemic: moderate
+
+interprets:
+  - self-prioritization-perceptual-decision-automatic
+  - self-prioritization-absent-social-decision
+  - other-association-advantage-social-condition
+confirms:
+  - hypothesis-self-association-alters-attentional-selection
 
 belongings:
   - relation: requires

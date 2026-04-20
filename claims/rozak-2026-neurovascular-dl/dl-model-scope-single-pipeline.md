@@ -5,6 +5,7 @@ doi: ~
 claim: >
   All neurovascular coupling metrics are derived from a single integrated deep learning pipeline (segmentation → registration → graph analysis); the segmentation model requires GPU inference and was trained on data from one imaging preparation (Thy1-ChR2-YFP mice, 6-12 months), so generalization to other preparations is not demonstrated in this paper.
 claim-type: assessment
+role: scope
 concepts:
   - pipeline scope
   - model generalization
@@ -12,6 +13,17 @@ concepts:
   - GPU requirement
 priority: 2026-03-30
 epistemic: moderate
+
+scopes:
+  - unetr-outperforms-ilastik-hd95
+  - novas3d-outperforms-ilastik
+  - registration-doubles-vessel-count
+  - radius-estimation-r2-0p68
+  - vessel-radius-heterogeneity-stimulation
+  - dilations-nearer-neurons-than-constrictions
+  - network-assortativity-increases-stimulation
+  - capillary-efficiency-increases-4pct
+  - novas3d-generalizes-qualitatively-ood
 
 belongings:
 []

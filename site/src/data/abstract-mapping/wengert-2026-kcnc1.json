@@ -1,0 +1,132 @@
+{
+  "paperSlug": "wengert-2026-kcnc1",
+  "abstract": "The recurrent pathogenic variant KCNC1-p.Ala421Val (A421V) is a cause of developmental and epileptic encephalopathy characterized by moderate-to-severe developmental delay/intellectual disability, and infantile-onset treatment-resistant epilepsy with multiple seizure types, including myoclonic seizures. Yet, the mechanistic basis of this disease, and of the KCNC1 disease spectrum, remains unclear. KCNC1 encodes Kv3.1, a voltage-gated potassium channel subunit that is strongly and selectively expressed in neurons capable of generating action potentials at high frequency, including parvalbumin-positive fast-spiking GABAergic inhibitory interneurons in cerebral cortex (PV-INs) that are known to be important for cognitive function and plasticity as well as control of network excitation to prevent seizures. In this study, we generate a novel transgenic mouse model with conditional expression of the A421V pathogenic missense variant (Kcnc1-A421V/+ mice) to explore the specific physiological mechanisms of KCNC1 developmental and epileptic encephalopathy. Our results indicate that global heterozygous expression of the A421V variant leads to cognitive impairment, epilepsy, and premature lethality. We observe decreased PV-IN cell surface expression of Kv3.1 via immunohistochemistry, decreased voltage-gated potassium current density in PV-INs using outside-out nucleated macropatch recordings in brain slice, and profound impairments in the intrinsic excitability of cerebral cortex PV-INs (but not excitatory neurons) via current-clamp electrophysiology. In vivo two-photon calcium imaging revealed altered activity in Kcnc1-A421V/+ PV-INs and excitatory cells, as well as hypersynchronous discharges correlated with brief paroxysmal movements that were subsequently shown to be myoclonic seizures on electroencephalography. We found alterations in PV-IN-mediated inhibitory neurotransmission in young adult but not juvenile Kcnc1-A421V/+ mice relative to wild-type controls. Together, these results establish the specific impact of the recurrent Kv3.1-A421V variant on neuronal excitability and synaptic physiology across development to drive network dysfunction underlying KCNC1 epileptic encephalopathy.",
+  "sentences": [
+    {
+      "n": 1,
+      "text": "The recurrent pathogenic variant KCNC1-p.Ala421Val (A421V) is a cause of developmental and epileptic encephalopathy characterized by moderate-to-severe developmental delay/intellectual disability, and infantile-onset treatment-resistant epilepsy with multiple seizure types, including myoclonic seizures.",
+      "type": "motivation",
+      "claims": [
+        "hypothesis-pv-dysfunction-drives-encephalopathy"
+      ],
+      "kind": "hypothesis",
+      "note": "Clinical-syndrome framing -- the paper's translational target. The DEE phenotype (developmental delay, intellectual disability, treatment-resistant epilepsy with myoclonic seizures) is what the disease-mechanism hypothesis must ultimately explain."
+    },
+    {
+      "n": 2,
+      "text": "Yet, the mechanistic basis of this disease, and of the KCNC1 disease spectrum, remains unclear.",
+      "type": "motivation",
+      "claims": [
+        "hypothesis-a421v-causes-kv31-lof",
+        "hypothesis-pv-dysfunction-drives-encephalopathy"
+      ],
+      "kind": "hypothesis",
+      "note": "Gap statement -- the molecular and cellular mechanism is unresolved. Motivates both the molecular hypothesis (A421V causes Kv3.1 LOF via trafficking deficit) and the disease-mechanism hypothesis (PV-IN failure drives DEE phenotype)."
+    },
+    {
+      "n": 3,
+      "text": "KCNC1 encodes Kv3.1, a voltage-gated potassium channel subunit that is strongly and selectively expressed in neurons capable of generating action potentials at high frequency, including parvalbumin-positive fast-spiking GABAergic inhibitory interneurons in cerebral cortex (PV-INs) that are known to be important for cognitive function and plasticity as well as control of network excitation to prevent seizures.",
+      "type": "motivation",
+      "claims": [
+        "hypothesis-pv-in-selective-vulnerability",
+        "hypothesis-pv-dysfunction-drives-encephalopathy"
+      ],
+      "kind": "hypothesis",
+      "note": "Background framing -- Kv3.1 expression pattern (selective in fast-spiking neurons, particularly cortical PV-INs) provides the prior justification for both the cell-type-specificity hypothesis (PV-INs vulnerable; excitatory neurons spared) and the disease-mechanism hypothesis (PV-IN failure reduces inhibition and yields seizures plus cognitive deficit)."
+    },
+    {
+      "n": 4,
+      "text": "In this study, we generate a novel transgenic mouse model with conditional expression of the A421V pathogenic missense variant (Kcnc1-A421V/+ mice) to explore the specific physiological mechanisms of KCNC1 developmental and epileptic encephalopathy.",
+      "type": "methods",
+      "claims": [
+        "scope-a421v-knockin-mouse",
+        "kcnc1-wet-lab-primary-claims"
+      ],
+      "kind": "methodological",
+      "note": "Method statement that commits to the experimental envelope: the novel Kcnc1-A421V/+ heterozygous knock-in mouse line, used in global heterozygous configuration via Actb-Cre, on C57BL/6J. Maps to the paradigm-scope claim and the assessment claim that all primary findings depend on this proprietary mouse colony."
+    },
+    {
+      "n": 5,
+      "text": "Our results indicate that global heterozygous expression of the A421V variant leads to cognitive impairment, epilepsy, and premature lethality.",
+      "type": "claim",
+      "claims": [
+        "a421v-spatial-learning-working-memory-impaired",
+        "spontaneous-seizures-and-sudep-kcnc1",
+        "a421v-mice-die-before-122d",
+        "prediction-cognitive-deficits",
+        "prediction-seizures-and-sudep",
+        "hypothesis-pv-dysfunction-drives-encephalopathy"
+      ],
+      "kind": "synthesis",
+      "note": "Headline three-part syndrome statement: cognitive impairment (Barnes maze + Y-maze deficits), epilepsy (spontaneous convulsive seizures), and premature lethality (all KI mice die before 122d). Each maps to the empirical claim that establishes it plus the prediction it confirms; together they confirm the disease-mechanism hypothesis."
+    },
+    {
+      "n": 6,
+      "text": "We observe decreased PV-IN cell surface expression of Kv3.1 via immunohistochemistry, decreased voltage-gated potassium current density in PV-INs using outside-out nucleated macropatch recordings in brain slice, and profound impairments in the intrinsic excitability of cerebral cortex PV-INs (but not excitatory neurons) via current-clamp electrophysiology.",
+      "type": "claim",
+      "claims": [
+        "a421v-kv31-membrane-trafficking-impaired",
+        "pv-ins-reduced-k-current-density",
+        "pv-ins-impaired-maximal-firing",
+        "pv-in-ap-waveform-altered-downstroke-apd50",
+        "excitatory-neurons-unaffected-juvenile",
+        "excitatory-neurons-unaffected-adult",
+        "prediction-kv31-surface-expression-reduced",
+        "prediction-pv-in-k-current-reduced",
+        "prediction-pv-in-firing-impaired",
+        "prediction-excitatory-neurons-spared",
+        "hypothesis-a421v-causes-kv31-lof",
+        "hypothesis-pv-in-selective-vulnerability"
+      ],
+      "kind": "direct",
+      "note": "The cellular-mechanism quartet: trafficking lesion (reduced membrane Kv3.1), K+ current loss (60% reduction), intrinsic excitability impairment (reduced max firing, altered AP waveform), and the cell-type-specificity control (excitatory neurons spared at both ages). Each empirical claim is paired with the prediction it tests and the parent hypothesis it confirms. The 'but not excitatory neurons' parenthetical is the key dissociation that licenses the cell-type-specificity attribution."
+    },
+    {
+      "n": 7,
+      "text": "In vivo two-photon calcium imaging revealed altered activity in Kcnc1-A421V/+ PV-INs and excitatory cells, as well as hypersynchronous discharges correlated with brief paroxysmal movements that were subsequently shown to be myoclonic seizures on electroencephalography.",
+      "type": "claim",
+      "claims": [
+        "in-vivo-pv-minus-transient-frequency-increased",
+        "in-vivo-hypersynchronous-discharges-mutant-only",
+        "spontaneous-seizures-and-sudep-kcnc1",
+        "prediction-network-hyperexcitability-in-vivo",
+        "prediction-seizures-and-sudep"
+      ],
+      "kind": "direct",
+      "note": "The in-vivo network signature: altered PV/excitatory cell activity (in-vivo-pv-minus-transient-frequency-increased), paroxysmal hypersynchronous discharges (mutant-only, 7/7 KI vs 0/5 WT), and the EEG cross-validation that those discharges are myoclonic seizures (subset of spontaneous-seizures-and-sudep-kcnc1). Maps to two predictions: the hyperexcitability prediction (confirmed by both calcium signatures) and the seizure prediction (confirmed by the EEG cross-classification)."
+    },
+    {
+      "n": 8,
+      "text": "We found alterations in PV-IN-mediated inhibitory neurotransmission in young adult but not juvenile Kcnc1-A421V/+ mice relative to wild-type controls.",
+      "type": "claim",
+      "claims": [
+        "pv-in-inhibitory-synapse-intact-juvenile",
+        "pv-in-inhibitory-synapse-altered-adult",
+        "inhibitory-dysfunction-progresses-to-adulthood",
+        "prediction-progressive-synaptic-failure"
+      ],
+      "kind": "direct",
+      "note": "The juvenile-vs-adult synaptic dissociation -- a refinement of the disease-mechanism hypothesis predicting that synaptic-level inhibitory failure is developmentally emergent rather than congenital. The juvenile-null + adult-positive pattern is the expected observation. The synthesis claim integrates the two empirical findings into the developmental-progression interpretation; the prediction is what set up the two-window design."
+    },
+    {
+      "n": 9,
+      "text": "Together, these results establish the specific impact of the recurrent Kv3.1-A421V variant on neuronal excitability and synaptic physiology across development to drive network dysfunction underlying KCNC1 epileptic encephalopathy.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-a421v-causes-kv31-lof",
+        "hypothesis-pv-in-selective-vulnerability",
+        "hypothesis-pv-dysfunction-drives-encephalopathy",
+        "inhibitory-dysfunction-progresses-to-adulthood"
+      ],
+      "kind": "synthesis",
+      "note": "Closing synthesis statement -- restates all three master hypotheses as confirmed: A421V is a Kv3.1 LOF, the impact is cell-type-specific (PV-INs), and PV-IN failure drives the network dysfunction underlying the encephalopathy. The 'across development' phrasing also references the developmental-progression synthesis."
+    }
+  ],
+  "orphanClaims": [
+    "a421v-weight-reduced-milestones-normal",
+    "layer-v-pv-ins-subtle-impairment",
+    "rtn-neurons-impaired-excitability",
+    "prediction-impairment-grades-with-kv31-dependence"
+  ],
+  "orphanSentences": []
+}

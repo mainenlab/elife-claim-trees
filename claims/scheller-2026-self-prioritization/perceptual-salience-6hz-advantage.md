@@ -8,6 +8,7 @@ claim: >
   in the salient stimulus rate [HDI95: 0.8 to 4.2 Hz] and a 3.4 Hz decrease in the
   non-salient stimulus rate [HDI95: -4.9 to -2.0 Hz].
 claim-type: empirical
+role: control
 concepts:
   - perceptual salience
   - processing rate advantage
@@ -16,6 +17,10 @@ concepts:
   - TVA
 priority: 2026-03-30
 epistemic: strong
+
+validates:
+  - self-social-additive-perceptual
+  - self-salience-reduces-perceptual-benefit
 
 belongings:
   - relation: supports

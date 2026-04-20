@@ -5,6 +5,7 @@ doi: ~
 claim: >
   A negative-going variant (iGABASnFR2n) achieves -2.2-fold ΔF/F with 10.3-fold increased responsive pixels, providing an alternative sensor with inverted fluorescence change direction for applications requiring negative-going signals.
 claim-type: empirical
+role: empirical
 concepts:
   - iGABASnFR2n
   - negative-going
@@ -13,6 +14,15 @@ concepts:
   - GABA sensor
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-screen-yields-multiple-improved-variants
+confirms:
+  - hypothesis-saturation-mutagenesis-yields-improved-sensor
+dissociates-with:
+  - igabasnfr2-fourfold-sensitivity-gain
+validates:
+  - igabasnfr2-fourfold-sensitivity-gain
 
 belongings:
 []

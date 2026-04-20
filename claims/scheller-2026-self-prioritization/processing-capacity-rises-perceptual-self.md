@@ -9,6 +9,7 @@ claim: >
   (0.53 Hz [HDI95: -1.4 to 2.5 Hz]), confirming the model selection favoring
   condition-specific capacity parameters.
 claim-type: empirical
+role: empirical
 concepts:
   - processing capacity
   - TVA C parameter
@@ -16,6 +17,9 @@ concepts:
   - absolute processing rates
 priority: 2026-03-30
 epistemic: moderate
+
+confirms:
+  - hypothesis-capacity-mechanism-not-weights
 
 belongings:
   - relation: requires

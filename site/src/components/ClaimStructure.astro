@@ -158,54 +158,6 @@ const sectionId = (slug: string) => `structure-${slug}`;
     </div>
   )}
 
-  {/* METHODOLOGICAL WARRANTS */}
-  {methodological.length > 0 && (
-    <details class="claim-section mb-10" open={foldOpen(methodological.length)}>
-      <summary class="claim-section-summary cursor-pointer select-none">
-        <h3 class="inline text-sm font-semibold text-gray-900 uppercase tracking-wide">
-          <span class="claim-section-chevron mr-1 text-gray-400">▸</span>Methodological warrants
-          <span class="ml-2 text-xs text-gray-400 font-normal">({methodological.length})</span>
-        </h3>
-      </summary>
-      <p class="text-xs text-gray-500 italic mt-2 mb-4 leading-relaxed max-w-3xl">
-        These methodological capabilities enable interpretation of downstream claims.
-      </p>
-      <div class="space-y-3">
-        {methodological.map(c => (
-          <div
-            id={`claim-card-${c.slug}`}
-            data-claim-slug={c.slug}
-            class="role-card p-4 rounded-lg border bg-white border-teal-200 hover:border-teal-400"
-          >
-            <div class="flex items-center gap-2 mb-2">
-              <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle.methodological}`}>METHODOLOGICAL</span>
-              {c.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{c.panel}</span>}
-            </div>
-            <a href={url(`/papers/${paperSlug}/${c.slug}`)} class="block no-underline">
-              <p class="text-sm text-gray-900 leading-snug mb-2">{claimText(c)}</p>
-            </a>
-            {(c['enables-method']?.length ?? 0) > 0 && (
-              <div class="text-xs text-gray-600 mt-2">
-                <span class="text-gray-500">Enables:</span>{' '}
-                {c['enables-method']!.map((s, i) => (
-                  <>
-                    {i > 0 && <span class="text-gray-400">, </span>}
-                    <a href={`#claim-card-${s}`} class="font-mono text-blue-600 hover:underline structure-xref" data-target-claim={s}>{s}</a>
-                  </>
-                ))}
-              </div>
-            )}
-            <div class="flex items-center gap-2 flex-wrap mt-3">
-              <span class={`text-xs px-1.5 py-0.5 rounded ${STATUS_TAILWIND[c.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[c.status] ?? c.status}</span>
-              <span class={`text-xs px-1.5 py-0.5 rounded ${EPISTEMIC_TAILWIND[c.epistemic] ?? 'bg-gray-50 text-gray-500'}`}>{c.epistemic}</span>
-              <span class="text-xs text-gray-400 ml-auto font-mono">{c.slug}</span>
-            </div>
-          </div>
-        ))}
-      </div>
-    </details>
-  )}
-
   {/* HYPOTHESES AND THEIR TESTS */}
   {hypotheses.length > 0 && (
     <details class="claim-section mb-10" open={true}>
@@ -606,6 +558,54 @@ const sectionId = (slug: string) => `structure-${slug}`;
           </div>
           );
         })}
+      </div>
+    </details>
+  )}
+
+  {/* METHODOLOGICAL WARRANTS */}
+  {methodological.length > 0 && (
+    <details class="claim-section mb-10" open={foldOpen(methodological.length)}>
+      <summary class="claim-section-summary cursor-pointer select-none">
+        <h3 class="inline text-sm font-semibold text-gray-900 uppercase tracking-wide">
+          <span class="claim-section-chevron mr-1 text-gray-400">▸</span>Methodological warrants
+          <span class="ml-2 text-xs text-gray-400 font-normal">({methodological.length})</span>
+        </h3>
+      </summary>
+      <p class="text-xs text-gray-500 italic mt-2 mb-4 leading-relaxed max-w-3xl">
+        These methodological capabilities enable interpretation of downstream claims.
+      </p>
+      <div class="space-y-3">
+        {methodological.map(c => (
+          <div
+            id={`claim-card-${c.slug}`}
+            data-claim-slug={c.slug}
+            class="role-card p-4 rounded-lg border bg-white border-teal-200 hover:border-teal-400"
+          >
+            <div class="flex items-center gap-2 mb-2">
+              <span class={`text-[10px] font-semibold uppercase tracking-wider px-1.5 py-0.5 rounded border ${roleStyle.methodological}`}>METHODOLOGICAL</span>
+              {c.panel && <span class="text-[10px] text-gray-500 uppercase tracking-wider">{c.panel}</span>}
+            </div>
+            <a href={url(`/papers/${paperSlug}/${c.slug}`)} class="block no-underline">
+              <p class="text-sm text-gray-900 leading-snug mb-2">{claimText(c)}</p>
+            </a>
+            {(c['enables-method']?.length ?? 0) > 0 && (
+              <div class="text-xs text-gray-600 mt-2">
+                <span class="text-gray-500">Enables:</span>{' '}
+                {c['enables-method']!.map((s, i) => (
+                  <>
+                    {i > 0 && <span class="text-gray-400">, </span>}
+                    <a href={`#claim-card-${s}`} class="font-mono text-blue-600 hover:underline structure-xref" data-target-claim={s}>{s}</a>
+                  </>
+                ))}
+              </div>
+            )}
+            <div class="flex items-center gap-2 flex-wrap mt-3">
+              <span class={`text-xs px-1.5 py-0.5 rounded ${STATUS_TAILWIND[c.status] ?? 'bg-gray-50 text-gray-500'}`}>{STATUS_LABEL[c.status] ?? c.status}</span>
+              <span class={`text-xs px-1.5 py-0.5 rounded ${EPISTEMIC_TAILWIND[c.epistemic] ?? 'bg-gray-50 text-gray-500'}`}>{c.epistemic}</span>
+              <span class="text-xs text-gray-400 ml-auto font-mono">{c.slug}</span>
+            </div>
+          </div>
+        ))}
       </div>
     </details>
   )}

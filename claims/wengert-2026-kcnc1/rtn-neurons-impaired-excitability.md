@@ -8,6 +8,7 @@ claim: >
   and show attenuated frequency-current relationship (*p=0.0109), with significantly
   reduced AP downstroke velocity (*p=0.034) but preservation of other membrane properties.
 claim-type: empirical
+role: empirical
 concepts:
   - reticular thalamic nucleus
   - RTN
@@ -17,6 +18,12 @@ concepts:
   - excitability
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-impairment-grades-with-kv31-dependence
+confirms:
+  - prediction-impairment-grades-with-kv31-dependence
+  - hypothesis-pv-in-selective-vulnerability
 
 belongings:
   - relation: extends

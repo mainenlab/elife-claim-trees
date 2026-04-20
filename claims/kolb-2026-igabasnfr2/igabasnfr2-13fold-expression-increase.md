@@ -5,6 +5,7 @@ doi: ~
 claim: >
   iGABASnFR2 shows a 13.1-fold increase in responsive pixels (expression-weighted response) compared to iGABASnFR1, indicating both improved sensitivity and membrane trafficking.
 claim-type: empirical
+role: empirical
 concepts:
   - iGABASnFR2
   - expression
@@ -12,6 +13,11 @@ concepts:
   - membrane trafficking
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-screen-yields-multiple-improved-variants
+confirms:
+  - hypothesis-saturation-mutagenesis-yields-improved-sensor
 
 belongings:
 []

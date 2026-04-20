@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Vessel radius adjustments during optogenetic stimulation show 24 ± 28% variation relative to resting diameter, with dilations averaging 16.1 ± 14.3 µm and constrictions averaging 21.9 ± 14.6 µm relative to nearby neurons.
 claim-type: empirical
+role: empirical
 concepts:
   - vessel radius
   - dilation
@@ -13,6 +14,11 @@ concepts:
   - heterogeneity
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-pipeline-reveals-network-coordination
+confirms:
+  - hypothesis-network-level-nvc-coordination
 
 belongings:
   - relation: requires

@@ -1,0 +1,108 @@
+{
+  "paperSlug": "rozak-2026-neurovascular-dl",
+  "abstract": "Functional hyperemia is a well-established hallmark of healthy brain function, whereby local brain blood flow adjusts in response to a change in the activity of the surrounding neurons. Although functional hyperemia has been extensively studied at the level of both tissue and individual vessels, vascular network-level coordination remains largely unknown. To bridge this gap, we developed a deep learning-based pipeline that uses two-photon fluorescence microscopy images of cerebral microcirculation to enable automated reconstruction and quantification of the geometric changes across the microvascular network, comprising hundreds of interconnected blood vessels, pre and post-activation of the neighboring neurons. The pipeline’s utility was demonstrated in the Thy1-ChR2 optogenetic mouse model, where we observed network-wide vessel radius changes to depend on the photostimulation intensity, with both dilations and constrictions occurring across the cortical depth, at an average of 16.1±14.3 μm (mean ± SD) away from the most proximal neuron for dilations; and at 21.9±14.6 μm away for constrictions. We observed a significant heterogeneity of the vascular radius changes within vessels, with radius adjustment varying by an average of 24 ± 28% of the resting diameter, likely reflecting the heterogeneity of the distribution of contractile cells on the vessel walls. A graph theory-based network analysis revealed that the assortativity of adjacent blood vessel responses rose by 152 ± 65% at 4.3 mW/mm² of blue photostimulation vs. the control, with a 4% median increase in the efficiency of the capillary networks during this level of blue photostimulation in relation to the baseline. Interrogating individual vessels is thus not sufficient to predict how the blood flow is modulated in the network. Our pipeline, enables tracking of the microvascular network geometry over time, relating caliber adjustments to vessel wall-associated cells’ state, and mapping network-level flow distribution impairments in experimental models of disease.",
+  "sentences": [
+    {
+      "n": 1,
+      "text": "Functional hyperemia is a well-established hallmark of healthy brain function, whereby local brain blood flow adjusts in response to a change in the activity of the surrounding neurons.",
+      "type": "motivation",
+      "claims": [],
+      "kind": null,
+      "note": "Background framing -- functional hyperemia as the long-known phenomenon being studied. Not itself a claim of this paper."
+    },
+    {
+      "n": 2,
+      "text": "Although functional hyperemia has been extensively studied at the level of both tissue and individual vessels, vascular network-level coordination remains largely unknown.",
+      "type": "motivation",
+      "claims": [
+        "hypothesis-network-level-nvc-coordination"
+      ],
+      "kind": "hypothesis",
+      "note": "Problem statement that motivates the biological hypothesis -- the gap between single-vessel and network-level understanding is real and worth attacking with a network-resolving pipeline."
+    },
+    {
+      "n": 3,
+      "text": "To bridge this gap, we developed a deep learning-based pipeline that uses two-photon fluorescence microscopy images of cerebral microcirculation to enable automated reconstruction and quantification of the geometric changes across the microvascular network, comprising hundreds of interconnected blood vessels, pre and post-activation of the neighboring neurons.",
+      "type": "methods",
+      "claims": [
+        "hypothesis-dl-pipeline-enables-network-nvc",
+        "scope-pipeline-and-application-paper",
+        "novas3d-single-preparation-scope",
+        "dl-model-scope-single-pipeline",
+        "novas3d-outperforms-ilastik",
+        "registration-doubles-vessel-count",
+        "radius-estimation-r2-0p68",
+        "prediction-pipeline-outperforms-baselines"
+      ],
+      "kind": "methodological",
+      "note": "Method statement -- the engineering hypothesis (DL pipeline can do this), the design-envelope scope claims, the methodological/control benchmark claims that constitute the pipeline (segmentation, registration, radius), and the operationalised baseline-comparison prediction."
+    },
+    {
+      "n": 4,
+      "text": "The pipeline’s utility was demonstrated in the Thy1-ChR2 optogenetic mouse model, where we observed network-wide vessel radius changes to depend on the photostimulation intensity, with both dilations and constrictions occurring across the cortical depth, at an average of 16.1±14.3 μm (mean ± SD) away from the most proximal neuron for dilations; and at 21.9±14.6 μm away for constrictions.",
+      "type": "claim",
+      "claims": [
+        "vessel-radius-heterogeneity-stimulation",
+        "dilations-nearer-neurons-than-constrictions",
+        "constrictions-deeper-than-dilations",
+        "prediction-pipeline-reveals-network-coordination"
+      ],
+      "kind": "direct",
+      "note": "Three quantitative biology headlines: (a) intensity-dependent network-wide radius changes (vessel-radius-heterogeneity-stimulation), (b) the 16.1 vs 21.9 micrometre dilation/constriction-to-neuron gradient (dilations-nearer-neurons-than-constrictions), and (c) the cortical-depth segregation across stim conditions (constrictions-deeper-than-dilations). Together these constitute the operational test of the network-coordination prediction."
+    },
+    {
+      "n": 5,
+      "text": "We observed a significant heterogeneity of the vascular radius changes within vessels, with radius adjustment varying by an average of 24 ± 28% of the resting diameter, likely reflecting the heterogeneity of the distribution of contractile cells on the vessel walls.",
+      "type": "claim",
+      "claims": [
+        "baseline-intra-vessel-radius-varies-24pct",
+        "vessel-radius-heterogeneity-stimulation",
+        "synthesis-individual-vessel-measurements-insufficient"
+      ],
+      "kind": "direct",
+      "note": "The 24 +- 28% within-vessel heterogeneity finding -- the most direct mechanistic argument against point-caliber sufficiency. Maps to the baseline-heterogeneity claim and contributes to the closing synthesis."
+    },
+    {
+      "n": 6,
+      "text": "A graph theory-based network analysis revealed that the assortativity of adjacent blood vessel responses rose by 152 ± 65% at 4.3 mW/mm² of blue photostimulation vs. the control, with a 4% median increase in the efficiency of the capillary networks during this level of blue photostimulation in relation to the baseline.",
+      "type": "claim",
+      "claims": [
+        "network-assortativity-increases-stimulation",
+        "capillary-efficiency-increases-4pct",
+        "blue-light-dilations-exceed-green-control"
+      ],
+      "kind": "direct",
+      "note": "Two graph-theoretic headlines (assortativity, efficiency) plus the implicit blue-vs-green control on which both rest. The 152 +- 65% assortativity rise and 4% median efficiency increase are the load-bearing network metrics; the 'vs. the control' phrase commits to the 552 nm green-light comparator."
+    },
+    {
+      "n": 7,
+      "text": "Interrogating individual vessels is thus not sufficient to predict how the blood flow is modulated in the network.",
+      "type": "claim",
+      "claims": [
+        "synthesis-individual-vessel-measurements-insufficient",
+        "hypothesis-network-level-nvc-coordination"
+      ],
+      "kind": "synthesis",
+      "note": "The abstract's load-bearing closing assertion -- the synthesis claim that point-caliber measurements miss the coordinated network structure. Restates the biological hypothesis as confirmed."
+    },
+    {
+      "n": 8,
+      "text": "Our pipeline, enables tracking of the microvascular network geometry over time, relating caliber adjustments to vessel wall-associated cells’ state, and mapping network-level flow distribution impairments in experimental models of disease.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-dl-pipeline-enables-network-nvc",
+        "scope-pipeline-and-application-paper"
+      ],
+      "kind": "synthesis",
+      "note": "Closing tool-utility statement -- restates the engineering hypothesis as confirmed and gestures at downstream applications. The 'experimental models of disease' clause is explicitly out of scope for this paper (see scope-pipeline-and-application-paper); the abstract here is forecasting future use, not claiming current demonstration."
+    }
+  ],
+  "orphanClaims": [
+    "unetr-outperforms-ilastik-hd95",
+    "artery-dilates-venule-unchanged-at-low-power",
+    "wt-controls-no-blue-green-difference",
+    "novas3d-generalizes-qualitatively-ood",
+    "responder-threshold-2sd-untested"
+  ],
+  "orphanSentences": []
+}

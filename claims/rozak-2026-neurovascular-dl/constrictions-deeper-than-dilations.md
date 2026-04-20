@@ -7,6 +7,7 @@ claim: >
   capillaries following 458 nm optogenetic stimulation at 4.3 mW/mm² (p<1e-4), with dilators
   tending toward the cortical surface across all stimulation conditions.
 claim-type: empirical
+role: empirical
 concepts:
   - cortical depth
   - capillary dilation
@@ -15,6 +16,13 @@ concepts:
   - neurovascular coupling
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-pipeline-reveals-network-coordination
+confirms:
+  - hypothesis-network-level-nvc-coordination
+dissociates-with:
+  - dilations-nearer-neurons-than-constrictions
 
 belongings:
   - relation: requires

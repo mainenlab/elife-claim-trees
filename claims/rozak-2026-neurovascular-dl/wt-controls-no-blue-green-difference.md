@@ -8,6 +8,7 @@ claim: >
   that vascular responses in Thy1-ChR2 mice are ChR2-specific and not attributable to
   photothermal or non-specific light effects.
 claim-type: empirical
+role: control
 concepts:
   - wild-type control
   - ChR2 specificity
@@ -16,6 +17,11 @@ concepts:
   - negative control
 priority: 2026-03-30
 epistemic: moderate
+
+validates:
+  - blue-light-dilations-exceed-green-control
+  - dilations-nearer-neurons-than-constrictions
+  - constrictions-deeper-than-dilations
 
 belongings:
   - relation: supports

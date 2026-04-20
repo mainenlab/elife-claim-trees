@@ -5,6 +5,7 @@ doi: ~
 claim: >
   At 10 action potentials (83 Hz), iGABASnFR2 has a rise time constant of 43 ± 9 ms (faster than iGABASnFR1's 61 ± 13 ms) and a decay time constant of 73 ± 26 ms (slower than iGABASnFR1's 62 ± 29 ms), while iGABASnFR2n has a substantially slower rise time of 72 ± 8 ms.
 claim-type: empirical
+role: empirical
 concepts:
   - iGABASnFR2
   - kinetics
@@ -13,6 +14,11 @@ concepts:
   - iGABASnFR2n
 priority: 2026-03-30
 epistemic: strong
+
+confirms:
+  - hypothesis-saturation-mutagenesis-yields-improved-sensor
+dissociates-with:
+  - igabasnfr2-fourfold-sensitivity-gain
 
 belongings:
   - relation: supports

@@ -9,6 +9,7 @@ claim: >
   BF10 = 16.93): individuals who show stronger automatic self-prioritization at the
   perceptual level show less facilitation of self-associated information at the social level.
 claim-type: empirical
+role: empirical
 concepts:
   - individual differences
   - decisional dimension
@@ -17,6 +18,11 @@ concepts:
   - self-prioritization
 priority: 2026-03-30
 epistemic: moderate
+
+confirms:
+  - hypothesis-self-association-alters-attentional-selection
+dissociates-with:
+  - spe-matching-correlates-social-decision
 
 belongings:
   - relation: requires

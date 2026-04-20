@@ -5,6 +5,7 @@ doi: ~
 claim: >
   The NOVAS3D deep learning segmentation pipeline (UNet/UNETR) achieves significantly higher Dice scores and precision/recall for volumetric vessel segmentation than the baseline ilastik classifier on the deposited two-photon microscopy test dataset.
 claim-type: empirical
+role: control
 concepts:
   - NOVAS3D
   - UNet
@@ -14,6 +15,16 @@ concepts:
   - ilastik baseline
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-pipeline-outperforms-baselines
+confirms:
+  - hypothesis-dl-pipeline-enables-network-nvc
+enables-method:
+  - vessel-radius-heterogeneity-stimulation
+  - dilations-nearer-neurons-than-constrictions
+  - network-assortativity-increases-stimulation
+  - capillary-efficiency-increases-4pct
 
 belongings:
   - relation: extends

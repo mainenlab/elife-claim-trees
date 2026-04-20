@@ -7,7 +7,8 @@ claim: >
   identified vessel segments per FOV from 241±174 (single time point) to 412±281 (union across
   all time points; 507×507×250 µm, n=107 FOVs), while reducing mean squared error between
   acquisitions from 1306±747 to 0.008±0.003 signal units.
-claim-type: empirical
+claim-type: methodological
+role: methodological
 concepts:
   - image registration
   - vessel extraction
@@ -16,6 +17,14 @@ concepts:
   - capillary gap
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-pipeline-outperforms-baselines
+confirms:
+  - hypothesis-dl-pipeline-enables-network-nvc
+enables-method:
+  - network-assortativity-increases-stimulation
+  - capillary-efficiency-increases-4pct
 
 belongings:
   - relation: supports

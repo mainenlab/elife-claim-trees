@@ -5,6 +5,7 @@ doi: ~
 claim: >
   GABA binding to iGABASnFR2 closes the Venus flytrap lobes of the Pf622 domain but produces negligible conformational change in cpGFP and its flanking linkers (RMSD 0.25 Å), contrasting with the large cpGFP interface rearrangement seen in GCaMP upon calcium binding.
 claim-type: empirical
+role: interpretation
 concepts:
   - iGABASnFR2
   - crystal structure
@@ -14,6 +15,11 @@ concepts:
   - allosteric mechanism
 priority: 2026-03-30
 epistemic: strong
+
+interprets:
+  - crystal-structure-pdb-9d57
+dissociates-with:
+  - igabasnfr2-fourfold-sensitivity-gain
 
 belongings:
   - relation: supports

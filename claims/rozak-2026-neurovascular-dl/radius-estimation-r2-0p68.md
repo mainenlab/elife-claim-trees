@@ -7,7 +7,8 @@ claim: >
   simulated radii across >100,000 simulations spanning 0.5×–2× dilation/constriction, and
   remains stable under Gaussian noise up to a standard deviation of 200 signal units (image
   range 0–1023 SU).
-claim-type: empirical
+claim-type: methodological
+role: methodological
 concepts:
   - radius estimation
   - boundary detection
@@ -16,6 +17,19 @@ concepts:
   - R-squared
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-pipeline-outperforms-baselines
+validates:
+  - vessel-radius-heterogeneity-stimulation
+  - baseline-intra-vessel-radius-varies-24pct
+  - dilations-nearer-neurons-than-constrictions
+enables-method:
+  - vessel-radius-heterogeneity-stimulation
+  - network-assortativity-increases-stimulation
+  - capillary-efficiency-increases-4pct
+confirms:
+  - hypothesis-dl-pipeline-enables-network-nvc
 
 belongings:
   - relation: supports

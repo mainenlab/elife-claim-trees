@@ -9,6 +9,7 @@ claim: >
   transient amplitude is reduced (mean 0.40 vs 0.48 dF/F0), consistent with decreased
   perisomatic inhibition in vivo.
 claim-type: empirical
+role: empirical
 concepts:
   - in vivo calcium imaging
   - PV interneurons
@@ -18,6 +19,12 @@ concepts:
   - perisomatic inhibition
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-network-hyperexcitability-in-vivo
+confirms:
+  - prediction-network-hyperexcitability-in-vivo
+  - hypothesis-pv-dysfunction-drives-encephalopathy
 
 belongings:
   - relation: supports

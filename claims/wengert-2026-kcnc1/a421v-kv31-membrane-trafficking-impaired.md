@@ -8,6 +8,7 @@ claim: >
   (n=48 vs n=49 cells, N=5 vs N=6 mice), indicating that impaired trafficking to the
   cell surface contributes to the loss of K+ current density.
 claim-type: empirical
+role: empirical
 concepts:
   - Kv3.1
   - membrane trafficking
@@ -16,6 +17,12 @@ concepts:
   - subcellular localization
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-kv31-surface-expression-reduced
+confirms:
+  - prediction-kv31-surface-expression-reduced
+  - hypothesis-a421v-causes-kv31-lof
 
 belongings:
   - relation: supports

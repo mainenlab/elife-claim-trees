@@ -8,6 +8,7 @@ claim: >
   baseline in the social decision condition, replicating the cross-experimental finding
   that social decoding context reverses or eliminates the self-advantage.
 claim-type: empirical
+role: empirical
 concepts:
   - other-association advantage
   - social decision condition
@@ -16,6 +17,13 @@ concepts:
   - TVA processing rates
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-self-advantage-attenuated-social-decision
+confirms:
+  - hypothesis-self-association-alters-attentional-selection
+validates:
+  - self-prioritization-absent-social-decision
 
 belongings:
   - relation: requires

@@ -8,6 +8,7 @@ claim: >
   vessels with high recall (0.89±0.19) but low precision (0.37±0.33), evaluated on nine test
   images (507×507×250 µm) from six held-out mice.
 claim-type: empirical
+role: control
 concepts:
   - UNETR
   - ilastik
@@ -18,6 +19,13 @@ concepts:
   - recall
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-pipeline-outperforms-baselines
+confirms:
+  - hypothesis-dl-pipeline-enables-network-nvc
+dissociates-with:
+  - novas3d-outperforms-ilastik
 
 belongings:
   - relation: requires

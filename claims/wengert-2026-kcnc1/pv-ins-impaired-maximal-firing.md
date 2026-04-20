@@ -5,6 +5,7 @@ doi: ~
 claim: >
   PV-INs from Kcnc1-A421V/+ mice exhibit impaired maximal firing frequency in patch-clamp recordings compared to wild-type, consistent with Kv3.1 loss-of-function reducing the fast repolarization that enables high-frequency firing.
 claim-type: empirical
+role: empirical
 concepts:
   - Kv3.1
   - maximal firing frequency
@@ -13,6 +14,14 @@ concepts:
   - fast-spiking
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-pv-in-firing-impaired
+confirms:
+  - prediction-pv-in-firing-impaired
+  - hypothesis-pv-in-selective-vulnerability
+dissociates-with:
+  - excitatory-neurons-unaffected-juvenile
 
 belongings: []
 

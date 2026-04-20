@@ -8,6 +8,7 @@ claim: >
   illumination (0.58±0.92 µm; p<1e-4), confirming that the vascular responses are
   ChR2-mediated rather than photothermal artifacts.
 claim-type: empirical
+role: control
 concepts:
   - ChR2 specificity
   - optogenetic control
@@ -16,6 +17,15 @@ concepts:
   - neurovascular coupling
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-pipeline-reveals-network-coordination
+validates:
+  - dilations-nearer-neurons-than-constrictions
+  - constrictions-deeper-than-dilations
+  - vessel-radius-heterogeneity-stimulation
+  - network-assortativity-increases-stimulation
+  - capillary-efficiency-increases-4pct
 
 belongings:
   - relation: requires

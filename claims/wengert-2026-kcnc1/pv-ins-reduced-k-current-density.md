@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Parvalbumin-positive interneurons (PV-INs) in Kcnc1-A421V/+ mice show significantly reduced potassium current density in whole-cell patch-clamp recordings, consistent with loss-of-function of Kv3.1 channel.
 claim-type: empirical
+role: empirical
 concepts:
   - Kv3.1
   - potassium current
@@ -13,6 +14,12 @@ concepts:
   - loss-of-function
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-pv-in-k-current-reduced
+confirms:
+  - prediction-pv-in-k-current-reduced
+  - hypothesis-a421v-causes-kv31-lof
 
 belongings: []
 

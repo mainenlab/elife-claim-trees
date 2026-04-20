@@ -8,6 +8,7 @@ claim: >
   (Fischer rat), and a different microscope modality (light-sheet fluorescence microscopy,
   Miltenyi UltraMicroscope Blaze), without retraining.
 claim-type: empirical
+role: empirical
 concepts:
   - model generalization
   - out-of-distribution
@@ -16,6 +17,9 @@ concepts:
   - light-sheet microscopy
 priority: 2026-03-30
 epistemic: weak
+
+confirms:
+  - hypothesis-dl-pipeline-enables-network-nvc
 
 belongings:
   - relation: extends

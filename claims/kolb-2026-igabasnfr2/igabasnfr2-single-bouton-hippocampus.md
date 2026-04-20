@@ -5,6 +5,7 @@ doi: ~
 claim: >
   iGABASnFR2 detects GABA release from individual hippocampal interneuron axonal boutons using Tornado scanning two-photon microscopy; iGABASnFR1 failed to produce any detectable spike-evoked fluorescence signal across 15 trials in five separate experiments.
 claim-type: empirical
+role: empirical
 concepts:
   - iGABASnFR2
   - hippocampus
@@ -14,6 +15,13 @@ concepts:
   - interneuron
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-improved-sensor-enables-new-measurements
+confirms:
+  - hypothesis-improved-sensor-enables-new-biology
+dissociates-with:
+  - igabasnfr2-retina-direction-selectivity
 
 belongings:
   - relation: supports

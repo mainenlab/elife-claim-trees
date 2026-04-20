@@ -5,6 +5,7 @@ doi: ~
 claim: >
   iGABASnFR2 expressed on the surface of cultured neurons has an on-cell EC50 of 6.4 ± 0.21 μM for GABA, representing a sevenfold higher affinity than iGABASnFR1 (EC50 ~45 μM on-cell) while remaining above the tonic extracellular GABA concentration range of 0.2–2.5 μM in the mammalian brain.
 claim-type: empirical
+role: empirical
 concepts:
   - iGABASnFR2
   - GABA affinity
@@ -13,6 +14,11 @@ concepts:
   - tonic GABA
 priority: 2026-03-30
 epistemic: strong
+
+confirms:
+  - hypothesis-saturation-mutagenesis-yields-improved-sensor
+dissociates-with:
+  - igabasnfr2-fourfold-sensitivity-gain
 
 belongings:
   - relation: supports

@@ -8,6 +8,7 @@ claim: >
   perceptually salient other-associated stimuli, perceptual salience dominates
   (BFinclusion = 4638.74), with social salience having a weaker role.
 claim-type: empirical
+role: synthesis
 concepts:
   - Bayesian model selection
   - self vs other association
@@ -16,6 +17,10 @@ concepts:
   - attentional prediction
 priority: 2026-03-30
 epistemic: moderate
+
+interprets:
+  - self-salience-reduces-perceptual-benefit
+  - self-social-additive-perceptual
 
 belongings:
   - relation: requires

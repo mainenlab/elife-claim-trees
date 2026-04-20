@@ -8,6 +8,7 @@ claim: >
   away (4.3 mW/mm²; p<1e-4), and this spatial segregation is absent under control 552 nm
   illumination.
 claim-type: empirical
+role: empirical
 concepts:
   - neurovascular coupling
   - spatial gradient
@@ -17,6 +18,14 @@ concepts:
   - ChR2 optogenetics
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-pipeline-reveals-network-coordination
+confirms:
+  - hypothesis-network-level-nvc-coordination
+  - synthesis-individual-vessel-measurements-insufficient
+dissociates-with:
+  - constrictions-deeper-than-dilations
 
 belongings:
   - relation: requires

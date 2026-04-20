@@ -8,6 +8,7 @@ claim: >
   4 seizure-induced sudden death events are captured, each preceded by a generalized
   tonic-clonic seizure with hindlimb extension, recapitulating SUDEP in human KCNC1 DEE.
 claim-type: empirical
+role: empirical
 concepts:
   - spontaneous seizures
   - SUDEP
@@ -17,6 +18,14 @@ concepts:
   - epileptic encephalopathy
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-seizures-and-sudep
+confirms:
+  - prediction-seizures-and-sudep
+  - hypothesis-pv-dysfunction-drives-encephalopathy
+interprets:
+  - a421v-mice-die-before-122d
 
 belongings:
   - relation: supports

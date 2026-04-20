@@ -1,0 +1,89 @@
+{
+  "paperSlug": "scheller-2026-self-prioritization",
+  "abstract": "Efficiently processing self-related information is critical for cognition, yet the earliest mechanisms enabling this self-prioritization in humans remain unclear. By combining a temporal order judgement task with computational modeling based on the Theory of Visual Attention (TVA), we show how mere, arbitrary associations with the self can fundamentally alter attentional selection of sensory information into aware short-term memory, by enhancing the attentional weights and processing capacity devoted to encoding socially loaded information. This self-prioritization in attentional selection occurs automatically at early perceptual stages but reduces when active social decoding is required. Importantly, the processing benefits obtained from attentional selection via self-relatedness and via physical salience were additive, suggesting that social and perceptual salience captured attention via separate mechanisms. Furthermore, intra-individual correlations revealed an ‘obligatory’ self-prioritization effect, whereby self-relatedness overpowered the contribution of perceptual salience in guiding attentional selection. Together, our findings provide evidence for the influence of self-relatedness during earlier, automatic stages of attentional selection at the gateway to perception, distinct from later post-attentive processing stages.",
+  "sentences": [
+    {
+      "n": 1,
+      "text": "Efficiently processing self-related information is critical for cognition, yet the earliest mechanisms enabling this self-prioritization in humans remain unclear.",
+      "type": "motivation",
+      "claims": [
+        "hypothesis-self-association-alters-attentional-selection"
+      ],
+      "kind": "hypothesis",
+      "note": "Background framing -- self-prioritization is a known phenomenon whose early mechanisms are unresolved. Motivates the master biological hypothesis that self-association acts as an automatic salience signal at the perceptual feature level."
+    },
+    {
+      "n": 2,
+      "text": "By combining a temporal order judgement task with computational modeling based on the Theory of Visual Attention (TVA), we show how mere, arbitrary associations with the self can fundamentally alter attentional selection of sensory information into aware short-term memory, by enhancing the attentional weights and processing capacity devoted to encoding socially loaded information.",
+      "type": "methods",
+      "claims": [
+        "scope-toj-tva-paradigm",
+        "hypothesis-self-association-alters-attentional-selection",
+        "hypothesis-capacity-mechanism-not-weights",
+        "tva-capacity-model-wins",
+        "processing-capacity-rises-perceptual-self",
+        "self-prioritization-perceptual-decision-automatic"
+      ],
+      "kind": "methodological",
+      "note": "Method statement that simultaneously commits to (a) the TOJ + TVA paradigm scope, (b) the master self-association hypothesis, (c) the capacity-mechanism hypothesis (the 'enhancing the attentional weights and processing capacity' phrase commits to both w and C changes), (d) the LOO model-comparison verdict that licenses the indiv-C framework, and (e) the headline rate increases for self-associated stimuli."
+    },
+    {
+      "n": 3,
+      "text": "This self-prioritization in attentional selection occurs automatically at early perceptual stages but reduces when active social decoding is required.",
+      "type": "claim",
+      "claims": [
+        "self-prioritization-automatic-early",
+        "self-prioritization-perceptual-decision-automatic",
+        "self-prioritization-absent-social-decision",
+        "other-association-advantage-social-condition",
+        "prediction-self-advantage-perceptual-decision",
+        "prediction-self-advantage-attenuated-social-decision"
+      ],
+      "kind": "synthesis",
+      "note": "The headline two-part dissociation: automatic at perceptual stage (Exp 1 perceptual condition self-advantage), reduced under social decoding (Exp 1 social condition + Exp 2 other-advantage replication). Maps to the integrative interpretation claim plus all three component empirical claims and both predictions that operationalised the dissociation."
+    },
+    {
+      "n": 4,
+      "text": "Importantly, the processing benefits obtained from attentional selection via self-relatedness and via physical salience were additive, suggesting that social and perceptual salience captured attention via separate mechanisms.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-social-perceptual-independent-mechanisms",
+        "prediction-additive-effects-other-associated",
+        "self-social-additive-perceptual",
+        "social-perceptual-salience-independent-streams",
+        "perceptual-salience-6hz-advantage"
+      ],
+      "kind": "direct",
+      "note": "The independence claim. The 'additive' wording corresponds to the other-associated factorial result (interaction term near zero); the abstract elides the self-associated sub-additivity that qualifies this claim (next sentence is where the qualification appears). Includes the perceptual-salience baseline as the validating control on the perceptual side of the factorial."
+    },
+    {
+      "n": 5,
+      "text": "Furthermore, intra-individual correlations revealed an ‘obligatory’ self-prioritization effect, whereby self-relatedness overpowered the contribution of perceptual salience in guiding attentional selection.",
+      "type": "claim",
+      "claims": [
+        "self-salience-reduces-perceptual-benefit",
+        "self-salience-dominates-other-associated",
+        "decisional-dimension-tradeoff",
+        "spe-matching-correlates-social-decision"
+      ],
+      "kind": "direct",
+      "note": "The 'obligatory' qualifier on the independence claim -- the sub-additive interaction for self-associated stimuli (self-salience-reduces-perceptual-benefit) plus the BFinclusion asymmetry (self-salience-dominates-other-associated) plus the cross-individual correlations (decisional-dimension-tradeoff, spe-matching-correlates-social-decision)."
+    },
+    {
+      "n": 6,
+      "text": "Together, our findings provide evidence for the influence of self-relatedness during earlier, automatic stages of attentional selection at the gateway to perception, distinct from later post-attentive processing stages.",
+      "type": "claim",
+      "claims": [
+        "self-prioritization-automatic-early",
+        "hypothesis-self-association-alters-attentional-selection"
+      ],
+      "kind": "synthesis",
+      "note": "Closing synthesis statement -- restates the master hypothesis as confirmed and locates the effect at the early/automatic stage rather than at later post-attentive processing. Maps to the integrative interpretation claim and to the master hypothesis itself."
+    }
+  ],
+  "orphanClaims": [
+    "spe-robust-matching-both-experiments",
+    "prediction-capacity-model-outperforms-weights-only"
+  ],
+  "orphanSentences": []
+}

@@ -5,6 +5,7 @@ doi: ~
 claim: >
   The crystal structure of iGABASnFR2 is deposited at the Protein Data Bank (accession 9D57), providing atomic-resolution structural information on the binding pocket and cpGFP domain arrangement.
 claim-type: existence
+role: methodological
 concepts:
   - crystal structure
   - PDB
@@ -13,6 +14,9 @@ concepts:
   - cpGFP
 priority: 2026-03-30
 epistemic: strong
+
+enables-method:
+  - igabasnfr2-cpgfp-rigid-on-gaba-binding
 
 belongings:
 []

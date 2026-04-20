@@ -5,6 +5,7 @@ doi: ~
 claim: >
   iGABASnFR2 directly demonstrates direction-selective GABA release from starburst amacrine cells in the intact retina, with significantly higher SNR and response reliability than iGABASnFR1; iGABASnFR1 signals were insufficient to detect direction selectivity even after trial-averaging.
 claim-type: empirical
+role: empirical
 concepts:
   - iGABASnFR2
   - retina
@@ -14,6 +15,13 @@ concepts:
   - two-photon imaging
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-improved-sensor-enables-new-measurements
+confirms:
+  - hypothesis-improved-sensor-enables-new-biology
+dissociates-with:
+  - igabasnfr2-single-bouton-hippocampus
 
 belongings:
   - relation: supports

@@ -8,6 +8,7 @@ claim: >
   never in WT mice (N=5), each discharge coinciding with a brief diffuse twitch of the
   facial musculature and bilateral limbs consistent with myoclonic seizures.
 claim-type: empirical
+role: empirical
 concepts:
   - hypersynchronous discharge
   - two-photon calcium imaging
@@ -17,6 +18,12 @@ concepts:
   - KCNC1
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-network-hyperexcitability-in-vivo
+confirms:
+  - prediction-network-hyperexcitability-in-vivo
+  - hypothesis-pv-dysfunction-drives-encephalopathy
 
 belongings:
   - relation: supports

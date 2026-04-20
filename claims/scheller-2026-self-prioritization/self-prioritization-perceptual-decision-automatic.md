@@ -9,6 +9,7 @@ claim: >
   [HDI95: 0.13 to 4.1 Hz]; other-associated stimulus rate showed no consistent increase
   (0.53 Hz [HDI95: −1.4 to 2.5 Hz]).
 claim-type: empirical
+role: empirical
 concepts:
   - self-prioritization
   - attentional selection
@@ -17,6 +18,11 @@ concepts:
   - TVA processing rates
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-self-advantage-perceptual-decision
+confirms:
+  - hypothesis-self-association-alters-attentional-selection
 
 belongings:
   - relation: requires

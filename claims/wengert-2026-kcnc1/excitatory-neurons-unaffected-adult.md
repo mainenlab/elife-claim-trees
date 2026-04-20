@@ -8,6 +8,7 @@ claim: >
   alterations in passive membrane properties or single AP properties (Table 2), with the
   sole exception of reduced rheobase (*p=0.023) whose functional significance is uncertain.
 claim-type: empirical
+role: control
 concepts:
   - excitatory neurons
   - cell-type selectivity
@@ -16,6 +17,13 @@ concepts:
   - null result
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-excitatory-neurons-spared
+confirms:
+  - prediction-excitatory-neurons-spared
+validates:
+  - pv-in-inhibitory-synapse-altered-adult
 
 belongings:
   - relation: extends

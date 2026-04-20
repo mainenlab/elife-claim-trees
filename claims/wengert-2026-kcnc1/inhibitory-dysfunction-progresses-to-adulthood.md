@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Inhibitory neurotransmission shows no significant alterations at juvenile stage (P16-21) but exhibits altered function by young adulthood (P32-42), indicating progressive deterioration of inhibitory circuit function in Kcnc1-A421V/+ mice.
 claim-type: empirical
+role: synthesis
 concepts:
   - progressive deterioration
   - inhibitory neurotransmission
@@ -13,6 +14,12 @@ concepts:
   - developmental progression
 priority: 2026-03-30
 epistemic: moderate
+
+interprets:
+  - pv-in-inhibitory-synapse-intact-juvenile
+  - pv-in-inhibitory-synapse-altered-adult
+confirms:
+  - prediction-progressive-synaptic-failure
 
 belongings: []
 

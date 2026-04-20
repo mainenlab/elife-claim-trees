@@ -8,6 +8,7 @@ claim: >
   radius change (p=0.22), demonstrating vessel-type heterogeneity in optogenetic neurovascular
   responses.
 claim-type: empirical
+role: empirical
 concepts:
   - artery
   - venule
@@ -16,6 +17,11 @@ concepts:
   - optogenetic neurovascular response
 priority: 2026-03-30
 epistemic: weak
+
+confirms:
+  - hypothesis-network-level-nvc-coordination
+dissociates-with:
+  - vessel-radius-heterogeneity-stimulation
 
 belongings:
   - relation: supports

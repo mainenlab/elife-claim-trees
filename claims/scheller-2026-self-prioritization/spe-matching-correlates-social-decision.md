@@ -8,6 +8,7 @@ claim: >
   (r = 0.354, BF10 = 8.23, 95% CI: 0.11 to 0.54) but not in the perceptual decision
   dimension (r = 0.069, BF10 = 0.181).
 claim-type: empirical
+role: empirical
 concepts:
   - SPE matching task
   - individual differences
@@ -16,6 +17,9 @@ concepts:
   - self-prioritization effect
 priority: 2026-03-30
 epistemic: moderate
+
+validates:
+  - self-prioritization-absent-social-decision
 
 belongings:
   - relation: requires

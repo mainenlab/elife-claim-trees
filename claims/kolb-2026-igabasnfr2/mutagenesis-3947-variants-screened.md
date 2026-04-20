@@ -5,6 +5,7 @@ doi: ~
 claim: >
   High-throughput mutagenesis screening generated 3,947 total variants from 39 targeted sites; 93 variants exceeded iGABASnFR1 controls in ΔF/F, and 22 showed improvements in both sensitivity and expression.
 claim-type: empirical
+role: methodological
 concepts:
   - mutagenesis
   - high-throughput screening
@@ -12,6 +13,13 @@ concepts:
   - variant count
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-screen-yields-multiple-improved-variants
+enables-method:
+  - igabasnfr2-fourfold-sensitivity-gain
+  - igabasnfr2-13fold-expression-increase
+  - igabasnfr2n-negative-going-variant
 
 belongings:
 []

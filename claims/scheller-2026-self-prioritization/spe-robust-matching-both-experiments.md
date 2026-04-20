@@ -8,6 +8,7 @@ claim: >
   Experiment 2 (N=71) d = -0.982 [CI95: -1.20 to -0.77], BF10 = 4.47×10^109, confirming
   participants learned and retained the self-associations used in the TOJ task.
 claim-type: empirical
+role: control
 concepts:
   - self-prioritization effect
   - shape-label matching
@@ -16,6 +17,11 @@ concepts:
   - Bayes factor
 priority: 2026-03-30
 epistemic: strong
+
+validates:
+  - self-prioritization-perceptual-decision-automatic
+  - self-prioritization-absent-social-decision
+  - other-association-advantage-social-condition
 
 belongings:
   - relation: supports

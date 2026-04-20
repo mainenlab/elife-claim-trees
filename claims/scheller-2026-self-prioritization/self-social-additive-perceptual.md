@@ -9,6 +9,7 @@ claim: >
   indicating that social and perceptual salience operate via independent mechanisms for
   other-associated stimuli.
 claim-type: empirical
+role: empirical
 concepts:
   - additivity
   - social salience
@@ -17,6 +18,13 @@ concepts:
   - interaction
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-additive-effects-other-associated
+confirms:
+  - hypothesis-social-perceptual-independent-mechanisms
+dissociates-with:
+  - self-salience-reduces-perceptual-benefit
 
 belongings:
   - relation: supports

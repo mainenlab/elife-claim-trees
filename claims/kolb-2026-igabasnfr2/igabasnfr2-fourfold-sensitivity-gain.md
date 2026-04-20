@@ -5,6 +5,7 @@ doi: ~
 claim: >
   iGABASnFR2 exhibits a 4.1-fold improvement in ΔF/F sensitivity compared to iGABASnFR1 under equivalent stimulation conditions in cultured neurons, quantified by the high-throughput screening pipeline.
 claim-type: empirical
+role: empirical
 concepts:
   - iGABASnFR2
   - sensitivity
@@ -13,6 +14,13 @@ concepts:
   - high-throughput screening
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-screen-yields-multiple-improved-variants
+confirms:
+  - hypothesis-saturation-mutagenesis-yields-improved-sensor
+dissociates-with:
+  - igabasnfr2n-negative-going-variant
 
 belongings:
 []

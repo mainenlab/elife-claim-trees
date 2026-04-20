@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Vascular network assortativity increases by 152 ± 65% at 4.3 mW/mm² optogenetic stimulation relative to control, indicating that high-degree vessels preferentially couple with high-degree vessels during neurovascular responses.
 claim-type: empirical
+role: empirical
 concepts:
   - network assortativity
   - optogenetics
@@ -12,6 +13,12 @@ concepts:
   - graph theory
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-pipeline-reveals-network-coordination
+confirms:
+  - hypothesis-network-level-nvc-coordination
+  - synthesis-individual-vessel-measurements-insufficient
 
 belongings:
   - relation: requires

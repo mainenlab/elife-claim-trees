@@ -8,6 +8,7 @@ claim: >
   though an alternative 10% threshold is shown in Appendix 1—figure 14 with qualitatively
   similar results.
 claim-type: assessment
+role: scope
 concepts:
   - responder threshold
   - sensitivity analysis
@@ -15,6 +16,14 @@ concepts:
   - vessel classification
 priority: 2026-03-30
 epistemic: weak
+
+scopes:
+  - vessel-radius-heterogeneity-stimulation
+  - dilations-nearer-neurons-than-constrictions
+  - constrictions-deeper-than-dilations
+  - network-assortativity-increases-stimulation
+  - capillary-efficiency-increases-4pct
+  - blue-light-dilations-exceed-green-control
 
 belongings: []
 

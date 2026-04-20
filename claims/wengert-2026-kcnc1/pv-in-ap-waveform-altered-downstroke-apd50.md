@@ -8,6 +8,7 @@ claim: >
   **p=0.0012 downstroke; **p=0.0053 APD50) and adult (P32–42, **p=0.0051 downstroke;
   ***p<0.001 APD50) stages, while passive membrane properties are largely preserved.
 claim-type: empirical
+role: empirical
 concepts:
   - action potential waveform
   - downstroke velocity
@@ -17,6 +18,13 @@ concepts:
   - repolarization
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-pv-in-firing-impaired
+confirms:
+  - prediction-pv-in-firing-impaired
+interprets:
+  - pv-ins-impaired-maximal-firing
 
 belongings:
   - relation: supports

@@ -5,6 +5,7 @@ doi: ~
 claim: >
   iGABASnFR2 and iGABASnFR2n display single-exponential stopped-flow kinetics, whereas iGABASnFR1 exhibits biphasic kinetics; the observed reaction rate constants (Kobs) are far greater for both v2 sensors than for iGABASnFR1.
 claim-type: empirical
+role: empirical
 concepts:
   - iGABASnFR2
   - stopped-flow kinetics
@@ -13,6 +14,11 @@ concepts:
   - iGABASnFR1 comparison
 priority: 2026-03-30
 epistemic: strong
+
+confirms:
+  - hypothesis-saturation-mutagenesis-yields-improved-sensor
+dissociates-with:
+  - igabasnfr2-kinetics-rise-decay
 
 belongings:
   - relation: supports

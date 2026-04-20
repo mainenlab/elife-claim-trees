@@ -1,0 +1,121 @@
+{
+  "paperSlug": "kolb-2026-igabasnfr2",
+  "abstract": "Monitoring GABAergic inhibition in the nervous system has been enabled by the development of an intensiometric molecular sensor that directly detects GABA. However, the first generation iGABASnFR exhibits low signal-to-noise and suboptimal kinetics, making in vivo experiments challenging. To improve sensor performance, we targeted several sites in the protein for near-saturation mutagenesis and evaluated the resulting sensor variants in a high-throughput screening system using evoked synaptic release in primary cultured neurons. This identified a sensor variant, iGABASnFR2, with 4.1-fold improved sensitivity and 30% faster rise time, and binding affinity that remained in a range sensitive to changes in GABA concentration at synapses. We also identified sensors with an inverted response, decreasing fluorescence intensity upon GABA binding. We termed the best such negative-going sensor iGABASnFR2n, which can be used to corroborate observations with the positive-going sensor. These improvements yielded a qualitative enhancement of in vivo performance when compared directly to the original sensor. iGABASnFR2 enabled the first measurements of direction-selective GABA release in the retina. In vivo imaging in somatosensory cortex revealed that iGABASnFR2 can report volume-transmitted GABA release following whisker stimulation. Overall, the improved sensitivity and kinetics of iGABASnFR2 make it a more effective tool for imaging GABAergic transmission in intact neural circuits.",
+  "sentences": [
+    {
+      "n": 1,
+      "text": "Monitoring GABAergic inhibition in the nervous system has been enabled by the development of an intensiometric molecular sensor that directly detects GABA.",
+      "type": "motivation",
+      "claims": [],
+      "kind": null,
+      "note": "Background framing -- the prior generation (iGABASnFR1) is the launching point, not itself a claim of this paper."
+    },
+    {
+      "n": 2,
+      "text": "However, the first generation iGABASnFR exhibits low signal-to-noise and suboptimal kinetics, making in vivo experiments challenging.",
+      "type": "motivation",
+      "claims": [
+        "hypothesis-saturation-mutagenesis-yields-improved-sensor"
+      ],
+      "kind": "hypothesis",
+      "note": "Problem statement that motivates the engineering hypothesis -- the v1 ceiling is real and worth attacking with saturation mutagenesis."
+    },
+    {
+      "n": 3,
+      "text": "To improve sensor performance, we targeted several sites in the protein for near-saturation mutagenesis and evaluated the resulting sensor variants in a high-throughput screening system using evoked synaptic release in primary cultured neurons.",
+      "type": "methods",
+      "claims": [
+        "scope-sensor-engineering-paper",
+        "screening-scope-wet-lab-only",
+        "mutagenesis-3947-variants-screened",
+        "prediction-screen-yields-multiple-improved-variants"
+      ],
+      "kind": "methodological",
+      "note": "Method statement -- defines the screen (the methodological claim that 3,947 variants from 39 sites were generated) and the two scope claims (wet-lab only; sensor-engineering envelope). Also operationalises the screen-yields-improved-variants prediction."
+    },
+    {
+      "n": 4,
+      "text": "This identified a sensor variant, iGABASnFR2, with 4.1-fold improved sensitivity and 30% faster rise time, and binding affinity that remained in a range sensitive to changes in GABA concentration at synapses.",
+      "type": "claim",
+      "claims": [
+        "igabasnfr2-fourfold-sensitivity-gain",
+        "igabasnfr2-kinetics-rise-decay",
+        "igabasnfr2-oncell-affinity-sevenfold"
+      ],
+      "kind": "direct",
+      "note": "Three quantitative headlines about the v2 sensor: 4.1-fold sensitivity gain, 30% faster rise (the kinetics claim), and on-cell affinity in the synaptic-relevant range (the sevenfold-affinity claim, EC50 6.4 uM)."
+    },
+    {
+      "n": 5,
+      "text": "We also identified sensors with an inverted response, decreasing fluorescence intensity upon GABA binding.",
+      "type": "claim",
+      "claims": [
+        "igabasnfr2n-negative-going-variant"
+      ],
+      "kind": "direct",
+      "note": "The inverted-response discovery -- the first half of the negative-going-variant claim. The screen returned variants that go down, not up, on GABA binding."
+    },
+    {
+      "n": 6,
+      "text": "We termed the best such negative-going sensor iGABASnFR2n, which can be used to corroborate observations with the positive-going sensor.",
+      "type": "claim",
+      "claims": [
+        "igabasnfr2n-negative-going-variant"
+      ],
+      "kind": "direct",
+      "note": "Names the best inverted-response variant (iGABASnFR2n) and frames it as a corroboration tool for v2 observations -- the second half of the negative-going claim, which also justifies the dissociates-with edge to the positive-going variant."
+    },
+    {
+      "n": 7,
+      "text": "These improvements yielded a qualitative enhancement of in vivo performance when compared directly to the original sensor.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-improved-sensor-enables-new-biology",
+        "prediction-improved-sensor-enables-new-measurements"
+      ],
+      "kind": "synthesis",
+      "note": "The capability-threshold thesis -- the abstract's most load-bearing word is 'qualitative'. Maps to the capability-threshold hypothesis and its operationalised prediction (side-by-side v1 vs v2 in three demanding preparations)."
+    },
+    {
+      "n": 8,
+      "text": "iGABASnFR2 enabled the first measurements of direction-selective GABA release in the retina.",
+      "type": "claim",
+      "claims": [
+        "igabasnfr2-retina-direction-selectivity"
+      ],
+      "kind": "direct",
+      "note": "First of the three threshold-crossing demonstrations -- single-trial direction-selective GABA release from starburst amacrine cells. iGABASnFR1 could not resolve direction even after trial-averaging; iGABASnFR2 enabled it on single trials."
+    },
+    {
+      "n": 9,
+      "text": "In vivo imaging in somatosensory cortex revealed that iGABASnFR2 can report volume-transmitted GABA release following whisker stimulation.",
+      "type": "claim",
+      "claims": [
+        "igabasnfr2-invivo-barrel-cortex"
+      ],
+      "kind": "direct",
+      "note": "The in vivo demonstration -- whisker-evoked volume-transmitted GABA in barrel cortex layers 2-3. The only in vivo neural-circuit measurement; the GABA concentration estimate (~2-2.5 uM) is calibration-derived from Magloire et al. 2023, hence moderate epistemic."
+    },
+    {
+      "n": 10,
+      "text": "Overall, the improved sensitivity and kinetics of iGABASnFR2 make it a more effective tool for imaging GABAergic transmission in intact neural circuits.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-saturation-mutagenesis-yields-improved-sensor",
+        "hypothesis-improved-sensor-enables-new-biology"
+      ],
+      "kind": "synthesis",
+      "note": "Closing synthesis -- restates both top-level hypotheses (engineering: sensitivity and kinetics improved; biological: more effective for intact-circuit imaging) as the paper's contribution."
+    }
+  ],
+  "orphanClaims": [
+    "igabasnfr2-13fold-expression-increase",
+    "crystal-structure-pdb-9d57",
+    "igabasnfr2-cpgfp-rigid-on-gaba-binding",
+    "igabasnfr2-single-exponential-kinetics",
+    "igabasnfr2-2p-compatible",
+    "igabasnfr2-gaba-selective-specificity",
+    "igabasnfr2-single-bouton-hippocampus"
+  ],
+  "orphanSentences": []
+}

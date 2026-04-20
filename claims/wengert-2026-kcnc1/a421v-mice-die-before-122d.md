@@ -5,6 +5,7 @@ doi: ~
 claim: >
   All Kcnc1-A421V/+ knock-in mice die before 122 days of age, while wild-type littermates survive significantly longer (Mantel-Cox p<0.001; n=33 mutant, n=46 wild-type).
 claim-type: empirical
+role: empirical
 concepts:
   - KCNC1
   - A421V
@@ -13,6 +14,10 @@ concepts:
   - knock-in mouse
 priority: 2026-03-30
 epistemic: strong
+
+confirms:
+  - prediction-seizures-and-sudep
+  - hypothesis-pv-dysfunction-drives-encephalopathy
 
 belongings: []
 
