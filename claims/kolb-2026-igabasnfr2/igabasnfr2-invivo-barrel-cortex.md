@@ -20,6 +20,9 @@ tests:
   - prediction-improved-sensor-enables-new-measurements
 confirms:
   - hypothesis-improved-sensor-enables-new-biology
+dissociates-with:
+  - igabasnfr2-retina-direction-selectivity
+  - igabasnfr2-single-bouton-hippocampus
 
 belongings:
   - relation: supports

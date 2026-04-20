@@ -30,11 +30,11 @@ belongings:
 
 assertions:
   - paper-slug: gadeke-2026-guilt-insula
-    doi: ~
-    panel: fig3
+    doi: 10.7554/eLife.105391
+    panel: fig3, table1
     analysis: Code/behavioural analysis scripts
-    dataset: https://osf.io/a62df
-    dataset-doi: ~
+    dataset: https://openneuro.org/datasets/ds005588
+    dataset-doi: 10.18112/openneuro.ds005588.v1.0.0
     method: computational model fitting (expected utility + responsibility parameter)
     confidence: moderate
 

@@ -26,8 +26,8 @@ belongings:
 
 assertions:
   - paper-slug: gadeke-2026-guilt-insula
-    doi: ~
-    panel: fig2
+    doi: 10.7554/eLife.105391
+    panel: fig3d, fig3h
     analysis: master_behavAnalysis.m
     dataset: https://openneuro.org/datasets/ds005588
     dataset-doi: 10.18112/openneuro.ds005588.v1.0.0

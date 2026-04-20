@@ -19,6 +19,9 @@ epistemic: moderate
 
 scopes: ["*"]
 
+interprets:
+  - interprets-cragg-rice-vmax-ratio
+
 belongings: []
 
 assertions:

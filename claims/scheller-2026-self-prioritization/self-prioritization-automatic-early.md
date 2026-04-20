@@ -9,6 +9,7 @@ claim: >
   (social decision condition, Experiments 1 and 2), indicating that self-prioritization
   in attentional selection is an early, pre-conscious process distinct from later social
   cognition.
+shortClaim: "Self-prioritization operates at the early perceptual stage, before social decoding."
 claim-type: interpretive
 role: interpretation
 concepts:

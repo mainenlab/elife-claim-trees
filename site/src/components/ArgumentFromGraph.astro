@@ -7,10 +7,17 @@ type ComparisonRow = {
   note?: string;
 };
 
+type TracebackItem = {
+  sentence: string;
+  claims?: string[];
+  relations?: string[];
+  move?: string;
+};
+
 type SynthesisBlock = {
   synthesizerPrompt?: string;
   synthesis?: string;
-  traceback?: any[];
+  traceback?: TracebackItem[];
   comparatorPrompt?: string;
   comparison?: string;
   comparisonTable?: ComparisonRow[];
@@ -18,9 +25,17 @@ type SynthesisBlock = {
   inferentialStructureNote?: string;
 };
 
+type Claim = {
+  slug: string;
+  claim: string;
+  displayClaim?: string | null;
+  number?: string | null;
+};
+
 type Props = {
   synthesis?: SynthesisBlock | null;
   version?: string | null;
+  claimsBySlug?: Record<string, Claim>;
   /** @deprecated kept for backward compatibility */
   synthesisV2?: SynthesisBlock | null;
 };
@@ -28,6 +43,7 @@ type Props = {
 const props = Astro.props as Props;
 const block = props.synthesis ?? props.synthesisV2 ?? null;
 const version = props.version ?? (props.synthesisV2 && !props.synthesis ? 'v2' : null);
+const claimsBySlug = props.claimsBySlug ?? {};
 
 // If no synthesis block at all, render nothing.
 const hasAny = block && (
@@ -45,6 +61,7 @@ const comparison = (block?.comparison ?? '').trim();
 const diagnosticDivergence = (block?.diagnosticDivergence ?? '').trim();
 const inferentialStructureNote = (block?.inferentialStructureNote ?? '').trim();
 const comparisonTable = block?.comparisonTable ?? [];
+const traceback = block?.traceback ?? [];
 const synthesizerPrompt = block?.synthesizerPrompt ?? '';
 const comparatorPrompt = block?.comparatorPrompt ?? '';
 
@@ -97,6 +114,47 @@ const kindLabel: Record<string, string> = {
           </div>
         )}
       </div>
+    )}
+
+    {traceback.length > 0 && (
+      <details class="mb-6 rounded-lg border border-gray-200 bg-gray-50/40">
+        <summary class="cursor-pointer select-none px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-100/60 rounded-t-lg">
+          ▸ Show traceback ({traceback.length} synthesis sentence{traceback.length === 1 ? '' : 's'})
+        </summary>
+        <div class="px-4 pb-4 pt-2">
+          <ol class="space-y-3 list-decimal list-inside text-sm">
+            {traceback.map(t => (
+              <li class="leading-snug">
+                <div class="text-gray-800 inline">{t.sentence}</div>
+                {(t.claims?.length ?? 0) > 0 && (
+                  <div class="mt-1 ml-4 flex flex-wrap gap-x-3 gap-y-1 text-xs">
+                    {t.claims!.map(slug => {
+                      const c = claimsBySlug[slug];
+                      const label = c?.number ?? slug;
+                      const preview = c ? (c.displayClaim?.trim() || c.claim || '').slice(0, 80) : '';
+                      return (
+                        <a
+                          href="#"
+                          class="traceback-claim inline-flex items-baseline gap-1"
+                          data-target-claim={slug}
+                        >
+                          <span class="font-mono text-gray-600 font-medium">{label}</span>
+                          {preview && (
+                            <span class="text-gray-500"> · <span class="text-gray-700">{preview}</span></span>
+                          )}
+                        </a>
+                      );
+                    })}
+                  </div>
+                )}
+                {t.move && (
+                  <div class="mt-0.5 ml-4 text-xs text-gray-500 italic">{t.move}</div>
+                )}
+              </li>
+            ))}
+          </ol>
+        </div>
+      </details>
     )}
 
     {comparisonTable.length > 0 && (
@@ -161,3 +219,26 @@ const kindLabel: Record<string, string> = {
     )}
   </section>
 )}
+
+<style>
+  .traceback-claim {
+    text-decoration: none;
+    border-radius: 3px;
+    padding: 1px 3px;
+    transition: background-color 0.12s ease;
+  }
+  .traceback-claim:hover {
+    background-color: #fef3c7;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLAnchorElement>('.traceback-claim').forEach(a => {
+    const slug = a.dataset.targetClaim;
+    if (!slug) return;
+    a.addEventListener('click', (e) => {
+      e.preventDefault();
+      window.dispatchEvent(new CustomEvent('open-claim', { detail: { slug } }));
+    });
+  });
+</script>

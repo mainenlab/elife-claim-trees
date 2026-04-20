@@ -17,6 +17,7 @@ displayClaim: >
   In a 2×2 factorial design under linear projection, additive modulation entails
   orthogonality of the stimulation and choice directions; orthogonality is the
   geometric consequence of the GLM additivity finding.
+shortClaim: "Under a linear readout, additive modulation entails orthogonality of the stim and choice axes."
 claim-type: interpretive
 role: synthesis
 concepts:

@@ -4,6 +4,7 @@ slug: protocerebral-bridge-candidate-central-complex
 doi: ~
 claim: >
   A structure consistent with a protocerebral bridge (potential spider equivalent of the insect central complex) is identified in the atlas, suggesting the spider brain contains a candidate homolog of circuits involved in path integration.
+shortClaim: "A candidate protocerebral bridge homolog appears in the spider brain atlas."
 claim-type: existence
 role: interpretation
 concepts:

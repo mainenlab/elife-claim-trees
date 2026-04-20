@@ -12,6 +12,7 @@ displayClaim: >
   Perisomatic and distal dendritic inhibition serve distinct computational roles —
   perisomatic inhibition controls somatic AP generation, distal inhibition controls dendritic
   spikes and their coupling to APs.
+shortClaim: "Perisomatic inhibition controls somatic APs — distal inhibition controls dendritic spikes."
 claim-type: hypothesis
 role: hypothesis
 concepts:

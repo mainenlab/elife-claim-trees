@@ -21,6 +21,9 @@ epistemic: moderate
 dissociates-with:
   - insula-guilt-replicates-yu-koban-signature
 
+interprets:
+  - interprets-yu-koban-guilt-signature
+
 belongings:
   - relation: extends
     target: insula-guilt-replicates-yu-koban-signature

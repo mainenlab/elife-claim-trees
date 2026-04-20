@@ -13,6 +13,7 @@ displayClaim: >
   Fear learning encodes threatening cues with shared, generalized representations in the fear
   network — the same generalization mechanism is recruited whenever a cue acquires threat
   value, in both initial acquisition and reversal.
+shortClaim: "The fear network generalizes across threat-paired cues whenever value is acquired."
 claim-type: hypothesis
 role: hypothesis
 concepts:

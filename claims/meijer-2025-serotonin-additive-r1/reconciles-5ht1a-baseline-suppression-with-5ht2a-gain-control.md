@@ -16,6 +16,7 @@ displayClaim: >
   The brain-wide additive mode reflects dominance of a 5-HT1A baseline-suppression
   component over the 5-HT2A gain-modulation component shown in visual cortex —
   reconciling the two prior receptor-specific pictures.
+shortClaim: "The additive mode reflects 5-HT1A baseline suppression dominating 5-HT2A gain control."
 claim-type: interpretive
 role: synthesis
 concepts:

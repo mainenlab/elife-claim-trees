@@ -17,6 +17,7 @@ displayClaim: >
   Arbitrary self-association acts as an automatic attentional salience signal at the
   perceptual feature level — detectable in TOJ tasks that demand only a perceptual report,
   and modulated (or reversed) by the social-decision context.
+shortClaim: "Self-association acts as an automatic perceptual-level salience signal."
 claim-type: hypothesis
 role: hypothesis
 concepts:

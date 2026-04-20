@@ -6,6 +6,7 @@ claim: >
   Foveal feedback during saccade preparation uses a representational format shared with bottom-up sensory drive — that is, the population code carrying the predicted peripheral target in foveal V1 lies in the same representational space as the code evoked by direct foveal stimulation by the same image.
 displayClaim: >
   Foveal feedback uses the same representational format as bottom-up sensory drive in foveal V1.
+shortClaim: "Foveal feedback uses the same representational format as bottom-up drive in V1."
 claim-type: hypothesis
 role: hypothesis
 concepts:

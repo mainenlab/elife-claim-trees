@@ -6,6 +6,7 @@ claim: >
   Foveal V1 decoding of peripheral saccade targets reflects genuine top-down feedback from higher cortical areas, not passive spillover from large peripheral receptive fields whose tails extend into the foveal representation.
 displayClaim: >
   The foveal V1 decoding signal reflects genuine top-down feedback rather than passive spillover from peripheral receptive fields.
+shortClaim: "The foveal V1 signal reflects genuine top-down feedback, not peripheral spillover."
 claim-type: hypothesis
 role: hypothesis
 concepts:
@@ -21,6 +22,9 @@ panel: hypothesis
 
 entails:
   - prediction-u-shape-eccentricity
+
+interprets:
+  - interprets-williams-2008-peripheral-spillover
 
 belongings: []
 

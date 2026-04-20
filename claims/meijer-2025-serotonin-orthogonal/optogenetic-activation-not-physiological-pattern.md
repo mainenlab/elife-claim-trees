@@ -29,6 +29,9 @@ scopes:
   - 5ht-stim-leaves-decision-behavior-intact
   - 5ht-axis-orthogonal-to-choice-axis
 
+interprets:
+  - interprets-paquelet-correlated-ensembles
+
 belongings: []
 
 assertions:

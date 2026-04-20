@@ -13,6 +13,7 @@ claim: >
 displayClaim: >
   5-HT modulates spiking activity additively (constant offset, independent of choice) rather
   than multiplicatively (gain), brain-wide.
+shortClaim: "5-HT modulates spiking additively, not multiplicatively, brain-wide."
 claim-type: hypothesis
 role: hypothesis
 concepts:

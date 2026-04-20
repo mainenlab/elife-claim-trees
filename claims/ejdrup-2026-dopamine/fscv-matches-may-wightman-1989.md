@@ -27,6 +27,9 @@ validates:
 supports:
   - hypothesis-vmax-explains-regional-difference
 
+interprets:
+  - interprets-may-wightman-1989-fscv
+
 belongings:
   - relation: requires
     target: vs-maintains-pervasive-tonic-da

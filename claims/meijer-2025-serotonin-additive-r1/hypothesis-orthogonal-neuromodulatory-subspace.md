@@ -14,6 +14,7 @@ displayClaim: >
   Strong neural modulation can leave behavior intact if the modulation lives in a subspace
   orthogonal to the population dimensions a downstream linear readout uses for the task —
   a geometric reformulation of additive modulation.
+shortClaim: "Modulation orthogonal to the readout dimensions leaves behavior intact."
 claim-type: hypothesis
 role: hypothesis
 concepts:

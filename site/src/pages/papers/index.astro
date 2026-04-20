@@ -53,7 +53,7 @@ const badgeConfig: Record<string, BadgeInfo> = {
                 <span class="flex-shrink-0" set:html={badge.html} />
               </div>
               <div class="text-xs text-gray-500 mb-2">
-                {p.authors.slice(0, 3).join(', ')}{p.authors.length > 3 ? ' et al.' : ''} · {p.journal} · DOI: {p.doi}
+                {p.authors.join(', ')} · {p.journal} · DOI: {p.doi}
               </div>
               <div class="flex gap-4 text-xs text-gray-500">
                 <span>{p.claimCount} claims</span>

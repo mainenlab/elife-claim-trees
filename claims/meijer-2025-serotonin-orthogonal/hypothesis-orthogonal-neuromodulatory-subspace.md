@@ -13,6 +13,7 @@ displayClaim: >
   Strong neural modulation can leave behavior intact if the modulation lives in a subspace
   orthogonal to the population dimensions a downstream linear readout uses to extract the
   task variable.
+shortClaim: "Modulation orthogonal to the task-readout subspace leaves behavior intact."
 claim-type: hypothesis
 role: hypothesis
 concepts:

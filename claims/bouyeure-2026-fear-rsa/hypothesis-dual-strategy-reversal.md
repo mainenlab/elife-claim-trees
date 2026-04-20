@@ -13,6 +13,7 @@ displayClaim: >
   Reversal learning recruits two simultaneous strategies — generalization for currently
   dangerous cues and item-specific updating for changing-valence cues — in dissociable brain
   regions.
+shortClaim: "Reversal learning uses two simultaneous strategies in dissociable brain regions."
 claim-type: hypothesis
 role: hypothesis
 concepts:

@@ -10,6 +10,7 @@ claim: >
 displayClaim: >
   Phasic 5-HT release drives a rapid offline-to-online internal-state switch in awake
   quiet wakefulness.
+shortClaim: "Phasic 5-HT drives a rapid offline-to-online state switch in quiet wakefulness."
 claim-type: hypothesis
 role: hypothesis
 concepts:

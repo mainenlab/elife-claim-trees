@@ -16,6 +16,7 @@ displayClaim: >
   A DL segmentation + registration + graph-analysis pipeline can deliver automated network-level
   neurovascular-coupling measurements across hundreds of vessels per FOV, where prior baselines
   (ilastik, point-caliber, single-time-point) fall short.
+shortClaim: "A DL pipeline automates network-level neurovascular coupling beyond prior baselines."
 claim-type: hypothesis
 role: hypothesis
 concepts:

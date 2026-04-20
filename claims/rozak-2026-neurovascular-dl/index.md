@@ -89,13 +89,13 @@ Functional hyperemia is a well-established hallmark of healthy brain function, w
 |:----------|------:|:------|
 | entails (hypothesis → prediction / synthesis) | 4 | Engineering hypothesis entails the baseline-comparison prediction; biological hypothesis entails the network-coordination prediction; the network-coordination prediction is co-derived from both hypotheses; biological hypothesis also entails the synthesis |
 | derived-from (prediction / synthesis → hypothesis) | 4 | Inverse of entails; `prediction-pipeline-reveals-network-coordination` derives from both hypotheses |
-| tests (empirical / methodological / control → prediction) | 13 | Benchmark prediction tested by 4 pipeline-claims; network-coordination prediction tested by 6 biology-claims and 3 control-claims |
+| tests (empirical / methodological / control → prediction) | 13 | Benchmark prediction tested by 4 pipeline-claims; network-coordination prediction tested by 7 biology/empirical claims and 2 control-claims |
 | confirms (empirical / control → hypothesis / synthesis) | 17 | Engineering hypothesis confirmed by pipeline benchmarks (5); biological hypothesis confirmed by biology claims (8); synthesis confirmed by within-vessel + spatial + network results (4) |
-| dissociates-with | 5 | Paired contrasts: UNETR-only vs full ensemble; spatial-gradient vs depth-gradient; vessel-type heterogeneity (single example) vs population-level heterogeneity |
-| validates (control → empirical) | 8 | WT-control validates the three biological responses; blue-vs-green control validates five biology claims; radius-estimation validates three radius-derived claims |
+| dissociates-with | 4 | Paired contrasts: UNETR-only vs full ensemble (1); spatial-gradient vs depth-gradient (2, bilateral); vessel-type heterogeneity (single example) vs population-level heterogeneity (1) |
+| validates (control → empirical) | 11 | WT-control validates the three biological responses; blue-vs-green control validates five biology claims; radius-estimation validates three radius-derived claims |
 | rules-out | 1 | Within-vessel heterogeneity rules out point-caliber sufficiency (originally encoded as `contradicts` to `novas3d-outperforms-ilastik` — the within-vessel finding is independent of segmentation accuracy and undercuts the assumption that better segmentation alone solves the network-level problem) |
 | enables-method | 9 | NOVAS3D segmentation enables four downstream biological measurements; registration enables two network-metric claims; radius estimation enables three radius-derived claims |
-| scopes (scope → empirical / methodological / control) | 41 | Four scope claims govern the bulk of the empirical and methodological work — `scope-pipeline-and-application-paper` (14), `novas3d-single-preparation-scope` (13), `dl-model-scope-single-pipeline` (9), `responder-threshold-2sd-untested` (6) |
+| scopes (scope → empirical / methodological / control) | 42 | Four scope claims govern the bulk of the empirical and methodological work — `scope-pipeline-and-application-paper` (14), `novas3d-single-preparation-scope` (13), `dl-model-scope-single-pipeline` (9), `responder-threshold-2sd-untested` (6) |
 
 ## Dependency structure summary
 

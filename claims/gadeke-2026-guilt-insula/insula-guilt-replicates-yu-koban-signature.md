@@ -4,6 +4,7 @@ slug: insula-guilt-replicates-yu-koban-signature
 doi: ~
 claim: >
   The anterior insula guilt effect is consistent with a previously published neural guilt signature map (Yu & Koban), providing convergent validity for the insula as a guilt-tracking region.
+shortClaim: "The insula guilt effect matches the published Yu & Koban guilt signature."
 claim-type: interpretive
 role: interpretation
 concepts:
@@ -16,6 +17,7 @@ epistemic: moderate
 
 interprets:
   - insula-tracks-guilt-effect
+  - interprets-yu-koban-guilt-signature
 validates:
   - hypothesis-insula-tracks-interpersonal-guilt
 
@@ -26,7 +28,7 @@ belongings:
 
 assertions:
   - paper-slug: gadeke-2026-guilt-insula
-    doi: ~
+    doi: 10.7554/eLife.105391
     panel: fig4 (supplement)
     analysis: f_apply_YuKoban_guilt_signature_map.m
     dataset: https://openneuro.org/datasets/ds005588

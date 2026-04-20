@@ -14,6 +14,7 @@ displayClaim: >
   A sufficiently improved GABA sensor will cross qualitative capability thresholds —
   enabling single-bouton, single-trial direction-selective, and in vivo volume-transmitted
   GABA measurements that iGABASnFR1 could not make at all.
+shortClaim: "A better GABA sensor unlocks single-bouton, single-trial, and volume-transmission measurements."
 claim-type: hypothesis
 role: hypothesis
 concepts:

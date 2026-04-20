@@ -6,6 +6,7 @@ claim: >
   Foveal V1 feedback contains low-to-mid-level visual information (shape-sensitive) but not higher-level semantic category information (animal vs instrument not decodable), indicating that feedback signals represent low-level feature properties of the saccade target.
 displayClaim: >
   Foveal feedback carries low-to-mid-level shape information but not semantic category, identifying the feedback content as visual features of the saccade target rather than its identity.
+shortClaim: "Foveal feedback carries low-to-mid-level shape, not semantic category."
 claim-type: empirical
 role: synthesis
 concepts:

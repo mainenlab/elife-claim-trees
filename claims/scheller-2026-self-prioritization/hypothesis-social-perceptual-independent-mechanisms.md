@@ -15,6 +15,7 @@ claim: >
 displayClaim: >
   Social and perceptual salience capture attention via largely independent mechanisms,
   predicting additive (non-interacting) effects when both occur on the same stimulus.
+shortClaim: "Social and perceptual salience capture attention via independent, additive mechanisms."
 claim-type: hypothesis
 role: hypothesis
 concepts:

@@ -12,6 +12,7 @@ displayClaim: >
   PFC context-specific coding is the neural substrate for context-dependent fear renewal —
   participants with more distinct PFC context representations should show stronger
   reinstatement of acquisition fear memory traces.
+shortClaim: "PFC context-specific coding is the substrate for context-dependent fear renewal."
 claim-type: hypothesis
 role: hypothesis
 concepts:

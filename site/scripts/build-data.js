@@ -112,6 +112,7 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
       figureUrl: computeFigureUrl(paperSlug, panel),
       claim: (fm.claim || '').trim(),
       displayClaim: (fm.displayClaim || '').trim() || null,
+      shortClaim: (fm.shortClaim || '').trim() || null,
       epistemic: fm.epistemic || 'unknown',
       status,
       'claim-type': fm['claim-type'] || 'empirical',
@@ -145,6 +146,148 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
       time_full: fm.reproductions?.[0]?.time_full || null,
       log_output,
     });
+  }
+
+  // ---------- Hierarchical claim numbering ----------
+  // Precedence: Hypothesis → H#; Prediction (derived-from) → H#.P#;
+  // Empirical tested by pred/hyp → H#.P#.# or H#.#;
+  // Interpretation → I#; Synthesis → S#; Control → C#;
+  // Dissociation-pair → D# (mutual dissociates-with); Standalone empirical → E#;
+  // Methodological → M#; Scope targeted → Sc#; Global scope (*) → no number.
+  {
+    const bySlug = Object.fromEntries(claims.map(c => [c.slug, c]));
+    const numberOf = {};      // slug -> string like "H1.P2.1"
+    const partsOf = {};       // slug -> array like ['H',1,'P',2,1]
+    const assign = (slug, str, parts) => {
+      if (numberOf[slug]) return;
+      numberOf[slug] = str;
+      partsOf[slug] = parts;
+    };
+
+    // 1. Hypotheses (file-read order, which is sorted alphabetical)
+    const hypotheses = claims.filter(c => c.role === 'hypothesis');
+    hypotheses.forEach((h, hi) => {
+      const hNum = hi + 1;
+      assign(h.slug, `H${hNum}`, ['H', hNum]);
+
+      // Predictions that derive-from this hypothesis
+      const preds = claims.filter(c =>
+        c.role === 'prediction' && (c['derived-from'] || []).includes(h.slug)
+      );
+      preds.forEach((p, pi) => {
+        const pNum = pi + 1;
+        assign(p.slug, `H${hNum}.P${pNum}`, ['H', hNum, 'P', pNum]);
+
+        // Empirical claims that test this prediction
+        const tests = claims.filter(c =>
+          (c.tests || []).includes(p.slug)
+        );
+        tests.forEach((t, ti) => {
+          assign(t.slug, `H${hNum}.P${pNum}.${ti + 1}`, ['H', hNum, 'P', pNum, ti + 1]);
+        });
+      });
+
+      // Empirical claims that test the hypothesis directly (no prediction layer)
+      const directTests = claims.filter(c =>
+        (c.tests || []).includes(h.slug) && !numberOf[c.slug]
+      );
+      directTests.forEach((t, ti) => {
+        assign(t.slug, `H${hNum}.${ti + 1}`, ['H', hNum, ti + 1]);
+      });
+    });
+
+    // 2. Interpretations
+    let iCount = 0;
+    claims.filter(c => c.role === 'interpretation' && !numberOf[c.slug]).forEach(c => {
+      iCount += 1;
+      assign(c.slug, `I${iCount}`, ['I', iCount]);
+    });
+
+    // 2b. Literature-context (distinct role in Meijer paper) — L-series
+    let lCount = 0;
+    claims.filter(c => c.role === 'literature-context' && !numberOf[c.slug]).forEach(c => {
+      lCount += 1;
+      assign(c.slug, `L${lCount}`, ['L', lCount]);
+    });
+
+    // 3. Synthesis
+    let sCount = 0;
+    claims.filter(c => c.role === 'synthesis' && !numberOf[c.slug]).forEach(c => {
+      sCount += 1;
+      assign(c.slug, `S${sCount}`, ['S', sCount]);
+    });
+
+    // 4. Controls
+    let cCount = 0;
+    claims.filter(c => c.role === 'control' && !numberOf[c.slug]).forEach(c => {
+      cCount += 1;
+      assign(c.slug, `C${cCount}`, ['C', cCount]);
+    });
+
+    // 5. Dissociation pairs (mutual dissociates-with). Assign D# per pair;
+    // both members display the same number. Skip claims already numbered.
+    const pairs = [];
+    const pairIndex = {}; // slug -> pair index
+    const seenPair = new Set();
+    for (const c of claims) {
+      for (const other of (c['dissociates-with'] || [])) {
+        if (!bySlug[other]) continue;
+        const key = [c.slug, other].sort().join('|');
+        if (seenPair.has(key)) continue;
+        seenPair.add(key);
+        pairs.push([c.slug, other]);
+      }
+    }
+    pairs.forEach(([a, b], pi) => {
+      const dNum = pi + 1;
+      for (const slug of [a, b]) {
+        if (!numberOf[slug] && pairIndex[slug] === undefined) {
+          pairIndex[slug] = dNum;
+        }
+      }
+    });
+    for (const [slug, dNum] of Object.entries(pairIndex)) {
+      assign(slug, `D${dNum}`, ['D', dNum]);
+    }
+
+    // 6. Standalone empirical (role:empirical, no number yet)
+    let eCount = 0;
+    claims.filter(c => c.role === 'empirical' && !numberOf[c.slug]).forEach(c => {
+      eCount += 1;
+      assign(c.slug, `E${eCount}`, ['E', eCount]);
+    });
+
+    // 7. Methodological
+    let mCount = 0;
+    claims.filter(c => c.role === 'methodological' && !numberOf[c.slug]).forEach(c => {
+      mCount += 1;
+      assign(c.slug, `M${mCount}`, ['M', mCount]);
+    });
+
+    // 8. Targeted scope (not scopes: ["*"]). Includes empty-scopes lists
+    // (treated as targeted-by-implication) — only global-* is truly unnumbered.
+    let scCount = 0;
+    claims.filter(c => {
+      if (c.role !== 'scope' || numberOf[c.slug]) return false;
+      const s = c.scopes || [];
+      return !s.includes('*');
+    }).forEach(c => {
+      scCount += 1;
+      assign(c.slug, `Sc${scCount}`, ['Sc', scCount]);
+    });
+
+    // 9. Orphan predictions (role:prediction with no derived-from) — P-series
+    let pCount = 0;
+    claims.filter(c => c.role === 'prediction' && !numberOf[c.slug]).forEach(c => {
+      pCount += 1;
+      assign(c.slug, `P${pCount}`, ['P', pCount]);
+    });
+
+    // Attach to claim objects
+    for (const c of claims) {
+      c.number = numberOf[c.slug] ?? null;
+      c.numberParts = partsOf[c.slug] ?? null;
+    }
   }
 
   // Count statuses

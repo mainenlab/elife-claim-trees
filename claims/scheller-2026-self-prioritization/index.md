@@ -91,7 +91,7 @@ Efficiently processing self-related information is critical for cognition, yet t
 | prediction | 4 |
 | synthesis | 1 |
 | interpretation | 2 |
-| empirical | 9 |
+| empirical | 8 |
 | methodological | 1 |
 | control | 2 |
 | scope | 1 |
@@ -106,7 +106,7 @@ Efficiently processing self-related information is critical for cognition, yet t
 | entails | 4 | Each hypothesis entails its derived prediction(s); the master self-association hypothesis entails two predictions (perceptual-advantage and social-decision attenuation) |
 | derived-from | 4 | Inverse of entails |
 | tests | 5 | Empirical claims test their predictions (perceptual self-advantage, social-decision reversal, capacity model, additivity for other-associated) |
-| confirms | 8 | Empirical/interpretation claims confirm hypotheses; both interpretation claims confirm their respective top-level hypotheses; capacity rise confirms capacity hypothesis |
+| confirms | 9 | Empirical/interpretation claims confirm hypotheses; both interpretation claims confirm their respective top-level hypotheses; capacity rise and model-comparison verdict both confirm capacity hypothesis; self-social-additive-perceptual and social-perceptual-salience-independent-streams both confirm independence hypothesis |
 | refutes | 1 | `self-salience-reduces-perceptual-benefit` (sub-additive interaction for self-associated) refutes the strong form of the independence hypothesis |
 | dissociates-with | 4 | Perceptual-decision vs social-decision results; matching-SPE correlation vs trade-off; additive (other) vs sub-additive (self) interactions |
 | validates | 6 | Matching-SPE manipulation check validates three TVA processing-rate findings; perceptual-salience baseline validates the two interaction claims; social-condition replication validates the Exp 1 social-decision finding |

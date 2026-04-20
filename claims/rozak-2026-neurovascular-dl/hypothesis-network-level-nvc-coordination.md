@@ -16,6 +16,7 @@ displayClaim: >
   (spatially organised dilations/constrictions, neighbour-correlated capillary responses,
   stimulation-modulated efficiency) — point measurements of individual vessels cannot resolve
   this coordination.
+shortClaim: "Optogenetic activation drives coordinated network-level vascular responses across vessels."
 claim-type: hypothesis
 role: hypothesis
 concepts:

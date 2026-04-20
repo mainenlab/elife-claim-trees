@@ -14,6 +14,7 @@ claim: >
 displayClaim: >
   The near-zero interaction term rules out multiplicative gain modulation as the
   dominant brain-wide mode of 5-HT action.
+shortClaim: "A near-zero interaction term rules out multiplicative gain as the dominant 5-HT mode."
 claim-type: interpretive
 role: synthesis
 concepts:

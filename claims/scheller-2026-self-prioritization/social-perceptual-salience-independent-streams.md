@@ -8,6 +8,7 @@ claim: >
   term -0.54 Hz, HDI includes zero), confirming that arbitrary social association and
   physical salience capture attention through separate processing streams rather than a
   single shared resource.
+shortClaim: "Social and perceptual salience add independently in attentional selection."
 claim-type: interpretive
 role: interpretation
 concepts:

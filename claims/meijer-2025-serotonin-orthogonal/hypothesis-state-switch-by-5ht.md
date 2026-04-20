@@ -11,6 +11,7 @@ claim: >
 displayClaim: >
   Phasic 5-HT release flips the brain from an offline (quiescent, ripple-rich) state to an
   online (alert, exploratory) state — a fast internal-state switch.
+shortClaim: "Phasic 5-HT flips the brain from an offline to an online internal state."
 claim-type: hypothesis
 role: hypothesis
 concepts:

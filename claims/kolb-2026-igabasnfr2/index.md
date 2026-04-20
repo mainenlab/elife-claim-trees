@@ -77,13 +77,13 @@ Monitoring GABAergic inhibition in the nervous system has been enabled by the de
 |:----------|------:|:------|
 | entails (hypothesis → prediction / empirical) | 5 | Each hypothesis entails 1–2 children; capability hypothesis entails the three threshold demonstrations directly |
 | derived-from (prediction → hypothesis) | 3 | Inverse of entails; prediction-improved-sensor-enables-new-measurements derives from both hypotheses |
-| tests (empirical/methodological → prediction) | 6 | Screen-yield tests (4) and capability-threshold tests (3 demonstrations test the new-measurements prediction) |
+| tests (empirical/methodological → prediction) | 7 | Screen-yield tests (mutagenesis, sensitivity, expression, v2n) and capability-threshold tests (3 demonstrations + in vivo test the new-measurements prediction) |
 | confirms (empirical → hypothesis) | 9 | Engineering hypothesis confirmed by fold-change measurements; capability hypothesis confirmed by three biological demonstrations |
-| dissociates-with | 7 | Paired sensor comparisons (v2 vs v2n on rise time; v2 sensitivity vs v2 affinity vs v2 kinetics; retina vs slice vs in vivo) |
-| validates (control → empirical) | 3 | GABA selectivity validates that retina/slice/in vivo signals are GABA |
+| dissociates-with | 12 | Paired sensor comparisons (v2 vs v2n on rise time; v2 sensitivity vs v2 affinity vs v2 kinetics vs v2 expression; retina vs slice vs in vivo bidirectionally; 2P vs sensitivity; cpGFP rigidity vs sensitivity) |
+| validates (control → empirical) | 4 | GABA selectivity validates retina/slice/in vivo signals are GABA; v2n validates v2 signals |
 | rules-out | 1 | Selectivity rules out off-target binding as alternative explanation for sensitivity gain |
 | interprets (interpretation → empirical/methodological) | 1 | cpGFP rigidity interprets the crystal structure as a mechanistic insight |
-| enables-method | 6 | Screen enables variant identification; 2P-compatibility enables three biological demonstrations; crystal structure enables cpGFP rigidity claim |
+| enables-method | 7 | Screen enables variant identification (3 claims); 2P-compatibility enables three biological demonstrations; crystal structure enables cpGFP rigidity claim |
 | scopes (scope → empirical) | 27 | Two scope claims govern essentially every empirical claim in the paper |
 
 ## Reproduction status

@@ -4,6 +4,7 @@ slug: inhibitory-dysfunction-progresses-to-adulthood
 doi: ~
 claim: >
   Inhibitory neurotransmission shows no significant alterations at juvenile stage (P16-21) but exhibits altered function by young adulthood (P32-42), indicating progressive deterioration of inhibitory circuit function in Kcnc1-A421V/+ mice.
+shortClaim: "Inhibitory dysfunction in Kcnc1-A421V/+ mice emerges progressively by young adulthood."
 claim-type: empirical
 role: synthesis
 concepts:

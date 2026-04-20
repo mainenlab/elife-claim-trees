@@ -7,6 +7,7 @@ claim: >
   predictor (BFinclusion = 2458.52) while perceptual salience also contributes; for
   perceptually salient other-associated stimuli, perceptual salience dominates
   (BFinclusion = 4638.74), with social salience having a weaker role.
+shortClaim: "Social salience dominates for self-associated stimuli — perceptual salience dominates for other."
 claim-type: empirical
 role: synthesis
 concepts:

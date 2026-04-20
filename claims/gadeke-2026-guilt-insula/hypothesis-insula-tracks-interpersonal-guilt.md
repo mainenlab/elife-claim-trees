@@ -13,6 +13,7 @@ claim: >
 displayClaim: >
   Anterior insula encodes interpersonal guilt — the responsibility-contingent affect
   arising specifically when one's own choice has caused harm to another.
+shortClaim: "The anterior insula encodes responsibility-contingent interpersonal guilt."
 claim-type: hypothesis
 role: hypothesis
 concepts:

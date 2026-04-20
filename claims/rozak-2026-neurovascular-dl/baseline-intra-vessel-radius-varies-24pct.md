@@ -16,6 +16,8 @@ concepts:
 priority: 2026-03-30
 epistemic: moderate
 
+tests:
+  - prediction-pipeline-reveals-network-coordination
 confirms:
   - hypothesis-network-level-nvc-coordination
   - synthesis-individual-vessel-measurements-insufficient

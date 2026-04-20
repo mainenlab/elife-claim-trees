@@ -11,6 +11,7 @@ displayClaim: >
   The best frequency for rhythmic inhibition at a compartment is set by matching the rhythm's
   cycle period to the local spike timescale — gamma for fast perisomatic AP processes, beta
   for slow distal Ca²⁺/NMDA processes.
+shortClaim: "Each compartment's best rhythm matches its local spike timescale: gamma soma, beta distal."
 claim-type: hypothesis
 role: hypothesis
 concepts:

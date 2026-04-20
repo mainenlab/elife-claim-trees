@@ -20,6 +20,7 @@ displayClaim: >
   Cell-autonomous Kv3.1 LOF in PV-INs is sufficient to drive the KCNC1 DEE phenotype:
   reduced inhibition → network hyperexcitability → seizures, SUDEP, and cognitive
   deficits.
+shortClaim: "Cell-autonomous Kv3.1 loss in PV interneurons is sufficient to cause the KCNC1 DEE phenotype."
 claim-type: hypothesis
 role: hypothesis
 concepts:

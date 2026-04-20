@@ -12,6 +12,7 @@ displayClaim: >
   Layer 5 inhibitory streams are functionally matched to interneuron type — perisomatic
   gamma-frequency inhibition (PV+) controls somatic spike timing, while distal beta-frequency
   inhibition (SST+) gates dendritic integration of top-down inputs.
+shortClaim: "PV-gamma controls somatic spike timing — SST-beta gates distal top-down inputs."
 claim-type: interpretive
 role: interpretation
 concepts:
@@ -28,6 +29,7 @@ interprets:
   - gamma-optimal-perisomatic-ap-modulation
   - beta-gates-distal-apical-inputs
   - gamma-gates-proximal-basal-inputs
+  - interprets-pv-gamma-sst-beta-associations
 
 belongings: []
 

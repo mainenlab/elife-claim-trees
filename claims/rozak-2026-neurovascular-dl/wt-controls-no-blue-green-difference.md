@@ -18,6 +18,10 @@ concepts:
 priority: 2026-03-30
 epistemic: moderate
 
+tests:
+  - prediction-pipeline-reveals-network-coordination
+confirms:
+  - hypothesis-network-level-nvc-coordination
 validates:
   - blue-light-dilations-exceed-green-control
   - dilations-nearer-neurons-than-constrictions

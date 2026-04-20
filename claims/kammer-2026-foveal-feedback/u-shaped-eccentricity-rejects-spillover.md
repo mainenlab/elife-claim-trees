@@ -21,6 +21,8 @@ tests:
   - prediction-u-shape-eccentricity
 rules-out:
   - "passive spillover from large peripheral receptive fields"
+interprets:
+  - interprets-williams-2008-peripheral-spillover
 
 belongings:
   - relation: supports

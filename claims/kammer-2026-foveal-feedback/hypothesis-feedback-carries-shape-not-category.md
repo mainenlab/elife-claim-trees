@@ -6,6 +6,7 @@ claim: >
   Foveal feedback to early visual cortex carries low-to-mid-level visual feature information (shape) rather than high-level semantic category information about the saccade target, reflecting the representational level appropriate to early visual cortex rather than to ventral object-selective cortex.
 displayClaim: >
   Foveal feedback to early visual cortex carries shape information but not semantic category — the level of representation appropriate to V1, not LO.
+shortClaim: "Foveal feedback delivers shape information but not semantic category to early visual cortex."
 claim-type: hypothesis
 role: hypothesis
 concepts:

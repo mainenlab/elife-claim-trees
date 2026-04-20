@@ -14,6 +14,7 @@ displayClaim: >
   Single-vessel measurements cannot predict network-level blood flow modulation: within-vessel
   heterogeneity, neuron-relative spatial gradients, assortativity rise, and efficiency changes
   together require a network-level treatment.
+shortClaim: "Single-vessel measurements cannot predict network-level blood flow modulation."
 claim-type: synthesis
 role: synthesis
 concepts:

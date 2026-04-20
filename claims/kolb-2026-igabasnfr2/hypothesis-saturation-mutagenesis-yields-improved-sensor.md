@@ -15,6 +15,7 @@ displayClaim: >
   Targeted saturation mutagenesis of the Pf622 binding pocket and cpGFP linkers can
   yield a substantially improved successor to iGABASnFR1 — the v1 ceiling is set by
   suboptimal residues, not the scaffold.
+shortClaim: "Saturation mutagenesis of Pf622 and cpGFP linkers yields a substantially improved GABA sensor."
 claim-type: hypothesis
 role: hypothesis
 concepts:

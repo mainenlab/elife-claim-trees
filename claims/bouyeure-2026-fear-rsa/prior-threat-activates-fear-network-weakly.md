@@ -7,6 +7,7 @@ claim: >
   (CS++) vs those that were safe during acquisition and currently threatening (CS-+) still show
   fear network activation — (CS++ > CS+-) > (CS-+ > CS--) — though to a lesser extent than the
   current-threat contrast, suggesting a lingering prior fear memory trace.
+shortClaim: "Previously threatening cues still weakly activate the fear network after reversal."
 claim-type: interpretive
 role: interpretation
 concepts:

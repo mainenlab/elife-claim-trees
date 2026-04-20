@@ -11,6 +11,7 @@ claim: >
 displayClaim: >
   D1 and D2 receptors operate on distinct temporal scales — D1 tracks burst DA with
   millisecond delay; D2 integrates over seconds and cannot resolve brief pauses.
+shortClaim: "D1 tracks burst dopamine on milliseconds — D2 integrates tonic dopamine over seconds."
 claim-type: hypothesis
 role: hypothesis
 concepts:

@@ -13,6 +13,7 @@ displayClaim: >
   STS represents the partner's affective state via partner reward prediction errors,
   but only when the participant bears responsibility for the choice that produced
   those errors.
+shortClaim: "STS tracks the partner's RPEs only when the subject is responsible for the outcome."
 claim-type: hypothesis
 role: hypothesis
 concepts:

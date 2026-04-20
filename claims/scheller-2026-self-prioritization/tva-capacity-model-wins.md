@@ -21,6 +21,8 @@ tests:
   - prediction-capacity-model-outperforms-weights-only
 confirms:
   - hypothesis-capacity-mechanism-not-weights
+interprets:
+  - interprets-bundesen-tva-framework
 enables-method:
   - self-prioritization-perceptual-decision-automatic
   - self-prioritization-absent-social-decision

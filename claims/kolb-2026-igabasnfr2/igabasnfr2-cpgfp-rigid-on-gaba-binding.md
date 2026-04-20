@@ -4,6 +4,7 @@ slug: igabasnfr2-cpgfp-rigid-on-gaba-binding
 doi: ~
 claim: >
   GABA binding to iGABASnFR2 closes the Venus flytrap lobes of the Pf622 domain but produces negligible conformational change in cpGFP and its flanking linkers (RMSD 0.25 Å), contrasting with the large cpGFP interface rearrangement seen in GCaMP upon calcium binding.
+shortClaim: "GABA closes the Pf622 lobes of iGABASnFR2 while leaving cpGFP nearly rigid."
 claim-type: empirical
 role: interpretation
 concepts:

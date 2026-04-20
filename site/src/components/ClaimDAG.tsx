@@ -36,12 +36,9 @@ interface Props {
   paperSlug: string;
 }
 
-// Truncate slug to ~4 words for readability
+// Render the slug as a readable label (full, no truncation).
 function shortLabel(slug: string): string {
-  const words = slug.replace(/-/g, ' ');
-  const parts = words.split(' ');
-  if (parts.length <= 4) return words;
-  return parts.slice(0, 4).join(' ') + '…';
+  return slug.replace(/-/g, ' ');
 }
 
 // Custom node renderer
@@ -317,7 +314,7 @@ function DAGInner({ claims, paperSlug }: Props) {
                     <a
                       key={r}
                       href={`${base}/papers/${paperSlug}/${r}/`}
-                      className="text-xs text-blue-600 hover:underline truncate"
+                      className="text-xs text-blue-600 hover:underline break-words"
                     >{r}</a>
                   ))}
                 </div>
@@ -332,7 +329,7 @@ function DAGInner({ claims, paperSlug }: Props) {
                     <a
                       key={s}
                       href={`${base}/papers/${paperSlug}/${s}/`}
-                      className="text-xs text-green-700 hover:underline truncate"
+                      className="text-xs text-green-700 hover:underline break-words"
                     >{s}</a>
                   ))}
                 </div>

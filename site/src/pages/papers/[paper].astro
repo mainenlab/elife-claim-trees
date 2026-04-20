@@ -1,10 +1,13 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import ClaimTreeNode from '../../components/ClaimTreeNode.astro';
+import ClaimCardMini from '../../components/ClaimCardMini.astro';
 import ClaimStructure from '../../components/ClaimStructure.astro';
 import AbstractAlignment from '../../components/AbstractAlignment.astro';
 import ArgumentFromGraph from '../../components/ArgumentFromGraph.astro';
+import PaperTabs from '../../components/PaperTabs.astro';
+import ClaimDrawer from '../../components/ClaimDrawer.tsx';
 import corpus from '../../data/claims.json';
+import paperSummaries from '../../data/paper-summaries.json';
 
 // Eager-glob all abstract mappings; resolve current paper at runtime.
 const abstractMappings = import.meta.glob('../../data/abstract-mapping/*.json', { eager: true }) as Record<string, { default: any }>;
@@ -16,6 +19,54 @@ export function getStaticPaths() {
 
 const { paper: paperSlug } = Astro.params;
 const paperData = corpus.papers.find(p => p.slug === paperSlug)!;
+
+// ---------- Paper-level summary ----------
+// Prefer the three-part prose summary from paper-summaries.json. If this paper
+// has no entry (null lookup), fall back to a single-sentence template generated
+// from the claim graph so the page still renders.
+const summary = (paperSummaries as Record<string, any>)[paperSlug] ?? null;
+
+function summaryText(c: any): string {
+  const s = ((c.shortClaim ?? '').trim()
+    || (c.displayClaim ?? '').trim()
+    || (c.claim ?? '').trim());
+  return s.replace(/[.!?]+$/, '');
+}
+const hypothesisClaims = paperData.claims.filter((c: any) => c.role === 'hypothesis');
+const synthesisClaims = paperData.claims.filter((c: any) => c.role === 'synthesis');
+const empiricalClaims = paperData.claims.filter((c: any) => c.role === 'empirical');
+const totalClaims = paperData.claims.length;
+
+let paperSummaryFallback: string;
+if (hypothesisClaims.length >= 2) {
+  const picks = hypothesisClaims.map((h: any) => summaryText(h));
+  paperSummaryFallback = `This paper tests ${hypothesisClaims.length} hypotheses: ${picks.join('; ')}.`;
+} else if (hypothesisClaims.length === 1) {
+  paperSummaryFallback = `This paper tests the hypothesis that ${summaryText(hypothesisClaims[0])}.`;
+} else if (synthesisClaims.length >= 1) {
+  paperSummaryFallback = `This paper presents ${totalClaims} claims. Central finding: ${summaryText(synthesisClaims[0])}.`;
+} else {
+  paperSummaryFallback = `This paper presents ${empiricalClaims.length || totalClaims} empirical claims.`;
+}
+
+// ---------- PDF URL derivation ----------
+function derivePdfUrl(p: any): string | null {
+  const doi: string | undefined = p.doi;
+  const url: string | undefined = p.url;
+  if (doi && /^10\.7554\/eLife\./i.test(doi)) {
+    const m = doi.match(/^10\.7554\/eLife\.(\d+)/i);
+    if (m) return `https://elifesciences.org/articles/${m[1]}/pdf`;
+  }
+  if (doi && /^10\.1101\//i.test(doi)) {
+    const id = doi.replace(/^10\.1101\//i, '');
+    return `https://www.biorxiv.org/content/10.1101/${id}.full.pdf`;
+  }
+  if (url && /biorxiv\.org/.test(url)) {
+    return url.replace(/(v\d+)?\/?$/, '').replace(/\/$/, '') + '.full.pdf';
+  }
+  return null;
+}
+const pdfUrl = derivePdfUrl(paperData);
 
 type BadgeInfo = { html: string; description: string };
 const badgeConfig: Record<string, BadgeInfo> = {
@@ -70,20 +121,25 @@ const synthesisKey = Object.keys(synthesisFiles).find(k => k.endsWith(`/${paperS
 const synthesisData = synthesisKey ? synthesisFiles[synthesisKey].default : null;
 const synthesisBlock = synthesisData?.synthesisV3 ?? synthesisData?.synthesisV2 ?? null;
 const synthesisVersion = synthesisData?.synthesisV3 ? 'v3' : (synthesisData?.synthesisV2 ? 'v2' : null);
+
+// Tabs configuration. Show only tabs with content.
+// Note: the `structure` id is preserved (not renamed to `claims`) to avoid
+// breaking existing ?view=structure bookmarks. The label is "Claims".
+const tabs = [
+  { id: 'structure', label: 'Claims' },
+  ...(abstractMapping ? [{ id: 'abstract', label: 'Abstract \u2194 claims' }] : []),
+  ...(synthesisBlock ? [{ id: 'argument', label: 'Argument from graph' }] : []),
+];
 ---
 
 <Layout title={paperData.title}>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 py-10">
     <!-- Header -->
     <div class="mb-8">
-      <div class="text-xs text-gray-500 mb-2">
-        <a href={url('/papers')} class="hover:underline">Papers</a> /
-      </div>
-      <div class="flex items-start gap-4 mb-3">
-        <h1 class="text-xl font-semibold text-gray-900 leading-snug flex-1">{paperData.title}</h1>
-        <div class="flex-shrink-0 flex flex-col items-start gap-1" title={badge.description}>
+      <div class="flex items-start gap-4 mb-1">
+        <h1 class="text-xl font-semibold text-gray-900 leading-snug flex-1 m-0">{paperData.title}</h1>
+        <div class="flex-shrink-0 badge-wrap" data-tooltip={badge.description}>
           <span set:html={badge.html} />
-          <span class="text-xs text-gray-500 leading-tight max-w-[12rem]">{badge.description}</span>
         </div>
       </div>
       <div class="text-sm text-gray-600 mb-4">
@@ -100,11 +156,38 @@ const synthesisVersion = synthesisData?.synthesisV3 ? 'v3' : (synthesisData?.syn
             GitHub ↗
           </a>
         )}
+        {pdfUrl && (
+          <a href={pdfUrl} target="_blank" class="text-gray-600 hover:underline">
+            PDF ↗
+          </a>
+        )}
       </div>
     </div>
 
+    <!-- Paper summary: three labeled paragraphs (hypotheses/subject, claims, inferences).
+         Falls back to a single-sentence template if no entry exists in paper-summaries.json. -->
+    {summary ? (
+      <div class="paper-summary">
+        {summary.hypotheses && (
+          <p><span class="summary-label">Hypotheses</span> {summary.hypotheses}</p>
+        )}
+        {summary.subject && (
+          <p><span class="summary-label">Subject</span> {summary.subject}</p>
+        )}
+        {summary.claims && (
+          <p><span class="summary-label">Claims</span> {summary.claims}</p>
+        )}
+        {summary.inferences && (
+          <p><span class="summary-label">Inferences</span> {summary.inferences}</p>
+        )}
+      </div>
+    ) : (
+      <p class="paper-summary paper-summary-fallback">{paperSummaryFallback}</p>
+    )}
+
     <!-- Status summary -->
-    <div class="mb-8 flex flex-wrap gap-3">
+    <div class="mb-6 flex flex-wrap items-center gap-3">
+      <div class="text-sm text-gray-500">{paperData.claimCount} claims total</div>
       {statusGroups.filter(g => (paperData.statusCounts[g.key] ?? 0) > 0).map(g => (
         <div class="flex items-center gap-1.5 text-sm">
           <span style={{ width: 10, height: 10, borderRadius: 3, background: g.color, display: 'inline-block' }} />
@@ -112,75 +195,172 @@ const synthesisVersion = synthesisData?.synthesisV3 ? 'v3' : (synthesisData?.syn
           <span class="text-gray-500">{g.label}</span>
         </div>
       ))}
-      <div class="ml-auto text-sm text-gray-500">{paperData.claimCount} claims total</div>
     </div>
 
-    <!-- Framing line -->
-    <p class="text-sm text-gray-500 italic mb-8 leading-relaxed max-w-3xl">
-      {hasRoles
-        ? "This page reconstructs the paper's argument from its structured claim graph, then compares to the published abstract and the LLM-synthesized argument the graph alone implies."
-        : "The root claims of this paper's argument tree. Each conclusion descends into the claims that support it, down to the figure panels and data. Read top-down for the takeaway, or follow the descent to inspect the evidence."}
-    </p>
+    <PaperTabs tabs={tabs} defaultTab="structure" />
 
-    {hasRoles ? (
-      <ClaimStructure
-        paper={paperData}
-        paperSlug={paperSlug}
-        baseUrl={base}
-        claimsBySlug={claimsBySlug}
-      />
-    ) : (
-      <section class="mb-10">
-        <h2 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-5">
-          {conclusionsHeading}
-        </h2>
-        {defaultRoots.length === 0 ? (
-          <p class="text-xs text-gray-500 italic leading-relaxed max-w-3xl">
-            (no root claims identified — graph may be cyclic or all claims have downstream dependencies)
-          </p>
-        ) : (
-          defaultRoots.map(root => (
-            <ClaimTreeNode
-              claim={root}
-              depth={0}
-              paperSlug={paperSlug}
-              baseUrl={base}
-              allClaims={claimsBySlug}
-              tier="primary"
-              foldable={true}
-            />
-          ))
-        )}
-      </section>
-    )}
+    <!-- Tab: Claims (id remains `structure` for URL back-compat) -->
+    <div class="paper-tab-panel claims-tab-panel" data-tab-id="structure" data-tab-active="true">
+      {hasRoles ? (
+        <ClaimStructure
+          paper={paperData}
+          paperSlug={paperSlug}
+          baseUrl={base}
+          claimsBySlug={claimsBySlug}
+        />
+      ) : (
+        <section class="mb-6">
+          <h2 class="text-base font-semibold text-gray-900 uppercase tracking-wide mb-4">
+            {conclusionsHeading}
+          </h2>
+          {defaultRoots.length === 0 ? (
+            <p class="text-xs text-gray-500 italic leading-relaxed max-w-3xl">
+              (no root claims identified — graph may be cyclic or all claims have downstream dependencies)
+            </p>
+          ) : (
+            defaultRoots.map(root => (
+              <ClaimCardMini
+                claim={root}
+                paperSlug={paperSlug}
+                allClaims={claimsBySlug}
+                showChildren={true}
+              />
+            ))
+          )}
+        </section>
+      )}
 
+      <!-- Alphabetical claim index, collapsed by default -->
+      <details class="alpha-index-details mt-6">
+        <summary class="alpha-index-summary cursor-pointer select-none">
+          <span class="alpha-index-chevron mr-1 text-gray-400">▸</span>All claims (alphabetical)
+        </summary>
+        <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-xs mt-3">
+          {alphaClaims.map(c => (
+            <li>
+              <a
+                href={url(`/papers/${paperSlug}/${c.slug}`)}
+                class="text-blue-600 hover:underline font-mono"
+              >{c.slug}</a>
+              {c.panel && <span class="text-gray-400 ml-2">{c.panel}</span>}
+            </li>
+          ))}
+        </ul>
+      </details>
+    </div>
+
+    <!-- Tab: Abstract -->
     {abstractMapping && (
-      <AbstractAlignment
-        mapping={abstractMapping}
-        paperSlug={paperSlug}
-        baseUrl={base}
-        claimsBySlug={claimsBySlug}
-      />
+      <div class="paper-tab-panel" data-tab-id="abstract" data-tab-active="false">
+        <AbstractAlignment
+          mapping={abstractMapping}
+          paperSlug={paperSlug}
+          baseUrl={base}
+          claimsBySlug={claimsBySlug}
+        />
+      </div>
     )}
 
+    <!-- Tab: Argument from graph -->
     {synthesisBlock && (
-      <ArgumentFromGraph synthesis={synthesisBlock} version={synthesisVersion} />
+      <div class="paper-tab-panel" data-tab-id="argument" data-tab-active="false">
+        <ArgumentFromGraph synthesis={synthesisBlock} version={synthesisVersion} claimsBySlug={claimsBySlug} />
+      </div>
     )}
 
-    <!-- Compact alphabetical index -->
-    <div class="mt-12 pt-6 border-t border-gray-200">
-      <h2 class="text-xs font-semibold text-gray-500 uppercase tracking-widest mb-3">Claim index</h2>
-      <ul class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-1 text-xs">
-        {alphaClaims.map(c => (
-          <li>
-            <a
-              href={url(`/papers/${paperSlug}/${c.slug}`)}
-              class="text-blue-600 hover:underline font-mono"
-            >{c.slug}</a>
-            {c.panel && <span class="text-gray-400 ml-2">{c.panel}</span>}
-          </li>
-        ))}
-      </ul>
-    </div>
   </div>
+
+  <ClaimDrawer
+    client:load
+    allClaims={paperData.claims}
+    paperSlug={paperSlug}
+    baseUrl={base}
+  />
 </Layout>
+
+<style>
+  .paper-summary {
+    font-size: 17px;
+    line-height: 1.55;
+    color: #374151;
+    margin: 0 0 1.5rem 0;
+    max-width: 56rem;
+    font-weight: 400;
+  }
+  .paper-summary p {
+    margin: 0 0 0.85rem 0;
+  }
+  .paper-summary p:last-child {
+    margin-bottom: 0;
+  }
+  .paper-summary .summary-label {
+    display: inline-block;
+    margin-right: 0.4rem;
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+    vertical-align: baseline;
+  }
+
+  /* Hover tooltip on deposit-status badge (mirrors ClaimStructure h3[data-tooltip]) */
+  .badge-wrap[data-tooltip] {
+    position: relative;
+    cursor: help;
+  }
+  .badge-wrap[data-tooltip]::after {
+    content: attr(data-tooltip);
+    position: absolute;
+    top: calc(100% + 6px);
+    right: 0;
+    left: auto;
+    max-width: 360px;
+    width: max-content;
+    padding: 8px 12px;
+    font-size: 13px;
+    font-weight: normal;
+    line-height: 1.4;
+    text-transform: none;
+    letter-spacing: normal;
+    color: #333;
+    background: #FFFCE8;
+    border: 1px solid #E6E0B3;
+    border-radius: 4px;
+    white-space: normal;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 120ms ease-out;
+    z-index: 50;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+  }
+  .badge-wrap[data-tooltip]:hover::after {
+    opacity: 1;
+  }
+  @media (max-width: 640px) {
+    .badge-wrap[data-tooltip]::after {
+      max-width: calc(100vw - 2rem);
+    }
+  }
+
+  /* Alphabetical claim index at the bottom of the Claims tab */
+  .alpha-index-details > summary {
+    list-style: none;
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #6b7280;
+    padding: 0.25rem 0;
+  }
+  .alpha-index-details > summary::-webkit-details-marker {
+    display: none;
+  }
+  .alpha-index-details .alpha-index-chevron {
+    display: inline-block;
+    transition: transform 0.15s ease;
+  }
+  .alpha-index-details[open] .alpha-index-chevron {
+    transform: rotate(90deg);
+  }
+</style>

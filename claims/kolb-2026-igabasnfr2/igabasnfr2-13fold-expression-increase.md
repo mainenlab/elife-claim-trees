@@ -18,6 +18,8 @@ tests:
   - prediction-screen-yields-multiple-improved-variants
 confirms:
   - hypothesis-saturation-mutagenesis-yields-improved-sensor
+dissociates-with:
+  - igabasnfr2-fourfold-sensitivity-gain
 
 belongings:
 []

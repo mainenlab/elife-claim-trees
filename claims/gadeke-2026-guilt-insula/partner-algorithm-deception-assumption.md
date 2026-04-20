@@ -8,6 +8,9 @@ claim: >
   not informed of this; this deception is a structural assumption underlying all social
   comparison contrasts and the claim that participants felt interpersonal guilt toward
   a real partner.
+displayClaim: >
+  The "partner" was an EV-maximizing algorithm, not a real person. All
+  social-comparison claims inherit this structural validity assumption.
 claim-type: assessment
 role: scope
 concepts:

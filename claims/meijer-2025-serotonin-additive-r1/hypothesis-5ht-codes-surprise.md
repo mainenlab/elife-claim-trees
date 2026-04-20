@@ -11,6 +11,7 @@ claim: >
 displayClaim: >
   If 5-HT codes surprise, then stimulating it during a task with a shifting prior should
   speed up belief updating and shift psychometric or choice-model parameters.
+shortClaim: "If 5-HT codes surprise, stimulating it should speed belief updating under shifting priors."
 claim-type: hypothesis
 role: hypothesis
 concepts:

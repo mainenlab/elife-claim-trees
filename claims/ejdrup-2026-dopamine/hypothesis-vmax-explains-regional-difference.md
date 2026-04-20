@@ -11,6 +11,7 @@ claim: >
 displayClaim: >
   Regional differences in striatal DA dynamics (DS hotspots vs VS pervasive tonic coverage) are
   driven principally by DAT Vmax differences, not by release-side parameters.
+shortClaim: "DAT Vmax differences, not release parameters, drive striatal regional dopamine dynamics."
 claim-type: hypothesis
 role: hypothesis
 concepts:

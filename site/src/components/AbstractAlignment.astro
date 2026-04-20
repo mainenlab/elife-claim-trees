@@ -21,6 +21,7 @@ type Claim = {
   claim: string;
   displayClaim?: string | null;
   panel?: string;
+  number?: string | null;
 };
 
 type Props = {
@@ -112,16 +113,25 @@ const cardId = (slug: string) => `claim-card-${slug}`;
           {s.type === 'claim' && s.claims.length > 0 ? (
             <>
               <span class="text-gray-500">{kindLabel[s.kind ?? 'direct'] ?? s.kind} →</span>{' '}
-              {s.claims.map((slug, i) => (
-                <>
-                  {i > 0 && <span class="text-gray-400">, </span>}
-                  <a
-                    href={`#${cardId(slug)}`}
-                    class="font-mono text-blue-600 hover:underline sentence-claim-link"
-                    data-target-claim={slug}
-                  >{slug}</a>
-                </>
-              ))}
+              {s.claims.map((slug, i) => {
+                const c = claimsBySlug[slug];
+                const preview = c ? (c.displayClaim?.trim() || c.claim || '').slice(0, 80) : '';
+                const label = c?.number ?? slug;
+                return (
+                  <>
+                    {i > 0 && <span class="text-gray-400">, </span>}
+                    <a
+                      href={`#${cardId(slug)}`}
+                      class="font-mono text-blue-600 hover:underline sentence-claim-link"
+                      data-target-claim={slug}
+                      title={c ? (c.displayClaim?.trim() || c.claim || slug) : slug}
+                    >{label}</a>
+                    {c && preview && (
+                      <span class="text-gray-500"> · <span class="text-gray-600">{preview}</span></span>
+                    )}
+                  </>
+                );
+              })}
             </>
           ) : s.type === 'background' ? (
             <span class="text-gray-400 italic">background / framing — not a paper-specific claim</span>
@@ -142,6 +152,9 @@ const cardId = (slug: string) => `claim-card-${slug}`;
       <ul class="space-y-2">
         {orphanClaims.map(c => (
           <li class="text-sm">
+            {c.number && (
+              <span class="font-mono text-xs text-gray-600 mr-2">{c.number}</span>
+            )}
             <a
               href={url(`/papers/${paperSlug}/${c.slug}`)}
               class="font-mono text-xs text-blue-600 hover:underline"
@@ -229,6 +242,10 @@ const cardId = (slug: string) => `claim-card-${slug}`;
     el.classList.toggle('claim-card-highlight', on);
   }
 
+  function openClaim(slug: string) {
+    window.dispatchEvent(new CustomEvent('open-claim', { detail: { slug } }));
+  }
+
   document.querySelectorAll<HTMLElement>('.abstract-sentence').forEach(s => {
     const claims = (s.dataset.claims ?? '').split(',').filter(Boolean);
     if (claims.length === 0) return;
@@ -242,35 +259,19 @@ const cardId = (slug: string) => `claim-card-${slug}`;
       claims.forEach(c => highlight(c, false));
     });
     s.addEventListener('click', () => {
-      const first = findCard(claims[0]);
-      if (!first) return;
-      // Open any collapsed <details> ancestors so the card is in the layout flow.
-      let n: HTMLElement | null = first;
-      while (n) {
-        if (n.tagName === 'DETAILS') (n as HTMLDetailsElement).open = true;
-        n = n.parentElement;
-      }
-      first.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      if (claims[0]) openClaim(claims[0]);
     });
   });
 
-  // Reverse: hover the legend's claim slug links to highlight the card,
-  // and intercept the click to open <details> ancestors before scrolling.
+  // Legend's claim slug links open the drawer for that claim.
   document.querySelectorAll<HTMLAnchorElement>('.sentence-claim-link').forEach(a => {
     const slug = a.dataset.targetClaim;
     if (!slug) return;
     a.addEventListener('mouseenter', () => highlight(slug, true));
     a.addEventListener('mouseleave', () => highlight(slug, false));
     a.addEventListener('click', (e) => {
-      const card = findCard(slug);
-      if (!card) return;
       e.preventDefault();
-      let n: HTMLElement | null = card;
-      while (n) {
-        if (n.tagName === 'DETAILS') (n as HTMLDetailsElement).open = true;
-        n = n.parentElement;
-      }
-      card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      openClaim(slug);
     });
   });
 </script>

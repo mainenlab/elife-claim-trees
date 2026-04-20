@@ -18,6 +18,7 @@ claim: >
 displayClaim: >
   KCNC1-A421V is a Kv3.1 loss-of-function variant whose primary lesion is impaired
   surface trafficking of the channel — not altered gating or conductance.
+shortClaim: "KCNC1-A421V is a Kv3.1 loss-of-function variant driven by impaired surface trafficking."
 claim-type: hypothesis
 role: hypothesis
 concepts:

@@ -12,6 +12,7 @@ displayClaim: >
   DAT nanoclustering is a possible regulator of effective transporter activity, with denser
   clusters lowering effective Vmax via diffusion-limited substrate access — proposed as one
   contributor to the regional Vmax difference.
+shortClaim: "DAT nanoclustering lowers effective Vmax and helps set regional dopamine dynamics."
 claim-type: hypothesis
 role: hypothesis
 concepts:

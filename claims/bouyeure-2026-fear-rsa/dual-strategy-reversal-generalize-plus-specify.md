@@ -4,6 +4,7 @@ slug: dual-strategy-reversal-generalize-plus-specify
 doi: ~
 claim: >
   Reversal learning recruits two distinct representational strategies simultaneously: generalization (treating newly dangerous CS-+ like old CS++) for currently dangerous cues, and item-specific updating (distinguishing CS+- from CS++) for cues with changing threat value.
+shortClaim: "Reversal recruits two parallel strategies: generalize threat cues and specify changing-valence cues."
 claim-type: interpretive
 role: synthesis
 concepts:

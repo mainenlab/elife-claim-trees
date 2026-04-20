@@ -14,6 +14,7 @@ displayClaim: >
   Happiness incorporates partner reward prediction errors with a responsibility-weighted
   rule — partner RPEs caused by the participant's own choices receive an independent,
   non-zero weight in the happiness computation.
+shortClaim: "Happiness weights partner reward prediction errors by the subject's responsibility."
 claim-type: hypothesis
 role: hypothesis
 concepts:

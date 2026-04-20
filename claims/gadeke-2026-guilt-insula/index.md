@@ -89,13 +89,13 @@ This study investigated the neural mechanisms involved in feelings of interperso
 | entails (hypothesis → prediction) | 5 | Each hypothesis entails 1–2 predictions |
 | derived-from (prediction → hypothesis) | 5 | Inverse of entails; behavioral-guilt-effect derives from two hypotheses |
 | tests (empirical → prediction) | 5 | Direct empirical tests of predictions |
-| confirms (empirical/interpretation → hypothesis) | 8 | Empirical and convergent-validity confirmations |
-| validates (control → empirical/hypothesis) | 8 | Manipulation checks and methodological prerequisites |
+| confirms (empirical/interpretation → hypothesis) | 6 | Empirical confirmations of hypotheses |
+| validates (control → empirical/hypothesis) | 13 | Manipulation checks and methodological prerequisites |
 | dissociates-with | 4 | Independent or contrasting effects (own-outcome, agency, individual differences) |
 | rules-out | 1 | Risk-premium null rules out the choice-rate alternative explanation |
 | interprets (interpretation/synthesis → empirical) | 3 | Yu/Koban convergent validity, IFG–insula connectivity |
 | enables-method | 2 | Responsibility model fitting enables STS and ventral-striatum model-based analyses |
-| scopes (scope/methodological → empirical) | 18 | Two scope claims govern essentially every empirical claim in the paper |
+| scopes (scope/methodological → empirical) | 29 | Two scope claims govern all empirical claims (16 from each scope claim, minus overlap) |
 
 ## Extraction notes
 

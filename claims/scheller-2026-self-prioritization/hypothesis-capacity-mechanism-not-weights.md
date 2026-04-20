@@ -17,6 +17,7 @@ displayClaim: >
   Self-association acts via absolute processing capacity (TVA C parameter), not merely
   through redistribution of fixed attentional weights — predicting that condition-specific
   C should fit better than a single-C model.
+shortClaim: "Self-association raises absolute processing capacity, not merely attentional weights."
 claim-type: hypothesis
 role: hypothesis
 concepts:
@@ -32,6 +33,9 @@ panel: hypothesis
 
 entails:
   - prediction-capacity-model-outperforms-weights-only
+
+interprets:
+  - interprets-bundesen-tva-framework
 
 belongings: []
 
