@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Trace conditioning (temporal gap between CS and US) is used to engage hippocampus-dependent memory formation; this design assumption is not independently validated in this paper but relies on prior literature establishing hippocampal involvement in trace conditioning.
 claim-type: assessment
+role: scope
 concepts:
   - trace conditioning
   - hippocampus

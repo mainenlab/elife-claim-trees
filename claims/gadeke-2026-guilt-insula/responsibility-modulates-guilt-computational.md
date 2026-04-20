@@ -5,6 +5,7 @@ doi: ~
 claim: >
   A computational model incorporating responsibility-modulated happiness better accounts for the behavioral guilt effect than models without responsibility weighting, providing formal parameterization of the social decision-making component.
 claim-type: empirical
+role: empirical
 concepts:
   - computational model
   - responsibility
@@ -13,6 +14,16 @@ concepts:
   - guilt
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-responsibility-model-wins-comparison
+confirms:
+  - hypothesis-responsibility-weights-partner-rpes
+interprets:
+  - social-prpe-weight-positive
+enables-method:
+  - sts-tracks-partner-reward-prediction-errors
+  - ventral-striatum-tracks-computational-reward
 
 belongings:
 []

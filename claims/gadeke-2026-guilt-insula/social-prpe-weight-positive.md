@@ -9,6 +9,7 @@ claim: >
   model (Study 1: Z=2.93, p=0.003; Study 2: Z=3.30, p=0.001), demonstrating that
   participant-caused partner RPEs independently influence participant happiness.
 claim-type: empirical
+role: empirical
 concepts:
   - reward prediction error
   - responsibility
@@ -17,6 +18,11 @@ concepts:
   - happiness
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - hypothesis-responsibility-weights-partner-rpes
+confirms:
+  - hypothesis-responsibility-weights-partner-rpes
 
 belongings:
   - relation: supports

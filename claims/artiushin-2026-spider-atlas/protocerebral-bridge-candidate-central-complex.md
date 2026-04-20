@@ -5,6 +5,7 @@ doi: ~
 claim: >
   A structure consistent with a protocerebral bridge (potential spider equivalent of the insect central complex) is identified in the atlas, suggesting the spider brain contains a candidate homolog of circuits involved in path integration.
 claim-type: existence
+role: interpretation
 concepts:
   - protocerebral bridge
   - central complex
@@ -13,6 +14,14 @@ concepts:
   - neuroanatomy
 priority: 2026-03-30
 epistemic: weak
+
+interprets:
+  - protocerebral-bridge-layered-transmitter-architecture
+  - arcuate-body-layers-neurotransmitter-distinguished
+
+derived-from:
+  - protocerebral-bridge-layered-transmitter-architecture
+  - arcuate-body-four-sublayer-differential
 
 belongings: []
 

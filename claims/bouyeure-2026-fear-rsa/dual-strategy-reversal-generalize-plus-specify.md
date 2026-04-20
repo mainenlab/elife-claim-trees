@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Reversal learning recruits two distinct representational strategies simultaneously: generalization (treating newly dangerous CS-+ like old CS++) for currently dangerous cues, and item-specific updating (distinguishing CS+- from CS++) for cues with changing threat value.
 claim-type: interpretive
+role: synthesis
 concepts:
   - dual strategy
   - reversal learning
@@ -13,6 +14,15 @@ concepts:
   - RSA
 priority: 2026-03-30
 epistemic: moderate
+
+confirms:
+  - hypothesis-dual-strategy-reversal
+
+interprets:
+  - generalized-pattern-cs-minus-plus-reversal
+  - item-stability-precuneus-pfc-reversal
+  - ifg-reinstates-reversal-traces-item-specific
+  - dmpfc-reinstates-acquisition-traces-generalized
 
 belongings:
 []

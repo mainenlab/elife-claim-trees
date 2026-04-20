@@ -8,6 +8,7 @@ claim: >
   present during acquisition, suggesting that consistent threat representations are maintained
   more narrowly.
 claim-type: empirical
+role: empirical
 concepts:
   - cue generalization
   - dACC

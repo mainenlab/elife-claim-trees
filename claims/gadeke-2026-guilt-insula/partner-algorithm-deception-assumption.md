@@ -9,6 +9,7 @@ claim: >
   comparison contrasts and the claim that participants felt interpersonal guilt toward
   a real partner.
 claim-type: assessment
+role: scope
 concepts:
   - experimental design
   - deception
@@ -17,6 +18,20 @@ concepts:
   - interpersonal guilt
 priority: 2026-03-30
 epistemic: weak
+
+scopes:
+  - guilt-reduces-happiness-after-partner-loss
+  - guilt-effect-independent-of-own-outcome
+  - happiness-correlates-partner-reward
+  - insula-tracks-guilt-effect
+  - insula-ifg-connectivity-guilt
+  - sts-tracks-partner-reward-prediction-errors
+  - social-prpe-weight-positive
+  - responsibility-modulates-guilt-computational
+  - insula-guilt-replicates-yu-koban-signature
+  - guilt-signature-no-individual-difference
+  - precuneus-tpj-mpfc-social-decisions
+  - agency-reduces-happiness
 
 belongings:
   - relation: requires

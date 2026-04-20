@@ -7,6 +7,7 @@ claim: >
   acquisition or test_new memory traces (F(2,253)=5.50, p<0.01), showing that IFG
   preferentially reinstates the most recently learned item-specific representations.
 claim-type: empirical
+role: empirical
 concepts:
   - IFG
   - item reinstatement
@@ -15,6 +16,9 @@ concepts:
   - test phase
 priority: 2026-03-30
 epistemic: moderate
+
+dissociates-with:
+  - dmpfc-reinstates-acquisition-traces-generalized
 
 belongings:
   - relation: supports

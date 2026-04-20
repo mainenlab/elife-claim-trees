@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Probability of lottery selection increases with expected value advantage in both Study 1 (t(4796)=9.26, p<3.1e-20, β=0.074, 95%CI [0.059-0.090]) and Study 2 (t(3829)=10.62, p<5.3e-26, β=0.093, 95%CI [0.075-0.110]), confirming participants were sensitive to expected value in their choices.
 claim-type: empirical
+role: control
 concepts:
   - lottery choice
   - expected value
@@ -12,6 +13,10 @@ concepts:
   - behavioral manipulation check
 priority: 2026-03-30
 epistemic: strong
+
+validates:
+  - responsibility-modulates-guilt-computational
+  - hypothesis-insula-tracks-interpersonal-guilt
 
 belongings:
 []

@@ -9,6 +9,7 @@ claim: >
   defines its boundaries; serotonergic fibers additionally form a distinctive circular tract
   pattern around the midline of the supraesophageal ganglion visible at more ventral planes.
 claim-type: existence
+role: empirical
 concepts:
   - hagstone neuropil
   - serotonin
@@ -18,6 +19,10 @@ concepts:
   - spider brain
 priority: 2026-03-30
 epistemic: strong
+
+dissociates-with:
+  - tonsillar-neuropil-novel-structure
+  - mushroom-bodies-present-asta-exclusive
 
 belongings:
   - relation: extends

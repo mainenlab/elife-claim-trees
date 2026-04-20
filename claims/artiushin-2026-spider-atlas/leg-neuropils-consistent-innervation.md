@@ -5,6 +5,7 @@ doi: ~
 claim: >
   The four pairs of leg neuropils (LN1-LN4) display consistent innervation patterns across legs for the neurotransmitters mapped, indicating stereotyped neurochemical organization of the locomotor system.
 claim-type: empirical
+role: empirical
 concepts:
   - leg neuropils
   - LN1-LN4
@@ -13,6 +14,10 @@ concepts:
   - locomotion
 priority: 2026-03-30
 epistemic: moderate
+
+dissociates-with:
+  - cheliceral-neuropil-serotonin-tdc2-dominant
+  - pedipalpal-neuropil-chat-tdc2-dominant
 
 belongings: []
 

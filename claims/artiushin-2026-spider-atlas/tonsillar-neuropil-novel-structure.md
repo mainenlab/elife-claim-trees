@@ -5,6 +5,7 @@ doi: ~
 claim: >
   A previously undocumented tonsillar neuropil is identified in the Uloborus diversus synganglion based on its immunostaining profile, representing a novel anatomical structure in spider neuroanatomy.
 claim-type: existence
+role: empirical
 concepts:
   - tonsillar neuropil
   - novel structure
@@ -12,6 +13,10 @@ concepts:
   - immunostaining
 priority: 2026-03-30
 epistemic: moderate
+
+dissociates-with:
+  - hagstone-neuropil-serotonin-defined
+  - mushroom-bodies-present-asta-exclusive
 
 belongings: []
 

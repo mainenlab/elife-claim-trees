@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Co-staining with multiple neurotransmitter markers allows the arcuate body layers to be distinguished morphologically, where single-channel synapsin staining is insufficient to differentiate the layers.
 claim-type: empirical
+role: empirical
 concepts:
   - arcuate body
   - neurotransmitter co-staining
@@ -13,6 +14,9 @@ concepts:
   - spider brain
 priority: 2026-03-30
 epistemic: moderate
+
+dissociates-with:
+  - protocerebral-bridge-layered-transmitter-architecture
 
 belongings: []
 

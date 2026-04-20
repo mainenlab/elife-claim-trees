@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Neural representations of contexts become more distinct (context-specific) during reversal learning compared to acquisition, particularly in prefrontal cortex, reflecting the need to separate safe and dangerous environments.
 claim-type: empirical
+role: empirical
 concepts:
   - context specificity
   - prefrontal cortex
@@ -14,9 +15,14 @@ concepts:
 priority: 2026-03-30
 epistemic: moderate
 
+tests:
+  - prediction-context-specificity-increases-during-reversal
+
 belongings:
   - relation: supports
     target: pfc-context-specificity-predicts-renewal
+  - relation: supports
+    target: hypothesis-context-specificity-supports-renewal
 
 assertions:
   - paper-slug: bouyeure-2026-fear-rsa

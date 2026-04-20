@@ -8,6 +8,7 @@ claim: >
   reinstatement of threatening reversal memories in the same region that generalizes acquisition
   traces.
 claim-type: empirical
+role: empirical
 concepts:
   - context specificity
   - reversal memory traces
@@ -16,6 +17,9 @@ concepts:
   - individual differences
 priority: 2026-03-30
 epistemic: moderate
+
+validates:
+  - hypothesis-context-specificity-supports-renewal
 
 belongings:
   - relation: requires

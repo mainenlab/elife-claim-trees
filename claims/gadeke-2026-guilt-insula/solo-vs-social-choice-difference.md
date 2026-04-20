@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Participants chose lotteries more often in the Solo condition than in the Social condition in Study 1 (t(4796)=2.54, p=0.011, β=0.164, 95%CI=[0.038, 0.291]) but not in Study 2 (t(3829)=0.23, p=0.82, β=0.015), suggesting a weak and inconsistent effect of social context on risk-taking that does not replicate across studies.
 claim-type: empirical
+role: empirical
 concepts:
   - solo condition
   - social condition
@@ -12,6 +13,9 @@ concepts:
   - lottery choice
 priority: 2026-03-30
 epistemic: moderate
+
+dissociates-with:
+  - risk-premiums-null-social-solo
 
 belongings:
   - relation: contradicts

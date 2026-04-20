@@ -10,6 +10,7 @@ claim: >
   affects interpretation of GABA patterns in deep neuropils such as the protocerebral bridge
   and arcuate body interior.
 claim-type: assessment
+role: methodological
 concepts:
   - anti-GAD antibody
   - tissue penetration

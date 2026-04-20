@@ -7,6 +7,7 @@ claim: >
   between any CS type contrasts are found, despite significant US expectancy differences at
   the behavioral level, motivating RSA over univariate analysis.
 claim-type: empirical
+role: control
 concepts:
   - null result
   - BOLD activation
@@ -15,6 +16,10 @@ concepts:
   - RSA motivation
 priority: 2026-03-30
 epistemic: moderate
+
+enables-method:
+  - ifg-reinstates-reversal-traces-item-specific
+  - dmpfc-reinstates-acquisition-traces-generalized
 
 belongings:
   - relation: supports

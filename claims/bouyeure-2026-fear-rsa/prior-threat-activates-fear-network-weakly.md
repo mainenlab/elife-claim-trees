@@ -8,6 +8,7 @@ claim: >
   fear network activation — (CS++ > CS+-) > (CS-+ > CS--) — though to a lesser extent than the
   current-threat contrast, suggesting a lingering prior fear memory trace.
 claim-type: interpretive
+role: interpretation
 concepts:
   - fear memory trace
   - prior threat value
@@ -16,6 +17,9 @@ concepts:
   - fear network
 priority: 2026-03-30
 epistemic: weak
+
+interprets:
+  - current-threat-activates-fear-network-reversal
 
 belongings:
   - relation: requires

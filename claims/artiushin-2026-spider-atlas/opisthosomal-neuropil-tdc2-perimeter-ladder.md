@@ -9,6 +9,7 @@ claim: >
   while longitudinal and lateral projections form a ladder-like structure in more posterior and
   dorsal planes, a pattern also partially revealed by proctolin and dopaminergic (TH) innervation.
 claim-type: empirical
+role: empirical
 concepts:
   - opisthosomal neuropil
   - octopamine
@@ -18,6 +19,10 @@ concepts:
   - ladder structure
 priority: 2026-03-30
 epistemic: strong
+
+dissociates-with:
+  - leg-neuropil-serotonin-bilateral-innervation
+  - pedipalpal-neuropil-chat-tdc2-dominant
 
 belongings: []
 

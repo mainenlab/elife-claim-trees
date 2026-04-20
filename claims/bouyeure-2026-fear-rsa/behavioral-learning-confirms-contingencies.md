@@ -7,6 +7,7 @@ claim: >
   phases (LME: CS type F=479.35, p<0.0001; phase F=125.6, p<0.001; interaction p<0.001),
   confirming participants learned threat contingencies and their reversals.
 claim-type: empirical
+role: empirical
 concepts:
   - US expectancy
   - fear conditioning
@@ -15,6 +16,10 @@ concepts:
   - LME
 priority: 2026-03-30
 epistemic: strong
+
+validates:
+  - hypothesis-fear-network-generalizes-threat-cues
+  - hypothesis-dual-strategy-reversal
 
 belongings:
   - relation: supports

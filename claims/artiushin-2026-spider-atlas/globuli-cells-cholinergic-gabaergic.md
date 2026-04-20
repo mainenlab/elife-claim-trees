@@ -8,6 +8,7 @@ claim: >
   globuli cells represent cholinergic and GABAergic populations; this is consistent with prior
   demonstration of ChAT-positive globuli cells in C. salei.
 claim-type: empirical
+role: empirical
 concepts:
   - globuli cells
   - mushroom body
@@ -18,6 +19,9 @@ concepts:
   - spider brain
 priority: 2026-03-30
 epistemic: moderate
+
+confirms:
+  - mushroom-bodies-present-asta-exclusive
 
 belongings:
   - relation: supports

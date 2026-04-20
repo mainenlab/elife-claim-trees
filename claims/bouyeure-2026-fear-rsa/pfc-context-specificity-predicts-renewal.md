@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Prefrontal cortex context-specificity during reversal learning predicts subsequent fear renewal at test, linking context-specific neural coding to behavioral expression of fear.
 claim-type: empirical
+role: empirical
 concepts:
   - prefrontal cortex
   - context specificity
@@ -14,8 +15,14 @@ concepts:
 priority: 2026-03-30
 epistemic: moderate
 
+tests:
+  - prediction-pfc-context-specificity-tracks-renewal
+
 belongings:
-[]
+  - relation: requires
+    target: context-specificity-increases-reversal
+  - relation: supports
+    target: hypothesis-context-specificity-supports-renewal
 
 assertions:
   - paper-slug: bouyeure-2026-fear-rsa

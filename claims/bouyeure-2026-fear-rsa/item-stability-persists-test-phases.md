@@ -8,6 +8,7 @@ claim: >
   inferior temporal gyrus at test_old, showing that individual-item memory traces outlast
   the training context.
 claim-type: empirical
+role: empirical
 concepts:
   - item stability
   - persistence

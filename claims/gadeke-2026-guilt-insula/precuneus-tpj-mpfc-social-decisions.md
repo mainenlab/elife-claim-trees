@@ -9,6 +9,7 @@ claim: >
   themselves alone (Solo condition), replicating the association of these regions with
   social decision-making.
 claim-type: empirical
+role: empirical
 concepts:
   - precuneus
   - temporoparietal junction
@@ -18,6 +19,9 @@ concepts:
   - fMRI
 priority: 2026-03-30
 epistemic: strong
+
+validates:
+  - insula-tracks-guilt-effect
 
 belongings: []
 

@@ -9,6 +9,7 @@ claim: >
   d=0.70, Z=5.26, 80 voxels, MNI [10 10 −4]), validating the model-based fMRI approach
   as a manipulation check before the STS analysis.
 claim-type: empirical
+role: control
 concepts:
   - ventral striatum
   - computational model
@@ -17,6 +18,9 @@ concepts:
   - reward prediction error
 priority: 2026-03-30
 epistemic: strong
+
+validates:
+  - sts-tracks-partner-reward-prediction-errors
 
 belongings:
   - relation: supports

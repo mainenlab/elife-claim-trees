@@ -10,6 +10,7 @@ claim: >
   throughout the mushroom body, while other transmitter systems including 5-HT, TDC2, GABA,
   ChAT, proctolin, and CCAP do not.
 claim-type: empirical
+role: empirical
 concepts:
   - mushroom bodies
   - Uloborus diversus
@@ -19,6 +20,10 @@ concepts:
   - comparative neuroanatomy
 priority: 2026-03-30
 epistemic: strong
+
+dissociates-with:
+  - tonsillar-neuropil-novel-structure
+  - hagstone-neuropil-serotonin-defined
 
 belongings: []
 

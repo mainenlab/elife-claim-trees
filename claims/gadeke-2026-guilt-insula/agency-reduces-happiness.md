@@ -8,6 +8,7 @@ claim: >
   95%CI=[−0.20, −0.07]; Study 2: t(2870)=−6.07, p<0.0001, β=−0.24, 95%CI=[−0.31, −0.16]),
   consistent with a psychological cost of assuming responsibility for others.
 claim-type: empirical
+role: empirical
 concepts:
   - agency
   - responsibility aversion
@@ -16,6 +17,9 @@ concepts:
   - social choice
 priority: 2026-03-30
 epistemic: strong
+
+dissociates-with:
+  - guilt-reduces-happiness-after-partner-loss
 
 belongings:
   - relation: supports

@@ -8,6 +8,7 @@ claim: >
   (Study 1: F(1,2426)=128.6, R²=0.05; Study 2: F(1,1735)=111.8, R²=0.06), confirming
   that participants were emotionally responsive to partner outcomes throughout the task.
 claim-type: empirical
+role: empirical
 concepts:
   - momentary happiness
   - partner reward
@@ -15,6 +16,10 @@ concepts:
   - social decision
 priority: 2026-03-30
 epistemic: strong
+
+validates:
+  - guilt-reduces-happiness-after-partner-loss
+  - hypothesis-insula-tracks-interpersonal-guilt
 
 belongings:
   - relation: supports

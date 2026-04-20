@@ -1,0 +1,71 @@
+{
+  "paperSlug": "artiushin-2026-spider-atlas",
+  "abstract": "Spider orb-web building is a captivating, rare example of animal construction, whose neural underpinnings remain undiscovered. We created a three-dimensional atlas for the hackled-orb weaver, Uloborus diversus, based on immunostaining for the presynaptic component, synapsin, in whole-mounted spider synganglia. Whereas spider neuroanatomy has thus far been most comprehensively studied in cursorial species, this optically sectioned atlas contributes a continuous, finely resolved model of the central nervous system of an orb-web building spider. Aligned to this volume, we examined the expression patterns of neuronal populations representing many of the classical neurotransmitters and neuromodulators (GABA, acetylcholine, serotonin, and octopamine/tyramine), as well as a subset of neuropeptides (allatostatin A, crustacean cardioactive peptide (CCAP), FMRFamide, proctolin) – detailing immunoreactivity in an unbiased fashion throughout the synganglion to reveal co-expression in known structures (such as the arcuate body), as well as novel neuropils not readily apparent in prior spider research, including the tonsillar neuropil as well as a potential protocerebral bridge. These structures provide targets for future functional studies, and taken together, could represent a spider equivalent of the central complex, contributing to behaviors such as web-building.",
+  "sentences": [
+    {
+      "n": 1,
+      "text": "Spider orb-web building is a captivating, rare example of animal construction, whose neural underpinnings remain undiscovered.",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "Motivational framing; no claim in the graph corresponds to it."
+    },
+    {
+      "n": 2,
+      "text": "We created a three-dimensional atlas for the hackled-orb weaver, Uloborus diversus, based on immunostaining for the presynaptic component, synapsin, in whole-mounted spider synganglia.",
+      "type": "claim",
+      "claims": [
+        "uloborus-synganglion-neurotransmitter-atlas"
+      ],
+      "kind": "direct",
+      "note": "The atlas construction claim itself -- maps directly to the methodological existence claim."
+    },
+    {
+      "n": 3,
+      "text": "Whereas spider neuroanatomy has thus far been most comprehensively studied in cursorial species, this optically sectioned atlas contributes a continuous, finely resolved model of the central nervous system of an orb-web building spider.",
+      "type": "claim",
+      "claims": [
+        "atlas-observational-scope"
+      ],
+      "kind": "direct",
+      "note": "Positions the atlas as filling a gap (cursorial vs web-building). Maps to the scope assessment claim that frames all findings as observational."
+    },
+    {
+      "n": 4,
+      "text": "Aligned to this volume, we examined the expression patterns of neuronal populations representing many of the classical neurotransmitters and neuromodulators (GABA, acetylcholine, serotonin, and octopamine/tyramine), as well as a subset of neuropeptides (allatostatin A, crustacean cardioactive peptide (CCAP), FMRFamide, proctolin) – detailing immunoreactivity in an unbiased fashion throughout the synganglion to reveal co-expression in known structures (such as the arcuate body), as well as novel neuropils not readily apparent in prior spider research, including the tonsillar neuropil as well as a potential protocerebral bridge.",
+      "type": "claim",
+      "claims": [
+        "leg-neuropils-consistent-innervation",
+        "leg-neuropil-serotonin-bilateral-innervation",
+        "opisthosomal-neuropil-tdc2-perimeter-ladder",
+        "pedipalpal-neuropil-chat-tdc2-dominant",
+        "cheliceral-neuropil-serotonin-tdc2-dominant",
+        "hagstone-neuropil-serotonin-defined",
+        "mushroom-bodies-present-asta-exclusive",
+        "globuli-cells-cholinergic-gabaergic",
+        "arcuate-body-layers-neurotransmitter-distinguished",
+        "arcuate-body-four-sublayer-differential",
+        "tonsillar-neuropil-novel-structure",
+        "tonsillar-neuropil-serotonin-core-tdc2-shell",
+        "protocerebral-bridge-candidate-central-complex",
+        "protocerebral-bridge-layered-transmitter-architecture"
+      ],
+      "kind": "synthesis",
+      "note": "The core methods-and-results sentence of the abstract. A single long sentence compresses all regional anatomical findings, both in known structures (arcuate body) and novel ones (tonsillar neuropil, protocerebral bridge). Maps to 14 of 17 claims. The abstract does not individuate the subesophageal vs supraesophageal findings -- the claim graph decomposes them."
+    },
+    {
+      "n": 5,
+      "text": "These structures provide targets for future functional studies, and taken together, could represent a spider equivalent of the central complex, contributing to behaviors such as web-building.",
+      "type": "claim",
+      "claims": [
+        "protocerebral-bridge-candidate-central-complex"
+      ],
+      "kind": "direct",
+      "note": "The interpretive payoff: the central complex homology claim. The abstract hedges with \"could represent\", matching the weak epistemic status of the homology claim."
+    }
+  ],
+  "orphanClaims": [
+    "gad-antibody-peripheral-penetration-only"
+  ],
+  "orphanSentences": []
+}

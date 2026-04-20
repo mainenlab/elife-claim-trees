@@ -7,6 +7,7 @@ claim: >
   CS+- acquisition memory traces in MTG during test_new (t(22)=2.51, p<0.05), the phase with
   entirely new contexts, suggesting context specificity generalizes beyond the training context.
 claim-type: empirical
+role: control
 concepts:
   - context specificity
   - test new contexts

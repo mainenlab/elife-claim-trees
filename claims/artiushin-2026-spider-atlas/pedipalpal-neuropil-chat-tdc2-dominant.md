@@ -9,6 +9,7 @@ claim: >
   of the neuropil; allatostatin A and CCAP show little to no appreciable immunoreactivity within
   the defined pedipalpal neuropil boundaries.
 claim-type: empirical
+role: empirical
 concepts:
   - pedipalpal neuropil
   - acetylcholine
@@ -19,6 +20,10 @@ concepts:
   - neuropil characterization
 priority: 2026-03-30
 epistemic: strong
+
+dissociates-with:
+  - cheliceral-neuropil-serotonin-tdc2-dominant
+  - leg-neuropils-consistent-innervation
 
 belongings: []
 

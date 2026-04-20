@@ -9,6 +9,7 @@ claim: >
   dopaminergic innervation and the anterior/posterior differential of TDC2 signal in the same
   structures.
 claim-type: empirical
+role: empirical
 concepts:
   - leg neuropil
   - serotonin
@@ -17,6 +18,10 @@ concepts:
   - bilateral compartmentation
 priority: 2026-03-30
 epistemic: strong
+
+dissociates-with:
+  - opisthosomal-neuropil-tdc2-perimeter-ladder
+  - cheliceral-neuropil-serotonin-tdc2-dominant
 
 belongings:
   - relation: supports

@@ -8,6 +8,7 @@ claim: >
   p=0.84, d=−0.03, BF10=0.17), providing evidence against social-context-driven
   changes in risk aversion in this paradigm.
 claim-type: empirical
+role: control
 concepts:
   - risk premium
   - risk aversion
@@ -16,6 +17,12 @@ concepts:
   - null result
 priority: 2026-03-30
 epistemic: strong
+
+rules-out:
+  - solo-vs-social-choice-difference
+validates:
+  - insula-tracks-guilt-effect
+  - sts-tracks-partner-reward-prediction-errors
 
 belongings:
   - relation: contradicts

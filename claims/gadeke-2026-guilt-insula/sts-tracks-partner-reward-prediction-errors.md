@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Superior temporal sulcus (STS) BOLD activity tracks partner reward prediction errors specifically when the participant was responsible for the choice, consistent with mentalizing about the partner's experiential state.
 claim-type: empirical
+role: empirical
 concepts:
   - superior temporal sulcus
   - prediction error
@@ -13,6 +14,11 @@ concepts:
   - fMRI
 priority: 2026-03-30
 epistemic: moderate
+
+tests:
+  - prediction-sts-tracks-partner-rpe-under-responsibility
+confirms:
+  - hypothesis-sts-mentalizes-partner-state-under-responsibility
 
 belongings:
 []

@@ -1,0 +1,135 @@
+{
+  "paperSlug": "bouyeure-2026-fear-rsa",
+  "abstract": "When we learn that something is dangerous, a fear memory is formed. However, this memory is not fixed and can be updated through new experiences, such as learning that the threat is no longer present. This process of updating, known as extinction or reversal learning, is highly dependent on the context in which it occurs. How the brain represents cues, contexts, and their changing threat value remains a major question. Here, we used functional magnetic resonance imaging and a novel fear learning paradigm to track the neural representations of stimuli across fear acquisition, reversal, and test phases. We found that initial fear learning creates generalized neural representations for all threatening cues in the brain’s fear network. During reversal learning, when threat contingencies switched for some of the cues, two distinct representational strategies were observed. On the one hand, we still identified generalized patterns for currently threatening cues, whereas on the other hand, we observed highly stable representations of individual cues (i.e. item-specific) that changed their valence, particularly in the precuneus and prefrontal cortex. Furthermore, we observed that the brain represents contexts more distinctly during reversal learning. Furthermore, additional exploratory analyses showed that the degree of this context specificity in the prefrontal cortex predicted the subsequent return of fear, providing a potential neural mechanism for fear renewal. Our findings reveal that the brain uses a flexible combination of generalized and specific representations to adapt to a changing world, shedding new light on the mechanisms that support cognitive flexibility and the treatment of anxiety disorders via exposure therapy.",
+  "sentences": [
+    {
+      "n": 1,
+      "text": "When we learn that something is dangerous, a fear memory is formed.",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "General fear-conditioning framing; no claim in this paper corresponds -- the paper assumes basic fear learning."
+    },
+    {
+      "n": 2,
+      "text": "However, this memory is not fixed and can be updated through new experiences, such as learning that the threat is no longer present.",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "Reversal/extinction motivation, drawn from prior literature."
+    },
+    {
+      "n": 3,
+      "text": "This process of updating, known as extinction or reversal learning, is highly dependent on the context in which it occurs.",
+      "type": "background",
+      "claims": [],
+      "kind": null,
+      "note": "Context-dependence of extinction is the prior-literature framing that motivates the renewal hypothesis tested here, but is not itself a claim of this paper."
+    },
+    {
+      "n": 4,
+      "text": "How the brain represents cues, contexts, and their changing threat value remains a major question.",
+      "type": "motivation",
+      "claims": [],
+      "kind": null,
+      "note": "Open-question framing; no claim corresponds."
+    },
+    {
+      "n": 5,
+      "text": "Here, we used functional magnetic resonance imaging and a novel fear learning paradigm to track the neural representations of stimuli across fear acquisition, reversal, and test phases.",
+      "type": "methods",
+      "claims": [
+        "lss-unreinforced-trials-only",
+        "trace-conditioning-hippocampus-engaged",
+        "rsa-roi-derived-from-searchlight"
+      ],
+      "kind": "methodological",
+      "note": "Methods sentence -- names the fMRI + fear-learning paradigm (the 'Nina the Unlucky Backpacker' design with trace conditioning, three contexts, and four cue types). Maps to the three methodological/scope assessment claims that scope every empirical result."
+    },
+    {
+      "n": 6,
+      "text": "We found that initial fear learning creates generalized neural representations for all threatening cues in the brain’s fear network.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-fear-network-generalizes-threat-cues",
+        "prediction-cue-generalization-fear-network-acquisition",
+        "cue-generalization-increases-acquisition"
+      ],
+      "kind": "direct",
+      "note": "The acquisition-phase generalization headline. Maps simultaneously to (a) the underlying hypothesis the paper formalizes from prior literature, (b) the explicit RSA prediction it operationalizes, and (c) the empirical CS+ > CS- between-item-similarity contrast in fear-network ROIs (fig3A)."
+    },
+    {
+      "n": 7,
+      "text": "During reversal learning, when threat contingencies switched for some of the cues, two distinct representational strategies were observed.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-dual-strategy-reversal",
+        "dual-strategy-reversal-generalize-plus-specify"
+      ],
+      "kind": "synthesis",
+      "note": "The dual-strategy synthesis statement. Sets up the two-pronged result that the next sentence elaborates. Maps to the hypothesis (the pre-data dual-strategy bet) and the synthesis claim (the paper's interpretive payoff)."
+    },
+    {
+      "n": 8,
+      "text": "On the one hand, we still identified generalized patterns for currently threatening cues, whereas on the other hand, we observed highly stable representations of individual cues (i.e. item-specific) that changed their valence, particularly in the precuneus and prefrontal cortex.",
+      "type": "claim",
+      "claims": [
+        "prediction-cs-minus-plus-generalizes-reversal",
+        "generalized-pattern-cs-minus-plus-reversal",
+        "prediction-item-stability-changing-cues-reversal",
+        "item-stability-precuneus-pfc-reversal"
+      ],
+      "kind": "direct",
+      "note": "The dissociation in detail. The first half ('generalized patterns for currently threatening cues') maps to the CS-+ generalization prediction and result; the second half ('highly stable representations of individual cues that changed their valence') maps to the item-stability prediction and the precuneus/IFG empirical result. The naming of precuneus + prefrontal cortex as the anatomical locus is verbatim from the abstract and matches the empirical claim's regions."
+    },
+    {
+      "n": 9,
+      "text": "Furthermore, we observed that the brain represents contexts more distinctly during reversal learning.",
+      "type": "claim",
+      "claims": [
+        "prediction-context-specificity-increases-during-reversal",
+        "context-specificity-increases-reversal"
+      ],
+      "kind": "direct",
+      "note": "Direct map: the phase x region context-specificity result and the prediction it confirms."
+    },
+    {
+      "n": 10,
+      "text": "Furthermore, additional exploratory analyses showed that the degree of this context specificity in the prefrontal cortex predicted the subsequent return of fear, providing a potential neural mechanism for fear renewal.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-context-specificity-supports-renewal",
+        "prediction-pfc-context-specificity-tracks-renewal",
+        "pfc-context-specificity-predicts-renewal"
+      ],
+      "kind": "direct",
+      "note": "The exploratory between-subject brain-behavior correlation. Maps to the hypothesis (PFC context coding as substrate for renewal), the individual-differences prediction, and the empirical fig5D correlation. The abstract's hedging ('exploratory', 'potential') matches the moderate epistemic strength of the empirical claim."
+    },
+    {
+      "n": 11,
+      "text": "Our findings reveal that the brain uses a flexible combination of generalized and specific representations to adapt to a changing world, shedding new light on the mechanisms that support cognitive flexibility and the treatment of anxiety disorders via exposure therapy.",
+      "type": "claim",
+      "claims": [
+        "dual-strategy-reversal-generalize-plus-specify"
+      ],
+      "kind": "synthesis",
+      "note": "Closing synthesis sentence. Restates the dual-strategy synthesis claim with its broader-implication framing for cognitive flexibility and anxiety treatment. The clinical/translational framing is not itself a claim in the graph."
+    }
+  ],
+  "orphanClaims": [
+    "behavioral-learning-confirms-contingencies",
+    "cs-plus-univariate-fear-network-acquisition",
+    "current-threat-activates-fear-network-reversal",
+    "prior-threat-activates-fear-network-weakly",
+    "no-bold-differences-test-phases",
+    "no-item-stability-difference-acquisition",
+    "cue-generalization-limited-dacc-reversal-consistent",
+    "item-stability-persists-test-phases",
+    "ifg-reinstates-reversal-traces-item-specific",
+    "dmpfc-reinstates-acquisition-traces-generalized",
+    "context-specificity-predicts-acquisition-reinstatement-regional-dissociation",
+    "context-specificity-predicts-reversal-reinstatement-dmpfc",
+    "context-specificity-predicts-reinstatement-new-context-mtg"
+  ],
+  "orphanSentences": []
+}

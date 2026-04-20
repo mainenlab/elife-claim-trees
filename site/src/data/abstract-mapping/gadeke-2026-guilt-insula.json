@@ -1,0 +1,143 @@
+{
+  "paperSlug": "gadeke-2026-guilt-insula",
+  "abstract": "This study investigated the neural mechanisms involved in feelings of interpersonal guilt and responsibility evoked by social decisions in humans. In two studies (one during fMRI), participants repeatedly chose between safe and risky monetary outcomes in social contexts. Across conditions, each participant chose for both themselves and a partner (Social condition), or the partner chose for both themselves and the participant (Partner condition), or the participant chose just for themselves (Solo condition, control). If the risky option was chosen in the Social or Partner condition, participant and partner could each receive either the high or the low outcome of a lottery with 50% probability, independently of each other. Participants were shown the outcomes for themselves and for their partner on each trial and reported their momentary happiness every few trials. As expected, participant happiness decreased following both low lottery outcomes for themselves and for the partner. Crucially, happiness decreases following low outcomes for the partner were larger when the participant rather than their partner had made the choice, which fits an operational definition of guilt. This guilt effect was associated with BOLD signal increase in the left anterior insula. Connectivity between this region and the right inferior frontal gyrus varied depending on choice and experimental condition, suggesting that this part of prefrontal cortex is sensitive to guilt-related information during social choices. Variations in happiness were well explained by computational models based on participants’ and partners’ rewards and reward prediction errors. A model-based analysis revealed a left superior temporal sulcus cluster that tracked partner reward prediction errors that followed participant choices. Our findings identify neural mechanisms of guilt and social responsibility during social decisions under risk.",
+  "sentences": [
+    {
+      "n": 1,
+      "text": "This study investigated the neural mechanisms involved in feelings of interpersonal guilt and responsibility evoked by social decisions in humans.",
+      "type": "motivation",
+      "claims": [
+        "hypothesis-insula-tracks-interpersonal-guilt",
+        "hypothesis-responsibility-weights-partner-rpes",
+        "hypothesis-sts-mentalizes-partner-state-under-responsibility"
+      ],
+      "kind": "hypothesis",
+      "note": "Framing sentence -- names the three top-level theoretical bets the paper makes (anatomical, computational, mentalizing). All three hypotheses sit behind this sentence."
+    },
+    {
+      "n": 2,
+      "text": "In two studies (one during fMRI), participants repeatedly chose between safe and risky monetary outcomes in social contexts.",
+      "type": "methods",
+      "claims": [
+        "scope-two-study-design"
+      ],
+      "kind": "methodological",
+      "note": "Two-study scope sentence -- Study 1 (fMRI) and Study 2 (behavioural replication). Maps to the scope claim that conditions every empirical result on the lottery paradigm and the two-study replication structure."
+    },
+    {
+      "n": 3,
+      "text": "Across conditions, each participant chose for both themselves and a partner (Social condition), or the partner chose for both themselves and the participant (Partner condition), or the participant chose just for themselves (Solo condition, control).",
+      "type": "methods",
+      "claims": [
+        "partner-algorithm-deception-assumption"
+      ],
+      "kind": "methodological",
+      "note": "Condition definitions. The 'partner' is in fact an EV-maximising algorithm -- the structural validity assumption that all social-comparison contrasts inherit."
+    },
+    {
+      "n": 4,
+      "text": "If the risky option was chosen in the Social or Partner condition, participant and partner could each receive either the high or the low outcome of a lottery with 50% probability, independently of each other.",
+      "type": "methods",
+      "claims": [],
+      "kind": null,
+      "note": "Lottery mechanics description; no claim corresponds -- this is design detail rather than a finding."
+    },
+    {
+      "n": 5,
+      "text": "Participants were shown the outcomes for themselves and for their partner on each trial and reported their momentary happiness every few trials.",
+      "type": "methods",
+      "claims": [],
+      "kind": null,
+      "note": "Trial structure / dependent measure description; no claim corresponds."
+    },
+    {
+      "n": 6,
+      "text": "As expected, participant happiness decreased following both low lottery outcomes for themselves and for the partner.",
+      "type": "claim",
+      "claims": [
+        "happiness-correlates-partner-reward"
+      ],
+      "kind": "direct",
+      "note": "Manipulation-check claim that happiness tracks both own and partner reward -- the prerequisite for the guilt operationalisation. Maps to the empirical claim establishing partner reward as a meaningful predictor of happiness."
+    },
+    {
+      "n": 7,
+      "text": "Crucially, happiness decreases following low outcomes for the partner were larger when the participant rather than their partner had made the choice, which fits an operational definition of guilt.",
+      "type": "claim",
+      "claims": [
+        "prediction-behavioral-guilt-effect",
+        "guilt-reduces-happiness-after-partner-loss"
+      ],
+      "kind": "direct",
+      "note": "The behavioural guilt effect -- the headline interaction. Maps to the prediction (the responsibility hypothesis operationalised as a within-subject contrast) and the empirical claim (the LMM partnerWon:subjDecided interaction confirmed in both studies)."
+    },
+    {
+      "n": 8,
+      "text": "This guilt effect was associated with BOLD signal increase in the left anterior insula.",
+      "type": "claim",
+      "claims": [
+        "prediction-insula-tracks-guilt",
+        "insula-tracks-guilt-effect"
+      ],
+      "kind": "direct",
+      "note": "The central neural finding -- left anterior insula tracks the guilt-effect interaction. Maps to the prediction (the insula-guilt hypothesis operationalised as a (condition x outcome) interaction with SVC) and the empirical claim (peak MNI [-28, 24, -4], FWE-corrected SVC, exact match against deposited group .mat)."
+    },
+    {
+      "n": 9,
+      "text": "Connectivity between this region and the right inferior frontal gyrus varied depending on choice and experimental condition, suggesting that this part of prefrontal cortex is sensitive to guilt-related information during social choices.",
+      "type": "claim",
+      "claims": [
+        "insula-ifg-connectivity-guilt"
+      ],
+      "kind": "direct",
+      "note": "gPPI connectivity finding -- right IFG-left insula coupling varies by condition x choice. Direct map to the empirical claim. The 'suggesting that...' interpretive clause is the paper's hedged rhetorical framing rather than a separately registerable claim."
+    },
+    {
+      "n": 10,
+      "text": "Variations in happiness were well explained by computational models based on participants’ and partners’ rewards and reward prediction errors.",
+      "type": "claim",
+      "claims": [
+        "prediction-responsibility-model-wins-comparison",
+        "responsibility-modulates-guilt-computational",
+        "social-prpe-weight-positive"
+      ],
+      "kind": "direct",
+      "note": "The computational result. Maps to the prediction (responsibility model wins comparison; social_pRPE > 0) and to two empirical claims: the model-comparison win and the parameter-level positive social_pRPE weight."
+    },
+    {
+      "n": 11,
+      "text": "A model-based analysis revealed a left superior temporal sulcus cluster that tracked partner reward prediction errors that followed participant choices.",
+      "type": "claim",
+      "claims": [
+        "prediction-sts-tracks-partner-rpe-under-responsibility",
+        "sts-tracks-partner-reward-prediction-errors"
+      ],
+      "kind": "direct",
+      "note": "The STS finding -- conditional engagement on responsibility. Maps to the prediction (STS responds to partner RPE in Social but not Partner trials) and the empirical claim (left STS cluster from GLM2 model-based analysis)."
+    },
+    {
+      "n": 12,
+      "text": "Our findings identify neural mechanisms of guilt and social responsibility during social decisions under risk.",
+      "type": "claim",
+      "claims": [
+        "hypothesis-insula-tracks-interpersonal-guilt",
+        "hypothesis-sts-mentalizes-partner-state-under-responsibility"
+      ],
+      "kind": "synthesis",
+      "note": "Closing synthesis sentence -- restates the two anatomical hypotheses (insula-as-guilt-substrate and STS-as-responsibility-conditioned-mentalizing) as the paper's contribution. The 'under risk' qualifier echoes the paradigm scope."
+    }
+  ],
+  "orphanClaims": [
+    "lottery-choice-increases-with-ev",
+    "solo-vs-social-choice-difference",
+    "risk-premiums-null-social-solo",
+    "guilt-effect-independent-of-own-outcome",
+    "agency-reduces-happiness",
+    "ventral-striatum-tracks-risky-choices",
+    "precuneus-tpj-mpfc-social-decisions",
+    "ventral-striatum-tracks-computational-reward",
+    "insula-guilt-replicates-yu-koban-signature",
+    "guilt-signature-no-individual-difference"
+  ],
+  "orphanSentences": []
+}

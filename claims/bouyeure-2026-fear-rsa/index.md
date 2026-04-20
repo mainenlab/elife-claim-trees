@@ -17,22 +17,40 @@ neurovault: https://identifiers.org/neurovault.collection:23032
 osf: https://doi.org/10.17605/OSF.IO/NGWKA
 added: 2026-03-30
 badge: silver
-claim-count: 19
+claim-count: 30
 ---
 
 ## Abstract
 
-This fMRI study uses representational similarity analysis (RSA) to track neural representations of threatening cues and contexts across fear acquisition, reversal, and test phases. Key findings: fear acquisition produces generalized neural patterns for CS+ (threatening cues) in the fear network but no item-stability differences. Reversal learning produces two simultaneous strategies: (1) generalized patterns for newly dangerous CS-+ cues in fear network regions, and (2) item-specific representations in precuneus and IFG for cues that changed threat value. Context representations become more distinct during reversal in PFC, and PFC context-specificity predicts subsequent reinstatement of fear memory traces. Design: "Nina the Unlucky Backpacker" narrative paradigm with trace conditioning (CS-US gap), 4 cue types × 3 contexts, n=24.
+When we learn that something is dangerous, a fear memory is formed. However, this memory is not fixed and can be updated through new experiences, such as learning that the threat is no longer present. This process of updating, known as extinction or reversal learning, is highly dependent on the context in which it occurs. How the brain represents cues, contexts, and their changing threat value remains a major question. Here, we used functional magnetic resonance imaging and a novel fear learning paradigm to track the neural representations of stimuli across fear acquisition, reversal, and test phases. We found that initial fear learning creates generalized neural representations for all threatening cues in the brain's fear network. During reversal learning, when threat contingencies switched for some of the cues, two distinct representational strategies were observed. On the one hand, we still identified generalized patterns for currently threatening cues, whereas on the other hand, we observed highly stable representations of individual cues (i.e. item-specific) that changed their valence, particularly in the precuneus and prefrontal cortex. Furthermore, we observed that the brain represents contexts more distinctly during reversal learning. Furthermore, additional exploratory analyses showed that the degree of this context specificity in the prefrontal cortex predicted the subsequent return of fear, providing a potential neural mechanism for fear renewal. Our findings reveal that the brain uses a flexible combination of generalized and specific representations to adapt to a changing world, shedding new light on the mechanisms that support cognitive flexibility and the treatment of anxiety disorders via exposure therapy.
 
-## Claims
+## Hypotheses (top-level theoretical bets)
 
-| Slug | Panel | Type | Epistemic | Summary |
+| Slug | Role | Epistemic | Summary |
+|:-----|:-----|:----------|:--------|
+| [hypothesis-fear-network-generalizes-threat-cues](hypothesis-fear-network-generalizes-threat-cues.md) | hypothesis | hypothesis | Fear network encodes threatening cues with shared, generalized representations whenever threat is acquired |
+| [hypothesis-dual-strategy-reversal](hypothesis-dual-strategy-reversal.md) | hypothesis | hypothesis | Reversal recruits two simultaneous representational strategies — generalization for currently dangerous cues, item-specific updating for changing-valence cues — in dissociable regions |
+| [hypothesis-context-specificity-supports-renewal](hypothesis-context-specificity-supports-renewal.md) | hypothesis | hypothesis | PFC context-specific coding is the substrate that links context-distinguishability to context-dependent fear renewal |
+
+## Predictions (derived from hypotheses)
+
+| Slug | Derived from | Epistemic | Summary |
+|:-----|:-------------|:----------|:--------|
+| [prediction-cue-generalization-fear-network-acquisition](prediction-cue-generalization-fear-network-acquisition.md) | fear-network-generalizes | prediction | CS+ > CS- between-item RSA pattern similarity in dACC/SFG/caudate/insula during acquisition |
+| [prediction-cs-minus-plus-generalizes-reversal](prediction-cs-minus-plus-generalizes-reversal.md) | fear-network-generalizes; dual-strategy | prediction | CS-+ acquires generalized fear-network representations during reversal, mirroring CS++ during acquisition |
+| [prediction-item-stability-changing-cues-reversal](prediction-item-stability-changing-cues-reversal.md) | dual-strategy | prediction | Changing-valence cues (CS+-, CS-+) show elevated within-item pattern stability in precuneus/IFG/PFC during reversal |
+| [prediction-context-specificity-increases-during-reversal](prediction-context-specificity-increases-during-reversal.md) | context-specificity-supports-renewal | prediction | PFC context representations become more distinct during reversal vs acquisition (phase × region interaction) |
+| [prediction-pfc-context-specificity-tracks-renewal](prediction-pfc-context-specificity-tracks-renewal.md) | context-specificity-supports-renewal | prediction | Between-subject PFC context specificity covaries with subsequent reinstatement of acquisition fear memory traces |
+
+## Empirical claims
+
+| Slug | Panel | Role | Epistemic | Summary |
 |:-----|:------|:-----|:----------|:--------|
 | [behavioral-learning-confirms-contingencies](behavioral-learning-confirms-contingencies.md) | fig2A | empirical | strong | US expectancy follows CS++ > CS+- > CS-+ > CS-- across all phases (LME F=479.35, p<0.0001) |
 | [cs-plus-univariate-fear-network-acquisition](cs-plus-univariate-fear-network-acquisition.md) | fig2Bi | empirical | strong | CS+ > CS- BOLD activation in dACC, SFG, caudate, MTG during acquisition |
 | [current-threat-activates-fear-network-reversal](current-threat-activates-fear-network-reversal.md) | fig2Bii | empirical | moderate | Currently threatening cues (CS++, CS-+) activate fear network during reversal |
-| [prior-threat-activates-fear-network-weakly](prior-threat-activates-fear-network-weakly.md) | fig2Biii | interpretive | weak | Prior-threat-only contrast activates fear network during reversal, possibly reflecting lingering memory trace |
-| [no-bold-differences-test-phases](no-bold-differences-test-phases.md) | fig2B (test) | empirical | moderate | No BOLD differences between CS types during test phases despite behavioral differences |
+| [prior-threat-activates-fear-network-weakly](prior-threat-activates-fear-network-weakly.md) | fig2Biii | interpretation | weak | Prior-threat-only contrast activates fear network during reversal, possibly reflecting lingering memory trace |
+| [no-bold-differences-test-phases](no-bold-differences-test-phases.md) | fig2B (test) | control | moderate | No BOLD differences between CS types during test phases despite behavioral differences |
 | [cue-generalization-increases-acquisition](cue-generalization-increases-acquisition.md) | fig3A | empirical | moderate | CS+ > CS- cue generalization in fear network (dACC, SFG, caudate, insula) during acquisition |
 | [no-item-stability-difference-acquisition](no-item-stability-difference-acquisition.md) | fig3A | empirical | moderate | No item stability differences between CS+ and CS- during acquisition (null result) |
 | [generalized-pattern-cs-minus-plus-reversal](generalized-pattern-cs-minus-plus-reversal.md) | fig3Bii | empirical | moderate | Newly dangerous CS-+ acquires generalized representation like CS++ during reversal in fear network |
@@ -45,16 +63,30 @@ This fMRI study uses representational similarity analysis (RSA) to track neural 
 | [pfc-context-specificity-predicts-renewal](pfc-context-specificity-predicts-renewal.md) | fig5D | empirical | moderate | PFC context specificity during reversal predicts reinstatement of fear memory traces at test |
 | [context-specificity-predicts-acquisition-reinstatement-regional-dissociation](context-specificity-predicts-acquisition-reinstatement-regional-dissociation.md) | fig5Di | empirical | moderate | Context specificity predicts generalized acquisition reinstatement oppositely in ACC/SFG vs precuneus |
 | [context-specificity-predicts-reversal-reinstatement-dmpfc](context-specificity-predicts-reversal-reinstatement-dmpfc.md) | fig5Dii | empirical | moderate | Context specificity predicts item reinstatement of CS-+ reversal traces in dmPFC during test_old |
-| [context-specificity-predicts-reinstatement-new-context-mtg](context-specificity-predicts-reinstatement-new-context-mtg.md) | fig5Diii | empirical | weak | Context specificity predicts item reinstatement in MTG during test_new (control analysis, t=2.51) |
-| [dual-strategy-reversal-generalize-plus-specify](dual-strategy-reversal-generalize-plus-specify.md) | synthesis | interpretive | moderate | Reversal simultaneously uses generalization (for CS-+) and item-specificity (for changing cues) |
+| [context-specificity-predicts-reinstatement-new-context-mtg](context-specificity-predicts-reinstatement-new-context-mtg.md) | fig5Diii | control | weak | Context specificity predicts item reinstatement in MTG during test_new (control analysis, t=2.51) |
+| [dual-strategy-reversal-generalize-plus-specify](dual-strategy-reversal-generalize-plus-specify.md) | synthesis | synthesis | moderate | Reversal simultaneously uses generalization (for CS-+) and item-specificity (for changing cues) |
 
-## Assessment claims (structural/methodological)
+## Assessment claims (structural/methodological/scope)
 
-| Slug | Panel | Epistemic | Summary |
-|:-----|:------|:----------|:--------|
-| [trace-conditioning-hippocampus-engaged](trace-conditioning-hippocampus-engaged.md) | fig1 | weak | Design assumption: trace conditioning engages hippocampus (assumed from prior literature) |
-| [rsa-roi-derived-from-searchlight](rsa-roi-derived-from-searchlight.md) | fig4A | moderate | ROI analyses use searchlight-derived ROIs on same dataset (circularity concern) |
-| [lss-unreinforced-trials-only](lss-unreinforced-trials-only.md) | methods | moderate | RSA uses unreinforced trials only; asymmetric trial counts across CS types |
+| Slug | Panel | Role | Epistemic | Summary |
+|:-----|:------|:-----|:----------|:--------|
+| [trace-conditioning-hippocampus-engaged](trace-conditioning-hippocampus-engaged.md) | fig1 | scope | weak | Design assumption: trace conditioning engages hippocampus (assumed from prior literature) |
+| [rsa-roi-derived-from-searchlight](rsa-roi-derived-from-searchlight.md) | fig4A | methodological | moderate | ROI analyses use searchlight-derived ROIs on same dataset (circularity concern) |
+| [lss-unreinforced-trials-only](lss-unreinforced-trials-only.md) | methods | methodological | moderate | RSA uses unreinforced trials only; asymmetric trial counts across CS types |
+
+## Role distribution
+
+| Role | Count |
+|:-----|------:|
+| hypothesis | 3 |
+| prediction | 5 |
+| empirical | 15 |
+| control | 2 |
+| interpretation | 1 |
+| synthesis | 1 |
+| methodological | 2 |
+| scope | 1 |
+| **total** | **30** |
 
 ## Triplicate extraction summary
 

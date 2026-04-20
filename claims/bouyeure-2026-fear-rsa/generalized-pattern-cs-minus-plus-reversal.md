@@ -5,6 +5,7 @@ doi: ~
 claim: >
   During reversal, the newly dangerous cue (CS-+) acquires generalized neural representations similar to the originally feared CS++, mirroring the initial acquisition pattern in fear network regions.
 claim-type: empirical
+role: empirical
 concepts:
   - CS-+
   - reversal learning
@@ -14,9 +15,16 @@ concepts:
 priority: 2026-03-30
 epistemic: moderate
 
+tests:
+  - prediction-cs-minus-plus-generalizes-reversal
+
 belongings:
   - relation: extends
     target: cue-generalization-increases-acquisition
+  - relation: supports
+    target: hypothesis-fear-network-generalizes-threat-cues
+  - relation: supports
+    target: hypothesis-dual-strategy-reversal
 
 assertions:
   - paper-slug: bouyeure-2026-fear-rsa

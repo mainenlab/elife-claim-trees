@@ -7,6 +7,7 @@ claim: >
   than non-threatening cues (CS+- and CS--) across the same fear network regions as acquisition
   (dACC, SFG, MTG, IFG), reflecting rapid updating of neural threat responses.
 claim-type: empirical
+role: empirical
 concepts:
   - univariate activation
   - fear network

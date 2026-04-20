@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Functional connectivity (gPPI) between anterior insula and inferior frontal gyrus varies by experimental condition, with increased coupling in the Social condition associated with the guilt effect.
 claim-type: empirical
+role: empirical
 concepts:
   - insula
   - inferior frontal gyrus
@@ -13,6 +14,9 @@ concepts:
   - guilt
 priority: 2026-03-30
 epistemic: moderate
+
+interprets:
+  - insula-tracks-guilt-effect
 
 belongings:
   - relation: requires

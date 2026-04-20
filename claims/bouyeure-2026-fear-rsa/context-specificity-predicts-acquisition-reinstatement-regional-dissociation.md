@@ -8,6 +8,7 @@ claim: >
   t(22)=6.25, p<0.05) and precuneus (favoring initially safe CS-+, t(22)=4.89, p<0.01),
   with opposite directions across regions.
 claim-type: empirical
+role: empirical
 concepts:
   - context specificity
   - acquisition memory traces
@@ -17,6 +18,9 @@ concepts:
   - individual differences
 priority: 2026-03-30
 epistemic: moderate
+
+validates:
+  - hypothesis-context-specificity-supports-renewal
 
 belongings:
   - relation: requires

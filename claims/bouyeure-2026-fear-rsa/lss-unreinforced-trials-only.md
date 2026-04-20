@@ -7,6 +7,7 @@ claim: >
   excluding reinforced trials to avoid US-driven BOLD confounds; this exclusion reduces the
   effective trial count and may selectively remove trials with strongest fear responses.
 claim-type: assessment
+role: methodological
 concepts:
   - LSS beta series
   - unreinforced trials
@@ -15,6 +16,14 @@ concepts:
   - methodology
 priority: 2026-03-30
 epistemic: moderate
+
+scopes:
+  - cue-generalization-increases-acquisition
+  - generalized-pattern-cs-minus-plus-reversal
+  - cue-generalization-limited-dacc-reversal-consistent
+  - no-item-stability-difference-acquisition
+  - item-stability-precuneus-pfc-reversal
+  - item-stability-persists-test-phases
 
 belongings: []
 

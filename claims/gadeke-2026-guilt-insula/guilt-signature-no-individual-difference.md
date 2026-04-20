@@ -8,6 +8,7 @@ claim: >
   guilt effect scores (Spearman's Rho=−0.058, p=0.725), indicating the neural signature
   does not track individual differences in guilt sensitivity as measured behaviorally.
 claim-type: empirical
+role: empirical
 concepts:
   - guilt signature
   - individual differences
@@ -16,6 +17,9 @@ concepts:
   - insula
 priority: 2026-03-30
 epistemic: moderate
+
+dissociates-with:
+  - insula-guilt-replicates-yu-koban-signature
 
 belongings:
   - relation: extends

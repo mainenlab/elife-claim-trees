@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Anterior insula BOLD activity is significantly elevated in the Social condition compared to the Partner condition specifically after negative partner outcomes, tracking the guilt effect (responsibility-contingent partner unhappiness).
 claim-type: empirical
+role: empirical
 concepts:
   - anterior insula
   - guilt
@@ -13,6 +14,11 @@ concepts:
   - social decision
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-insula-tracks-guilt
+confirms:
+  - hypothesis-insula-tracks-interpersonal-guilt
 
 belongings:
 []

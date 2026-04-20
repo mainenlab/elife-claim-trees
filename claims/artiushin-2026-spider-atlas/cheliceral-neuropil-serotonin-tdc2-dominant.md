@@ -9,6 +9,7 @@ claim: >
   region immediately medial to the cheliceral neuropil, where allatostatin A (AstA) additionally
   shows strong immunoreactivity.
 claim-type: empirical
+role: empirical
 concepts:
   - cheliceral neuropil
   - serotonin
@@ -19,6 +20,10 @@ concepts:
   - spider deutocerebrum
 priority: 2026-03-30
 epistemic: strong
+
+dissociates-with:
+  - pedipalpal-neuropil-chat-tdc2-dominant
+  - leg-neuropils-consistent-innervation
 
 belongings: []
 

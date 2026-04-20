@@ -10,6 +10,7 @@ claim: >
   non-uniform patterns, enabling discrimination of layer identity that synapsin staining alone
   cannot achieve.
 claim-type: empirical
+role: empirical
 concepts:
   - arcuate body
   - layer organization
@@ -22,6 +23,10 @@ concepts:
   - spider visual system
 priority: 2026-03-30
 epistemic: strong
+
+dissociates-with:
+  - protocerebral-bridge-layered-transmitter-architecture
+  - tonsillar-neuropil-serotonin-core-tdc2-shell
 
 belongings:
   - relation: supports

@@ -10,6 +10,7 @@ claim: >
   immunoreactivity forms a distinct thin layer on both the anterior and posterior edges, most
   clearly on the lateral portion.
 claim-type: empirical
+role: empirical
 concepts:
   - protocerebral bridge
   - layered architecture
@@ -22,6 +23,10 @@ concepts:
   - spider central complex
 priority: 2026-03-30
 epistemic: strong
+
+dissociates-with:
+  - tonsillar-neuropil-serotonin-core-tdc2-shell
+  - arcuate-body-four-sublayer-differential
 
 belongings:
   - relation: supports

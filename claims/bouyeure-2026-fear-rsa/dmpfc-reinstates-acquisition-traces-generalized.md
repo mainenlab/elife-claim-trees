@@ -8,6 +8,7 @@ claim: >
   showing that dmPFC preferentially reinstates category-level (generalized) acquisition
   representations.
 claim-type: empirical
+role: empirical
 concepts:
   - dmPFC
   - generalized reinstatement
@@ -16,6 +17,9 @@ concepts:
   - representational format
 priority: 2026-03-30
 epistemic: moderate
+
+dissociates-with:
+  - ifg-reinstates-reversal-traces-item-specific
 
 belongings:
   - relation: supports

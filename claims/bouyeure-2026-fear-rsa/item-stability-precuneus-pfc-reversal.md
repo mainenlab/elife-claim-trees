@@ -5,6 +5,7 @@ doi: ~
 claim: >
   During reversal learning, item-specific (stable across phases) representations emerge in precuneus and prefrontal cortex for cues that change their threat value (CS+-), distinguishing the changing cue from the stable threats.
 claim-type: empirical
+role: empirical
 concepts:
   - item stability
   - precuneus
@@ -14,8 +15,15 @@ concepts:
 priority: 2026-03-30
 epistemic: moderate
 
+tests:
+  - prediction-item-stability-changing-cues-reversal
+
+dissociates-with:
+  - generalized-pattern-cs-minus-plus-reversal
+
 belongings:
-[]
+  - relation: supports
+    target: hypothesis-dual-strategy-reversal
 
 assertions:
   - paper-slug: bouyeure-2026-fear-rsa

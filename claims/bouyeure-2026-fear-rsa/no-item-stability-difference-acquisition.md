@@ -8,6 +8,7 @@ claim: >
   selectively increases cross-item generalization but not single-item representational
   consistency.
 claim-type: empirical
+role: empirical
 concepts:
   - item stability
   - null result
@@ -16,6 +17,9 @@ concepts:
   - representational dissociation
 priority: 2026-03-30
 epistemic: moderate
+
+dissociates-with:
+  - cue-generalization-increases-acquisition
 
 belongings:
   - relation: supports

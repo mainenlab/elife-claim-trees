@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Happiness ratings decrease more after negative partner outcomes when the participant made the choice (Social condition) than when the partner made the choice (Partner condition), operationalizing interpersonal guilt as responsibility-contingent unhappiness about partner harm.
 claim-type: empirical
+role: empirical
 concepts:
   - interpersonal guilt
   - happiness
@@ -13,6 +14,12 @@ concepts:
   - mixed-effects regression
 priority: 2026-03-30
 epistemic: strong
+
+tests:
+  - prediction-behavioral-guilt-effect
+confirms:
+  - hypothesis-insula-tracks-interpersonal-guilt
+  - hypothesis-responsibility-weights-partner-rpes
 
 belongings:
 []

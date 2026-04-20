@@ -5,6 +5,7 @@ doi: ~
 claim: >
   Neural representations of threatening cues (CS++) generalize across items during fear acquisition: RSA shows that patterns for different CS++ items become more similar to each other in the fear network, indicating a shared threat-cue representation.
 claim-type: empirical
+role: empirical
 concepts:
   - cue generalization
   - CS++
@@ -14,9 +15,14 @@ concepts:
 priority: 2026-03-30
 epistemic: moderate
 
+tests:
+  - prediction-cue-generalization-fear-network-acquisition
+
 belongings:
   - relation: requires
     target: lss-unreinforced-trials-only
+  - relation: supports
+    target: hypothesis-fear-network-generalizes-threat-cues
 
 assertions:
   - paper-slug: bouyeure-2026-fear-rsa

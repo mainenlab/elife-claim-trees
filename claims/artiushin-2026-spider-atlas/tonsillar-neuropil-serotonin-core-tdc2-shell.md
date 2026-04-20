@@ -10,6 +10,7 @@ claim: >
   A are restricted to the posterior bridging region, establishing an anterior-posterior chemical
   division within this neuropil.
 claim-type: empirical
+role: empirical
 concepts:
   - tonsillar neuropil
   - serotonin
@@ -20,6 +21,10 @@ concepts:
   - protocerebrum
 priority: 2026-03-30
 epistemic: strong
+
+dissociates-with:
+  - protocerebral-bridge-layered-transmitter-architecture
+  - arcuate-body-four-sublayer-differential
 
 belongings:
   - relation: supports

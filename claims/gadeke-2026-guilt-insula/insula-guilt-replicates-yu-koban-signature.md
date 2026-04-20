@@ -5,6 +5,7 @@ doi: ~
 claim: >
   The anterior insula guilt effect is consistent with a previously published neural guilt signature map (Yu & Koban), providing convergent validity for the insula as a guilt-tracking region.
 claim-type: interpretive
+role: interpretation
 concepts:
   - anterior insula
   - guilt signature
@@ -12,6 +13,11 @@ concepts:
   - convergent validity
 priority: 2026-03-30
 epistemic: moderate
+
+interprets:
+  - insula-tracks-guilt-effect
+validates:
+  - hypothesis-insula-tracks-interpersonal-guilt
 
 belongings:
   - relation: extends

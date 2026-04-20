@@ -8,6 +8,7 @@ claim: >
   (left cluster: Cohen's d=0.72; right cluster: d=0.85), replicating established striatal
   responses to risky decision-making.
 claim-type: empirical
+role: control
 concepts:
   - ventral striatum
   - risky choice
@@ -16,6 +17,10 @@ concepts:
   - reward
 priority: 2026-03-30
 epistemic: strong
+
+validates:
+  - insula-tracks-guilt-effect
+  - precuneus-tpj-mpfc-social-decisions
 
 belongings: []
 

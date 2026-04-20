@@ -7,6 +7,7 @@ claim: >
   than safe cues (CS-) in dACC, superior frontal gyrus, caudate nucleus, and middle temporal
   gyrus, replicating the canonical fear network activation pattern.
 claim-type: empirical
+role: empirical
 concepts:
   - univariate activation
   - fear network
@@ -15,6 +16,9 @@ concepts:
   - BOLD
 priority: 2026-03-30
 epistemic: strong
+
+enables-method:
+  - cue-generalization-increases-acquisition
 
 belongings:
   - relation: supports

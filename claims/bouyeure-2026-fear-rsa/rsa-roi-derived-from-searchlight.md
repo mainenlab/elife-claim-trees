@@ -7,6 +7,7 @@ claim: >
   clusters in the preceding searchlight analyses on the same dataset, without an independent
   ROI definition, creating a circularity that inflates the expected significance of ROI tests.
 claim-type: assessment
+role: methodological
 concepts:
   - ROI definition
   - circularity
@@ -15,6 +16,13 @@ concepts:
   - methodology
 priority: 2026-03-30
 epistemic: moderate
+
+scopes:
+  - ifg-reinstates-reversal-traces-item-specific
+  - dmpfc-reinstates-acquisition-traces-generalized
+  - context-specificity-predicts-acquisition-reinstatement-regional-dissociation
+  - context-specificity-predicts-reversal-reinstatement-dmpfc
+  - context-specificity-predicts-reinstatement-new-context-mtg
 
 belongings:
   - relation: requires
