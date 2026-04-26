@@ -2,23 +2,12 @@
 import Layout from '../layouts/Layout.astro';
 import corpus from '../data/claims.json';
 
-const { papers, totalClaims, statusCounts } = corpus;
+const { papers, totalClaims } = corpus;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const url = (path: string) => `${base}${path}/`;
 
-const statusGroups = [
-  { key: 'verified', label: 'Verified', color: '#22c55e' },
-  { key: 'failed', label: 'Failed', color: '#ef4444' },
-  { key: 'unverified:code-error', label: 'Code error', color: '#f97316' },
-  { key: 'unverified:compute-infeasible', label: 'Compute-infeasible', color: '#f97316' },
-  { key: 'unverified:no-data', label: 'No data', color: '#9ca3af' },
-  { key: 'unverified:no-code', label: 'No code', color: '#9ca3af' },
-  { key: 'unverified', label: 'Unverified', color: '#9ca3af' },
-];
-
-const verifiedCount = statusCounts['verified'] ?? 0;
-const failedCount = statusCounts['failed'] ?? 0;
-const verifiedPct = Math.round((verifiedCount / totalClaims) * 100);
+const allClaims = papers.flatMap(p => p.claims);
+const verifiedCount = allClaims.filter(c => c.status.startsWith('verified')).length;
 ---
 
 <Layout title="eLife Claim Trees">
@@ -32,7 +21,7 @@ const verifiedPct = Math.round((verifiedCount / totalClaims) * 100);
         <p>
           Science is organized around stories. A paper is a narrative artifact designed to convince a human reader.
           AI is a different reader — it needs structure it can reason over, verify, and connect to other structure.
-          This project extracts the claim structure of 10 eLife neuroscience papers, links each claim to data and code,
+          This project extracts the claim structure of {papers.length} eLife neuroscience papers, links each claim to data and code,
           and records what happened when we ran the analyses.
         </p>
         <p>
@@ -56,7 +45,7 @@ const verifiedPct = Math.round((verifiedCount / totalClaims) * 100);
     <!-- Corpus stats -->
     <div class="mb-16">
       <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-5">Corpus</h2>
-      <div class="grid grid-cols-3 sm:grid-cols-4 gap-4 mb-8">
+      <div class="grid grid-cols-3 gap-4 mb-8">
         <div class="bg-gray-50 rounded-xl p-5">
           <div class="text-3xl font-semibold text-gray-900">{papers.length}</div>
           <div class="text-sm text-gray-500 mt-1">papers</div>
@@ -66,37 +55,9 @@ const verifiedPct = Math.round((verifiedCount / totalClaims) * 100);
           <div class="text-sm text-gray-500 mt-1">claims</div>
         </div>
         <div class="bg-green-50 rounded-xl p-5">
-          <div class="text-3xl font-semibold text-green-700">{verifiedPct}%</div>
-          <div class="text-sm text-gray-500 mt-1">verified</div>
+          <div class="text-3xl font-semibold text-green-700">{verifiedCount}</div>
+          <div class="text-sm text-gray-500 mt-1">verified by code</div>
         </div>
-        {failedCount > 0 && (
-          <div class="bg-red-50 rounded-xl p-5">
-            <div class="text-3xl font-semibold text-red-700">{failedCount}</div>
-            <div class="text-sm text-gray-500 mt-1">failed</div>
-          </div>
-        )}
-      </div>
-
-      <!-- Status breakdown bar -->
-      <div class="flex rounded-full overflow-hidden h-3 mb-3">
-        {statusGroups.map(g => {
-          const count = statusCounts[g.key] ?? 0;
-          const pct = (count / totalClaims) * 100;
-          return pct > 0 ? (
-            <div
-              style={{ width: `${pct}%`, background: g.color }}
-              title={`${g.label}: ${count}`}
-            />
-          ) : null;
-        })}
-      </div>
-      <div class="flex flex-wrap gap-3">
-        {statusGroups.filter(g => (statusCounts[g.key] ?? 0) > 0).map(g => (
-          <div class="flex items-center gap-1.5 text-xs text-gray-600">
-            <span style={{ width: 8, height: 8, borderRadius: 2, background: g.color, display: 'inline-block' }} />
-            {g.label}: {statusCounts[g.key] ?? 0}
-          </div>
-        ))}
       </div>
     </div>
 
@@ -108,7 +69,7 @@ const verifiedPct = Math.round((verifiedCount / totalClaims) * 100);
           <div class="flex-shrink-0 w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 font-semibold text-xs">PDF</div>
           <div>
             <div class="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors">HAAK Platform Overview</div>
-            <div class="text-xs text-gray-500">Institutional intelligence architecture · Mainen Lab, Champalimaud Research</div>
+            <div class="text-xs text-gray-500">Institutional intelligence architecture</div>
           </div>
         </a>
         <a href="/elife-claim-trees/elife-feedback.pdf" class="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group" target="_blank">
@@ -126,29 +87,21 @@ const verifiedPct = Math.round((verifiedCount / totalClaims) * 100);
       <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-5">Papers</h2>
       <div class="grid sm:grid-cols-2 gap-4">
         {papers.map(p => {
-          const verified = p.statusCounts['verified'] ?? 0;
-          const pct = Math.round((verified / p.claimCount) * 100);
+          const v = p.claims.filter((c: any) => c.status.startsWith('verified')).length;
+          const allV = v === p.claimCount && p.claimCount > 0;
           return (
             <a href={url(`/papers/${p.slug}`)} class="block border border-gray-200 rounded-xl p-5 hover:border-gray-400 hover:shadow-sm transition-all no-underline group">
               <div class="flex items-start justify-between gap-2 mb-2">
                 <h3 class="text-sm font-medium text-gray-900 leading-snug group-hover:text-blue-700 transition-colors">{p.title}</h3>
+                {allV && (
+                  <span class="flex-shrink-0 text-[10px] font-semibold text-green-800 bg-green-50 border border-green-200 px-1.5 py-0.5 rounded whitespace-nowrap">✓</span>
+                )}
               </div>
               <div class="text-xs text-gray-500 mb-3">
                 {p.authors.join(', ')}
               </div>
-              <!-- Mini status bar -->
-              <div class="flex rounded-full overflow-hidden h-1.5 mb-2">
-                {statusGroups.map(g => {
-                  const count = p.statusCounts[g.key] ?? 0;
-                  const spct = (count / p.claimCount) * 100;
-                  return spct > 0 ? (
-                    <div style={{ width: `${spct}%`, background: g.color }} />
-                  ) : null;
-                })}
-              </div>
-              <div class="flex items-center justify-between text-xs text-gray-500">
-                <span>{p.claimCount} claims</span>
-                <span style={{ color: '#22c55e' }}>{pct}% verified</span>
+              <div class="text-xs text-gray-500">
+                {p.claimCount} claims
               </div>
             </a>
           );

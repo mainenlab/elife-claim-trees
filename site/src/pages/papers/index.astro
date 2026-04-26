@@ -5,26 +5,6 @@ import corpus from '../../data/claims.json';
 const { papers } = corpus;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const url = (path: string) => `${base}${path}/`;
-
-const statusGroups = [
-  { key: 'verified', color: '#22c55e' },
-  { key: 'failed', color: '#ef4444' },
-  { key: 'unverified:code-error', color: '#f97316' },
-  { key: 'unverified:compute-infeasible', color: '#f97316' },
-  { key: 'unverified:no-data', color: '#9ca3af' },
-  { key: 'unverified:no-code', color: '#9ca3af' },
-  { key: 'unverified', color: '#9ca3af' },
-];
-
-type BadgeInfo = { html: string };
-const badgeConfig: Record<string, BadgeInfo> = {
-  gold:              { html: '<span class="badge badge-gold"><span style="color:#fcd34d">●</span> GOLD</span>' },
-  silver:            { html: '<span class="badge badge-silver"><span style="color:#cbd5e1">●</span> SILVER</span>' },
-  'none-compute':    { html: '<span class="badge badge-compute">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span>' },
-  'none-gap':        { html: '<span class="badge badge-gap">NO BADGE <span style="opacity:0.8;font-weight:400">/ deposit gap</span></span>' },
-  'none-structural': { html: '<span class="badge badge-structural">NO BADGE <span style="opacity:0.7;font-weight:400">/ structural</span></span>' },
-  pending:           { html: '<span class="badge badge-pending" style="font-style:italic">PENDING</span>' },
-};
 ---
 
 <Layout title="Papers">
@@ -32,35 +12,22 @@ const badgeConfig: Record<string, BadgeInfo> = {
     <h1 class="text-2xl font-semibold text-gray-900 mb-8">Papers</h1>
     <div class="space-y-3">
       {papers.map(p => {
-        const verified = p.statusCounts['verified'] ?? 0;
-        const pct = Math.round((verified / p.claimCount) * 100);
-        const badge = badgeConfig[(p as any).badge ?? 'pending'] ?? badgeConfig.pending;
+        const verifiedCount = p.claims.filter((c: any) => c.status.startsWith('verified')).length;
+        const allVerified = verifiedCount === p.claimCount && p.claimCount > 0;
         return (
           <a href={url(`/papers/${p.slug}`)} class="flex items-start gap-4 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group">
-            <!-- Status bar -->
-            <div class="flex-shrink-0 w-1.5 self-stretch rounded-full overflow-hidden flex flex-col">
-              {statusGroups.map(g => {
-                const count = p.statusCounts[g.key] ?? 0;
-                const spct = (count / p.claimCount) * 100;
-                return spct > 0 ? (
-                  <div style={{ flex: spct, background: g.color, minHeight: 2 }} />
-                ) : null;
-              })}
-            </div>
             <div class="flex-1 min-w-0">
               <div class="flex items-start justify-between gap-3 mb-1">
                 <h2 class="text-sm font-medium text-gray-900 group-hover:text-blue-700 leading-snug">{p.title}</h2>
-                <span class="flex-shrink-0" set:html={badge.html} />
+                {allVerified && (
+                  <span class="flex-shrink-0 text-xs font-semibold text-green-800 bg-green-50 border border-green-200 px-2 py-0.5 rounded whitespace-nowrap">✓ All verified</span>
+                )}
               </div>
               <div class="text-xs text-gray-500 mb-2">
                 {p.authors.join(', ')} · {p.journal} · DOI: {p.doi}
               </div>
-              <div class="flex gap-4 text-xs text-gray-500">
+              <div class="text-xs text-gray-500">
                 <span>{p.claimCount} claims</span>
-                <span style={{ color: '#22c55e' }}>{verified} verified ({pct}%)</span>
-                {(p.statusCounts['failed'] ?? 0) > 0 && (
-                  <span style={{ color: '#ef4444' }}>{p.statusCounts['failed']} failed</span>
-                )}
               </div>
             </div>
           </a>

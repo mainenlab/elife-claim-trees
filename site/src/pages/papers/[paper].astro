@@ -49,48 +49,13 @@ if (hypothesisClaims.length >= 2) {
   paperSummaryFallback = `This paper presents ${empiricalClaims.length || totalClaims} empirical claims.`;
 }
 
-// ---------- PDF URL derivation ----------
-function derivePdfUrl(p: any): string | null {
-  const doi: string | undefined = p.doi;
-  const url: string | undefined = p.url;
-  if (doi && /^10\.7554\/eLife\./i.test(doi)) {
-    const m = doi.match(/^10\.7554\/eLife\.(\d+)/i);
-    if (m) return `https://elifesciences.org/articles/${m[1]}/pdf`;
-  }
-  if (doi && /^10\.1101\//i.test(doi)) {
-    const id = doi.replace(/^10\.1101\//i, '');
-    return `https://www.biorxiv.org/content/10.1101/${id}.full.pdf`;
-  }
-  if (url && /biorxiv\.org/.test(url)) {
-    return url.replace(/(v\d+)?\/?$/, '').replace(/\/$/, '') + '.full.pdf';
-  }
-  return null;
-}
-const pdfUrl = derivePdfUrl(paperData);
 
-type BadgeInfo = { html: string; description: string };
-const badgeConfig: Record<string, BadgeInfo> = {
-  gold:              { html: '<span class="badge badge-gold"><span style="color:#fcd34d">●</span> GOLD</span>',              description: 'Deposit reproduces main claims without specialist hardware or institutional software.' },
-  silver:            { html: '<span class="badge badge-silver"><span style="color:#cbd5e1">●</span> SILVER</span>',          description: 'Genuine deposit; a documented partial barrier exists but the path to reproduction is clear.' },
-  'none-compute':    { html: '<span class="badge badge-compute">NO BADGE <span style="opacity:0.7;font-weight:400">/ compute</span></span>',         description: 'Reproduction requires infrastructure beyond a standard workstation (GPU cluster, HPC, or large downloads with no pre-computed shortcut).' },
-  'none-gap':        { html: '<span class="badge badge-gap">NO BADGE <span style="opacity:0.8;font-weight:400">/ deposit gap</span></span>',         description: 'Required data or code is unavailable, hard-coded to local paths, or does not match what the analysis requires.' },
-  'none-structural': { html: '<span class="badge badge-structural">NO BADGE <span style="opacity:0.7;font-weight:400">/ structural</span></span>',   description: 'Primary claims require physical apparatus, proprietary materials, or specialist equipment; verification requires atlas inspection rather than analysis re-execution.' },
-  pending:           { html: '<span class="badge badge-pending" style="font-style:italic">PENDING</span>',                   description: 'Verification in progress.' },
-};
-
-const badge = badgeConfig[(paperData as any).badge ?? 'pending'] ?? badgeConfig.pending;
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const url = (path: string) => `${base}${path}/`;
 
-const statusGroups = [
-  { key: 'verified', label: 'Verified', color: '#22c55e' },
-  { key: 'failed', label: 'Failed', color: '#ef4444' },
-  { key: 'unverified:code-error', label: 'Code error', color: '#f97316' },
-  { key: 'unverified:compute-infeasible', label: 'Compute-infeasible', color: '#f97316' },
-  { key: 'unverified:no-data', label: 'No data', color: '#9ca3af' },
-  { key: 'unverified:no-code', label: 'No code', color: '#9ca3af' },
-  { key: 'unverified', label: 'Unverified', color: '#9ca3af' },
-];
+// Simple: are ALL claims verified?
+const verifiedCount = paperData.claims.filter((c: any) => c.status.startsWith('verified')).length;
+const allVerified = verifiedCount === paperData.claimCount && paperData.claimCount > 0;
 
 const claimsBySlug: Record<string, any> = {};
 for (const c of paperData.claims) claimsBySlug[c.slug] = c;
@@ -138,9 +103,9 @@ const tabs = [
     <div class="mb-8">
       <div class="flex items-start gap-4 mb-1">
         <h1 class="text-xl font-semibold text-gray-900 leading-snug flex-1 m-0">{paperData.title}</h1>
-        <div class="flex-shrink-0 badge-wrap" data-tooltip={badge.description}>
-          <span set:html={badge.html} />
-        </div>
+        {allVerified && (
+          <span class="flex-shrink-0 all-verified-badge">✓ All claims verified</span>
+        )}
       </div>
       <div class="text-sm text-gray-600 mb-4">
         {paperData.authors.join(', ')}
@@ -154,11 +119,6 @@ const tabs = [
         {paperData.github && (
           <a href={paperData.github} target="_blank" class="text-gray-600 hover:underline">
             GitHub ↗
-          </a>
-        )}
-        {pdfUrl && (
-          <a href={pdfUrl} target="_blank" class="text-gray-600 hover:underline">
-            PDF ↗
           </a>
         )}
       </div>
@@ -185,16 +145,12 @@ const tabs = [
       <p class="paper-summary paper-summary-fallback">{paperSummaryFallback}</p>
     )}
 
-    <!-- Status summary -->
-    <div class="mb-6 flex flex-wrap items-center gap-3">
-      <div class="text-sm text-gray-500">{paperData.claimCount} claims total</div>
-      {statusGroups.filter(g => (paperData.statusCounts[g.key] ?? 0) > 0).map(g => (
-        <div class="flex items-center gap-1.5 text-sm">
-          <span style={{ width: 10, height: 10, borderRadius: 3, background: g.color, display: 'inline-block' }} />
-          <span class="text-gray-700 font-medium">{paperData.statusCounts[g.key]}</span>
-          <span class="text-gray-500">{g.label}</span>
-        </div>
-      ))}
+    <!-- Claim count + verified count -->
+    <div class="mb-6 flex items-center gap-3">
+      <span class="text-sm text-gray-500">{paperData.claimCount} claims</span>
+      {verifiedCount > 0 && !allVerified && (
+        <span class="text-sm text-green-700 font-medium">{verifiedCount} verified</span>
+      )}
     </div>
 
     <PaperTabs tabs={tabs} defaultTab="structure" />
@@ -304,43 +260,16 @@ const tabs = [
     vertical-align: baseline;
   }
 
-  /* Hover tooltip on deposit-status badge (mirrors ClaimStructure h3[data-tooltip]) */
-  .badge-wrap[data-tooltip] {
-    position: relative;
-    cursor: help;
-  }
-  .badge-wrap[data-tooltip]::after {
-    content: attr(data-tooltip);
-    position: absolute;
-    top: calc(100% + 6px);
-    right: 0;
-    left: auto;
-    max-width: 360px;
-    width: max-content;
-    padding: 8px 12px;
-    font-size: 13px;
-    font-weight: normal;
-    line-height: 1.4;
-    text-transform: none;
-    letter-spacing: normal;
-    color: #333;
-    background: #FFFCE8;
-    border: 1px solid #E6E0B3;
+  .all-verified-badge {
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #166534;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    padding: 3px 10px;
     border-radius: 4px;
-    white-space: normal;
-    opacity: 0;
-    pointer-events: none;
-    transition: opacity 120ms ease-out;
-    z-index: 50;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
-  }
-  .badge-wrap[data-tooltip]:hover::after {
-    opacity: 1;
-  }
-  @media (max-width: 640px) {
-    .badge-wrap[data-tooltip]::after {
-      max-width: calc(100vw - 2rem);
-    }
+    letter-spacing: 0.02em;
+    white-space: nowrap;
   }
 
   /* Alphabetical claim index at the bottom of the Claims tab */

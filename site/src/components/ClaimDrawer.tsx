@@ -11,6 +11,8 @@ type Claim = {
   'claim-type'?: string | null;
   isAssessment?: boolean;
   figureUrl?: string | null;
+  reproFigureUrl?: string | null;
+  originalFigureUrl?: string | null;
   number?: string | null;
   requires?: string[];
   supports?: string[];
@@ -36,6 +38,9 @@ type Claim = {
   dataset?: string | null;
   method?: string | null;
   analysis?: string | null;
+  verifyRow?: { paperValue: string; reproduced: string; result: string } | null;
+  scriptSource?: string | null;
+  log_output?: string | null;
 };
 
 type Props = {
@@ -43,8 +48,6 @@ type Props = {
   paperSlug: string;
   baseUrl: string;
 };
-
-const GITHUB_BLOB = 'https://github.com/zmainen/elife-claim-trees/blob/main';
 
 const STATUS_LABEL: Record<string, string> = {
   verified: 'Verified',
@@ -79,7 +82,6 @@ const roleChipStyle: Record<string, string> = {
   scope: 'bg-slate-50 text-slate-600 border-slate-200',
 };
 
-// Edges + their descriptions
 const EDGES: { key: keyof Claim; label: string; desc: string }[] = [
   { key: 'requires', label: 'Requires', desc: 'this claim depends on:' },
   { key: 'supports', label: 'Supports', desc: 'this claim supports:' },
@@ -97,15 +99,42 @@ const EDGES: { key: keyof Claim; label: string; desc: string }[] = [
   { key: 'scopes', label: 'Scopes', desc: 'qualifies:' },
 ];
 
-function codeStatus(status: string): { label: string; color: string } {
-  if (status === 'verified') return { label: 'verified', color: '#22c55e' };
-  if (status === 'failed' || status === 'unverified:code-error')
-    return { label: 'mismatch', color: '#f59e0b' };
-  if (status === 'unverified:compute-infeasible')
-    return { label: 'infeasible', color: '#9ca3af' };
-  if (status === 'unverified:no-data') return { label: 'no data', color: '#9ca3af' };
-  if (status === 'unverified:no-code') return { label: 'no code', color: '#9ca3af' };
-  return { label: 'from notes', color: '#9ca3af' };
+function verificationBanner(status: string): { bg: string; border: string; text: string; icon: string; label: string; detail: string } {
+  if (status === 'verified') return {
+    bg: '#f0fdf4', border: '#bbf7d0', text: '#166534', icon: '✓',
+    label: 'Verified by code',
+    detail: 'We ran a verification script against the deposited data and reproduced this result.',
+  };
+  if (status === 'failed') return {
+    bg: '#fef2f2', border: '#fecaca', text: '#991b1b', icon: '✗',
+    label: 'Verification failed',
+    detail: 'The verification script ran but could not reproduce this result from the deposited data.',
+  };
+  if (status === 'unverified:code-error') return {
+    bg: '#fffbeb', border: '#fde68a', text: '#92400e', icon: '!',
+    label: 'Code error',
+    detail: 'A verification script exists but encountered an error during execution.',
+  };
+  if (status === 'unverified:compute-infeasible') return {
+    bg: '#f9fafb', border: '#e5e7eb', text: '#4b5563', icon: '⏱',
+    label: 'Compute-infeasible',
+    detail: 'Verification requires specialist hardware or long compute times beyond our current infrastructure.',
+  };
+  if (status === 'unverified:no-data') return {
+    bg: '#f9fafb', border: '#e5e7eb', text: '#6b7280', icon: '—',
+    label: 'No data deposited',
+    detail: 'The data needed to verify this claim is not publicly available.',
+  };
+  if (status === 'unverified:no-code') return {
+    bg: '#f9fafb', border: '#e5e7eb', text: '#6b7280', icon: '—',
+    label: 'No verification code',
+    detail: 'No verification script has been written for this claim yet.',
+  };
+  return {
+    bg: '#f9fafb', border: '#e5e7eb', text: '#6b7280', icon: '?',
+    label: 'Not yet assessed',
+    detail: 'This claim has not been through the verification process.',
+  };
 }
 
 function updateUrlClaim(slug: string | null) {
@@ -124,15 +153,14 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
 
   const [openSlug, setOpenSlug] = useState<string | null>(null);
   const [history, setHistory] = useState<string[]>([]);
+  const [codeOpen, setCodeOpen] = useState(false);
 
-  // On mount, read ?claim= from URL.
   useEffect(() => {
     const sp = new URLSearchParams(window.location.search);
     const s = sp.get('claim');
     if (s && bySlug[s]) setOpenSlug(s);
   }, [bySlug]);
 
-  // Listen for open-claim events from cards.
   useEffect(() => {
     const handler = (e: Event) => {
       const ev = e as CustomEvent<{ slug: string }>;
@@ -144,17 +172,16 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
         }
         return s;
       });
+      setCodeOpen(false);
     };
     window.addEventListener('open-claim', handler as EventListener);
     return () => window.removeEventListener('open-claim', handler as EventListener);
   }, [bySlug]);
 
-  // Sync URL when openSlug changes (user-driven, not popstate).
   useEffect(() => {
     updateUrlClaim(openSlug);
   }, [openSlug]);
 
-  // Handle browser back/forward: re-read URL on popstate.
   useEffect(() => {
     const onPop = () => {
       const sp = new URLSearchParams(window.location.search);
@@ -165,7 +192,6 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
     return () => window.removeEventListener('popstate', onPop);
   }, [bySlug]);
 
-  // Esc closes.
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape' && openSlug) close();
@@ -178,6 +204,7 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
   const close = useCallback(() => {
     setOpenSlug(null);
     setHistory([]);
+    setCodeOpen(false);
   }, []);
 
   const goTo = useCallback(
@@ -187,6 +214,7 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
         if (prev && prev !== slug) setHistory(h => [...h, prev]);
         return slug;
       });
+      setCodeOpen(false);
     },
     [bySlug]
   );
@@ -196,6 +224,7 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
       if (h.length === 0) return h;
       const prev = h[h.length - 1];
       setOpenSlug(prev);
+      setCodeOpen(false);
       return h.slice(0, -1);
     });
   }, []);
@@ -207,16 +236,15 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
   const claimText = (claim.displayClaim?.trim()) || claim.claim;
   const original = claim.displayClaim && claim.displayClaim.trim() !== claim.claim ? claim.claim : null;
   const dotColor = statusDotColor(claim.status);
-  const codeInfo = codeStatus(claim.status);
+  const banner = verificationBanner(claim.status);
 
   const hasCode = !!claim.script;
-  const verifyPyUrl = claim.script ? `${GITHUB_BLOB}/${claim.script}` : null;
-  const verifyLogUrl = claim.script
-    ? `${GITHUB_BLOB}/${claim.script.replace(/verify\.py$/, 'verify.log')}`
-    : null;
-  const scriptFuncName = claim.script
-    ? (claim.script.split('/').pop() || '').replace(/\.(py|ipynb)$/, '') || 'verify'
-    : null;
+  const hasOrigFigure = !!(claim.originalFigureUrl || claim.figureUrl);
+  const hasReproFigure = !!claim.reproFigureUrl;
+  const hasFigurePair = hasOrigFigure && hasReproFigure;
+  const origFigSrc = claim.originalFigureUrl || claim.figureUrl;
+  const hasVerifyRow = !!claim.verifyRow;
+  const hasScriptSource = !!claim.scriptSource;
 
   return (
     <>
@@ -245,7 +273,6 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
               </span>
             )}
             {claim.panel && <span className="drawer-panel">{claim.panel}</span>}
-            <span className="drawer-header-title">{claimText}</span>
           </div>
           <button className="drawer-close" onClick={close} aria-label="Close">
             ×
@@ -255,98 +282,142 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
         <div className="drawer-body">
           {/* Full claim text */}
           <p className="drawer-claim-main">{claimText}</p>
+
+          {/* VERIFICATION BANNER — the headline */}
+          <div className="drawer-verification" style={{ background: banner.bg, borderColor: banner.border, color: banner.text }}>
+            <div className="drawer-verify-header">
+              <span className="drawer-verify-icon" style={{ background: banner.border, color: banner.text }}>{banner.icon}</span>
+              <span className="drawer-verify-label">{banner.label}</span>
+            </div>
+            <p className="drawer-verify-detail">{banner.detail}</p>
+
+            {/* Timing */}
+            {(claim.time_fast || claim.time_full) && (
+              <div className="drawer-verify-timing">
+                {claim.time_fast && <span>Fast: {claim.time_fast}</span>}
+                {claim.time_fast && claim.time_full && <span className="drawer-verify-timing-sep">/</span>}
+                {claim.time_full && <span>Full: {claim.time_full}</span>}
+              </div>
+            )}
+
+            {/* Per-claim comparison: paper value vs reproduced */}
+            {hasVerifyRow && (
+              <div className="drawer-verify-compare">
+                <div className="drawer-verify-compare-row">
+                  <span className="drawer-verify-compare-label">Paper reports</span>
+                  <span className="drawer-verify-compare-val">{claim.verifyRow!.paperValue}</span>
+                </div>
+                <div className="drawer-verify-compare-row">
+                  <span className="drawer-verify-compare-label">We reproduced</span>
+                  <span className="drawer-verify-compare-val">{claim.verifyRow!.reproduced}</span>
+                </div>
+                <div className="drawer-verify-compare-row">
+                  <span className="drawer-verify-compare-label">Result</span>
+                  <span className={`drawer-verify-compare-result ${claim.verifyRow!.result === 'PASS' ? 'result-pass' : 'result-other'}`}>
+                    {claim.verifyRow!.result}
+                  </span>
+                </div>
+              </div>
+            )}
+
+            {claim.script_execution_note && (
+              <p className="drawer-verify-note">{claim.script_execution_note}</p>
+            )}
+
+            {claim.method && (
+              <div className="drawer-verify-method">
+                <span className="drawer-verify-method-label">Method:</span> {claim.method}
+              </div>
+            )}
+          </div>
+
+          {/* FIGURE COMPARISON — original vs reproduced */}
+          {hasFigurePair && (
+            <div className="drawer-figures">
+              <div className="drawer-figure-pair">
+                <div className="drawer-figure-col">
+                  <div className="drawer-figure-col-label">Published figure</div>
+                  <img src={origFigSrc!} alt={`Original ${claim.panel ?? 'figure'}`} />
+                  {claim.panel && <div className="drawer-figure-panel-ref">{claim.panel}</div>}
+                </div>
+                <div className="drawer-figure-col">
+                  <div className="drawer-figure-col-label">Reproduced from data</div>
+                  <img src={claim.reproFigureUrl!} alt="Reproduced figure" />
+                </div>
+              </div>
+            </div>
+          )}
+
+          {/* Single figure (original only, no reproduction) */}
+          {hasOrigFigure && !hasReproFigure && (
+            <div className="drawer-figures">
+              <div className="drawer-figure-single">
+                <div className="drawer-figure-col-label">Published figure</div>
+                <img src={origFigSrc!} alt={`Figure ${claim.panel ?? ''}`} />
+                {claim.panel && <div className="drawer-figure-panel-ref">{claim.panel}</div>}
+              </div>
+            </div>
+          )}
+
+          {/* Single figure (reproduced only, no original) */}
+          {!hasOrigFigure && hasReproFigure && (
+            <div className="drawer-figures">
+              <div className="drawer-figure-single">
+                <div className="drawer-figure-col-label">Reproduced from data</div>
+                <img src={claim.reproFigureUrl!} alt="Reproduced figure" />
+              </div>
+            </div>
+          )}
+
           {original && (
             <div className="drawer-original">
-              <div className="drawer-original-label">Original</div>
+              <div className="drawer-original-label">Original claim text</div>
               <p className="drawer-original-text">{original}</p>
             </div>
           )}
 
-          {/* Figure + Code/Reproducibility paired block */}
-          {(claim.figureUrl || hasCode) && (
-            <div className="drawer-evidence">
-              {claim.figureUrl && (
-                <div className="drawer-figure">
-                  <a href={claim.figureUrl} target="_blank" rel="noopener">
-                    <img src={claim.figureUrl} alt={`Figure ${claim.panel ?? ''}`} />
-                  </a>
-                  <div className="drawer-figure-caption">
-                    {claim.panel ? `Panel ${claim.panel}` : 'Figure'}
-                  </div>
-                </div>
-              )}
+          {/* CODE — inline, expandable */}
+          {hasCode && (
+            <div className="drawer-code-section">
+              <button
+                className="drawer-code-toggle"
+                onClick={() => setCodeOpen(o => !o)}
+                aria-expanded={codeOpen}
+              >
+                <span className="drawer-code-toggle-icon">{codeOpen ? '▾' : '▸'}</span>
+                <span className="drawer-code-toggle-label">View verification code</span>
+                <span className="drawer-code-toggle-path">{claim.script}</span>
+              </button>
 
-              {hasCode && (
-                <div className="drawer-repro">
-                  <div className="drawer-section-label">Code &amp; reproducibility</div>
-                  <div className="drawer-repro-row">
-                    <span className="drawer-repro-key">Verify function</span>
-                    <span className="drawer-repro-val font-mono">{scriptFuncName}()</span>
-                  </div>
-                  <div className="drawer-repro-row">
-                    <span className="drawer-repro-key">Script path</span>
-                    <span className="drawer-repro-val font-mono">{claim.script}</span>
-                  </div>
-                  {claim.original_script && (
-                    <div className="drawer-repro-row">
-                      <span className="drawer-repro-key">Original</span>
-                      <a
-                        href={claim.original_script}
-                        target="_blank"
-                        rel="noopener"
-                        className="drawer-repro-link font-mono"
-                      >
-                        {claim.original_script} ↗
-                      </a>
-                    </div>
-                  )}
+              {codeOpen && (
+                <div className="drawer-code-body">
                   {claim.dataset && (
-                    <div className="drawer-repro-row">
-                      <span className="drawer-repro-key">Dataset</span>
-                      <a
-                        href={claim.dataset}
-                        target="_blank"
-                        rel="noopener"
-                        className="drawer-repro-link"
-                      >
-                        {claim.dataset} ↗
-                      </a>
+                    <div className="drawer-code-row">
+                      <span className="drawer-code-key">Data source</span>
+                      <span className="drawer-code-val">{claim.dataset}</span>
                     </div>
                   )}
-                  {claim.method && (
-                    <div className="drawer-repro-row">
-                      <span className="drawer-repro-key">Method</span>
-                      <span className="drawer-repro-val">{claim.method}</span>
+                  {claim.original_script && (
+                    <div className="drawer-code-row">
+                      <span className="drawer-code-key">Original analysis</span>
+                      <span className="drawer-code-val">{claim.original_script}</span>
                     </div>
-                  )}
-                  <div className="drawer-repro-status">
-                    <span className="drawer-dot" style={{ background: codeInfo.color }} />
-                    <span>{codeInfo.label}</span>
-                    {claim.time_fast && (
-                      <span className="drawer-repro-time">· fast {claim.time_fast}</span>
-                    )}
-                    {claim.time_full && (
-                      <span className="drawer-repro-time">· full {claim.time_full}</span>
-                    )}
-                  </div>
-                  {claim.script_execution_note && (
-                    <div className="drawer-repro-note">{claim.script_execution_note}</div>
                   )}
                   {claim.notes && (
-                    <div className="drawer-repro-prose">{claim.notes}</div>
+                    <div className="drawer-code-notes">{claim.notes}</div>
                   )}
-                  <div className="drawer-repro-links">
-                    {verifyPyUrl && (
-                      <a href={verifyPyUrl} target="_blank" rel="noopener" className="drawer-repro-link">
-                        open verify.py ↗
-                      </a>
-                    )}
-                    {verifyLogUrl && (
-                      <a href={verifyLogUrl} target="_blank" rel="noopener" className="drawer-repro-link">
-                        open verify.log ↗
-                      </a>
-                    )}
-                  </div>
+                  {hasScriptSource && (
+                    <div className="drawer-code-log">
+                      <div className="drawer-code-log-header">verify.py</div>
+                      <pre className="drawer-code-log-pre">{claim.scriptSource}</pre>
+                    </div>
+                  )}
+                  {claim.log_output && (
+                    <div className="drawer-code-log">
+                      <div className="drawer-code-log-header">verify.log — output</div>
+                      <pre className="drawer-code-log-pre">{claim.log_output}</pre>
+                    </div>
+                  )}
                 </div>
               )}
             </div>
@@ -404,16 +475,6 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
               </div>
             );
           })}
-
-          {/* Footer: link to standalone page for full body markdown */}
-          <div className="drawer-footer">
-            <a
-              href={`${baseUrl}/papers/${paperSlug}/${claim.slug}/`}
-              className="drawer-full-link"
-            >
-              Open full claim page ↗
-            </a>
-          </div>
         </div>
       </aside>
 
@@ -512,14 +573,6 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
           font-size: 10px;
           font-variant: small-caps;
         }
-        .drawer-header-title {
-          font-size: 0.85rem;
-          color: #374151;
-          line-height: 1.35;
-          flex: 1 1 auto;
-          min-width: 0;
-          overflow-wrap: anywhere;
-        }
 
         .drawer-body {
           overflow-y: auto;
@@ -533,6 +586,146 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
           margin: 0 0 0.9rem;
           font-weight: 500;
         }
+
+        /* ── Verification banner ── */
+        .drawer-verification {
+          border: 1px solid;
+          border-radius: 6px;
+          padding: 0.75rem 0.9rem;
+          margin: 0 0 1rem;
+        }
+        .drawer-verify-header {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+          margin-bottom: 0.3rem;
+        }
+        .drawer-verify-icon {
+          width: 22px;
+          height: 22px;
+          border-radius: 999px;
+          display: inline-flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 12px;
+          font-weight: 700;
+          flex-shrink: 0;
+        }
+        .drawer-verify-label {
+          font-size: 0.88rem;
+          font-weight: 600;
+        }
+        .drawer-verify-detail {
+          font-size: 0.78rem;
+          line-height: 1.5;
+          margin: 0;
+          opacity: 0.85;
+        }
+        .drawer-verify-timing {
+          margin-top: 0.4rem;
+          font-size: 0.72rem;
+          opacity: 0.7;
+          display: flex;
+          gap: 0.3rem;
+        }
+        .drawer-verify-timing-sep { opacity: 0.5; }
+        .drawer-verify-note {
+          margin: 0.4rem 0 0;
+          font-size: 0.75rem;
+          font-style: italic;
+          opacity: 0.8;
+          line-height: 1.45;
+        }
+        .drawer-verify-method {
+          margin-top: 0.4rem;
+          font-size: 0.75rem;
+          opacity: 0.8;
+        }
+        .drawer-verify-method-label {
+          font-weight: 600;
+          text-transform: uppercase;
+          font-size: 0.65rem;
+          letter-spacing: 0.05em;
+        }
+        .drawer-verify-compare {
+          margin-top: 0.6rem;
+          border-top: 1px solid currentColor;
+          border-top-color: inherit;
+          opacity: 0.9;
+          padding-top: 0.5rem;
+        }
+        .drawer-verify-compare-row {
+          display: flex;
+          justify-content: space-between;
+          align-items: baseline;
+          padding: 0.15rem 0;
+          font-size: 0.78rem;
+        }
+        .drawer-verify-compare-label {
+          font-size: 0.68rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          opacity: 0.7;
+        }
+        .drawer-verify-compare-val {
+          font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+          font-size: 0.82rem;
+          font-weight: 500;
+        }
+        .drawer-verify-compare-result {
+          font-weight: 700;
+          font-size: 0.78rem;
+          letter-spacing: 0.03em;
+        }
+        .result-pass { }
+        .result-other { opacity: 0.8; }
+
+        /* ── Figure comparison ── */
+        .drawer-figures {
+          margin: 0 0 1rem;
+        }
+        .drawer-figure-pair {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.6rem;
+        }
+        @media (max-width: 500px) {
+          .drawer-figure-pair {
+            grid-template-columns: 1fr;
+          }
+        }
+        .drawer-figure-col {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+        .drawer-figure-col-label {
+          font-size: 9.5px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          text-transform: uppercase;
+          color: #6b7280;
+        }
+        .drawer-figure-col img, .drawer-figure-single img {
+          max-width: 100%;
+          border: 1px solid #e5e7eb;
+          border-radius: 4px;
+          display: block;
+        }
+        .drawer-figure-panel-ref {
+          font-size: 0.68rem;
+          color: #9ca3af;
+          text-transform: uppercase;
+          letter-spacing: 0.06em;
+        }
+        .drawer-figure-single {
+          display: flex;
+          flex-direction: column;
+          gap: 0.25rem;
+        }
+
+        /* ── Original claim text ── */
         .drawer-original {
           margin: 0 0 1rem;
           padding: 0.55rem 0.7rem;
@@ -556,31 +749,112 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
           margin: 0;
         }
 
-        .drawer-evidence {
-          display: flex;
-          flex-direction: column;
-          gap: 0.75rem;
+        /* ── Code section (expandable) ── */
+        .drawer-code-section {
           margin: 0 0 1rem;
-        }
-        .drawer-figure {
-          margin: 0;
-        }
-        .drawer-figure img {
-          max-width: 100%;
-          max-height: 500px;
           border: 1px solid #e5e7eb;
-          border-radius: 4px;
-          display: block;
+          border-radius: 6px;
+          overflow: hidden;
         }
-        .drawer-figure-caption {
-          margin-top: 0.3rem;
-          font-size: 0.72rem;
+        .drawer-code-toggle {
+          display: flex;
+          align-items: center;
+          gap: 0.4rem;
+          width: 100%;
+          padding: 0.6rem 0.75rem;
+          background: #f9fafb;
+          border: none;
+          cursor: pointer;
+          font: inherit;
+          text-align: left;
+          transition: background 0.1s ease;
+        }
+        .drawer-code-toggle:hover {
+          background: #f3f4f6;
+        }
+        .drawer-code-toggle-icon {
+          font-size: 10px;
+          color: #6b7280;
+          width: 12px;
+          flex-shrink: 0;
+        }
+        .drawer-code-toggle-label {
+          font-size: 0.78rem;
+          font-weight: 600;
+          color: #374151;
+        }
+        .drawer-code-toggle-path {
+          font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+          font-size: 0.68rem;
           color: #9ca3af;
+          margin-left: auto;
+          flex-shrink: 0;
+        }
+        .drawer-code-body {
+          padding: 0.7rem 0.75rem;
+          border-top: 1px solid #e5e7eb;
+        }
+        .drawer-code-row {
+          display: flex;
+          gap: 0.5rem;
+          font-size: 0.75rem;
+          padding: 0.15rem 0;
+          align-items: baseline;
+        }
+        .drawer-code-key {
+          min-width: 6.5rem;
+          font-size: 9px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
           text-transform: uppercase;
-          letter-spacing: 0.08em;
-          font-variant: small-caps;
+          color: #9ca3af;
+          flex-shrink: 0;
+        }
+        .drawer-code-val {
+          color: #374151;
+          word-break: break-all;
+        }
+        .drawer-code-notes {
+          margin-top: 0.5rem;
+          font-size: 0.75rem;
+          color: #4b5563;
+          line-height: 1.55;
+          white-space: pre-wrap;
+          padding: 0.5rem 0.6rem;
+          background: #fff;
+          border: 1px solid #f3f4f6;
+          border-radius: 3px;
+        }
+        .drawer-code-log {
+          margin-top: 0.5rem;
+          border-radius: 4px;
+          overflow: hidden;
+          border: 1px solid #1e293b;
+        }
+        .drawer-code-log-header {
+          background: #1e293b;
+          color: #94a3b8;
+          font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+          font-size: 10px;
+          font-weight: 600;
+          letter-spacing: 0.06em;
+          padding: 0.35rem 0.6rem;
+        }
+        .drawer-code-log-pre {
+          background: #0f172a;
+          color: #e2e8f0;
+          font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+          font-size: 10.5px;
+          line-height: 1.55;
+          padding: 0.6rem;
+          margin: 0;
+          overflow-x: auto;
+          white-space: pre;
+          max-height: 300px;
+          overflow-y: auto;
         }
 
+        /* ── Metadata ── */
         .drawer-meta {
           display: flex;
           flex-wrap: wrap;
@@ -610,6 +884,7 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
           display: inline-block;
         }
 
+        /* ── Relations ── */
         .drawer-edge-block {
           margin-bottom: 1rem;
         }
@@ -680,98 +955,6 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
           color: #9ca3af;
           font-style: italic;
         }
-
-        .drawer-section-label {
-          font-size: 10.5px;
-          font-weight: 600;
-          letter-spacing: 0.08em;
-          color: #374151;
-          text-transform: uppercase;
-          font-variant: small-caps;
-          margin: 0.4rem 0 0.55rem;
-        }
-        .drawer-repro {
-          margin-top: 0;
-          padding: 0.75rem 0.9rem;
-          border: 1px solid #e5e7eb;
-          border-radius: 4px;
-          background: #fcfcfd;
-        }
-        .drawer-repro-row {
-          display: flex;
-          gap: 0.6rem;
-          font-size: 0.78rem;
-          padding: 0.15rem 0;
-          align-items: baseline;
-        }
-        .drawer-repro-key {
-          min-width: 6rem;
-          font-size: 9.5px;
-          font-weight: 600;
-          letter-spacing: 0.06em;
-          text-transform: uppercase;
-          color: #9ca3af;
-        }
-        .drawer-repro-val {
-          flex: 1;
-          color: #374151;
-          font-size: 0.78rem;
-          word-break: break-all;
-        }
-        .drawer-repro-link {
-          color: #2563eb;
-          font-size: 0.78rem;
-          text-decoration: none;
-          word-break: break-all;
-        }
-        .drawer-repro-link:hover { text-decoration: underline; }
-        .drawer-repro-status {
-          display: flex;
-          align-items: center;
-          gap: 0.3rem;
-          font-size: 0.78rem;
-          color: #374151;
-          margin-top: 0.4rem;
-        }
-        .drawer-repro-time {
-          color: #9ca3af;
-        }
-        .drawer-repro-note {
-          margin-top: 0.4rem;
-          font-size: 0.78rem;
-          color: #4b5563;
-          font-style: italic;
-          line-height: 1.5;
-        }
-        .drawer-repro-prose {
-          margin-top: 0.6rem;
-          padding: 0.6rem 0.7rem;
-          background: #fff;
-          border: 1px solid #eef2f6;
-          border-radius: 3px;
-          font-size: 0.78rem;
-          color: #374151;
-          line-height: 1.55;
-          white-space: pre-wrap;
-        }
-        .drawer-repro-links {
-          display: flex;
-          gap: 0.75rem;
-          flex-wrap: wrap;
-          margin-top: 0.6rem;
-        }
-
-        .drawer-footer {
-          margin-top: 1.5rem;
-          padding-top: 1rem;
-          border-top: 1px solid #f3f4f6;
-        }
-        .drawer-full-link {
-          color: #2563eb;
-          font-size: 0.82rem;
-          text-decoration: none;
-        }
-        .drawer-full-link:hover { text-decoration: underline; }
 
         .font-mono {
           font-family: ui-monospace, SFMono-Regular, Menlo, monospace;

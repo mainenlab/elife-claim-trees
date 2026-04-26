@@ -57,6 +57,7 @@ const dot = statusDot(claim.status);
 const claimText = (claim.displayClaim?.trim()) || claim.claim;
 const hasCode = !!claim.script;
 const hasFigure = !!claim.figureUrl;
+const isVerified = claim.status.startsWith('verified');
 
 // Recursive children (requires) for supporting-claims disclosure
 const children = (claim.requires ?? [])
@@ -69,7 +70,7 @@ const children = (claim.requires ?? [])
   data-claim-slug={claim.slug}
   id={`claim-card-${claim.slug}`}
 >
-  <div class="claim-mini-card" data-claim-slug={claim.slug} tabindex="0" role="button" aria-label={`Open details for ${claim.slug}`}>
+  <div class={`claim-mini-card ${isVerified ? 'claim-mini-verified' : ''}`} data-claim-slug={claim.slug} tabindex="0" role="button" aria-label={`Open details for ${claim.slug}`}>
     {/* Top row: number + role chip + panel ref + status dot + code/figure glyphs */}
     <div class="claim-mini-top">
       {claim.number && (
@@ -89,11 +90,11 @@ const children = (claim.requires ?? [])
         title={dot.label}
         aria-label={`Status: ${dot.label}`}
       />
-      {hasCode && (
-        <span class="mini-code-glyph" title="Has verification code" aria-label="Has verification code">{'{ }'}</span>
+      {isVerified && (
+        <span class="mini-verified-badge" title="Verified" aria-label="Verified">✓ verified</span>
       )}
-      {hasFigure && (
-        <span class="mini-figure-glyph" title="Has figure" aria-label="Has figure">▤</span>
+      {!isVerified && hasCode && (
+        <span class="mini-code-badge" title="Has verification code" aria-label="Has verification code">{ } code</span>
       )}
     </div>
 
@@ -137,6 +138,9 @@ const children = (claim.requires ?? [])
     background: #fff;
     transition: border-color 0.12s ease, box-shadow 0.12s ease, background-color 0.12s ease;
     outline: none;
+  }
+  .claim-mini-verified {
+    border-left: 3px solid #22c55e;
   }
   .claim-mini-card:hover,
   .claim-mini-card:focus-visible {
@@ -182,11 +186,26 @@ const children = (claim.requires ?? [])
     display: inline-block;
     flex-shrink: 0;
   }
-  .mini-code-glyph {
+  .mini-verified-badge {
     font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
-    font-size: 11px;
-    color: #94a3b8;
-    letter-spacing: -0.05em;
+    font-size: 9.5px;
+    font-weight: 600;
+    color: #166534;
+    background: #f0fdf4;
+    border: 1px solid #bbf7d0;
+    padding: 0px 5px;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
+  }
+  .mini-code-badge {
+    font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+    font-size: 9.5px;
+    color: #6b7280;
+    background: #f9fafb;
+    border: 1px solid #e5e7eb;
+    padding: 0px 5px;
+    border-radius: 3px;
+    letter-spacing: -0.02em;
   }
   .mini-figure-glyph {
     font-size: 11px;

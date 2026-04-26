@@ -20,34 +20,30 @@ function isAssessment(slug, fm) {
   return ASSESSMENT_SUFFIXES.some(s => slug.endsWith(s));
 }
 
-// Papers with bundled figure assets at site/public/figures/<slug>/.
-// Whole-figure granularity: panel "fig3B" → fig3.jpg.
+// Figure resolution: panel "fig3B" → fig3.jpg.
 // Supplements: "fig3-figure-supplement-1" or "fig3-figsupp1" → fig3-figsupp1.jpg.
-const FIGURE_PAPERS = new Set([
-  'headley-2026-inhibitory-rhythms',
-  'kammer-2026-foveal-feedback',
-]);
+// Searches two locations: public/figures/{paper}/ and public/verification/originals/{paper}/
 
 function panelToFigureFile(panel) {
   if (!panel) return null;
-  // Take the first comma-separated token (e.g. "fig5, fig7" → "fig5").
   const first = panel.split(',')[0].trim().toLowerCase();
-  // Supplement: fig3-figure-supplement-1 or fig3-figsupp1
   const suppMatch = first.match(/^fig(\d+)[-\s]*(?:figure[-\s]*supplement[-\s]*|figsupp)(\d+)/);
   if (suppMatch) return `fig${suppMatch[1]}-figsupp${suppMatch[2]}.jpg`;
-  // Plain figure with optional panel letter / qualifier
   const figMatch = first.match(/^fig(\d+)/);
   if (figMatch) return `fig${figMatch[1]}.jpg`;
   return null;
 }
 
 function computeFigureUrl(paperSlug, panel) {
-  if (!FIGURE_PAPERS.has(paperSlug)) return null;
   const file = panelToFigureFile(panel);
   if (!file) return null;
-  const onDisk = join(__dirname, '../public/figures', paperSlug, file);
-  if (!fs.existsSync(onDisk)) return null;
-  return `/elife-claim-trees/figures/${paperSlug}/${file}`;
+  // Check public/figures/{paper}/ first (curated full-resolution figures)
+  const figPath = join(__dirname, '../public/figures', paperSlug, file);
+  if (fs.existsSync(figPath)) return `/elife-claim-trees/figures/${paperSlug}/${file}`;
+  // Fall back to verification/originals/{paper}/ (original figure panels from papers)
+  const origPath = join(__dirname, '../public/verification/originals', paperSlug, file);
+  if (fs.existsSync(origPath)) return `/elife-claim-trees/verification/originals/${paperSlug}/${file}`;
+  return null;
 }
 
 function normalizeStatus(reproductions) {
@@ -103,6 +99,31 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
       ? fs.readFileSync(logPath, 'utf8').slice(0, 3000)
       : null;
 
+    // Extract per-claim verification row from log: "slug | PAPER VALUE | REPRODUCED | STATUS"
+    let verifyRow = null;
+    if (log_output) {
+      for (const line of log_output.split('\n')) {
+        // Match lines like: "perceptual-salience-6hz-advantage  | 6 Hz  | 6.05 Hz ... | PASS"
+        if (line.includes(slug) && line.includes('|')) {
+          const parts = line.split('|').map(s => s.trim());
+          if (parts.length >= 4) {
+            verifyRow = { paperValue: parts[1], reproduced: parts[2], result: parts[3] };
+          }
+          break;
+        }
+      }
+    }
+
+    // Read verify.py source code (truncated to keep JSON manageable)
+    const scriptPath = fm.reproductions?.[0]?.script;
+    let scriptSource = null;
+    if (scriptPath) {
+      const fullScriptPath = join(projectRoot, scriptPath);
+      if (fs.existsSync(fullScriptPath)) {
+        scriptSource = fs.readFileSync(fullScriptPath, 'utf8').slice(0, 8000);
+      }
+    }
+
     const panel = fm.assertions?.[0]?.panel || '';
     claims.push({
       uuid: fm.uuid || null,
@@ -134,7 +155,13 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
       scopes: fm.scopes || [],
       notes: notes.trim(),
       figure: fm.reproductions?.[0]?.figure || null,
+      reproFigureUrl: fm.reproductions?.[0]?.figure
+        ? `/elife-claim-trees/${fm.reproductions[0].figure}`
+        : null,
       original_figure: fm.reproductions?.[0]?.original_figure || null,
+      originalFigureUrl: fm.reproductions?.[0]?.original_figure
+        ? `/elife-claim-trees/${fm.reproductions[0].original_figure}`
+        : null,
       dataset: fm.assertions?.[0]?.dataset || null,
       analysis: fm.assertions?.[0]?.analysis || null,
       method: fm.assertions?.[0]?.method || null,
@@ -144,6 +171,8 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
       script_execution_note: fm.reproductions?.[0]?.script_execution_note || null,
       time_fast: fm.reproductions?.[0]?.time_fast || null,
       time_full: fm.reproductions?.[0]?.time_full || null,
+      verifyRow,
+      scriptSource,
       log_output,
     });
   }

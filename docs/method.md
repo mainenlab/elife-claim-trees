@@ -10,7 +10,7 @@ The document covers the scientific methodology: schema, claim authoring, verific
 
 1. [Overview](#1-overview)
 2. [Corpus](#2-corpus)
-3. [Claim authoring — the eight-step process](#3-claim-authoring--the-eight-step-process)
+3. [Claim induction — the eight-step process](#3-claim-induction--the-eight-step-process)
 4. [Schema](#4-schema)
 5. [Verification procedure](#5-verification-procedure)
 6. [Paper summaries](#6-paper-summaries)
@@ -25,6 +25,10 @@ The document covers the scientific methodology: schema, claim authoring, verific
 A claim graph is a decomposition of a scientific paper into typed propositions and the typed logical relations between them. Each proposition is one declarative sentence in active voice, recorded with provenance (which paper asserts it, in which panel, using which analysis and dataset), an epistemic marker, and a reproduction status. Relations are not citations; they are statements about logical structure — `A requires B` means A's validity depends on B's, so invalidity propagates through the graph when a claim fails to reproduce.
 
 The unit of work is the claim, not the figure. A figure panel records where a paper instantiates a claim; the claim is the stable entity. The same proposition could be asserted by different papers in different panels — the UUID identifies the claim while one or more `assertions` blocks attach it to specific paper-panel-analysis tuples.
+
+The method has two distinct phases. **Claim induction** is the process of reading a paper and extracting its claim structure — the propositions, their roles, their logical dependencies, and their provenance (which figure panel, which analysis, which dataset). Claim induction is a reading act: it requires comprehension of the paper's argument and judgment about what constitutes a claim. It produces a claim graph. **Claim verification** is the process of running code against deposited data to check whether an induced claim reproduces. Verification is an execution act: it requires data, code, and compute. It produces a pass/fail/warn verdict per claim, optionally with reproduced figures that can be compared to the published originals.
+
+The two phases are separable. A claim graph is valuable before any verification runs — it makes the paper's argument structure explicit and navigable. Verification adds an empirical layer: did the computation actually produce the reported result? But induction comes first, and induction is where provenance should be captured — figure URIs, panel assignments, dataset links — because the agent performing induction has the paper's structured source (JATS XML, PDF) in front of it. Deferring provenance capture to a later build step (e.g. guessing figure filenames from panel labels) is fragile and loses information that was available at induction time.
 
 The corpus is a 12-paper prototype assembled to test whether the schema is expressive enough to capture the argumentative structure of recent neuroscience papers, whether the verification step can re-enact published analyses against deposited data and code, and whether downstream pipelines (paper summaries, synthesis from the claim graph alone, comparison against the published abstract) yield findings that would not be visible from the prose alone. It is reverse-engineered from finished papers; forward construction by authors at submission would look different.
 
@@ -63,9 +67,9 @@ The R1 revision of the Meijer paper carries 41 claims against 24 in the v1 prepr
 
 ---
 
-## 3. Claim authoring — the eight-step process
+## 3. Claim induction — the eight-step process
 
-Authoring is the translation of a paper from argument format into claim-graph format. It is not automated: it requires reading comprehension, domain judgment, and decisions about what constitutes a claim. Tools assist; they do not replace the analyst. The procedure has eight steps with one mandatory review gate at step 5, before any files are written.
+Claim induction is the translation of a paper from argument format into claim-graph format. It is not automated: it requires reading comprehension, domain judgment, and decisions about what constitutes a claim. Tools assist; they do not replace the analyst. The procedure has eight steps with one mandatory review gate at step 5, before any files are written.
 
 ### Step 1: Prepare
 
