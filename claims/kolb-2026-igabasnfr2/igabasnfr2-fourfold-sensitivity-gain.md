@@ -29,6 +29,7 @@ assertions:
   - paper-slug: kolb-2026-igabasnfr2
     doi: ~
     panel: fig1, fig2
+    figureUri: https://iiif.elifesciences.org/lax/108319%2Felife-108319-fig1-v1.tif/full/1500,/0/default.jpg
     analysis: Zenodo analysis code
     dataset: https://doi.org/10.5281/zenodo.17971101
     dataset-doi: 10.5281/zenodo.17971101

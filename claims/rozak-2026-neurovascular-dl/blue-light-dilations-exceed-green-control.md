@@ -37,6 +37,7 @@ assertions:
   - paper-slug: rozak-2026-neurovascular-dl
     doi: 10.7554/eLife.95525
     panel: fig8A
+    figureUri: https://iiif.elifesciences.org/lax/95525%2Felife-95525-fig8-v1.tif/full/1500,/0/default.jpg
     analysis: Tutorial.ipynb
     dataset: https://doi.org/10.20383/103.01588
     dataset-doi: 10.20383/103.01588

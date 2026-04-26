@@ -34,6 +34,7 @@ assertions:
   - paper-slug: headley-2026-inhibitory-rhythms
     doi: ~
     panel: fig10 synthesis / discussion
+    figureUri: https://iiif.elifesciences.org/lax/95562%2Felife-95562-fig10-v1.tif/full/1500,/0/default.jpg
     analysis: ~
     dataset: ~
     dataset-doi: ~

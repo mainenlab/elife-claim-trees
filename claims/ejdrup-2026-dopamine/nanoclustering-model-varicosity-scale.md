@@ -28,6 +28,7 @@ assertions:
   - paper-slug: ejdrup-2026-dopamine
     doi: 10.7554/eLife.105214
     panel: fig4C, fig4D, fig4E, fig4F
+    figureUri: https://iiif.elifesciences.org/lax/105214%2Felife-105214-fig4-v1.tif/full/1500,/0/default.jpg
     analysis: Figure 4-Fig 4 simulations-Source code.py
     dataset: ~
     dataset-doi: ~

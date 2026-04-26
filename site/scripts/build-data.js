@@ -125,12 +125,13 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
     }
 
     const panel = fm.assertions?.[0]?.panel || '';
+    const figureUri = fm.assertions?.[0]?.figureUri || null;
     claims.push({
       uuid: fm.uuid || null,
       slug,
       paper: paperSlug,
       panel,
-      figureUrl: computeFigureUrl(paperSlug, panel),
+      figureUrl: figureUri || computeFigureUrl(paperSlug, panel),
       claim: (fm.claim || '').trim(),
       displayClaim: (fm.displayClaim || '').trim() || null,
       shortClaim: (fm.shortClaim || '').trim() || null,

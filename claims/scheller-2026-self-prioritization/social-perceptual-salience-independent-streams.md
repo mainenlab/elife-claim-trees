@@ -37,6 +37,7 @@ assertions:
   - paper-slug: scheller-2026-self-prioritization
     doi: 10.7554/eLife.100932
     panel: fig7 (synthesis)
+    figureUri: https://iiif.elifesciences.org/lax/100932%2Felife-100932-fig7-v1.tif/full/1500,/0/default.jpg
     analysis: ~
     dataset: ~
     dataset-doi: ~

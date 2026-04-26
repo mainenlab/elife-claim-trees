@@ -34,6 +34,7 @@ assertions:
   - paper-slug: kammer-2026-foveal-feedback
     doi: ~
     panel: fig1C
+    figureUri: https://iiif.elifesciences.org/lax/107053%2Felife-107053-fig1-v1.tif/full/1500,/0/default.jpg
     analysis: Lucakaemmer/FovealFeedback (GitHub)
     dataset: https://doi.org/10.18112/openneuro.ds005933.v1.0.0
     dataset-doi: 10.18112/openneuro.ds005933.v1.0.0

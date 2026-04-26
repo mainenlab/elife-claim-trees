@@ -31,6 +31,7 @@ assertions:
   - paper-slug: ejdrup-2026-dopamine
     doi: ~
     panel: fig2A (implied parameterization)
+    figureUri: https://iiif.elifesciences.org/lax/105214%2Felife-105214-fig2-v1.tif/full/1500,/0/default.jpg
     analysis: ~
     dataset: ~
     dataset-doi: ~

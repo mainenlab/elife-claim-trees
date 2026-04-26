@@ -43,6 +43,7 @@ assertions:
   - paper-slug: headley-2026-inhibitory-rhythms
     doi: 10.7554/eLife.95562
     panel: fig4, fig5
+    figureUri: https://iiif.elifesciences.org/lax/95562%2Felife-95562-fig4-v1.tif/full/1500,/0/default.jpg
     analysis: scripts/Fig4.ipynb, scripts/Fig5.ipynb
     dataset: https://datadryad.org/dataset/doi:10.5061/dryad.v6wwpzhb8
     dataset-doi: 10.5061/dryad.v6wwpzhb8

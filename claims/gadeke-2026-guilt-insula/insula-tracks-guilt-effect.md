@@ -27,6 +27,7 @@ assertions:
   - paper-slug: gadeke-2026-guilt-insula
     doi: 10.7554/eLife.105391
     panel: fig4e, fig4f
+    figureUri: https://iiif.elifesciences.org/lax/105391%2Felife-105391-fig4-v1.tif/full/1500,/0/default.jpg
     analysis: master_fMRI_showResults.m, fMRIresults/*.nii
     dataset: https://openneuro.org/datasets/ds005588
     dataset-doi: 10.18112/openneuro.ds005588.v1.0.0

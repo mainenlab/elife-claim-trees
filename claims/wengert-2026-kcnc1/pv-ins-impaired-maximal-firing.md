@@ -29,6 +29,7 @@ assertions:
   - paper-slug: wengert-2026-kcnc1
     doi: ~
     panel: fig2, fig3
+    figureUri: https://iiif.elifesciences.org/lax/103784%2Felife-103784-fig2-v1.tif/full/1500,/0/default.jpg
     analysis: G-Node analysis code
     dataset: https://doi.org/10.12751/g-node.bqni9h
     dataset-doi: 10.12751/g-node.bqni9h

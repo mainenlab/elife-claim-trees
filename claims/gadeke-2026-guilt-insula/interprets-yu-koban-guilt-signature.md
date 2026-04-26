@@ -30,6 +30,7 @@ assertions:
   - paper-slug: gadeke-2026-guilt-insula
     doi: ~
     panel: fig4 supplement (convergent-validity analysis)
+    figureUri: https://iiif.elifesciences.org/lax/105391%2Felife-105391-fig4-v1.tif/full/1500,/0/default.jpg
     analysis: ~
     dataset: ~
     dataset-doi: ~

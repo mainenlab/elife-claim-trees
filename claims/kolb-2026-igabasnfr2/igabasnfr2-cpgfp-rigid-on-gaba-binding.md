@@ -32,6 +32,7 @@ assertions:
   - paper-slug: kolb-2026-igabasnfr2
     doi: 10.7554/eLife.108319
     panel: fig3a
+    figureUri: https://iiif.elifesciences.org/lax/108319%2Felife-108319-fig3-v1.tif/full/1500,/0/default.jpg
     analysis: PDB structure comparison (9D57 vs 6DGV)
     dataset: https://doi.org/10.2210/pdb9D57/pdb
     dataset-doi: 10.2210/pdb9D57/pdb

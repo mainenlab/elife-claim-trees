@@ -29,6 +29,7 @@ assertions:
   - paper-slug: headley-2026-inhibitory-rhythms
     doi: 10.7554/eLife.95562
     panel: fig1A
+    figureUri: https://iiif.elifesciences.org/lax/95562%2Felife-95562-fig1-v1.tif/full/1500,/0/default.jpg
     analysis: code inspection (sim_functions in InhibOnDendComp/src/)
     dataset: ~
     dataset-doi: ~

@@ -33,6 +33,7 @@ assertions:
   - paper-slug: wengert-2026-kcnc1
     doi: 10.7554/eLife.103784
     panel: fig8B, fig8C, fig8D
+    figureUri: https://iiif.elifesciences.org/lax/103784%2Felife-103784-fig8-v1.tif/full/1500,/0/default.jpg
     scope: in-vivo
     analysis: G-Node analysis code
     dataset: https://doi.org/10.12751/g-node.bqni9h

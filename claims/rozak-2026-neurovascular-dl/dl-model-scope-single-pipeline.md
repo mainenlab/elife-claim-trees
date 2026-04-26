@@ -32,6 +32,7 @@ assertions:
   - paper-slug: rozak-2026-neurovascular-dl
     doi: ~
     panel: fig1 (architecture)
+    figureUri: https://iiif.elifesciences.org/lax/95525%2Felife-95525-fig1-v1.tif/full/1500,/0/default.jpg
     analysis: code inspection
     dataset: ~
     dataset-doi: ~

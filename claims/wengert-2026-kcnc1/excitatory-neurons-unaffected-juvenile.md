@@ -29,6 +29,7 @@ assertions:
   - paper-slug: wengert-2026-kcnc1
     doi: ~
     panel: fig5B, fig5C, fig5D, fig5E, fig5F, fig5G, fig5K, Table 1 (layer IV exc.)
+    figureUri: https://iiif.elifesciences.org/lax/103784%2Felife-103784-fig5-v1.tif/full/1500,/0/default.jpg
     scope: ex-vivo
     analysis: G-Node analysis code
     dataset: https://doi.org/10.12751/g-node.bqni9h

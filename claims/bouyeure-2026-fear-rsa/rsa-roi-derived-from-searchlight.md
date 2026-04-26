@@ -38,6 +38,7 @@ assertions:
   - paper-slug: bouyeure-2026-fear-rsa
     doi: 10.7554/eLife.105126
     panel: fig4A (ROI definition procedure)
+    figureUri: https://iiif.elifesciences.org/lax/105126%2Felife-105126-fig4-v1.tif/full/1500,/0/default.jpg
     analysis: methods inspection
     dataset: ~
     dataset-doi: ~

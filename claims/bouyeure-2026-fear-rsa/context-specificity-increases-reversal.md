@@ -28,6 +28,7 @@ assertions:
   - paper-slug: bouyeure-2026-fear-rsa
     doi: 10.7554/eLife.105126
     panel: fig5B
+    figureUri: https://iiif.elifesciences.org/lax/105126%2Felife-105126-fig5-v1.tif/full/1500,/0/default.jpg
     analysis: fear_rsa_exploratory.py
     dataset: https://doi.org/10.17605/OSF.IO/NGWKA
     dataset-doi: 10.17605/OSF.IO/NGWKA

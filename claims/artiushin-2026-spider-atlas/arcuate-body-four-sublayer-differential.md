@@ -38,6 +38,7 @@ assertions:
   - paper-slug: artiushin-2026-spider-atlas
     doi: 10.7554/eLife.107732
     panel: fig11C, fig11D, fig12
+    figureUri: https://iiif.elifesciences.org/lax/107732%2Felife-107732-fig11-v1.tif/full/1500,/0/default.jpg
     analysis: atlas visualization
     dataset: https://doi.org/10.35077/ace-owl-gum
     dataset-doi: 10.35077/ace-owl-gum
