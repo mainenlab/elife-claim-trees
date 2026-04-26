@@ -8,7 +8,8 @@ authors:
   - Inês Laranjeira
   - International Brain Laboratory
   - Zachary F. Mainen
-journal: submitted to Nature Neuroscience (R1)
+journal: Nature Neuroscience
+stage: revision
 doi: ~
 url: ~
 github: https://github.com/guidomeijer/SerotoninStimulation

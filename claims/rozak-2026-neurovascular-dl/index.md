@@ -4,6 +4,7 @@ title: "A deep learning pipeline for mapping in situ network-level neurovascular
 authors:
   - Rozak et al.
 journal: eLife
+stage: published
 doi: 10.7554/eLife.95525
 url: https://elifesciences.org/articles/95525
 github: https://github.com/AICONSlab/novas3d

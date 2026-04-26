@@ -4,6 +4,7 @@ title: "Impaired excitability of fast-spiking neurons in a novel mouse model of 
 authors:
   - Wengert et al.
 journal: eLife
+stage: published
 doi: 10.7554/eLife.103784
 url: https://elifesciences.org/articles/103784
 gnode: https://doi.org/10.12751/g-node.bqni9h

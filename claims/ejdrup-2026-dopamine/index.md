@@ -11,6 +11,7 @@ authors:
   - Freja Herborg
   - Ulrik Gether
 journal: eLife
+stage: published
 doi: 10.7554/eLife.105214
 url: https://elifesciences.org/articles/105214
 github: https://github.com/Gether-Lab/striatal-dopamine-model

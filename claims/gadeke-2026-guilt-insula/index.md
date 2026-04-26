@@ -9,6 +9,7 @@ authors:
   - René Hurlemann
   - Johannes Schultz
 journal: eLife
+stage: published
 doi: 10.7554/eLife.105391
 url: https://elifesciences.org/articles/105391
 github: https://github.com/BonnSocialNeuroscienceUnit/ResponsibilityExperiment

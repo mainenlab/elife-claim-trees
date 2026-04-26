@@ -7,6 +7,7 @@ authors:
   - Adin Aberbach
   - Satish S Nair
 journal: eLife
+stage: published
 doi: 10.7554/eLife.95562
 url: https://elifesciences.org/articles/95562
 github: https://github.com/dbheadley/InhibOnDendComp

@@ -8,6 +8,7 @@ authors:
   - Huilin Fang
   - Jie Sui
 journal: eLife
+stage: published
 doi: 10.7554/eLife.100932
 url: https://elifesciences.org/articles/100932
 osf: https://osf.io/a62df

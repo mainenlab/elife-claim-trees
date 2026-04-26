@@ -10,6 +10,7 @@ authors:
   - Jonas Rose
   - Nikolai Axmacher
 journal: eLife
+stage: published
 doi: 10.7554/eLife.105126
 url: https://elifesciences.org/articles/105126
 github: https://github.com/AntoineBouyeure/Representational-properties-of-cues-and-contexts-shape-fear-learning-and-reversal

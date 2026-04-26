@@ -8,6 +8,7 @@ authors:
   - Martin Rolfs
   - Martin Hebart
 journal: eLife
+stage: published
 doi: 10.7554/eLife.107053
 url: https://elifesciences.org/articles/107053
 github: https://github.com/Lucakaemmer/FovealFeedback

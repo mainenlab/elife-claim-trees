@@ -4,6 +4,7 @@ title: "iGABASnFR2 is an improved genetically encoded protein sensor of GABA"
 authors:
   - Kolb et al. (GENIE Project Team + Turner lab)
 journal: eLife
+stage: published
 doi: 10.7554/eLife.108319
 url: https://elifesciences.org/articles/108319
 zenodo-data: https://doi.org/10.5281/zenodo.17971101

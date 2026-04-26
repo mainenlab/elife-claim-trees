@@ -9,6 +9,7 @@ authors:
   - International Brain Laboratory
   - Zachary F. Mainen
 journal: bioRxiv
+stage: preprint
 doi: 10.1101/2025.08.01.668048
 url: https://www.biorxiv.org/content/10.1101/2025.08.01.668048v1
 github: https://github.com/guidomeijer/SerotoninStimulation

@@ -12,8 +12,8 @@
       "url": "https://elifesciences.org/articles/107732",
       "github": "https://github.com/GordusLab/Artiushin-elastix-eLife",
       "journal": "eLife",
+      "stage": "published",
       "added": "2026-03-30T00:00:00.000Z",
-      "badge": "none-structural",
       "claimCount": 17,
       "statusCounts": {
         "unverified:no-data": 15,
@@ -992,8 +992,8 @@
       "url": "https://elifesciences.org/articles/105126",
       "github": "https://github.com/AntoineBouyeure/Representational-properties-of-cues-and-contexts-shape-fear-learning-and-reversal",
       "journal": "eLife",
+      "stage": "published",
       "added": "2026-03-30T00:00:00.000Z",
-      "badge": "silver",
       "claimCount": 30,
       "statusCounts": {
         "verified:partial": 4,
@@ -2724,8 +2724,8 @@
       "url": "https://elifesciences.org/articles/105214",
       "github": "https://github.com/Gether-Lab/striatal-dopamine-model",
       "journal": "eLife",
+      "stage": "published",
       "added": "2026-03-29T00:00:00.000Z",
-      "badge": "silver",
       "claimCount": 25,
       "statusCounts": {
         "verified": 13,
@@ -4185,8 +4185,8 @@
       "url": "https://elifesciences.org/articles/105391",
       "github": "https://github.com/BonnSocialNeuroscienceUnit/ResponsibilityExperiment",
       "journal": "eLife",
+      "stage": "published",
       "added": "2026-03-30T00:00:00.000Z",
-      "badge": "gold",
       "claimCount": 27,
       "statusCounts": {
         "unverified": 7,
@@ -5756,8 +5756,8 @@
       "url": "https://elifesciences.org/articles/95562",
       "github": "https://github.com/dbheadley/InhibOnDendComp",
       "journal": "eLife",
+      "stage": "published",
       "added": "2026-03-30T00:00:00.000Z",
-      "badge": "silver",
       "claimCount": 26,
       "statusCounts": {
         "unverified:no-data": 7,
@@ -7288,8 +7288,8 @@
       "url": "https://elifesciences.org/articles/107053",
       "github": "https://github.com/Lucakaemmer/FovealFeedback",
       "journal": "eLife",
+      "stage": "published",
       "added": "2026-03-30T00:00:00.000Z",
-      "badge": "none-gap",
       "claimCount": 23,
       "statusCounts": {
         "unverified:compute-infeasible": 12,
@@ -8602,8 +8602,8 @@
       "url": "https://elifesciences.org/articles/108319",
       "github": null,
       "journal": "eLife",
+      "stage": "published",
       "added": "2026-03-30T00:00:00.000Z",
-      "badge": "silver",
       "claimCount": 20,
       "statusCounts": {
         "verified": 3,
@@ -9816,9 +9816,9 @@
       "doi": null,
       "url": null,
       "github": "https://github.com/guidomeijer/SerotoninStimulation",
-      "journal": "submitted to Nature Neuroscience (R1)",
+      "journal": "Nature Neuroscience",
+      "stage": "revision",
       "added": "2026-04-19T00:00:00.000Z",
-      "badge": "bronze",
       "claimCount": 41,
       "statusCounts": {
         "unverified": 22,
@@ -12065,8 +12065,8 @@
       "url": "https://www.biorxiv.org/content/10.1101/2025.08.01.668048v1",
       "github": "https://github.com/guidomeijer/SerotoninStimulation",
       "journal": "bioRxiv",
+      "stage": "preprint",
       "added": "2026-04-19T00:00:00.000Z",
-      "badge": "bronze",
       "claimCount": 24,
       "statusCounts": {
         "unverified": 16,
@@ -13412,8 +13412,8 @@
       "url": "https://elifesciences.org/articles/95525",
       "github": "https://github.com/AICONSlab/novas3d",
       "journal": "eLife",
+      "stage": "published",
       "added": "2026-03-30T00:00:00.000Z",
-      "badge": "none-compute",
       "claimCount": 23,
       "statusCounts": {
         "unverified": 15,
@@ -14840,8 +14840,8 @@
       "url": "https://elifesciences.org/articles/100932",
       "github": null,
       "journal": "eLife",
+      "stage": "published",
       "added": "2026-03-30T00:00:00.000Z",
-      "badge": "silver",
       "claimCount": 23,
       "statusCounts": {
         "verified": 10,
@@ -16220,8 +16220,8 @@
       "url": "https://elifesciences.org/articles/103784",
       "github": null,
       "journal": "eLife",
+      "stage": "published",
       "added": "2026-03-30T00:00:00.000Z",
-      "badge": "silver",
       "claimCount": 31,
       "statusCounts": {
         "unverified:no-data": 10,

@@ -98,7 +98,10 @@ const verifiedCount = allClaims.filter(c => c.status.startsWith('verified')).len
                 )}
               </div>
               <div class="text-xs text-gray-500 mb-3">
-                {p.authors.join(', ')}
+                {p.authors.join(', ')} · {(p as any).journal}
+                {(p as any).stage && (p as any).stage !== 'published' && (
+                  <span class="italic"> · {{preprint:'preprint',revision:'under review',draft:'draft'}[(p as any).stage]}</span>
+                )}
               </div>
               <div class="text-xs text-gray-500">
                 {p.claimCount} claims

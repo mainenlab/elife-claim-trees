@@ -57,6 +57,14 @@ const url = (path: string) => `${base}${path}/`;
 const verifiedCount = paperData.claims.filter((c: any) => c.status.startsWith('verified')).length;
 const allVerified = verifiedCount === paperData.claimCount && paperData.claimCount > 0;
 
+const stageLabel: Record<string, string> = {
+  published: '',
+  preprint: 'preprint',
+  revision: 'under review',
+  draft: 'draft',
+};
+const stage = stageLabel[(paperData as any).stage] || '';
+
 const claimsBySlug: Record<string, any> = {};
 for (const c of paperData.claims) claimsBySlug[c.slug] = c;
 
@@ -108,7 +116,8 @@ const tabs = [
         )}
       </div>
       <div class="text-sm text-gray-600 mb-4">
-        {paperData.authors.join(', ')}
+        {paperData.authors.join(', ')} · {(paperData as any).journal}
+        {stage && <span class="italic"> · {stage}</span>}
       </div>
       <div class="flex flex-wrap gap-3 text-xs">
         {paperData.doi && (

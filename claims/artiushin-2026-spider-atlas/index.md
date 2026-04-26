@@ -6,6 +6,7 @@ authors:
   - Corver A
   - Gordus A
 journal: eLife
+stage: published
 doi: 10.7554/eLife.107732
 url: https://elifesciences.org/articles/107732
 github: https://github.com/GordusLab/Artiushin-elastix-eLife
