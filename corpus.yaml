@@ -1,0 +1,30 @@
+# Corpus manifest — controls which papers appear in which site build.
+#
+# Usage:
+#   CORPUS=elife npm run build    # public site: eLife papers only
+#   CORPUS=all npm run build      # private site: all papers
+#   npm run build                 # default: elife (public)
+
+corpora:
+  elife:
+    description: "eLife claim-trees prototype — published eLife papers"
+    public: true
+    papers:
+      - artiushin-2026-spider-atlas
+      - bouyeure-2026-fear-rsa
+      - ejdrup-2026-dopamine
+      - gadeke-2026-guilt-insula
+      - headley-2026-inhibitory-rhythms
+      - kammer-2026-foveal-feedback
+      - kolb-2026-igabasnfr2
+      - rozak-2026-neurovascular-dl
+      - scheller-2026-self-prioritization
+      - wengert-2026-kcnc1
+
+  mainen-lab:
+    description: "Mainen lab papers — private, includes unpublished"
+    public: false
+    papers:
+      - meijer-2025-serotonin-orthogonal
+      - meijer-2025-serotonin-additive-r1
+      - sautory-2026-serotonin-novelty

@@ -12,7 +12,7 @@ url: ~
 github: ~
 data: ~
 added: 2026-04-26
-claim-count: 27
+claim-count: 31
 ---
 
 ## Abstract
@@ -111,4 +111,4 @@ Verification status: not yet attempted (added 2026-04-26, agent: mainen-z, inges
 
 | Status | Count | Claims |
 |:-------|:------|:-------|
-| unknown | 27 | all (no reproduction attempted at ingest) |
+| unknown | 31 | all (no reproduction attempted at ingest) |
