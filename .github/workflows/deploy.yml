@@ -25,8 +25,8 @@ jobs:
           cache-dependency-path: site/package-lock.json
       - name: Install dependencies
         run: cd site && npm ci
-      - name: Build data
-        run: cd site && node scripts/build-data.js
+      - name: Build data (eLife corpus only — excludes private papers)
+        run: cd site && CORPUS=elife node scripts/build-data.js
       - name: Build site
         run: cd site && npm run build
       - uses: actions/upload-pages-artifact@v3

@@ -1,0 +1,107 @@
+{
+  "paperSlug": "gadeke-2026-guilt-insula",
+  "version": 3,
+  "synthesis": "Gadeke et al. argue that interpersonal guilt has a neural substrate in the anterior insula and a computational signature in how responsibility modulates partner-outcome weights on momentary happiness. Three hypotheses structure the argument. First, anterior insula tracks guilt specifically — the conjunction of self-agency and harm to a partner — distinguishing it from empathy (present without agency) and regret (present without a partner). Second, happiness follows a rule in which partner reward prediction errors carry independent weight only when arising from the participant's own choices. Third, superior temporal sulcus (STS) represents the partner's affective state selectively under participant responsibility, linking mentalizing to self-attributed agency.\n\nEach hypothesis generates testable predictions. The insula hypothesis predicts a behavioral guilt effect — happiness drops more after negative partner outcomes when the participant chose — and a corresponding insula BOLD signal. The responsibility hypothesis predicts that a model with responsibility-weighted partner RPEs will outperform nested alternatives, with a positive social partner-RPE weight. The STS hypothesis predicts left STS will track partner RPEs in Social but not Partner trials.\n\nBefore testing these predictions, the authors validate the paradigm. Happiness tracks both own and partner rewards, confirming emotional engagement. Ventral striatum responds to risky choices and computational reward values, validating the fMRI pipeline. Precuneus, TPJ, and mPFC activate more during social than solo decisions, replicating canonical social-cognition findings. Risk premiums do not differ across conditions, ruling out the confound that social context shifts risk preferences. Although solo-vs-social choice rates differed weakly in Study 1, this did not replicate, and the null risk-premium result dissociates it from any stable shift.\n\nThe core results confirm all three predictions across two studies. The behavioral guilt effect is robust and persists regardless of the participant's own outcome, dissociating guilt from inequality aversion. The responsibility-weighted model fits better than alternatives and its social partner-RPE weight is significantly positive. Anterior insula shows the predicted condition-by-outcome interaction; left STS tracks partner RPEs selectively under participant agency. Insula-IFG functional connectivity increases during guilt-relevant conditions. The insula finding converges partially with a published whole-brain guilt signature, though individual signature values do not correlate with behavioral guilt scores, limiting individual-difference claims. Being the decision-maker independently reduces happiness, a baseline agency cost distinct from outcome-contingent guilt.\n\nAll findings are scoped to a specific paradigm — repeated lottery decisions with monetary stakes — and to the structural assumption that the algorithmic partner was believed to be a real person.",
+  "traceback": [
+    {
+      "sentence": "Gadeke et al. argue that interpersonal guilt has a neural substrate in the anterior insula and a computational signature in how responsibility modulates partner-outcome weights on momentary happiness.",
+      "claims": ["hypothesis-insula-tracks-interpersonal-guilt", "hypothesis-responsibility-weights-partner-rpes"],
+      "edges": []
+    },
+    {
+      "sentence": "Three hypotheses structure the argument.",
+      "claims": ["hypothesis-insula-tracks-interpersonal-guilt", "hypothesis-responsibility-weights-partner-rpes", "hypothesis-sts-mentalizes-partner-state-under-responsibility"],
+      "edges": []
+    },
+    {
+      "sentence": "First, anterior insula tracks guilt specifically — the conjunction of self-agency and harm to a partner — distinguishing it from empathy (present without agency) and regret (present without a partner).",
+      "claims": ["hypothesis-insula-tracks-interpersonal-guilt"],
+      "edges": []
+    },
+    {
+      "sentence": "Second, happiness follows a rule in which partner reward prediction errors carry independent weight only when arising from the participant's own choices.",
+      "claims": ["hypothesis-responsibility-weights-partner-rpes"],
+      "edges": []
+    },
+    {
+      "sentence": "Third, superior temporal sulcus (STS) represents the partner's affective state selectively under participant responsibility, linking mentalizing to self-attributed agency.",
+      "claims": ["hypothesis-sts-mentalizes-partner-state-under-responsibility"],
+      "edges": []
+    },
+    {
+      "sentence": "The insula hypothesis predicts a behavioral guilt effect — happiness drops more after negative partner outcomes when the participant chose — and a corresponding insula BOLD signal.",
+      "claims": ["prediction-behavioral-guilt-effect", "prediction-insula-tracks-guilt"],
+      "edges": ["hypothesis-insula-tracks-interpersonal-guilt --entails--> prediction-behavioral-guilt-effect", "hypothesis-insula-tracks-interpersonal-guilt --entails--> prediction-insula-tracks-guilt"]
+    },
+    {
+      "sentence": "The responsibility hypothesis predicts that a model with responsibility-weighted partner RPEs will outperform nested alternatives, with a positive social partner-RPE weight.",
+      "claims": ["prediction-responsibility-model-wins-comparison"],
+      "edges": ["hypothesis-responsibility-weights-partner-rpes --entails--> prediction-responsibility-model-wins-comparison", "hypothesis-responsibility-weights-partner-rpes --entails--> prediction-behavioral-guilt-effect"]
+    },
+    {
+      "sentence": "The STS hypothesis predicts left STS will track partner RPEs in Social but not Partner trials.",
+      "claims": ["prediction-sts-tracks-partner-rpe-under-responsibility"],
+      "edges": ["hypothesis-sts-mentalizes-partner-state-under-responsibility --entails--> prediction-sts-tracks-partner-rpe-under-responsibility"]
+    },
+    {
+      "sentence": "Happiness tracks both own and partner rewards, confirming emotional engagement.",
+      "claims": ["happiness-correlates-partner-reward"],
+      "edges": ["happiness-correlates-partner-reward --validates--> guilt-reduces-happiness-after-partner-loss", "happiness-correlates-partner-reward --validates--> hypothesis-insula-tracks-interpersonal-guilt"]
+    },
+    {
+      "sentence": "Ventral striatum responds to risky choices and computational reward values, validating the fMRI pipeline.",
+      "claims": ["ventral-striatum-tracks-risky-choices", "ventral-striatum-tracks-computational-reward"],
+      "edges": ["ventral-striatum-tracks-risky-choices --validates--> insula-tracks-guilt-effect", "ventral-striatum-tracks-risky-choices --validates--> precuneus-tpj-mpfc-social-decisions", "ventral-striatum-tracks-computational-reward --validates--> sts-tracks-partner-reward-prediction-errors"]
+    },
+    {
+      "sentence": "Precuneus, TPJ, and mPFC activate more during social than solo decisions, replicating canonical social-cognition findings.",
+      "claims": ["precuneus-tpj-mpfc-social-decisions"],
+      "edges": ["precuneus-tpj-mpfc-social-decisions --validates--> insula-tracks-guilt-effect"]
+    },
+    {
+      "sentence": "Risk premiums do not differ across conditions, ruling out the confound that social context shifts risk preferences.",
+      "claims": ["risk-premiums-null-social-solo"],
+      "edges": ["risk-premiums-null-social-solo --rules-out--> solo-vs-social-choice-difference", "risk-premiums-null-social-solo --validates--> insula-tracks-guilt-effect", "risk-premiums-null-social-solo --validates--> sts-tracks-partner-reward-prediction-errors"]
+    },
+    {
+      "sentence": "Although solo-vs-social choice rates differed weakly in Study 1, this did not replicate, and the null risk-premium result dissociates it from any stable shift.",
+      "claims": ["solo-vs-social-choice-difference", "risk-premiums-null-social-solo"],
+      "edges": ["solo-vs-social-choice-difference --dissociates-with--> risk-premiums-null-social-solo"]
+    },
+    {
+      "sentence": "The behavioral guilt effect is robust and persists regardless of the participant's own outcome, dissociating guilt from inequality aversion.",
+      "claims": ["guilt-reduces-happiness-after-partner-loss", "guilt-effect-independent-of-own-outcome"],
+      "edges": ["guilt-effect-independent-of-own-outcome --validates--> guilt-reduces-happiness-after-partner-loss", "guilt-effect-independent-of-own-outcome --dissociates-with--> happiness-correlates-partner-reward"]
+    },
+    {
+      "sentence": "The responsibility-weighted model fits better than alternatives and its social partner-RPE weight is significantly positive.",
+      "claims": ["responsibility-modulates-guilt-computational", "social-prpe-weight-positive"],
+      "edges": ["social-prpe-weight-positive --tests--> hypothesis-responsibility-weights-partner-rpes", "social-prpe-weight-positive --confirms--> hypothesis-responsibility-weights-partner-rpes"]
+    },
+    {
+      "sentence": "Anterior insula shows the predicted condition-by-outcome interaction; left STS tracks partner RPEs selectively under participant agency.",
+      "claims": ["insula-tracks-guilt-effect", "sts-tracks-partner-reward-prediction-errors"],
+      "edges": []
+    },
+    {
+      "sentence": "Insula-IFG functional connectivity increases during guilt-relevant conditions.",
+      "claims": ["insula-ifg-connectivity-guilt"],
+      "edges": ["insula-ifg-connectivity-guilt --interprets--> insula-tracks-guilt-effect"]
+    },
+    {
+      "sentence": "The insula finding converges partially with a published whole-brain guilt signature, though individual signature values do not correlate with behavioral guilt scores, limiting individual-difference claims.",
+      "claims": ["insula-guilt-replicates-yu-koban-signature", "guilt-signature-no-individual-difference", "interprets-yu-koban-guilt-signature"],
+      "edges": ["insula-guilt-replicates-yu-koban-signature --validates--> hypothesis-insula-tracks-interpersonal-guilt", "insula-guilt-replicates-yu-koban-signature --interprets--> insula-tracks-guilt-effect", "insula-guilt-replicates-yu-koban-signature --interprets--> interprets-yu-koban-guilt-signature", "guilt-signature-no-individual-difference --dissociates-with--> insula-guilt-replicates-yu-koban-signature", "guilt-signature-no-individual-difference --interprets--> interprets-yu-koban-guilt-signature"]
+    },
+    {
+      "sentence": "Being the decision-maker independently reduces happiness, a baseline agency cost distinct from outcome-contingent guilt.",
+      "claims": ["agency-reduces-happiness"],
+      "edges": ["agency-reduces-happiness --dissociates-with--> guilt-reduces-happiness-after-partner-loss"]
+    },
+    {
+      "sentence": "All findings are scoped to a specific paradigm — repeated lottery decisions with monetary stakes — and to the structural assumption that the algorithmic partner was believed to be a real person.",
+      "claims": ["scope-two-study-design", "partner-algorithm-deception-assumption"],
+      "edges": ["scope-two-study-design --scopes--> guilt-reduces-happiness-after-partner-loss", "scope-two-study-design --scopes--> insula-tracks-guilt-effect", "scope-two-study-design --scopes--> sts-tracks-partner-reward-prediction-errors", "partner-algorithm-deception-assumption --scopes--> guilt-reduces-happiness-after-partner-loss", "partner-algorithm-deception-assumption --scopes--> insula-tracks-guilt-effect", "partner-algorithm-deception-assumption --scopes--> sts-tracks-partner-reward-prediction-errors"]
+    }
+  ]
+}

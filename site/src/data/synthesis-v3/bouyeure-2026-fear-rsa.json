@@ -1,0 +1,92 @@
+{
+  "paperSlug": "bouyeure-2026-fear-rsa",
+  "version": 3,
+  "synthesis": "This paper investigates how the brain represents threat during fear conditioning, reversal learning, and context-dependent fear renewal, using representational similarity analysis of fMRI data. The argument is organized around three interlocking hypotheses.\n\nThe first hypothesis holds that fear learning produces generalized neural representations of threatening cues in the canonical fear network. Consistent with this, during acquisition, threatening cues activate dACC, SFG, caudate, and MTG more strongly than safe cues, and RSA reveals that different CS++ items become representationally more similar in these regions. This generalization is selective: item stability does not differ between CS+ and CS- during acquisition, establishing that threat learning promotes cross-item generalization without altering single-item consistency.\n\nThe second hypothesis proposes that reversal learning recruits two simultaneous, complementary representational strategies. Supporting generalization, the newly dangerous cue (CS-+) acquires generalized representations in fear-network regions mirroring CS++, while the network rapidly updates univariate responses to track current threat. Notably, generalization for consistently threatening cues narrows to dACC alone during reversal, suggesting stable threat representations are maintained more selectively. Supporting item-specific updating, changing-valence cues develop elevated within-item stability in precuneus and prefrontal cortex, outside the fear network. The two strategies dissociate anatomically, demonstrating they encode complementary information. This dual coding extends into test phases and surfaces again in reinstatement: dmPFC preferentially reinstates generalized acquisition traces while IFG preferentially reinstates item-specific reversal traces -- a double dissociation made visible by the absence of univariate differences during test, which motivates RSA over standard contrasts. A residual prior-fear trace is also observed, with previously threatening cues retaining weak fear-network activation during reversal.\n\nThe third hypothesis proposes that prefrontal context-specific coding enables context-dependent fear renewal. As predicted, context representations become more distinct during reversal, when context becomes relevant for predicting threat. Individual differences in PFC context specificity predict reinstatement of acquisition fear traces, with regional specificity: the relationship favors initially threatening cues in ACC/SFG and initially safe cues in precuneus. Context specificity also predicts reversal-memory reinstatement in dmPFC and extends to novel contexts in MTG, though this latter finding is weaker.\n\nBehavioral data confirm participants learned and reversed threat contingencies. Methodologically, all RSA analyses exclude reinforced trials to avoid US-driven confounds, and certain ROI analyses derive regions from preceding searchlight results on the same data, introducing potential circularity.",
+  "traceback": [
+    {
+      "sentence": "This paper investigates how the brain represents threat during fear conditioning, reversal learning, and context-dependent fear renewal, using representational similarity analysis of fMRI data.",
+      "claims": [],
+      "edges": []
+    },
+    {
+      "sentence": "The first hypothesis holds that fear learning produces generalized neural representations of threatening cues in the canonical fear network.",
+      "claims": ["hypothesis-fear-network-generalizes-threat-cues"],
+      "edges": []
+    },
+    {
+      "sentence": "Consistent with this, during acquisition, threatening cues activate dACC, SFG, caudate, and MTG more strongly than safe cues, and RSA reveals that different CS++ items become representationally more similar in these regions.",
+      "claims": ["cs-plus-univariate-fear-network-acquisition", "cue-generalization-increases-acquisition"],
+      "edges": ["enables-method", "tests"]
+    },
+    {
+      "sentence": "This generalization is selective: item stability does not differ between CS+ and CS- during acquisition, establishing that threat learning promotes cross-item generalization without altering single-item consistency.",
+      "claims": ["no-item-stability-difference-acquisition", "cue-generalization-increases-acquisition"],
+      "edges": ["dissociates-with"]
+    },
+    {
+      "sentence": "The second hypothesis proposes that reversal learning recruits two simultaneous, complementary representational strategies.",
+      "claims": ["hypothesis-dual-strategy-reversal"],
+      "edges": []
+    },
+    {
+      "sentence": "Supporting generalization, the newly dangerous cue (CS-+) acquires generalized representations in fear-network regions mirroring CS++, while the network rapidly updates univariate responses to track current threat.",
+      "claims": ["generalized-pattern-cs-minus-plus-reversal", "current-threat-activates-fear-network-reversal"],
+      "edges": ["tests"]
+    },
+    {
+      "sentence": "Notably, generalization for consistently threatening cues narrows to dACC alone during reversal, suggesting stable threat representations are maintained more selectively.",
+      "claims": ["cue-generalization-limited-dacc-reversal-consistent"],
+      "edges": []
+    },
+    {
+      "sentence": "Supporting item-specific updating, changing-valence cues develop elevated within-item stability in precuneus and prefrontal cortex, outside the fear network.",
+      "claims": ["item-stability-precuneus-pfc-reversal"],
+      "edges": ["tests"]
+    },
+    {
+      "sentence": "The two strategies dissociate anatomically, demonstrating they encode complementary information.",
+      "claims": ["item-stability-precuneus-pfc-reversal", "generalized-pattern-cs-minus-plus-reversal"],
+      "edges": ["dissociates-with"]
+    },
+    {
+      "sentence": "This dual coding extends into test phases and surfaces again in reinstatement: dmPFC preferentially reinstates generalized acquisition traces while IFG preferentially reinstates item-specific reversal traces -- a double dissociation made visible by the absence of univariate differences during test, which motivates RSA over standard contrasts.",
+      "claims": ["item-stability-persists-test-phases", "dmpfc-reinstates-acquisition-traces-generalized", "ifg-reinstates-reversal-traces-item-specific", "no-bold-differences-test-phases"],
+      "edges": ["dissociates-with", "enables-method"]
+    },
+    {
+      "sentence": "A residual prior-fear trace is also observed, with previously threatening cues retaining weak fear-network activation during reversal.",
+      "claims": ["prior-threat-activates-fear-network-weakly"],
+      "edges": ["interprets"]
+    },
+    {
+      "sentence": "The third hypothesis proposes that prefrontal context-specific coding enables context-dependent fear renewal.",
+      "claims": ["hypothesis-context-specificity-supports-renewal"],
+      "edges": []
+    },
+    {
+      "sentence": "As predicted, context representations become more distinct during reversal, when context becomes relevant for predicting threat.",
+      "claims": ["context-specificity-increases-reversal"],
+      "edges": ["tests"]
+    },
+    {
+      "sentence": "Individual differences in PFC context specificity predict reinstatement of acquisition fear traces, with regional specificity: the relationship favors initially threatening cues in ACC/SFG and initially safe cues in precuneus.",
+      "claims": ["pfc-context-specificity-predicts-renewal", "context-specificity-predicts-acquisition-reinstatement-regional-dissociation"],
+      "edges": ["tests", "validates"]
+    },
+    {
+      "sentence": "Context specificity also predicts reversal-memory reinstatement in dmPFC and extends to novel contexts in MTG, though this latter finding is weaker.",
+      "claims": ["context-specificity-predicts-reversal-reinstatement-dmpfc", "context-specificity-predicts-reinstatement-new-context-mtg"],
+      "edges": ["validates"]
+    },
+    {
+      "sentence": "Behavioral data confirm participants learned and reversed threat contingencies.",
+      "claims": ["behavioral-learning-confirms-contingencies"],
+      "edges": ["validates"]
+    },
+    {
+      "sentence": "Methodologically, all RSA analyses exclude reinforced trials to avoid US-driven confounds, and certain ROI analyses derive regions from preceding searchlight results on the same data, introducing potential circularity.",
+      "claims": ["lss-unreinforced-trials-only", "rsa-roi-derived-from-searchlight"],
+      "edges": ["scopes"]
+    }
+  ]
+}

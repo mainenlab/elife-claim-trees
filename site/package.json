@@ -7,7 +7,10 @@
   },
   "scripts": {
     "dev": "node scripts/build-data.js && astro dev",
+    "dev:all": "CORPUS=all node scripts/build-data.js && astro dev",
     "build": "node scripts/build-data.js && astro build",
+    "build:elife": "CORPUS=elife node scripts/build-data.js && astro build",
+    "build:all": "CORPUS=all node scripts/build-data.js && astro build",
     "preview": "astro preview",
     "astro": "astro"
   },
@@ -23,6 +26,7 @@
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
     "reactflow": "^11.11.4",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.2.2",
+    "yaml": "^2.8.3"
   }
 }

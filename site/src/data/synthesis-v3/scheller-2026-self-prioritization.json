@@ -1,0 +1,82 @@
+{
+  "paperSlug": "scheller-2026-self-prioritization",
+  "version": 3,
+  "synthesis": "Scheller et al. ask whether arbitrary self-association alters early attentional selection and, if so, through what mechanism. Working within Bundesen's Theory of Visual Attention, which decomposes attention into absolute processing capacity (C) and relative attentional weights (w), they advance three linked hypotheses. The first holds that mere association of a neutral shape with the self acts as an automatic salience signal at the perceptual feature level, boosting the processing rate of the self-associated stimulus even when social identity is task-irrelevant -- and that requiring an explicit social-identity decision should attenuate or reverse this advantage by redirecting resources toward a competing social-decoding stage. The second hypothesis specifies the mechanism: self-association mobilizes additional encoding capacity (a change in C) rather than merely redistributing fixed attentional weights. The third proposes that social salience and physical perceptual salience capture attention via independent mechanisms whose effects should combine additively.\n\nTwo preregistered experiments using temporal order judgement tasks test these predictions. A hierarchical Bayesian TVA model comparison establishes the methodological foundation: a model with condition-specific capacity parameters substantially outperforms a weights-only model, confirming that self-association changes absolute processing rates. With this validated decomposition in hand, Experiment 1 reveals that self-associated stimuli enjoy a processing rate advantage in the perceptual decision condition, driven by a capacity increase that benefits primarily the self-associated stimulus. Critically, this advantage disappears in the social decision condition, where if anything the other-associated stimulus is favored -- a dissociation confirmed in Experiment 2. Individual-difference analyses sharpen the dissociation: participants who show stronger automatic self-prioritization at the perceptual level show less self-facilitation at the social level, with the tradeoff driven by differential allocation of attentional weights.\n\nExperiment 2 crosses social association with perceptual salience in a factorial design. For other-associated stimuli, social and perceptual salience effects are additive, consistent with independent mechanisms. For self-associated stimuli, however, the perceptual salience benefit is substantially reduced, revealing a sub-additive interaction that localizes the exception to self-relevance specifically. The authors interpret this pattern as evidence that social and perceptual salience operate through largely separate processing streams, but that self-association partially preempts the perceptual salience channel. All claims are bounded to the specific paradigm envelope of arbitrary shape-identity associations analyzed under hierarchical Bayesian TVA, and generalization beyond this scope is not established.",
+  "traceback": [
+    {
+      "sentence": "Scheller et al. ask whether arbitrary self-association alters early attentional selection and, if so, through what mechanism.",
+      "claims": ["hypothesis-self-association-alters-attentional-selection", "hypothesis-capacity-mechanism-not-weights"],
+      "edges": []
+    },
+    {
+      "sentence": "Working within Bundesen's Theory of Visual Attention, which decomposes attention into absolute processing capacity (C) and relative attentional weights (w), they advance three linked hypotheses.",
+      "claims": ["interprets-bundesen-tva-framework"],
+      "edges": ["hypothesis-capacity-mechanism-not-weights --interprets--> interprets-bundesen-tva-framework"]
+    },
+    {
+      "sentence": "The first holds that mere association of a neutral shape with the self acts as an automatic salience signal at the perceptual feature level, boosting the processing rate of the self-associated stimulus even when social identity is task-irrelevant -- and that requiring an explicit social-identity decision should attenuate or reverse this advantage by redirecting resources toward a competing social-decoding stage.",
+      "claims": ["hypothesis-self-association-alters-attentional-selection"],
+      "edges": ["hypothesis-self-association-alters-attentional-selection --entails--> prediction-self-advantage-perceptual-decision", "hypothesis-self-association-alters-attentional-selection --entails--> prediction-self-advantage-attenuated-social-decision"]
+    },
+    {
+      "sentence": "The second hypothesis specifies the mechanism: self-association mobilizes additional encoding capacity (a change in C) rather than merely redistributing fixed attentional weights.",
+      "claims": ["hypothesis-capacity-mechanism-not-weights"],
+      "edges": ["hypothesis-capacity-mechanism-not-weights --entails--> prediction-capacity-model-outperforms-weights-only"]
+    },
+    {
+      "sentence": "The third proposes that social salience and physical perceptual salience capture attention via independent mechanisms whose effects should combine additively.",
+      "claims": ["hypothesis-social-perceptual-independent-mechanisms"],
+      "edges": ["hypothesis-social-perceptual-independent-mechanisms --entails--> prediction-additive-effects-other-associated"]
+    },
+    {
+      "sentence": "Two preregistered experiments using temporal order judgement tasks test these predictions.",
+      "claims": ["scope-toj-tva-paradigm"],
+      "edges": []
+    },
+    {
+      "sentence": "A hierarchical Bayesian TVA model comparison establishes the methodological foundation: a model with condition-specific capacity parameters substantially outperforms a weights-only model, confirming that self-association changes absolute processing rates.",
+      "claims": ["tva-capacity-model-wins"],
+      "edges": ["tva-capacity-model-wins --tests--> prediction-capacity-model-outperforms-weights-only", "tva-capacity-model-wins --confirms--> hypothesis-capacity-mechanism-not-weights", "tva-capacity-model-wins --interprets--> interprets-bundesen-tva-framework"]
+    },
+    {
+      "sentence": "With this validated decomposition in hand, Experiment 1 reveals that self-associated stimuli enjoy a processing rate advantage in the perceptual decision condition, driven by a capacity increase that benefits primarily the self-associated stimulus.",
+      "claims": ["self-prioritization-perceptual-decision-automatic", "processing-capacity-rises-perceptual-self"],
+      "edges": ["tva-capacity-model-wins --enables-method--> self-prioritization-perceptual-decision-automatic", "tva-capacity-model-wins --enables-method--> processing-capacity-rises-perceptual-self", "self-prioritization-perceptual-decision-automatic --tests--> prediction-self-advantage-perceptual-decision", "processing-capacity-rises-perceptual-self --confirms--> hypothesis-capacity-mechanism-not-weights"]
+    },
+    {
+      "sentence": "Critically, this advantage disappears in the social decision condition, where if anything the other-associated stimulus is favored -- a dissociation confirmed in Experiment 2.",
+      "claims": ["self-prioritization-absent-social-decision", "other-association-advantage-social-condition"],
+      "edges": ["self-prioritization-absent-social-decision --tests--> prediction-self-advantage-attenuated-social-decision", "self-prioritization-absent-social-decision --dissociates-with--> self-prioritization-perceptual-decision-automatic", "other-association-advantage-social-condition --tests--> prediction-self-advantage-attenuated-social-decision", "other-association-advantage-social-condition --validates--> self-prioritization-absent-social-decision"]
+    },
+    {
+      "sentence": "Individual-difference analyses sharpen the dissociation: participants who show stronger automatic self-prioritization at the perceptual level show less self-facilitation at the social level, with the tradeoff driven by differential allocation of attentional weights.",
+      "claims": ["decisional-dimension-tradeoff", "spe-matching-correlates-social-decision"],
+      "edges": ["decisional-dimension-tradeoff --dissociates-with--> spe-matching-correlates-social-decision", "decisional-dimension-tradeoff --confirms--> hypothesis-self-association-alters-attentional-selection", "spe-matching-correlates-social-decision --validates--> self-prioritization-absent-social-decision"]
+    },
+    {
+      "sentence": "Experiment 2 crosses social association with perceptual salience in a factorial design.",
+      "claims": ["scope-toj-tva-paradigm"],
+      "edges": []
+    },
+    {
+      "sentence": "For other-associated stimuli, social and perceptual salience effects are additive, consistent with independent mechanisms.",
+      "claims": ["self-social-additive-perceptual"],
+      "edges": ["self-social-additive-perceptual --tests--> prediction-additive-effects-other-associated", "self-social-additive-perceptual --confirms--> hypothesis-social-perceptual-independent-mechanisms"]
+    },
+    {
+      "sentence": "For self-associated stimuli, however, the perceptual salience benefit is substantially reduced, revealing a sub-additive interaction that localizes the exception to self-relevance specifically.",
+      "claims": ["self-salience-reduces-perceptual-benefit"],
+      "edges": ["self-salience-reduces-perceptual-benefit --refutes--> hypothesis-social-perceptual-independent-mechanisms", "self-salience-reduces-perceptual-benefit --dissociates-with--> self-social-additive-perceptual"]
+    },
+    {
+      "sentence": "The authors interpret this pattern as evidence that social and perceptual salience operate through largely separate processing streams, but that self-association partially preempts the perceptual salience channel.",
+      "claims": ["social-perceptual-salience-independent-streams", "self-salience-dominates-other-associated", "self-prioritization-automatic-early"],
+      "edges": ["social-perceptual-salience-independent-streams --confirms--> hypothesis-social-perceptual-independent-mechanisms", "social-perceptual-salience-independent-streams --interprets--> self-social-additive-perceptual", "social-perceptual-salience-independent-streams --interprets--> self-salience-reduces-perceptual-benefit", "self-salience-dominates-other-associated --interprets--> self-salience-reduces-perceptual-benefit", "self-salience-dominates-other-associated --interprets--> self-social-additive-perceptual", "self-prioritization-automatic-early --interprets--> self-prioritization-perceptual-decision-automatic", "self-prioritization-automatic-early --interprets--> self-prioritization-absent-social-decision"]
+    },
+    {
+      "sentence": "All claims are bounded to the specific paradigm envelope of arbitrary shape-identity associations analyzed under hierarchical Bayesian TVA, and generalization beyond this scope is not established.",
+      "claims": ["scope-toj-tva-paradigm"],
+      "edges": ["scope-toj-tva-paradigm --scopes--> self-prioritization-perceptual-decision-automatic", "scope-toj-tva-paradigm --scopes--> self-prioritization-absent-social-decision", "scope-toj-tva-paradigm --scopes--> decisional-dimension-tradeoff", "scope-toj-tva-paradigm --scopes--> self-social-additive-perceptual", "scope-toj-tva-paradigm --scopes--> self-salience-reduces-perceptual-benefit"]
+    }
+  ]
+}

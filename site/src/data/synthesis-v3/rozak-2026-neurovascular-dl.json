@@ -1,0 +1,87 @@
+{
+  "paperSlug": "rozak-2026-neurovascular-dl",
+  "version": 3,
+  "synthesis": "The paper argues that conventional approaches to neurovascular coupling (NVC) — point-caliber measurements, manual segmentation, single-vessel tracking — systematically miss the coordinated, network-level structure of functional hyperemia because they cannot resolve within-vessel radius heterogeneity, inter-vessel topology, or graph-level metrics across hundreds of interconnected vessels. Two interlocking hypotheses organize the work. The methodological hypothesis holds that a deep-learning pipeline (UNet/UNETR ensemble segmentation, cross-time-point rigid registration, boundary-detection radius estimation, and graph-theoretic network analysis) can overcome the performance ceiling of conventional baselines, whose failures stem not from imaging limitations but from their inability to handle volumetric SNR, transient RBC plugs, and spatial heterogeneity. The biological hypothesis holds that optogenetic activation of cortical pyramidal neurons elicits coordinated vascular responses that are invisible to individual-vessel interrogation.\n\nThe methodological hypothesis generates three testable predictions: that the ensemble should outperform ilastik on volumetric segmentation metrics, that registration-plus-mask-union should recover substantially more vessel segments per field of view, and that the radius estimator should track simulated radii with high fidelity. All three are confirmed: NOVAS3D achieves superior Dice, precision, and HD95 over ilastik; registration nearly doubles identified vessel segments (241 to 412 per FOV); and the radius estimator achieves R-squared of 0.68 across over 100,000 simulations and remains stable under physiologically realistic noise. These validated methods then enable the biological analysis.\n\nThe biological hypothesis predicts that ChR2-mediated stimulation should produce a spatial gradient of dilations versus constrictions relative to labelled neurons, a rise in network assortativity, a change in capillary network efficiency, and an absence of these patterns under control illumination. All four predictions are borne out. Dilations cluster nearer to active neurons than constrictions (16.1 vs 21.9 micrometers); constricting capillaries sit deeper in cortex; network assortativity increases 152 percent during stimulation; and capillary efficiency rises 4 percent. Critically, blue-light dilations exceed green-light controls in ChR2 mice, while wild-type mice show no blue-versus-green difference — confirming ChR2 specificity rather than photothermal artifact. All quantitative claims are scoped to a single preparation (Thy1-ChR2-YFP mice, Texas Red labeling, cranial window), and the responder classification threshold (2 times baseline standard deviation) is not formally sensitivity-tested in the main analysis. Qualitative out-of-distribution generalization to other strains, species, and modalities is shown but not quantified. The synthesis concludes that point-caliber and single-vessel approaches are fundamentally insufficient: within-vessel heterogeneity, spatial segregation of response types, and graph-level coordination are features of the microvascular network that only a volumetric, network-aware pipeline can capture.",
+  "traceback": [
+    {
+      "sentence": "Conventional approaches to neurovascular coupling — point-caliber measurements, manual segmentation, single-vessel tracking — systematically miss the coordinated, network-level structure of functional hyperemia because they cannot resolve within-vessel radius heterogeneity, inter-vessel topology, or graph-level metrics across hundreds of interconnected vessels.",
+      "claims": ["hypothesis-network-level-nvc-coordination", "hypothesis-dl-pipeline-enables-network-nvc"],
+      "edges": ["entails(hypothesis-network-level-nvc-coordination → prediction-pipeline-reveals-network-coordination)", "entails(hypothesis-dl-pipeline-enables-network-nvc → prediction-pipeline-outperforms-baselines)"]
+    },
+    {
+      "sentence": "The methodological hypothesis holds that a deep-learning pipeline (UNet/UNETR ensemble segmentation, cross-time-point rigid registration, boundary-detection radius estimation, and graph-theoretic network analysis) can overcome the performance ceiling of conventional baselines, whose failures stem not from imaging limitations but from their inability to handle volumetric SNR, transient RBC plugs, and spatial heterogeneity.",
+      "claims": ["hypothesis-dl-pipeline-enables-network-nvc"],
+      "edges": ["entails(hypothesis-dl-pipeline-enables-network-nvc → prediction-pipeline-outperforms-baselines)", "entails(hypothesis-dl-pipeline-enables-network-nvc → prediction-pipeline-reveals-network-coordination)"]
+    },
+    {
+      "sentence": "The biological hypothesis holds that optogenetic activation of cortical pyramidal neurons elicits coordinated vascular responses that are invisible to individual-vessel interrogation.",
+      "claims": ["hypothesis-network-level-nvc-coordination"],
+      "edges": ["entails(hypothesis-network-level-nvc-coordination → prediction-pipeline-reveals-network-coordination)", "entails(hypothesis-network-level-nvc-coordination → synthesis-individual-vessel-measurements-insufficient)"]
+    },
+    {
+      "sentence": "The ensemble should outperform ilastik on volumetric segmentation metrics, registration-plus-mask-union should recover substantially more vessel segments per field of view, and the radius estimator should track simulated radii with high fidelity.",
+      "claims": ["prediction-pipeline-outperforms-baselines"],
+      "edges": ["derived-from(prediction-pipeline-outperforms-baselines ← hypothesis-dl-pipeline-enables-network-nvc)"]
+    },
+    {
+      "sentence": "NOVAS3D achieves superior Dice, precision, and HD95 over ilastik on nine test images from six held-out mice.",
+      "claims": ["novas3d-outperforms-ilastik", "unetr-outperforms-ilastik-hd95"],
+      "edges": ["tests(novas3d-outperforms-ilastik → prediction-pipeline-outperforms-baselines)", "tests(unetr-outperforms-ilastik-hd95 → prediction-pipeline-outperforms-baselines)", "confirms(novas3d-outperforms-ilastik → hypothesis-dl-pipeline-enables-network-nvc)", "confirms(unetr-outperforms-ilastik-hd95 → hypothesis-dl-pipeline-enables-network-nvc)", "dissociates-with(unetr-outperforms-ilastik-hd95 ↔ novas3d-outperforms-ilastik)"]
+    },
+    {
+      "sentence": "Registration nearly doubles identified vessel segments from 241 to 412 per FOV while reducing inter-acquisition MSE to near zero.",
+      "claims": ["registration-doubles-vessel-count"],
+      "edges": ["tests(registration-doubles-vessel-count → prediction-pipeline-outperforms-baselines)", "confirms(registration-doubles-vessel-count → hypothesis-dl-pipeline-enables-network-nvc)", "enables-method(registration-doubles-vessel-count → network-assortativity-increases-stimulation)", "enables-method(registration-doubles-vessel-count → capillary-efficiency-increases-4pct)"]
+    },
+    {
+      "sentence": "The radius estimator achieves R-squared of 0.68 across over 100,000 simulations and remains stable under physiologically realistic noise.",
+      "claims": ["radius-estimation-r2-0p68"],
+      "edges": ["tests(radius-estimation-r2-0p68 → prediction-pipeline-outperforms-baselines)", "confirms(radius-estimation-r2-0p68 → hypothesis-dl-pipeline-enables-network-nvc)", "validates(radius-estimation-r2-0p68 → vessel-radius-heterogeneity-stimulation)", "validates(radius-estimation-r2-0p68 → baseline-intra-vessel-radius-varies-24pct)", "enables-method(radius-estimation-r2-0p68 → vessel-radius-heterogeneity-stimulation)"]
+    },
+    {
+      "sentence": "These validated methods then enable the biological analysis: the segmentation pipeline enables-method for downstream radius, network, and spatial claims.",
+      "claims": ["novas3d-outperforms-ilastik", "radius-estimation-r2-0p68"],
+      "edges": ["enables-method(novas3d-outperforms-ilastik → vessel-radius-heterogeneity-stimulation)", "enables-method(novas3d-outperforms-ilastik → dilations-nearer-neurons-than-constrictions)", "enables-method(novas3d-outperforms-ilastik → network-assortativity-increases-stimulation)", "enables-method(novas3d-outperforms-ilastik → capillary-efficiency-increases-4pct)", "enables-method(radius-estimation-r2-0p68 → network-assortativity-increases-stimulation)", "enables-method(radius-estimation-r2-0p68 → capillary-efficiency-increases-4pct)"]
+    },
+    {
+      "sentence": "Dilations cluster nearer to active neurons than constrictions (16.1 vs 21.9 micrometers), and constricting capillaries sit deeper in cortex by 37 micrometers on average.",
+      "claims": ["dilations-nearer-neurons-than-constrictions", "constrictions-deeper-than-dilations"],
+      "edges": ["tests(dilations-nearer-neurons-than-constrictions → prediction-pipeline-reveals-network-coordination)", "tests(constrictions-deeper-than-dilations → prediction-pipeline-reveals-network-coordination)", "confirms(dilations-nearer-neurons-than-constrictions → hypothesis-network-level-nvc-coordination)", "confirms(constrictions-deeper-than-dilations → hypothesis-network-level-nvc-coordination)", "dissociates-with(dilations-nearer-neurons-than-constrictions ↔ constrictions-deeper-than-dilations)"]
+    },
+    {
+      "sentence": "Network assortativity increases 152 percent during stimulation, indicating that high-degree vessels preferentially couple with high-degree vessels during neurovascular responses.",
+      "claims": ["network-assortativity-increases-stimulation"],
+      "edges": ["tests(network-assortativity-increases-stimulation → prediction-pipeline-reveals-network-coordination)", "confirms(network-assortativity-increases-stimulation → hypothesis-network-level-nvc-coordination)", "confirms(network-assortativity-increases-stimulation → synthesis-individual-vessel-measurements-insufficient)"]
+    },
+    {
+      "sentence": "Capillary network efficiency rises 4 percent at peak stimulation, consistent with coordinated vasodilation improving local blood flow distribution.",
+      "claims": ["capillary-efficiency-increases-4pct"],
+      "edges": ["tests(capillary-efficiency-increases-4pct → prediction-pipeline-reveals-network-coordination)", "confirms(capillary-efficiency-increases-4pct → hypothesis-network-level-nvc-coordination)", "confirms(capillary-efficiency-increases-4pct → synthesis-individual-vessel-measurements-insufficient)"]
+    },
+    {
+      "sentence": "Blue-light dilations exceed green-light controls in ChR2 mice, while wild-type mice show no blue-versus-green difference, confirming ChR2 specificity rather than photothermal artifact.",
+      "claims": ["blue-light-dilations-exceed-green-control", "wt-controls-no-blue-green-difference"],
+      "edges": ["validates(blue-light-dilations-exceed-green-control → dilations-nearer-neurons-than-constrictions)", "validates(blue-light-dilations-exceed-green-control → constrictions-deeper-than-dilations)", "validates(blue-light-dilations-exceed-green-control → vessel-radius-heterogeneity-stimulation)", "validates(blue-light-dilations-exceed-green-control → network-assortativity-increases-stimulation)", "validates(blue-light-dilations-exceed-green-control → capillary-efficiency-increases-4pct)", "validates(wt-controls-no-blue-green-difference → blue-light-dilations-exceed-green-control)", "validates(wt-controls-no-blue-green-difference → dilations-nearer-neurons-than-constrictions)", "validates(wt-controls-no-blue-green-difference → constrictions-deeper-than-dilations)", "confirms(wt-controls-no-blue-green-difference → hypothesis-network-level-nvc-coordination)"]
+    },
+    {
+      "sentence": "Capillary radius varies along vessel length by 24 percent of mean resting radius at baseline, and vessel-type heterogeneity is evident in differential artery-versus-venule responses at low stimulation power.",
+      "claims": ["baseline-intra-vessel-radius-varies-24pct", "artery-dilates-venule-unchanged-at-low-power"],
+      "edges": ["confirms(baseline-intra-vessel-radius-varies-24pct → hypothesis-network-level-nvc-coordination)", "confirms(baseline-intra-vessel-radius-varies-24pct → synthesis-individual-vessel-measurements-insufficient)", "rules-out(baseline-intra-vessel-radius-varies-24pct → novas3d-outperforms-ilastik)", "confirms(artery-dilates-venule-unchanged-at-low-power → hypothesis-network-level-nvc-coordination)", "dissociates-with(artery-dilates-venule-unchanged-at-low-power ↔ vessel-radius-heterogeneity-stimulation)"]
+    },
+    {
+      "sentence": "All quantitative claims are scoped to a single preparation (Thy1-ChR2-YFP mice, Texas Red labeling, cranial window), and the responder classification threshold is not formally sensitivity-tested in the main analysis.",
+      "claims": ["novas3d-single-preparation-scope", "scope-pipeline-and-application-paper", "responder-threshold-2sd-untested"],
+      "edges": ["scopes(novas3d-single-preparation-scope → novas3d-outperforms-ilastik)", "scopes(novas3d-single-preparation-scope → registration-doubles-vessel-count)", "scopes(novas3d-single-preparation-scope → radius-estimation-r2-0p68)", "scopes(novas3d-single-preparation-scope → vessel-radius-heterogeneity-stimulation)", "scopes(responder-threshold-2sd-untested → vessel-radius-heterogeneity-stimulation)", "scopes(responder-threshold-2sd-untested → dilations-nearer-neurons-than-constrictions)", "scopes(responder-threshold-2sd-untested → network-assortativity-increases-stimulation)", "scopes(responder-threshold-2sd-untested → capillary-efficiency-increases-4pct)"]
+    },
+    {
+      "sentence": "Qualitative out-of-distribution generalization to other strains, species, and modalities is shown but not quantified.",
+      "claims": ["novas3d-generalizes-qualitatively-ood"],
+      "edges": ["confirms(novas3d-generalizes-qualitatively-ood → hypothesis-dl-pipeline-enables-network-nvc)", "scopes(novas3d-single-preparation-scope → novas3d-generalizes-qualitatively-ood)"]
+    },
+    {
+      "sentence": "Point-caliber and single-vessel approaches are fundamentally insufficient: within-vessel heterogeneity, spatial segregation of response types, and graph-level coordination are features of the microvascular network that only a volumetric, network-aware pipeline can capture.",
+      "claims": ["synthesis-individual-vessel-measurements-insufficient"],
+      "edges": ["derived-from(synthesis-individual-vessel-measurements-insufficient ← hypothesis-network-level-nvc-coordination)", "confirms(baseline-intra-vessel-radius-varies-24pct → synthesis-individual-vessel-measurements-insufficient)", "confirms(dilations-nearer-neurons-than-constrictions → synthesis-individual-vessel-measurements-insufficient)", "confirms(network-assortativity-increases-stimulation → synthesis-individual-vessel-measurements-insufficient)", "confirms(capillary-efficiency-increases-4pct → synthesis-individual-vessel-measurements-insufficient)"]
+    }
+  ]
+}

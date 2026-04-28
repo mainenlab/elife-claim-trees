@@ -1,0 +1,67 @@
+{
+  "paperSlug": "artiushin-2026-spider-atlas",
+  "version": 3,
+  "synthesis": "This paper constructs a three-dimensional immunofluorescence atlas of the Uloborus diversus synganglion, mapping the distributions of GABA, acetylcholine, serotonin, octopamine/tyramine, and several neuropeptides across all identified neuropils using elastix-registered confocal volumes. Because the primary evidence is the atlas itself rather than conventional statistical inference, all claims are observational anatomical facts whose reproduction means re-registering volumes or inspecting the deposited resource, a scope condition governing every finding reported. One methodological limitation tempers the atlas: the anti-GAD antibody shows restricted tissue penetration to the preparation periphery, reducing the reliability of GABAergic mapping in deep neuropils. Enabled by this framework, the paper systematically maps peripheral neuropils and reveals that each possesses a distinct neurochemical signature. The four leg neuropil pairs show consistent innervation across segments, with serotonergic signal filling each neuropil in bilateral halves from a dorsal tract and leaving a central void, a pattern that dissociates from the uniform dopaminergic mesh and TDC2 anterior-posterior differential in the same structures. In contrast, the pedipalpal neuropil is dominated by cholinergic and TDC2 signal as punctate expression, while the cheliceral neuropil is most abundantly innervated by serotonergic and TDC2 immunoreactivity, with allatostatin A additionally strong in an adjacent medial region. The opisthosomal neuropil displays an elaborate TDC2 architecture of triangular puncta, perimeter tracts, and a ladder-like scaffold, partially shared by proctolin and dopamine but distinct from the appendicular neuropils. The atlas also identifies two previously undocumented structures in the supraesophageal ganglion. The hagstone neuropil, a paired midline-adjacent structure, is essentially filled by serotonergic immunoreactivity as its most diagnostic marker, while the tonsillar neuropil exhibits compartmentalized organization with a serotonergic core surrounded by a TDC2 peripheral shell and an anterior-posterior chemical division marked by proctolin and allatostatin A restriction to the posterior bridge. Among higher brain centers, mushroom bodies are present in their complete haft-body-head form with connecting bridge, contradicting reports of simplified mushroom bodies in web-building spiders; only allatostatin A co-expresses throughout the mushroom body, with globuli cells revealed as cholinergic and GABAergic populations. The protocerebral bridge displays a layered transmitter architecture with GABAergic, TDC2, proctolin, and cholinergic signals each occupying distinct laminae, while the arcuate body resolves into four sublayers distinguished by differential neurotransmitter innervation invisible to synapsin staining alone. These layered architectures together support the interpretation that the spider brain contains a candidate homolog of the insect central complex, implicated in path integration.",
+  "traceback": [
+    {
+      "sentence": "This paper constructs a three-dimensional immunofluorescence atlas of the Uloborus diversus synganglion, mapping the distributions of GABA, acetylcholine, serotonin, octopamine/tyramine, and several neuropeptides across all identified neuropils using elastix-registered confocal volumes.",
+      "claims": ["uloborus-synganglion-neurotransmitter-atlas"],
+      "edges": ["enables-method"]
+    },
+    {
+      "sentence": "Because the primary evidence is the atlas itself rather than conventional statistical inference, all claims are observational anatomical facts whose reproduction means re-registering volumes or inspecting the deposited resource, a scope condition governing every finding reported.",
+      "claims": ["atlas-observational-scope", "uloborus-synganglion-neurotransmitter-atlas"],
+      "edges": ["scopes"]
+    },
+    {
+      "sentence": "One methodological limitation tempers the atlas: the anti-GAD antibody shows restricted tissue penetration to the preparation periphery, reducing the reliability of GABAergic mapping in deep neuropils.",
+      "claims": ["gad-antibody-peripheral-penetration-only"],
+      "edges": []
+    },
+    {
+      "sentence": "Enabled by this framework, the paper systematically maps peripheral neuropils and reveals that each possesses a distinct neurochemical signature.",
+      "claims": ["uloborus-synganglion-neurotransmitter-atlas", "leg-neuropils-consistent-innervation", "pedipalpal-neuropil-chat-tdc2-dominant", "cheliceral-neuropil-serotonin-tdc2-dominant", "opisthosomal-neuropil-tdc2-perimeter-ladder"],
+      "edges": ["enables-method", "dissociates-with"]
+    },
+    {
+      "sentence": "The four leg neuropil pairs show consistent innervation across segments, with serotonergic signal filling each neuropil in bilateral halves from a dorsal tract and leaving a central void, a pattern that dissociates from the uniform dopaminergic mesh and TDC2 anterior-posterior differential in the same structures.",
+      "claims": ["leg-neuropils-consistent-innervation", "leg-neuropil-serotonin-bilateral-innervation"],
+      "edges": ["dissociates-with"]
+    },
+    {
+      "sentence": "In contrast, the pedipalpal neuropil is dominated by cholinergic and TDC2 signal as punctate expression, while the cheliceral neuropil is most abundantly innervated by serotonergic and TDC2 immunoreactivity, with allatostatin A additionally strong in an adjacent medial region.",
+      "claims": ["pedipalpal-neuropil-chat-tdc2-dominant", "cheliceral-neuropil-serotonin-tdc2-dominant"],
+      "edges": ["dissociates-with"]
+    },
+    {
+      "sentence": "The opisthosomal neuropil displays an elaborate TDC2 architecture of triangular puncta, perimeter tracts, and a ladder-like scaffold, partially shared by proctolin and dopamine but distinct from the appendicular neuropils.",
+      "claims": ["opisthosomal-neuropil-tdc2-perimeter-ladder"],
+      "edges": ["dissociates-with"]
+    },
+    {
+      "sentence": "The atlas also identifies two previously undocumented structures in the supraesophageal ganglion.",
+      "claims": ["hagstone-neuropil-serotonin-defined", "tonsillar-neuropil-novel-structure"],
+      "edges": []
+    },
+    {
+      "sentence": "The hagstone neuropil, a paired midline-adjacent structure, is essentially filled by serotonergic immunoreactivity as its most diagnostic marker, while the tonsillar neuropil exhibits compartmentalized organization with a serotonergic core surrounded by a TDC2 peripheral shell and an anterior-posterior chemical division marked by proctolin and allatostatin A restriction to the posterior bridge.",
+      "claims": ["hagstone-neuropil-serotonin-defined", "tonsillar-neuropil-serotonin-core-tdc2-shell"],
+      "edges": ["dissociates-with"]
+    },
+    {
+      "sentence": "Among higher brain centers, mushroom bodies are present in their complete haft-body-head form with connecting bridge, contradicting reports of simplified mushroom bodies in web-building spiders; only allatostatin A co-expresses throughout the mushroom body, with globuli cells revealed as cholinergic and GABAergic populations.",
+      "claims": ["mushroom-bodies-present-asta-exclusive", "globuli-cells-cholinergic-gabaergic"],
+      "edges": ["confirms", "dissociates-with"]
+    },
+    {
+      "sentence": "The protocerebral bridge displays a layered transmitter architecture with GABAergic, TDC2, proctolin, and cholinergic signals each occupying distinct laminae, while the arcuate body resolves into four sublayers distinguished by differential neurotransmitter innervation invisible to synapsin staining alone.",
+      "claims": ["protocerebral-bridge-layered-transmitter-architecture", "arcuate-body-four-sublayer-differential", "arcuate-body-layers-neurotransmitter-distinguished"],
+      "edges": ["dissociates-with"]
+    },
+    {
+      "sentence": "These layered architectures together support the interpretation that the spider brain contains a candidate homolog of the insect central complex, implicated in path integration.",
+      "claims": ["protocerebral-bridge-candidate-central-complex", "protocerebral-bridge-layered-transmitter-architecture", "arcuate-body-four-sublayer-differential"],
+      "edges": ["derived-from", "interprets"]
+    }
+  ]
+}

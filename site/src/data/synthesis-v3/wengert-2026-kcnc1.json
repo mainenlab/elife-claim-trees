@@ -1,0 +1,149 @@
+{
+  "paperSlug": "wengert-2026-kcnc1",
+  "version": 3,
+  "synthesis": "The paper builds a three-tiered argument linking a single missense variant (KCNC1-A421V) to a full developmental and epileptic encephalopathy phenotype in a novel knock-in mouse model, proceeding from molecular mechanism through cell-type physiology to network dysfunction and disease.\n\nAt the molecular level, the authors hypothesize that A421V causes Kv3.1 loss of function through a trafficking defect rather than altered gating. This predicts reduced K+ current density and diminished Kv3.1 surface expression. Both predictions are confirmed: PV-interneurons show significantly reduced K+ current density in patch-clamp recordings, and the membrane-to-cytosol Kv3.1 immunofluorescence ratio is reduced, consistent with impaired delivery to the plasma membrane.\n\nAt the cellular level, the hypothesis of PV-interneuron-selective vulnerability predicts that impairment should track Kv3.1 dependence across cell types. PV-interneurons show reduced maximal firing frequency and altered AP waveforms (slower downstroke, prolonged APD50), while excitatory neurons are functionally spared at both juvenile and adult stages -- the latter serving as a negative control that validates the specificity of PV-interneuron findings. Critically, the severity of impairment dissociates across PV-interneuron subpopulations: layer II-IV PV-interneurons (predominantly Kv3.1-dependent) show the largest firing deficits, while layer V PV-interneurons (with greater Kv3.2 compensation) show only subtle impairment confined to the highest current injections, and reticular thalamic nucleus neurons (Kv3.1-dependent but with distinct rebound physiology) show attenuated excitability. This graded dissociation between layer II-IV and layer V PV-interneurons argues specifically for a Kv3.1-mediated mechanism rather than a generic PV-interneuron vulnerability.\n\nAt the network and disease level, the authors hypothesize that PV-interneuron dysfunction drives the encephalopathy phenotype. A key temporal dissociation supports the progressive nature of the disease: PV-interneuron inhibitory synaptic transmission is intact at juvenile stages (P16-21) but altered by young adulthood (P32-42), with increased uIPSC amplitude and reduced paired-pulse ratio indicating emergent presynaptic dysfunction. In vivo two-photon imaging reveals paroxysmal hypersynchronous discharges in all mutant mice but never in controls, alongside elevated excitatory neuron calcium transient frequency during quiet rest -- signatures of cortical disinhibition. Video-EEG captures spontaneous convulsive seizures and SUDEP events recapitulating the human KCNC1 DEE phenotype, and all mutant mice die before 122 days. Cognitive deficits in spatial learning and working memory are present but dissociate from gross developmental milestones, which remain normal -- indicating that the cognitive phenotype reflects circuit dysfunction rather than generalized developmental failure. All findings derive from the heterozygous knock-in model on a C57BL/6J background within specific age windows, and generalization beyond this experimental envelope is not established.",
+  "traceback": [
+    {
+      "sentence": "At the molecular level, the authors hypothesize that A421V causes Kv3.1 loss of function through a trafficking defect rather than altered gating, predicting reduced potassium current density and diminished Kv3.1 surface expression.",
+      "claims": [
+        "hypothesis-a421v-causes-kv31-lof",
+        "prediction-pv-in-k-current-reduced",
+        "prediction-kv31-surface-expression-reduced"
+      ],
+      "edges": [
+        "hypothesis-a421v-causes-kv31-lof --entails--> prediction-pv-in-k-current-reduced",
+        "hypothesis-a421v-causes-kv31-lof --entails--> prediction-kv31-surface-expression-reduced"
+      ]
+    },
+    {
+      "sentence": "Both predictions are confirmed: PV-interneurons show significantly reduced K+ current density in patch-clamp recordings, and the membrane-to-cytosol Kv3.1 immunofluorescence ratio is reduced, consistent with impaired channel delivery to the plasma membrane.",
+      "claims": [
+        "pv-ins-reduced-k-current-density",
+        "a421v-kv31-membrane-trafficking-impaired"
+      ],
+      "edges": [
+        "pv-ins-reduced-k-current-density --tests--> prediction-pv-in-k-current-reduced",
+        "pv-ins-reduced-k-current-density --supports--> hypothesis-a421v-causes-kv31-lof",
+        "a421v-kv31-membrane-trafficking-impaired --tests--> prediction-kv31-surface-expression-reduced",
+        "a421v-kv31-membrane-trafficking-impaired --supports--> hypothesis-a421v-causes-kv31-lof"
+      ]
+    },
+    {
+      "sentence": "At the cellular level, the hypothesis of PV-interneuron-selective vulnerability predicts that impairment should track Kv3.1 dependence across cell types.",
+      "claims": [
+        "hypothesis-pv-in-selective-vulnerability",
+        "prediction-pv-in-firing-impaired",
+        "prediction-excitatory-neurons-spared",
+        "prediction-impairment-grades-with-kv31-dependence"
+      ],
+      "edges": [
+        "hypothesis-pv-in-selective-vulnerability --entails--> prediction-pv-in-firing-impaired",
+        "hypothesis-pv-in-selective-vulnerability --entails--> prediction-excitatory-neurons-spared",
+        "hypothesis-pv-in-selective-vulnerability --entails--> prediction-impairment-grades-with-kv31-dependence"
+      ]
+    },
+    {
+      "sentence": "PV-interneurons show reduced maximal firing frequency and altered AP waveforms (slower downstroke, prolonged APD50), while excitatory neurons are functionally spared at both juvenile and adult stages -- the latter serving as a negative control that validates the specificity of PV-interneuron findings.",
+      "claims": [
+        "pv-ins-impaired-maximal-firing",
+        "pv-in-ap-waveform-altered-downstroke-apd50",
+        "excitatory-neurons-unaffected-juvenile",
+        "excitatory-neurons-unaffected-adult"
+      ],
+      "edges": [
+        "pv-ins-impaired-maximal-firing --tests--> prediction-pv-in-firing-impaired",
+        "pv-in-ap-waveform-altered-downstroke-apd50 --tests--> prediction-pv-in-firing-impaired",
+        "excitatory-neurons-unaffected-juvenile --tests--> prediction-excitatory-neurons-spared",
+        "excitatory-neurons-unaffected-juvenile --validates--> pv-ins-reduced-k-current-density",
+        "excitatory-neurons-unaffected-juvenile --validates--> pv-ins-impaired-maximal-firing",
+        "excitatory-neurons-unaffected-adult --tests--> prediction-excitatory-neurons-spared",
+        "excitatory-neurons-unaffected-adult --validates--> pv-in-inhibitory-synapse-altered-adult",
+        "pv-ins-impaired-maximal-firing --dissociates-with--> excitatory-neurons-unaffected-juvenile"
+      ]
+    },
+    {
+      "sentence": "The severity of impairment dissociates across PV-interneuron subpopulations: layer II-IV PV-interneurons show the largest firing deficits, while layer V PV-interneurons show only subtle impairment confined to the highest current injections, and reticular thalamic nucleus neurons show attenuated excitability.",
+      "claims": [
+        "pv-ins-impaired-maximal-firing",
+        "layer-v-pv-ins-subtle-impairment",
+        "rtn-neurons-impaired-excitability"
+      ],
+      "edges": [
+        "layer-v-pv-ins-subtle-impairment --tests--> prediction-impairment-grades-with-kv31-dependence",
+        "layer-v-pv-ins-subtle-impairment --dissociates-with--> pv-ins-impaired-maximal-firing",
+        "rtn-neurons-impaired-excitability --tests--> prediction-impairment-grades-with-kv31-dependence",
+        "layer-v-pv-ins-subtle-impairment --supports--> hypothesis-pv-in-selective-vulnerability",
+        "rtn-neurons-impaired-excitability --supports--> hypothesis-pv-in-selective-vulnerability"
+      ]
+    },
+    {
+      "sentence": "A key temporal dissociation supports the progressive nature of the disease: PV-interneuron inhibitory synaptic transmission is intact at juvenile stages but altered by young adulthood, with increased uIPSC amplitude and reduced paired-pulse ratio indicating emergent presynaptic dysfunction.",
+      "claims": [
+        "pv-in-inhibitory-synapse-intact-juvenile",
+        "pv-in-inhibitory-synapse-altered-adult",
+        "inhibitory-dysfunction-progresses-to-adulthood"
+      ],
+      "edges": [
+        "pv-in-inhibitory-synapse-intact-juvenile --tests--> prediction-progressive-synaptic-failure",
+        "pv-in-inhibitory-synapse-intact-juvenile --dissociates-with--> pv-in-inhibitory-synapse-altered-adult",
+        "pv-in-inhibitory-synapse-altered-adult --tests--> prediction-progressive-synaptic-failure",
+        "pv-in-inhibitory-synapse-altered-adult --supports--> hypothesis-pv-dysfunction-drives-encephalopathy",
+        "inhibitory-dysfunction-progresses-to-adulthood --interprets--> pv-in-inhibitory-synapse-intact-juvenile",
+        "inhibitory-dysfunction-progresses-to-adulthood --interprets--> pv-in-inhibitory-synapse-altered-adult"
+      ]
+    },
+    {
+      "sentence": "In vivo two-photon imaging reveals paroxysmal hypersynchronous discharges in all mutant mice but never in controls, alongside elevated excitatory neuron calcium transient frequency during quiet rest.",
+      "claims": [
+        "in-vivo-hypersynchronous-discharges-mutant-only",
+        "in-vivo-pv-minus-transient-frequency-increased"
+      ],
+      "edges": [
+        "in-vivo-hypersynchronous-discharges-mutant-only --tests--> prediction-network-hyperexcitability-in-vivo",
+        "in-vivo-hypersynchronous-discharges-mutant-only --supports--> hypothesis-pv-dysfunction-drives-encephalopathy",
+        "in-vivo-pv-minus-transient-frequency-increased --tests--> prediction-network-hyperexcitability-in-vivo",
+        "in-vivo-pv-minus-transient-frequency-increased --supports--> hypothesis-pv-dysfunction-drives-encephalopathy"
+      ]
+    },
+    {
+      "sentence": "Video-EEG captures spontaneous convulsive seizures and SUDEP events recapitulating the human KCNC1 DEE phenotype, and all mutant mice die before 122 days.",
+      "claims": [
+        "spontaneous-seizures-and-sudep-kcnc1",
+        "a421v-mice-die-before-122d"
+      ],
+      "edges": [
+        "spontaneous-seizures-and-sudep-kcnc1 --tests--> prediction-seizures-and-sudep",
+        "spontaneous-seizures-and-sudep-kcnc1 --supports--> hypothesis-pv-dysfunction-drives-encephalopathy",
+        "spontaneous-seizures-and-sudep-kcnc1 --interprets--> a421v-mice-die-before-122d",
+        "a421v-mice-die-before-122d --supports--> hypothesis-pv-dysfunction-drives-encephalopathy"
+      ]
+    },
+    {
+      "sentence": "Cognitive deficits in spatial learning and working memory are present but dissociate from gross developmental milestones, which remain normal -- indicating that the cognitive phenotype reflects circuit dysfunction rather than generalized developmental failure.",
+      "claims": [
+        "a421v-spatial-learning-working-memory-impaired",
+        "a421v-weight-reduced-milestones-normal"
+      ],
+      "edges": [
+        "a421v-spatial-learning-working-memory-impaired --tests--> prediction-cognitive-deficits",
+        "a421v-spatial-learning-working-memory-impaired --supports--> hypothesis-pv-dysfunction-drives-encephalopathy",
+        "a421v-weight-reduced-milestones-normal --dissociates-with--> a421v-spatial-learning-working-memory-impaired"
+      ]
+    },
+    {
+      "sentence": "All findings derive from the heterozygous knock-in model on a C57BL/6J background within specific age windows, and generalization beyond this experimental envelope is not established.",
+      "claims": [
+        "scope-a421v-knockin-mouse",
+        "kcnc1-wet-lab-primary-claims"
+      ],
+      "edges": [
+        "scope-a421v-knockin-mouse --scopes--> kcnc1-wet-lab-primary-claims",
+        "kcnc1-wet-lab-primary-claims --enables-method--> pv-ins-reduced-k-current-density",
+        "kcnc1-wet-lab-primary-claims --enables-method--> pv-ins-impaired-maximal-firing",
+        "kcnc1-wet-lab-primary-claims --enables-method--> a421v-kv31-membrane-trafficking-impaired",
+        "kcnc1-wet-lab-primary-claims --enables-method--> in-vivo-hypersynchronous-discharges-mutant-only",
+        "kcnc1-wet-lab-primary-claims --enables-method--> spontaneous-seizures-and-sudep-kcnc1"
+      ]
+    }
+  ]
+}

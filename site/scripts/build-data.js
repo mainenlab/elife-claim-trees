@@ -1,9 +1,14 @@
 #!/usr/bin/env node
-// Reads all claim markdown files from ../claims/ and outputs src/data/claims.json
-import fs, { readFileSync, readdirSync, writeFileSync, mkdirSync } from 'fs';
+// Reads claim markdown files from ../claims/ and outputs src/data/claims.json.
+// Filters by corpus when CORPUS env var is set (reads ../corpus.yaml).
+//   CORPUS=elife  → only eLife papers (default for public site)
+//   CORPUS=all    → all papers (private/lab site)
+//   unset         → defaults to 'elife'
+import fs, { readFileSync, readdirSync, writeFileSync, mkdirSync, existsSync } from 'fs';
 import { join, dirname } from 'path';
 import { fileURLToPath } from 'url';
 import matter from 'gray-matter';
+import { parse as parseYaml } from 'yaml';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 const claimsRoot = join(__dirname, '../../claims');
@@ -12,6 +17,26 @@ const outDir = join(__dirname, '../src/data');
 const outFile = join(outDir, 'claims.json');
 
 mkdirSync(outDir, { recursive: true });
+
+// --- Corpus filtering ---
+const corpusName = process.env.CORPUS || 'elife';
+let allowedPapers = null; // null = no filter (all papers)
+
+if (corpusName !== 'all') {
+  const manifestPath = join(projectRoot, 'corpus.yaml');
+  if (existsSync(manifestPath)) {
+    const manifest = parseYaml(readFileSync(manifestPath, 'utf8'));
+    const corpus = manifest?.corpora?.[corpusName];
+    if (corpus?.papers) {
+      allowedPapers = new Set(corpus.papers);
+      console.log(`Corpus filter: ${corpusName} (${allowedPapers.size} papers)`);
+    } else {
+      console.warn(`Corpus '${corpusName}' not found in corpus.yaml; building all papers`);
+    }
+  } else {
+    console.warn('No corpus.yaml found; building all papers');
+  }
+}
 
 const ASSESSMENT_SUFFIXES = ['-scope', '-assumed', '-unjustified', '-constraint', '-only', '-parameterization', '-initialization'];
 
@@ -56,6 +81,9 @@ function normalizeStatus(reproductions) {
 const papers = [];
 
 for (const paperSlug of readdirSync(claimsRoot).sort()) {
+  // Corpus filter: skip papers not in the selected corpus
+  if (allowedPapers && !allowedPapers.has(paperSlug)) continue;
+
   const paperDir = join(claimsRoot, paperSlug);
   const indexPath = join(paperDir, 'index.md');
 

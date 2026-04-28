@@ -1,0 +1,181 @@
+{
+  "paperSlug": "kolb-2026-igabasnfr2",
+  "version": 3,
+  "synthesis": "The paper advances a two-part thesis: first, that the performance ceiling of iGABASnFR1 is set by suboptimal residues at structurally identifiable positions in and around the GABA-binding pocket and cpGFP-linker interfaces, so that near-saturation mutagenesis at those sites should yield a substantially improved successor; second, that a sensor with sufficiently improved sensitivity, affinity, and kinetics will cross qualitative capability thresholds, enabling measurements that iGABASnFR1 cannot make at all rather than merely improving signal-to-noise on existing ones.\n\nThe design phase tests the first hypothesis through a screen of 3,947 variants in cultured neurons. This yields iGABASnFR2 with a fourfold gain in sensitivity, a 13-fold increase in expression, and a negative-going variant (iGABASnFR2n) -- outcomes consistent with the prediction that the screen should produce multiple qualitatively distinct improvements rather than marginal single-site gains.\n\nThe validation phase establishes that these gains reflect independent improvements across multiple biophysical axes. On-cell affinity increases sevenfold (EC50 of 6.4 uM versus 45 uM for v1) while remaining above tonic extracellular GABA. Stopped-flow kinetics shift from biphasic to single-exponential with faster rate constants, and on-cell rise kinetics also improve. Crystal structures (PDB: 9D57) reveal negligible cpGFP conformational change on GABA binding, dissociating the fluorescence mechanism from the large rearrangement seen in GCaMP. Two-photon compatibility and reduced pH dependence are confirmed. Selectivity testing rules out the possibility that the sensitivity gain reflects broader ligand promiscuity.\n\nThe application phase tests the second hypothesis through three demanding preparations that each dissociate from the others in tissue, circuit, and imaging regime. iGABASnFR2 detects GABA release from individual hippocampal interneuron boutons where iGABASnFR1 produces no detectable signal across 15 trials. In retina, it resolves direction-selective GABA release from starburst amacrine cells on single trials, whereas iGABASnFR1 cannot resolve direction selectivity even after trial-averaging. In vivo, it detects whisker-evoked volume-transmitted GABA in barrel cortex layers 2-3. Each application is independently validated by the selectivity controls and enabled by two-photon compatibility. The convergence of three dissociated preparations on the same conclusion -- that iGABASnFR2 crosses capability thresholds -- confirms the overarching hypothesis. All findings are scoped to mammalian preparations using wet-lab screening, purified-protein biophysics, ex vivo retina and hippocampal slice, and in vivo cranial-window imaging in standard laboratory mouse and rat; the paper does not test iGABASnFR2 in awake behaving animals at fine temporal resolution or in non-mammalian systems.",
+  "traceback": [
+    {
+      "sentence": "The paper advances a two-part thesis: first, that the performance ceiling of iGABASnFR1 is set by suboptimal residues at structurally identifiable positions in and around the GABA-binding pocket and cpGFP-linker interfaces, so that near-saturation mutagenesis at those sites should yield a substantially improved successor; second, that a sensor with sufficiently improved sensitivity, affinity, and kinetics will cross qualitative capability thresholds, enabling measurements that iGABASnFR1 cannot make at all rather than merely improving signal-to-noise on existing ones.",
+      "claims": [
+        "hypothesis-saturation-mutagenesis-yields-improved-sensor",
+        "hypothesis-improved-sensor-enables-new-biology"
+      ],
+      "edges": [
+        "hypothesis-saturation-mutagenesis-yields-improved-sensor --[entails]--> prediction-screen-yields-multiple-improved-variants",
+        "hypothesis-saturation-mutagenesis-yields-improved-sensor --[entails]--> prediction-improved-sensor-enables-new-measurements",
+        "hypothesis-improved-sensor-enables-new-biology --[entails]--> igabasnfr2-retina-direction-selectivity",
+        "hypothesis-improved-sensor-enables-new-biology --[entails]--> igabasnfr2-single-bouton-hippocampus",
+        "hypothesis-improved-sensor-enables-new-biology --[entails]--> igabasnfr2-invivo-barrel-cortex"
+      ]
+    },
+    {
+      "sentence": "The design phase tests the first hypothesis through a screen of 3,947 variants in cultured neurons, yielding iGABASnFR2 with a fourfold gain in sensitivity, a 13-fold increase in expression, and a negative-going variant -- outcomes consistent with the prediction that the screen should produce multiple qualitatively distinct improvements rather than marginal single-site gains.",
+      "claims": [
+        "mutagenesis-3947-variants-screened",
+        "igabasnfr2-fourfold-sensitivity-gain",
+        "igabasnfr2-13fold-expression-increase",
+        "igabasnfr2n-negative-going-variant",
+        "prediction-screen-yields-multiple-improved-variants"
+      ],
+      "edges": [
+        "prediction-screen-yields-multiple-improved-variants --[derived-from]--> hypothesis-saturation-mutagenesis-yields-improved-sensor",
+        "scope-sensor-engineering-paper --[scopes]--> mutagenesis-3947-variants-screened",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-fourfold-sensitivity-gain",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-13fold-expression-increase",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2n-negative-going-variant"
+      ]
+    },
+    {
+      "sentence": "The validation phase establishes that these gains reflect genuinely independent improvements across multiple biophysical axes, not a single underlying change.",
+      "claims": [
+        "igabasnfr2-oncell-affinity-sevenfold",
+        "igabasnfr2-kinetics-rise-decay",
+        "igabasnfr2-single-exponential-kinetics",
+        "igabasnfr2-fourfold-sensitivity-gain"
+      ],
+      "edges": [
+        "igabasnfr2-oncell-affinity-sevenfold --[dissociates-with]--> igabasnfr2-fourfold-sensitivity-gain",
+        "igabasnfr2-kinetics-rise-decay --[dissociates-with]--> igabasnfr2-fourfold-sensitivity-gain",
+        "igabasnfr2-single-exponential-kinetics --[dissociates-with]--> igabasnfr2-kinetics-rise-decay"
+      ]
+    },
+    {
+      "sentence": "On-cell affinity increases sevenfold (EC50 of 6.4 uM versus 45 uM for v1) while remaining above tonic extracellular GABA, and stopped-flow kinetics shift from biphasic to single-exponential with faster observed rate constants.",
+      "claims": [
+        "igabasnfr2-oncell-affinity-sevenfold",
+        "igabasnfr2-single-exponential-kinetics"
+      ],
+      "edges": [
+        "igabasnfr2-oncell-affinity-sevenfold --[confirms]--> hypothesis-saturation-mutagenesis-yields-improved-sensor",
+        "igabasnfr2-single-exponential-kinetics --[confirms]--> hypothesis-saturation-mutagenesis-yields-improved-sensor",
+        "igabasnfr2-kinetics-rise-decay --[confirms]--> hypothesis-saturation-mutagenesis-yields-improved-sensor"
+      ]
+    },
+    {
+      "sentence": "Crystal structures reveal that cpGFP and its linkers undergo negligible conformational change on GABA binding (RMSD 0.25 A), dissociating the fluorescence mechanism from the large cpGFP rearrangement seen in GCaMP.",
+      "claims": [
+        "igabasnfr2-cpgfp-rigid-on-gaba-binding",
+        "crystal-structure-pdb-9d57"
+      ],
+      "edges": [
+        "igabasnfr2-cpgfp-rigid-on-gaba-binding --[interprets]--> crystal-structure-pdb-9d57",
+        "igabasnfr2-cpgfp-rigid-on-gaba-binding --[dissociates-with]--> igabasnfr2-fourfold-sensitivity-gain"
+      ]
+    },
+    {
+      "sentence": "Two-photon compatibility and reduced pH dependence are confirmed, and selectivity testing rules out the possibility that the sensitivity gain reflects broader ligand promiscuity.",
+      "claims": [
+        "igabasnfr2-2p-compatible",
+        "igabasnfr2-gaba-selective-specificity"
+      ],
+      "edges": [
+        "igabasnfr2-2p-compatible --[dissociates-with]--> igabasnfr2-fourfold-sensitivity-gain",
+        "igabasnfr2-gaba-selective-specificity --[rules-out]--> igabasnfr2-fourfold-sensitivity-gain",
+        "igabasnfr2-2p-compatible --[enables-method]--> igabasnfr2-retina-direction-selectivity",
+        "igabasnfr2-2p-compatible --[enables-method]--> igabasnfr2-single-bouton-hippocampus",
+        "igabasnfr2-2p-compatible --[enables-method]--> igabasnfr2-invivo-barrel-cortex"
+      ]
+    },
+    {
+      "sentence": "The application phase tests the second hypothesis through three demanding preparations that each dissociate from the others in tissue, circuit, and imaging regime.",
+      "claims": [
+        "prediction-improved-sensor-enables-new-measurements"
+      ],
+      "edges": [
+        "prediction-improved-sensor-enables-new-measurements --[derived-from]--> hypothesis-improved-sensor-enables-new-biology",
+        "prediction-improved-sensor-enables-new-measurements --[derived-from]--> hypothesis-saturation-mutagenesis-yields-improved-sensor"
+      ]
+    },
+    {
+      "sentence": "iGABASnFR2 detects GABA release from individual hippocampal interneuron boutons where iGABASnFR1 produces no detectable signal across 15 trials.",
+      "claims": [
+        "igabasnfr2-single-bouton-hippocampus"
+      ],
+      "edges": [
+        "igabasnfr2-single-bouton-hippocampus --[tests]--> prediction-improved-sensor-enables-new-measurements",
+        "igabasnfr2-single-bouton-hippocampus --[confirms]--> hypothesis-improved-sensor-enables-new-biology",
+        "igabasnfr2-single-bouton-hippocampus --[dissociates-with]--> igabasnfr2-retina-direction-selectivity"
+      ]
+    },
+    {
+      "sentence": "In retina, it resolves direction-selective GABA release from starburst amacrine cells on single trials, whereas iGABASnFR1 cannot resolve direction selectivity even after trial-averaging.",
+      "claims": [
+        "igabasnfr2-retina-direction-selectivity"
+      ],
+      "edges": [
+        "igabasnfr2-retina-direction-selectivity --[tests]--> prediction-improved-sensor-enables-new-measurements",
+        "igabasnfr2-retina-direction-selectivity --[confirms]--> hypothesis-improved-sensor-enables-new-biology",
+        "igabasnfr2-retina-direction-selectivity --[dissociates-with]--> igabasnfr2-single-bouton-hippocampus"
+      ]
+    },
+    {
+      "sentence": "In vivo, it detects whisker-evoked volume-transmitted GABA in barrel cortex layers 2-3.",
+      "claims": [
+        "igabasnfr2-invivo-barrel-cortex"
+      ],
+      "edges": [
+        "igabasnfr2-invivo-barrel-cortex --[tests]--> prediction-improved-sensor-enables-new-measurements",
+        "igabasnfr2-invivo-barrel-cortex --[confirms]--> hypothesis-improved-sensor-enables-new-biology",
+        "igabasnfr2-invivo-barrel-cortex --[dissociates-with]--> igabasnfr2-retina-direction-selectivity",
+        "igabasnfr2-invivo-barrel-cortex --[dissociates-with]--> igabasnfr2-single-bouton-hippocampus"
+      ]
+    },
+    {
+      "sentence": "Each application is independently validated by the selectivity controls and enabled by two-photon compatibility.",
+      "claims": [
+        "igabasnfr2-gaba-selective-specificity",
+        "igabasnfr2-2p-compatible"
+      ],
+      "edges": [
+        "igabasnfr2-gaba-selective-specificity --[validates]--> igabasnfr2-retina-direction-selectivity",
+        "igabasnfr2-gaba-selective-specificity --[validates]--> igabasnfr2-single-bouton-hippocampus",
+        "igabasnfr2-gaba-selective-specificity --[validates]--> igabasnfr2-invivo-barrel-cortex",
+        "igabasnfr2-2p-compatible --[enables-method]--> igabasnfr2-retina-direction-selectivity",
+        "igabasnfr2-2p-compatible --[enables-method]--> igabasnfr2-single-bouton-hippocampus",
+        "igabasnfr2-2p-compatible --[enables-method]--> igabasnfr2-invivo-barrel-cortex"
+      ]
+    },
+    {
+      "sentence": "The convergence of three dissociated preparations on the same conclusion confirms the overarching hypothesis that iGABASnFR2 crosses capability thresholds.",
+      "claims": [
+        "hypothesis-improved-sensor-enables-new-biology"
+      ],
+      "edges": [
+        "igabasnfr2-single-bouton-hippocampus --[confirms]--> hypothesis-improved-sensor-enables-new-biology",
+        "igabasnfr2-retina-direction-selectivity --[confirms]--> hypothesis-improved-sensor-enables-new-biology",
+        "igabasnfr2-invivo-barrel-cortex --[confirms]--> hypothesis-improved-sensor-enables-new-biology"
+      ]
+    },
+    {
+      "sentence": "All findings are scoped to mammalian preparations using wet-lab screening, purified-protein biophysics, ex vivo retina and hippocampal slice, and in vivo cranial-window imaging in standard laboratory mouse and rat.",
+      "claims": [
+        "scope-sensor-engineering-paper"
+      ],
+      "edges": [
+        "scope-sensor-engineering-paper --[scopes]--> mutagenesis-3947-variants-screened",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-fourfold-sensitivity-gain",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-13fold-expression-increase",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2n-negative-going-variant",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-kinetics-rise-decay",
+        "scope-sensor-engineering-paper --[scopes]--> crystal-structure-pdb-9d57",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-cpgfp-rigid-on-gaba-binding",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-oncell-affinity-sevenfold",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-single-exponential-kinetics",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-2p-compatible",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-gaba-selective-specificity",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-retina-direction-selectivity",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-single-bouton-hippocampus",
+        "scope-sensor-engineering-paper --[scopes]--> igabasnfr2-invivo-barrel-cortex"
+      ]
+    }
+  ]
+}
