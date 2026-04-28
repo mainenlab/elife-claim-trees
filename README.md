@@ -34,7 +34,32 @@ Claims relate to each other via directed belongings: `supports`, `requires`, `co
 
 ## Status
 
-Early prototype. Paper list from eLife forthcoming. Building on approximately 10 neuroscience papers. The claim format (`docs/claim-format.md`) and workflow (`docs/method.md`) are specified here; implementation is underway.
+Working prototype. 13 papers (10 eLife + 3 lab), 341 claims, 939 verified references. Public site at https://zmainen.github.io/elife-claim-trees/ (eLife papers only). Full methodology at `docs/method.md`, claim format at `docs/claim-format.md`, cost estimate for 3000-paper scaling at `docs/cost-estimate.md`.
+
+## Running the site locally
+
+```bash
+cd site
+npm install
+npm run dev          # eLife papers only (public)
+npm run dev:all      # all papers including private lab papers
+```
+
+### Sharing a review build
+
+To produce a portable static build (no dev environment needed to view):
+
+```bash
+cd site
+npm run build:share
+# dist/ is now a self-contained static site
+# Zip and send, or serve locally:
+cd dist
+python3 -m http.server 8000
+# Open http://localhost:8000
+```
+
+See `site/SHARE-README.md` for reviewer instructions.
 
 ## Collaboration
 
