@@ -64,8 +64,8 @@ def load_estimates(exp_num):
         return pd.read_csv(dest)
 
     osf_ids = {
-        1: ["7qkn3", "vu9h4", "xn2am"],
-        2: ["4rjw8", "6cbyt", "9pmsd"],
+        1: ["6981ef8c094a3454212f7f97"],
+        2: ["69821558fd70e3d1bb2f80a2"],
     }
 
     for oid in osf_ids.get(exp_num, []):
@@ -74,7 +74,7 @@ def load_estimates(exp_num):
             req = urllib.request.Request(url, headers={"User-Agent": "Mozilla/5.0"})
             with urllib.request.urlopen(req, timeout=30) as resp:
                 content = resp.read()
-            if b"condition" in content[:500] or b"capacity" in content[:500]:
+            if b"mean" in content[:500] or b"condition" in content[:500] or b"capacity" in content[:500]:
                 with open(dest, "wb") as f:
                     f.write(content)
                 print(f"[data] Exp{exp_num} estimates CSV downloaded via {oid}")
