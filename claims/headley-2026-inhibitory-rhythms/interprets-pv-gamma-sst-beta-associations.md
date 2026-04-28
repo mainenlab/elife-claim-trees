@@ -1,7 +1,7 @@
 ---
 uuid: 2f988e78-8a82-41d3-a121-1e90636d3460
 slug: interprets-pv-gamma-sst-beta-associations
-doi: ~
+doi: 10.1038/nature08002
 claim: >
   Empirical work across the cortical-interneuron literature has established two
   correlated associations: parvalbumin-positive (PV+) fast-spiking interneurons target

@@ -1,0 +1,111 @@
+{
+  "paperSlug": "sautory-2026-serotonin-novelty",
+  "version": 3,
+  "synthesis": "The paper builds a three-stage argument tracing how dorsal raphe serotonin signals transform across learning, moving from novelty detection through predictive structure encoding to explicit value and informativeness representations.\n\nThe foundation is novelty-driven habituation. Serotonin responses to visual stimuli follow exponential decay within sessions, consolidate across days, and begin equivalently in both associative and random groups. VR onset responses habituate similarly, with controls ruling out photobleaching and confirming that off-duration does not modulate responses. This establishes that the initial serotonin signal is a novelty response that attenuates as stimuli become familiar.\n\nThe argument then pivots to predictiveness. Behavioral accuracy rises from chance across training, validated by individual-mouse distributions and concordance between speed-threshold and GLM-based metrics. Critically, the two groups diverge: in the associative group, habituated image responses recover across training to day-1 levels, whereas the random group remains flat. This recovery requires predictive stimulus-reward structure, not mere exposure. The divergence extends to reward responses, which decrease in the associative group as images acquire predictive value while remaining stable in the random group. Within-session adaptation attenuates as training progresses, indicating that the signal increasingly reflects learned associations rather than novelty.\n\nThe final stage decomposes the recovered signal into value and informativeness components. Transient image-locked responses carry no reward encoding and do not scale with accuracy, but sustained activity in the pre-reward zone selectively encodes reward and scales strongly with behavioral performance. A second sustained signal at the uncertainty-resolving Image 2 location shows a crossover pattern: high-uncertainty corridor responses exceed low-uncertainty ones, reversing the Image 1 pattern. This uncertainty encoding also scales with accuracy. Two dissociable signals, pre-reward value and post-Image-2 informativeness, independently predict next-day learning with opposite signs and near-orthogonal contributions. The pre-reward effect is specific to the associative group, robust to leave-one-out analysis, and survives speed controls. Together, these results argue that serotonin signals begin as undifferentiated novelty responses, are sculpted by predictive experience into associative signals, and ultimately fractionate into separable representations of expected value and residual uncertainty that independently drive learning.",
+  "traceback": [
+    {
+      "sentence": "Serotonin responses to visual stimuli follow exponential decay within sessions, consolidate across days, and begin equivalently in both associative and random groups.",
+      "claims": ["habituation-exponential-decay", "within-session-habituation", "cross-day-habituation", "baseline-no-group-difference"],
+      "edges": [
+        "habituation-exponential-decay --requires--> within-session-habituation",
+        "within-session-habituation --requires--> cross-day-habituation",
+        "within-session-habituation --requires--> baseline-no-group-difference"
+      ]
+    },
+    {
+      "sentence": "VR onset responses habituate similarly, with controls ruling out photobleaching and confirming that off-duration does not modulate responses.",
+      "claims": ["vr-onset-habituation", "vr-onoff-within-session", "vr-onoff-across-days", "vr-off-duration-no-effect", "photobleaching-control"],
+      "edges": [
+        "vr-onoff-within-session --validates--> vr-onset-habituation",
+        "photobleaching-control --validates--> vr-onoff-within-session",
+        "vr-onoff-within-session --requires--> vr-onoff-across-days",
+        "vr-onoff-within-session --requires--> vr-off-duration-no-effect"
+      ]
+    },
+    {
+      "sentence": "Behavioral accuracy rises from chance across training, validated by individual-mouse distributions and concordance between speed-threshold and GLM-based metrics.",
+      "claims": ["accuracy-increases-training", "individual-accuracy-above-chance", "speed-glm-accuracy-correlation"],
+      "edges": [
+        "individual-accuracy-above-chance --validates--> accuracy-increases-training",
+        "speed-glm-accuracy-correlation --validates--> accuracy-increases-training"
+      ]
+    },
+    {
+      "sentence": "In the associative group, habituated image responses recover across training to day-1 levels, whereas the random group remains flat.",
+      "claims": ["assoc-recovery-training", "assoc-recovery-confirmed", "random-no-recovery", "random-flat-training"],
+      "edges": [
+        "within-session-habituation --requires--> assoc-recovery-training",
+        "cross-day-habituation --requires--> assoc-recovery-training",
+        "assoc-recovery-training --derived-from--> assoc-recovery-confirmed",
+        "within-session-habituation --requires--> random-no-recovery",
+        "random-no-recovery --requires--> random-flat-training",
+        "assoc-recovery-training --requires--> random-flat-training"
+      ]
+    },
+    {
+      "sentence": "The two groups diverge significantly, with the associative group showing increasing serotonin responses and the random group remaining flat, and by final training days associative mice show significantly higher image responses.",
+      "claims": ["groups-diverge-training", "assoc-higher-final-responses"],
+      "edges": [
+        "assoc-recovery-training --requires--> groups-diverge-training",
+        "random-flat-training --requires--> groups-diverge-training",
+        "groups-diverge-training --requires--> assoc-higher-final-responses"
+      ]
+    },
+    {
+      "sentence": "The divergence extends to reward responses, which decrease in the associative group while remaining stable in the random group.",
+      "claims": ["reward-trajectories-diverge", "assoc-lower-reward-final"],
+      "edges": [
+        "groups-diverge-training --requires--> reward-trajectories-diverge",
+        "reward-trajectories-diverge --requires--> assoc-lower-reward-final"
+      ]
+    },
+    {
+      "sentence": "Within-session adaptation attenuates as training progresses, with trial slopes steepest on day 1 and flattening by final days.",
+      "claims": ["adaptation-attenuates-training"],
+      "edges": [
+        "within-session-habituation --requires--> adaptation-attenuates-training",
+        "assoc-recovery-training --requires--> adaptation-attenuates-training"
+      ]
+    },
+    {
+      "sentence": "Transient image-locked responses carry no reward encoding, but sustained activity in the pre-reward zone selectively encodes reward and scales strongly with behavioral accuracy.",
+      "claims": ["transient-no-reward-encoding", "sustained-prereward-encoding", "prereward-scales-accuracy"],
+      "edges": [
+        "assoc-recovery-training --requires--> transient-no-reward-encoding",
+        "transient-no-reward-encoding --requires--> sustained-prereward-encoding",
+        "sustained-prereward-encoding --requires--> prereward-scales-accuracy",
+        "accuracy-increases-training --requires--> prereward-scales-accuracy"
+      ]
+    },
+    {
+      "sentence": "A second sustained signal at the Image 2 location shows an uncertainty crossover that also scales with accuracy.",
+      "claims": ["transient-uncertainty-trend", "sustained-uncertainty-crossover", "uncertainty-scales-accuracy"],
+      "edges": [
+        "transient-no-reward-encoding --requires--> transient-uncertainty-trend",
+        "transient-uncertainty-trend --requires--> sustained-uncertainty-crossover",
+        "sustained-prereward-encoding --requires--> sustained-uncertainty-crossover",
+        "sustained-uncertainty-crossover --requires--> uncertainty-scales-accuracy",
+        "accuracy-increases-training --requires--> uncertainty-scales-accuracy",
+        "prereward-scales-accuracy --requires--> uncertainty-scales-accuracy"
+      ]
+    },
+    {
+      "sentence": "Two dissociable serotonin signals, pre-reward value and post-Image-2 informativeness, independently predict next-day learning with opposite signs, are nearly orthogonal, and the pre-reward effect is specific to the associative group.",
+      "claims": ["dissociable-signals-predict-learning", "prereward-assoc-specific"],
+      "edges": [
+        "sustained-prereward-encoding --requires--> dissociable-signals-predict-learning",
+        "sustained-uncertainty-crossover --requires--> dissociable-signals-predict-learning",
+        "dissociable-signals-predict-learning --requires--> prereward-assoc-specific"
+      ]
+    },
+    {
+      "sentence": "These effects are robust to leave-one-out exclusion and survive simultaneous entry with zone-matched speed controls, ruling out motor confounds.",
+      "claims": ["prereward-robust-loo", "signals-survive-speed-control"],
+      "edges": [
+        "prereward-robust-loo --validates--> dissociable-signals-predict-learning",
+        "signals-survive-speed-control --validates--> dissociable-signals-predict-learning",
+        "signals-survive-speed-control --validates--> prereward-assoc-specific"
+      ]
+    }
+  ]
+}

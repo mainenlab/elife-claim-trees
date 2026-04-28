@@ -1,7 +1,7 @@
 ---
 uuid: 7317a05d-1490-4dbb-90d5-69ab4da0bfc4
 slug: interprets-lottem-2016-additive-piriform
-doi: ~
+doi: 10.1523/jneurosci.3008-15.2016
 claim: >
   Lottem, Lörincz & Mainen (2016, J. Neurosci. 36:7) found that optogenetic activation of
   DRN serotonergic neurons in piriform cortex of awake mice rapidly suppressed spontaneous

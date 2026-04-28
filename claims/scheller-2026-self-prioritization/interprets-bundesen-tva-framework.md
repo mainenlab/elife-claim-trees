@@ -1,7 +1,7 @@
 ---
 uuid: 4518f433-c0d6-4313-bbed-2d7357442d4e
 slug: interprets-bundesen-tva-framework
-doi: ~
+doi: 10.1037/0033-295x.97.4.523
 claim: >
   The Theory of Visual Attention (TVA), formalized by Bundesen (1990, Psychological
   Review) and developed further by Bundesen, Habekost, Kyllingsbæk and colleagues,

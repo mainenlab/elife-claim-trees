@@ -1,7 +1,7 @@
 ---
 uuid: 1f9bf241-1d6a-4288-80a3-cf0f5d9460a0
 slug: interprets-yu-koban-guilt-signature
-doi: ~
+doi: 10.1101/835520
 claim: >
   Yu and Koban (with colleagues) trained a whole-brain multivariate SVM to decode
   interpersonal guilt from fMRI activity patterns and derived a voxel-weight map — the

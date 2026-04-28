@@ -1,7 +1,7 @@
 ---
 uuid: 2cc94e19-2dac-419d-aea0-d0672cc3ecf0
 slug: interprets-gain-control-default-framework
-doi: ~
+doi: 10.1126/science.2392679
 claim: >
   The dominant computational framework for neuromodulators, established by Servan-Schreiber,
   Printz & Cohen (Science, 1990) and elaborated by Salinas & Thier (Neuron, 2000), treats

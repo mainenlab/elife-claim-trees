@@ -1,7 +1,7 @@
 ---
 uuid: afbf7e64-20a0-4f3f-a748-8591ddc1e2d4
 slug: interprets-may-wightman-1989-fscv
-doi: ~
+doi: 10.1016/0006-8993(89)90835-4
 claim: >
   May & Wightman (1989, Brain Research) used fast-scan cyclic voltammetry (FSCV) in rat
   striatal slices to measure evoked extracellular dopamine transients across 10, 30, and

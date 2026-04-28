@@ -1,7 +1,7 @@
 ---
 uuid: 834db64b-2b33-49b2-86f5-e98667d95148
 slug: interprets-5ht2a-gain-control-visual-cortex
-doi: ~
+doi: 10.7554/elife.53552
 claim: >
   Multiplicative gain control of stimulus-evoked sensory responses by serotonergic input
   has been demonstrated in visual cortex via 5-HT2A receptors. Azimi et al. (2020, eLife

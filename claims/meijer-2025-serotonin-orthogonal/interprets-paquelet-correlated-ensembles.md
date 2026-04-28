@@ -1,7 +1,7 @@
 ---
 uuid: 83d656ca-94ec-4a0f-bfb1-1138605cc136
 slug: interprets-paquelet-correlated-ensembles
-doi: ~
+doi: 10.1016/j.neuron.2022.05.015
 claim: >
   Paquelet et al. (2022, Neuron) used calcium imaging in awake behaving mice to
   characterize population activity of DRN serotonergic neurons. Sucrose consumption

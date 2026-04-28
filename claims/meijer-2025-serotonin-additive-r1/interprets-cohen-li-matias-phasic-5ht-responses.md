@@ -1,7 +1,7 @@
 ---
 uuid: 7ebb813f-b228-40bc-ab80-af31a6d7eb3c
 slug: interprets-cohen-li-matias-phasic-5ht-responses
-doi: ~
+doi: 10.1038/ncomms10503
 claim: >
   Phasic activation of dorsal raphe serotonergic neurons in response to appetitive and
   aversive stimuli has been documented across complementary recording modalities: single-unit
