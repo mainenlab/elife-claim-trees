@@ -8522,18 +8522,597 @@
     ]
   },
   "meijer-2025-serotonin-additive-r1": {
-    "source": "none",
-    "reference_count": 0,
-    "with_doi": 0,
-    "verified_sample": 0,
-    "references": []
+    "source": "shared-with-v1",
+    "note": "R1 revision \u2014 references same as v1 plus additions. Using v1 bibliography as base.",
+    "reference_count": 48,
+    "with_doi": 48,
+    "doi_rate": 1.0,
+    "references": [
+      {
+        "num": 1,
+        "doi": "10.1126/science.1094987",
+        "source": "crossref",
+        "entry": "Clarke, H. F., Dalley, J. W., Crofts, H. S., Robbins, T. W. & Roberts, A. C. Cog"
+      },
+      {
+        "num": 2,
+        "doi": "10.1101/2020.10.24.353508",
+        "source": "crossref",
+        "entry": "Grossman, C. D., Bari, B. A. & Cohen, J. Y. Serotonin neurons modulate learning "
+      },
+      {
+        "num": 3,
+        "doi": "10.7554/elife.20552.028",
+        "source": "crossref",
+        "entry": "Matias, S., Lottem, E., Dugu\u00e9, G. P. & Mainen, Z. F. Activity patterns of seroto"
+      },
+      {
+        "num": 4,
+        "doi": "10.1016/j.cub.2023.09.068",
+        "source": "crossref",
+        "entry": "Ligneul, R. & Mainen, Z. F. Serotonin. Curr. Biol. 33, R1216\u2013R1221 (2023)."
+      },
+      {
+        "num": 5,
+        "doi": "10.1002/cne.901790311",
+        "source": "crossref",
+        "entry": "Azmitia, E. C. & Segal, M. An autoradiographic analysis of the differential asce"
+      },
+      {
+        "num": 6,
+        "doi": "10.7554/elife.49424.042",
+        "source": "crossref",
+        "entry": "Ren, J. et al. Single-cell transcriptomes and whole-brain projections of seroton"
+      },
+      {
+        "num": 7,
+        "doi": "10.7554/elife.49424.032",
+        "source": "crossref",
+        "entry": "Li, Y. et al. Serotonin neurons in the dorsal raphe nucleus encode reward signal"
+      },
+      {
+        "num": 8,
+        "doi": "10.1101/2022.08.07.503074",
+        "source": "crossref",
+        "entry": "Hamada, H. T. et al. Optogenetic activation of dorsal raphe serotonin neurons in"
+      },
+      {
+        "num": 9,
+        "doi": "10.1523/jneurosci.4017-14.2015",
+        "source": "crossref",
+        "entry": "Zhou, J., Jia, C., Feng, Q., Bao, J. & Luo, M. Prospective Coding of Dorsal Raph"
+      },
+      {
+        "num": 10,
+        "doi": "10.7554/elife.06346.023",
+        "source": "crossref",
+        "entry": "Cohen, J. Y., Amoroso, M. W. & Uchida, N. Serotonergic neurons signal reward and"
+      },
+      {
+        "num": 11,
+        "doi": "10.1101/2023.09.19.558526",
+        "source": "crossref",
+        "entry": "Harkin, E. F., Grossman, C. D., Cohen, J. Y., B\u00e9\u00efque, J.-C. & Naud, R. A prospec"
+      },
+      {
+        "num": 12,
+        "doi": "10.1101/2023.03.09.531880",
+        "source": "inline",
+        "entry": "Hyun, J. H., Hannan, P., Iwamoto, H., Blakely, R. D. & Kwon, H.-B. Serotonin in "
+      },
+      {
+        "num": 13,
+        "doi": "10.1016/j.cub.2014.07.041",
+        "source": "crossref",
+        "entry": "Miyazaki, K. W. et al. Optogenetic Activation of Dorsal Raphe Serotonin Neurons "
+      },
+      {
+        "num": 14,
+        "doi": "10.1101/170472",
+        "source": "crossref",
+        "entry": "Lottem, E. et al. Activation of serotonin neurons promotes active persistence in"
+      },
+      {
+        "num": 15,
+        "doi": "10.7554/elife.20975.016",
+        "source": "crossref",
+        "entry": "Correia, P. A. et al. Transient inhibition and long-term facilitation of locomot"
+      },
+      {
+        "num": 16,
+        "doi": "10.3410/f.733850073.793552314",
+        "source": "crossref",
+        "entry": "Ren, J. et al. Anatomically Defined and Functionally Distinct Dorsal Raphe Serot"
+      },
+      {
+        "num": 17,
+        "doi": "10.7554/elife.53552.sa2",
+        "source": "crossref",
+        "entry": "Azimi, Z. et al. Separable gain control of ongoing and evoked activity in the vi"
+      },
+      {
+        "num": 18,
+        "doi": "10.1038/s41467-018-08256-w",
+        "source": "crossref",
+        "entry": "Grandjean, J. et al. A brain-wide functional map of the serotonergic responses t"
+      },
+      {
+        "num": 19,
+        "doi": "10.7554/elife.20975.016",
+        "source": "crossref",
+        "entry": "Lottem, E., L\u00f6rincz, M. L. & Mainen, Z. F. Optogenetic Activation of Dorsal Raph"
+      },
+      {
+        "num": 20,
+        "doi": "10.1101/2020.06.25.171637",
+        "source": "crossref",
+        "entry": "Cazettes, F., Reato, D., Morais, J. P., Renart, A. & Mainen, Z. F. Phasic Activa"
+      },
+      {
+        "num": 21,
+        "doi": "10.1038/s41586-021-03811-w",
+        "source": "crossref",
+        "entry": "Buzs\u00e1ki, G. Hippocampal sharp wave\u2010ripple: A cognitive biomarker for episodic me"
+      },
+      {
+        "num": 22,
+        "doi": "10.1073/pnas.2200931119",
+        "source": "crossref",
+        "entry": "Nitzan, N., Swanson, R., Schmitz, D. & Buzs\u00e1ki, G. Brain-wide interactions durin"
+      },
+      {
+        "num": 24,
+        "doi": "10.6084/m9.figshare.19705522.v3",
+        "source": "inline",
+        "entry": "International Brain Laboratory et al. Spike sorting pipeline for the Internation"
+      },
+      {
+        "num": 25,
+        "doi": "10.1101/2025.08.01.668048",
+        "source": "inline",
+        "entry": "Celada, P., Puig, M. V. & Artigas, F. Serotonin modulation of cortical neurons a"
+      },
+      {
+        "num": 26,
+        "doi": "10.1523/jneurosci.6689-10.2011",
+        "source": "crossref",
+        "entry": "Busse, L. et al. The Detection of Visual Contrast in the Behaving Mouse. J. Neur"
+      },
+      {
+        "num": 27,
+        "doi": "10.7554/elife.63711.sa1",
+        "source": "crossref",
+        "entry": "International Brain Laboratory et al. Standardized and reproducible measurement "
+      },
+      {
+        "num": 28,
+        "doi": "10.1101/2023.07.04.547681",
+        "source": "inline",
+        "entry": "International Brain Laboratory et al. A Brain-Wide Map of Neural Activity during"
+      },
+      {
+        "num": 29,
+        "doi": "10.1016/j.cub.2014.12.002",
+        "source": "crossref",
+        "entry": "Fonseca, M. S., Murakami, M. & Mainen, Z. F. Activation of Dorsal Raphe Serotone"
+      },
+      {
+        "num": 30,
+        "doi": "10.1523/jneurosci.0915-12.2012",
+        "source": "crossref",
+        "entry": "Miyazaki, K. W., Miyazaki, K. & Doya, K. Activation of Dorsal Raphe Serotonin Ne"
+      },
+      {
+        "num": 31,
+        "doi": "10.1016/j.neures.2011.07.1628",
+        "source": "crossref",
+        "entry": "Miyazaki, K., Miyazaki, K. W. & Doya, K. Activation of Dorsal Raphe Serotonin Ne"
+      },
+      {
+        "num": 32,
+        "doi": "10.1038/9173",
+        "source": "crossref",
+        "entry": "Stemmler, M. & Koch, C. How voltage-dependent conductances can adapt to maximize"
+      },
+      {
+        "num": 33,
+        "doi": "10.21769/bioprotoc.2549",
+        "source": "crossref",
+        "entry": "Correia, P. A., Matias, S. & Mainen, Z. F. Stereotaxic Adeno-associated Virus In"
+      },
+      {
+        "num": 34,
+        "doi": "10.1016/j.jneumeth.2008.02.018",
+        "source": "crossref",
+        "entry": "Jackson, N. & Muthuswamy, J. Artificial dural sealant that allows multiple penet"
+      },
+      {
+        "num": 35,
+        "doi": "10.7554/elife.07192.026",
+        "source": "crossref",
+        "entry": "Newman, J. P. et al. Optogenetic feedback control of neural activity. eLife 4, e"
+      },
+      {
+        "num": 36,
+        "doi": "10.6084/m9.figshare.11634729.v5",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for mice training. Preprint at http"
+      },
+      {
+        "num": 37,
+        "doi": "10.7554/elife.63711.sa1",
+        "source": "crossref",
+        "entry": "International Brain Laboratory et al. Standardized and reproducible measurement "
+      },
+      {
+        "num": 38,
+        "doi": "10.1117/12.3027526.54efa818-7fc4-ee11-a99e-00505691c5e1",
+        "source": "crossref",
+        "entry": "Jun, J. J. et al. Fully integrated silicon probes for high-density recording of "
+      },
+      {
+        "num": 39,
+        "doi": "10.6084/m9.figshare.19698130.v2",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for labeling the tip of Neuropixels"
+      },
+      {
+        "num": 40,
+        "doi": "10.6084/m9.figshare.19697896.v2",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for electrophysiology recording usi"
+      },
+      {
+        "num": 41,
+        "doi": "10.6084/m9.figshare.19698061.v2",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for perfusion and shipment of brain"
+      },
+      {
+        "num": 42,
+        "doi": "10.6084/m9.figshare.19698895.v2",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for mouse brain reconstruction and "
+      },
+      {
+        "num": 43,
+        "doi": "10.6084/m9.figshare.19698166.v2",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for registering the electrode locat"
+      },
+      {
+        "num": 44,
+        "doi": "10.1101/476531",
+        "source": "crossref",
+        "entry": "Mathis, A. et al. DeepLabCut: markerless pose estimation of user-defined body pa"
+      },
+      {
+        "num": 45,
+        "doi": "10.6084/m9.figshare.19694452.v1",
+        "source": "inline",
+        "entry": "Birman, D. et al. Video hardware and software for the International Brain Labora"
+      },
+      {
+        "num": 46,
+        "doi": "10.7554/elife.71969.sa2",
+        "source": "crossref",
+        "entry": "Montijn, J. S. et al. A parameter-free statistical test for neuronal responsiven"
+      },
+      {
+        "num": 47,
+        "doi": "10.1101/2023.10.30.564780",
+        "source": "inline",
+        "entry": "Montijn, J. S., Meijer, G. T. & Heimel, J. A. A new family of statistical tests "
+      },
+      {
+        "num": 48,
+        "doi": "10.25080/majora-92bf1922-011",
+        "source": "crossref",
+        "entry": "Seabold, S. & Perktold, J. Statsmodels: Econometric and Statistical Modeling wit"
+      },
+      {
+        "num": 49,
+        "doi": "10.1101/2020.11.29.402719",
+        "source": "crossref",
+        "entry": "Harris, K. D. Nonsense correlations in neuroscience. bioRxiv (2020) doi:10.1101/"
+      }
+    ]
   },
   "meijer-2025-serotonin-orthogonal": {
-    "source": "none",
-    "reference_count": 0,
-    "with_doi": 0,
-    "verified_sample": 0,
-    "references": []
+    "source": "pdf-extraction+crossref",
+    "reference_count": 48,
+    "with_doi": 48,
+    "doi_rate": 1.0,
+    "references": [
+      {
+        "num": 1,
+        "doi": "10.1126/science.1094987",
+        "source": "crossref",
+        "entry": "Clarke, H. F., Dalley, J. W., Crofts, H. S., Robbins, T. W. & Roberts, A. C. Cog"
+      },
+      {
+        "num": 2,
+        "doi": "10.1101/2020.10.24.353508",
+        "source": "crossref",
+        "entry": "Grossman, C. D., Bari, B. A. & Cohen, J. Y. Serotonin neurons modulate learning "
+      },
+      {
+        "num": 3,
+        "doi": "10.7554/elife.20552.028",
+        "source": "crossref",
+        "entry": "Matias, S., Lottem, E., Dugu\u00e9, G. P. & Mainen, Z. F. Activity patterns of seroto"
+      },
+      {
+        "num": 4,
+        "doi": "10.1016/j.cub.2023.09.068",
+        "source": "crossref",
+        "entry": "Ligneul, R. & Mainen, Z. F. Serotonin. Curr. Biol. 33, R1216\u2013R1221 (2023)."
+      },
+      {
+        "num": 5,
+        "doi": "10.1002/cne.901790311",
+        "source": "crossref",
+        "entry": "Azmitia, E. C. & Segal, M. An autoradiographic analysis of the differential asce"
+      },
+      {
+        "num": 6,
+        "doi": "10.7554/elife.49424.042",
+        "source": "crossref",
+        "entry": "Ren, J. et al. Single-cell transcriptomes and whole-brain projections of seroton"
+      },
+      {
+        "num": 7,
+        "doi": "10.7554/elife.49424.032",
+        "source": "crossref",
+        "entry": "Li, Y. et al. Serotonin neurons in the dorsal raphe nucleus encode reward signal"
+      },
+      {
+        "num": 8,
+        "doi": "10.1101/2022.08.07.503074",
+        "source": "crossref",
+        "entry": "Hamada, H. T. et al. Optogenetic activation of dorsal raphe serotonin neurons in"
+      },
+      {
+        "num": 9,
+        "doi": "10.1523/jneurosci.4017-14.2015",
+        "source": "crossref",
+        "entry": "Zhou, J., Jia, C., Feng, Q., Bao, J. & Luo, M. Prospective Coding of Dorsal Raph"
+      },
+      {
+        "num": 10,
+        "doi": "10.7554/elife.06346.023",
+        "source": "crossref",
+        "entry": "Cohen, J. Y., Amoroso, M. W. & Uchida, N. Serotonergic neurons signal reward and"
+      },
+      {
+        "num": 11,
+        "doi": "10.1101/2023.09.19.558526",
+        "source": "crossref",
+        "entry": "Harkin, E. F., Grossman, C. D., Cohen, J. Y., B\u00e9\u00efque, J.-C. & Naud, R. A prospec"
+      },
+      {
+        "num": 12,
+        "doi": "10.1101/2023.03.09.531880",
+        "source": "inline",
+        "entry": "Hyun, J. H., Hannan, P., Iwamoto, H., Blakely, R. D. & Kwon, H.-B. Serotonin in "
+      },
+      {
+        "num": 13,
+        "doi": "10.1016/j.cub.2014.07.041",
+        "source": "crossref",
+        "entry": "Miyazaki, K. W. et al. Optogenetic Activation of Dorsal Raphe Serotonin Neurons "
+      },
+      {
+        "num": 14,
+        "doi": "10.1101/170472",
+        "source": "crossref",
+        "entry": "Lottem, E. et al. Activation of serotonin neurons promotes active persistence in"
+      },
+      {
+        "num": 15,
+        "doi": "10.7554/elife.20975.016",
+        "source": "crossref",
+        "entry": "Correia, P. A. et al. Transient inhibition and long-term facilitation of locomot"
+      },
+      {
+        "num": 16,
+        "doi": "10.3410/f.733850073.793552314",
+        "source": "crossref",
+        "entry": "Ren, J. et al. Anatomically Defined and Functionally Distinct Dorsal Raphe Serot"
+      },
+      {
+        "num": 17,
+        "doi": "10.7554/elife.53552.sa2",
+        "source": "crossref",
+        "entry": "Azimi, Z. et al. Separable gain control of ongoing and evoked activity in the vi"
+      },
+      {
+        "num": 18,
+        "doi": "10.1038/s41467-018-08256-w",
+        "source": "crossref",
+        "entry": "Grandjean, J. et al. A brain-wide functional map of the serotonergic responses t"
+      },
+      {
+        "num": 19,
+        "doi": "10.7554/elife.20975.016",
+        "source": "crossref",
+        "entry": "Lottem, E., L\u00f6rincz, M. L. & Mainen, Z. F. Optogenetic Activation of Dorsal Raph"
+      },
+      {
+        "num": 20,
+        "doi": "10.1101/2020.06.25.171637",
+        "source": "crossref",
+        "entry": "Cazettes, F., Reato, D., Morais, J. P., Renart, A. & Mainen, Z. F. Phasic Activa"
+      },
+      {
+        "num": 21,
+        "doi": "10.1038/s41586-021-03811-w",
+        "source": "crossref",
+        "entry": "Buzs\u00e1ki, G. Hippocampal sharp wave\u2010ripple: A cognitive biomarker for episodic me"
+      },
+      {
+        "num": 22,
+        "doi": "10.1073/pnas.2200931119",
+        "source": "crossref",
+        "entry": "Nitzan, N., Swanson, R., Schmitz, D. & Buzs\u00e1ki, G. Brain-wide interactions durin"
+      },
+      {
+        "num": 24,
+        "doi": "10.6084/m9.figshare.19705522.v3",
+        "source": "inline",
+        "entry": "International Brain Laboratory et al. Spike sorting pipeline for the Internation"
+      },
+      {
+        "num": 25,
+        "doi": "10.1101/2025.08.01.668048",
+        "source": "inline",
+        "entry": "Celada, P., Puig, M. V. & Artigas, F. Serotonin modulation of cortical neurons a"
+      },
+      {
+        "num": 26,
+        "doi": "10.1523/jneurosci.6689-10.2011",
+        "source": "crossref",
+        "entry": "Busse, L. et al. The Detection of Visual Contrast in the Behaving Mouse. J. Neur"
+      },
+      {
+        "num": 27,
+        "doi": "10.7554/elife.63711.sa1",
+        "source": "crossref",
+        "entry": "International Brain Laboratory et al. Standardized and reproducible measurement "
+      },
+      {
+        "num": 28,
+        "doi": "10.1101/2023.07.04.547681",
+        "source": "inline",
+        "entry": "International Brain Laboratory et al. A Brain-Wide Map of Neural Activity during"
+      },
+      {
+        "num": 29,
+        "doi": "10.1016/j.cub.2014.12.002",
+        "source": "crossref",
+        "entry": "Fonseca, M. S., Murakami, M. & Mainen, Z. F. Activation of Dorsal Raphe Serotone"
+      },
+      {
+        "num": 30,
+        "doi": "10.1523/jneurosci.0915-12.2012",
+        "source": "crossref",
+        "entry": "Miyazaki, K. W., Miyazaki, K. & Doya, K. Activation of Dorsal Raphe Serotonin Ne"
+      },
+      {
+        "num": 31,
+        "doi": "10.1016/j.neures.2011.07.1628",
+        "source": "crossref",
+        "entry": "Miyazaki, K., Miyazaki, K. W. & Doya, K. Activation of Dorsal Raphe Serotonin Ne"
+      },
+      {
+        "num": 32,
+        "doi": "10.1038/9173",
+        "source": "crossref",
+        "entry": "Stemmler, M. & Koch, C. How voltage-dependent conductances can adapt to maximize"
+      },
+      {
+        "num": 33,
+        "doi": "10.21769/bioprotoc.2549",
+        "source": "crossref",
+        "entry": "Correia, P. A., Matias, S. & Mainen, Z. F. Stereotaxic Adeno-associated Virus In"
+      },
+      {
+        "num": 34,
+        "doi": "10.1016/j.jneumeth.2008.02.018",
+        "source": "crossref",
+        "entry": "Jackson, N. & Muthuswamy, J. Artificial dural sealant that allows multiple penet"
+      },
+      {
+        "num": 35,
+        "doi": "10.7554/elife.07192.026",
+        "source": "crossref",
+        "entry": "Newman, J. P. et al. Optogenetic feedback control of neural activity. eLife 4, e"
+      },
+      {
+        "num": 36,
+        "doi": "10.6084/m9.figshare.11634729.v5",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for mice training. Preprint at http"
+      },
+      {
+        "num": 37,
+        "doi": "10.7554/elife.63711.sa1",
+        "source": "crossref",
+        "entry": "International Brain Laboratory et al. Standardized and reproducible measurement "
+      },
+      {
+        "num": 38,
+        "doi": "10.1117/12.3027526.54efa818-7fc4-ee11-a99e-00505691c5e1",
+        "source": "crossref",
+        "entry": "Jun, J. J. et al. Fully integrated silicon probes for high-density recording of "
+      },
+      {
+        "num": 39,
+        "doi": "10.6084/m9.figshare.19698130.v2",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for labeling the tip of Neuropixels"
+      },
+      {
+        "num": 40,
+        "doi": "10.6084/m9.figshare.19697896.v2",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for electrophysiology recording usi"
+      },
+      {
+        "num": 41,
+        "doi": "10.6084/m9.figshare.19698061.v2",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for perfusion and shipment of brain"
+      },
+      {
+        "num": 42,
+        "doi": "10.6084/m9.figshare.19698895.v2",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for mouse brain reconstruction and "
+      },
+      {
+        "num": 43,
+        "doi": "10.6084/m9.figshare.19698166.v2",
+        "source": "inline",
+        "entry": "International Brain Laboratory. IBL protocol for registering the electrode locat"
+      },
+      {
+        "num": 44,
+        "doi": "10.1101/476531",
+        "source": "crossref",
+        "entry": "Mathis, A. et al. DeepLabCut: markerless pose estimation of user-defined body pa"
+      },
+      {
+        "num": 45,
+        "doi": "10.6084/m9.figshare.19694452.v1",
+        "source": "inline",
+        "entry": "Birman, D. et al. Video hardware and software for the International Brain Labora"
+      },
+      {
+        "num": 46,
+        "doi": "10.7554/elife.71969.sa2",
+        "source": "crossref",
+        "entry": "Montijn, J. S. et al. A parameter-free statistical test for neuronal responsiven"
+      },
+      {
+        "num": 47,
+        "doi": "10.1101/2023.10.30.564780",
+        "source": "inline",
+        "entry": "Montijn, J. S., Meijer, G. T. & Heimel, J. A. A new family of statistical tests "
+      },
+      {
+        "num": 48,
+        "doi": "10.25080/majora-92bf1922-011",
+        "source": "crossref",
+        "entry": "Seabold, S. & Perktold, J. Statsmodels: Econometric and Statistical Modeling wit"
+      },
+      {
+        "num": 49,
+        "doi": "10.1101/2020.11.29.402719",
+        "source": "crossref",
+        "entry": "Harris, K. D. Nonsense correlations in neuroscience. bioRxiv (2020) doi:10.1101/"
+      }
+    ]
   },
   "rozak-2026-neurovascular-dl": {
     "source": "elife-api",
@@ -10099,11 +10678,155 @@
     ]
   },
   "sautory-2026-serotonin-novelty": {
-    "source": "none",
-    "reference_count": 0,
-    "with_doi": 0,
-    "verified_sample": 0,
-    "references": []
+    "source": "pdf-extraction",
+    "reference_count": 47,
+    "with_doi": 47,
+    "doi_rate": 1.0,
+    "verified_sample": 9,
+    "sample_size": 10,
+    "references": [
+      {
+        "doi": "10.1016/j.jml.2012.11.001"
+      },
+      {
+        "doi": "10.1111/j.14609568.2004.03526.x"
+      },
+      {
+        "doi": "10.1523/JNEUROSCI.0015-10.2010"
+      },
+      {
+        "doi": "10.1126/science.1094987"
+      },
+      {
+        "doi": "10.7554/eLife.06346"
+      },
+      {
+        "doi": "10.7554/eLife.20975"
+      },
+      {
+        "doi": "10.1162/neco.1993.5.4.613"
+      },
+      {
+        "doi": "10.1016/j.celrep.2024.114341"
+      },
+      {
+        "doi": "10.1016/j.cub.2014.12.002"
+      },
+      {
+        "doi": "10.1523/JNEUROSCI.0151-18.2018"
+      },
+      {
+        "doi": "10.1038/s41583-018-0078-0"
+      },
+      {
+        "doi": "10.1016/j.cub.2021.12.006"
+      },
+      {
+        "doi": "10.1038/s41586-025-08731-7"
+      },
+      {
+        "doi": "10.1016/S0166-4328(98)00119-6"
+      },
+      {
+        "doi": "10.1523/JNEUROSCI.2860-14.2015"
+      },
+      {
+        "doi": "10.1016/0006-8993(82)90608-4"
+      },
+      {
+        "doi": "10.1073/pnas.2108882119"
+      },
+      {
+        "doi": "10.1038/s41467-018-04840-2"
+      },
+      {
+        "doi": "10.1016/j.conb.2019.08.004"
+      },
+      {
+        "doi": "10.7554/eLife.18044"
+      },
+      {
+        "doi": "10.1038/ncomms10503"
+      },
+      {
+        "doi": "10.1152/jn.1992.67.1.145"
+      },
+      {
+        "doi": "10.1038/s41467-018-03438-y"
+      },
+      {
+        "doi": "10.1101/lm.037317.114"
+      },
+      {
+        "doi": "10.7554/eLife.20552"
+      },
+      {
+        "doi": "10.1080/00273171.2016.1167008"
+      },
+      {
+        "doi": "10.7554/eLife.32259"
+      },
+      {
+        "doi": "10.1038/s41467-018-04496-y"
+      },
+      {
+        "doi": "10.1016/j.cub.2014.07.041"
+      },
+      {
+        "doi": "10.1016/j.conb.2023.102758"
+      },
+      {
+        "doi": "10.1016/j.jmp.2022.102712"
+      },
+      {
+        "doi": "10.1038/s41583023-00784-9"
+      },
+      {
+        "doi": "10.1523/JNEUROSCI.002108.2008"
+      },
+      {
+        "doi": "10.1016/j.neuron.2022.05.015"
+      },
+      {
+        "doi": "10.1016/j.neuron.2014.07.002"
+      },
+      {
+        "doi": "10.1080/07350015.2016.1247004"
+      },
+      {
+        "doi": "10.1152/jn.00507.2009"
+      },
+      {
+        "doi": "10.1016/j.cell.2018.07.043"
+      },
+      {
+        "doi": "10.1037/h0025984"
+      },
+      {
+        "doi": "10.1038/nrn2573"
+      },
+      {
+        "doi": "10.1016/s0079-6123(08)63835-2"
+      },
+      {
+        "doi": "10.1016/j.neuron.2023.11.016"
+      },
+      {
+        "doi": "10.1523/JNEUROSCI.0602-24.2024"
+      },
+      {
+        "doi": "10.1038/nn.4650"
+      },
+      {
+        "doi": "10.1111/j.14609568.1995.tb01108.x"
+      },
+      {
+        "doi": "10.1016/j.neuron.2014.06.024"
+      },
+      {
+        "doi": "10.1523/JNEUROSCI.1181-17.2017"
+      }
+    ]
   },
   "scheller-2026-self-prioritization": {
     "source": "elife-api",
