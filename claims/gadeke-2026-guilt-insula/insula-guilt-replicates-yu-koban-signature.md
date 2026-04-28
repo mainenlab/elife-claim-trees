@@ -64,6 +64,11 @@ reproductions:
       is supported at p<0.05 by nonparametric test; t-test marginal. Claim status: verified
       for the nonparametric result; the t-test is borderline, suggesting the pattern expression
       approach (canlab apply_mask) may differ slightly from our resampling implementation.
+
+discrepancy:
+  type: data-gap
+  explanation: >
+    Yu-Koban guilt signature 4D NIfTI map not found in the deposited GitHub repo. The dot-product pattern expression analysis requires this external mask. Repository contains the participant-level guilt effect maps but not the reference signature.
 ---
 
 

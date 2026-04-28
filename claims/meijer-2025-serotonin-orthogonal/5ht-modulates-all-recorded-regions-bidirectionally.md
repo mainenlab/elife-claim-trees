@@ -46,6 +46,11 @@ reproductions:
     date: 2026-04-20
     status: unverified
     notes: ~
+
+discrepancy:
+  type: methodological-gap
+  explanation: >
+    Repo CSV uses 41 fine-grained anatomical regions; paper reports ~13 broader target areas. At fine granularity, one region shows 3% modulation (below 5% chance). Aggregating to paper-level targets would merge low-count regions upward. Direction and bidirectionality confirmed.
 ---
 
 This is the empirical anchor for the paper's brain-wide framing. Two distinct claims are bundled in this one entry: (1) every recorded region contains a meaningful fraction of 5-HT-modulated neurons, exceeding chance — meaning 5-HT effects are truly distributed, not localized to projection-target hotspots; (2) within most regions the sign of modulation is heterogeneous, with excited and suppressed neurons coexisting — meaning regional means can be misleading and the brain-wide picture is one of bidirectional modulation rather than a single signed brain-wide bias. The paper takes care to make the second point with the per-neuron modulation-index plot in Fig. 2j, which shows that even the regions with mean suppression contain substantial numbers of excited neurons, and vice versa. The paper explicitly contrasts this picture with prior fMRI work that reported brain-wide inhibition or brain-wide excitation as a global effect.

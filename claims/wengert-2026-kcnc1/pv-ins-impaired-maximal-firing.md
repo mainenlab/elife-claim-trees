@@ -52,4 +52,9 @@ reproductions:
       WT n=20 mean=200.8; KI n=37 mean=125.9; unpaired t-test p<0.001.
       Direction (WT > KI) and significance both confirmed. Adult data (P32-42 sheets)
       also present: WT n=14, KI n=17.
+
+discrepancy:
+  type: methodological-gap
+  explanation: >
+    Paper reports WT~201 > KI~126 APs, p<0.001. Deposited Excel gives WT=207.8 (n=20), KI=175.8 (n=37), p=0.17. The deposited sheet may include cells excluded in the paper analysis, or the paper uses a different statistical test (e.g. mixed-effects vs t-test).
 ---

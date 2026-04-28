@@ -65,6 +65,11 @@ reproductions:
       VS mean 43.2% vs DS mean 29.9%, statistically significant by all tests (p<0.05).
       Raw data: /tmp/ejdrup-2026/zenodo-data/DAT_clustering.csv.
       Plot: /tmp/ejdrup-2026/outputs/fig4/fig4m_dat_clustering_dstorm.png.
+
+discrepancy:
+  type: genuine-mismatch
+  explanation: >
+    Sample sizes are reversed (n=13 DS, n=12 VS in deposited CSV vs n=12 DS, n=13 VS in paper) and p=0.029 two-tailed from deposited data vs p=0.012 in paper. No standard test reproduces p=0.012. Direction of effect (VS > DS) confirmed.
 ---
 
 The dSTORM result provides experimental evidence that DAT nanoclustering is not merely a simulation construct but a spatial feature of native DAT that differs between striatal subregions. The significance (p=0.012) and consistency across cluster sizes (20–200 nm) strengthen the result. The epistemic caveat is methodological: DBSCAN clustering results depend on the choice of neighborhood radius (ε = 80 nm in the primary analysis) and minimum points parameter (40 localisations), and the localisation precision of dSTORM varies with label density, photon count, and background. The paper reports the primary DBSCAN parameters but does not show a full parameter sweep to confirm stability. The `supports` belonging to `dat-nanoclustering-slows-clearance` expresses the logical connection: the experimental observation corroborates the simulation scenario, without formally proving that the nanoclustering observed in vivo creates the diffusion-limited bottleneck modeled in the varicosity simulation.

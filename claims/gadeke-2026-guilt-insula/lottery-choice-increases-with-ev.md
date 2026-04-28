@@ -57,6 +57,11 @@ reproductions:
       weighted), not raw EV. The core claim — positive and highly significant EV effect — is
       confirmed. Status: verified for direction and significance; coefficient scale differs due
       to predictor definition, not error.
+
+discrepancy:
+  type: methodological-gap
+  explanation: >
+    Paper uses mixed-effects logistic regression with subject random effects; our pooled logistic regression reproduces the direction and significance but yields different t-statistics. The per-subject MATLAB files needed for exact replication are not in the public deposit.
 ---
 
 

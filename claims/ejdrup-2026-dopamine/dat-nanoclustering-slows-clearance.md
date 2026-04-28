@@ -74,6 +74,11 @@ reproductions:
       (DAT_sim_conc.csv, DAT_sim_rel_time.csv, DAT_sim_dist.csv, DAT_sim_DA_diff*.csv)
       not present in the Zenodo deposit — these correspond to an older simulation format
       and their absence prevents running the full script. Output: /tmp/ejdrup-2026/outputs/fig4/
+
+discrepancy:
+  type: methodological-gap
+  explanation: >
+    Nanoclustering simulation uses dx=0.02 um grid (2.85M voxels per timestep) making it computationally infeasible on a standard workstation. Zenodo data downloaded but simulation not re-run.
 ---
 
 The mechanism is physically intuitive: when DAT molecules are concentrated into nanoclusters rather than distributed uniformly across the membrane, DA arriving at the membrane surface rapidly depletes local [DA] at the cluster to near zero, reducing the concentration gradient that drives further uptake. This is analogous to enzyme saturation at a local level — even though total Vmax is held constant, the effective clearance rate is lower because substrates must diffuse to the cluster location. The ~2× slower clearance (400 vs 200 ms) is the quantitative result. This claim is scoped to the varicosity-scale model and cannot be directly translated to tissue-scale predictions without the formal coupling that the assessment node (`nanoclustering-model-varicosity-scale`) identifies as absent.

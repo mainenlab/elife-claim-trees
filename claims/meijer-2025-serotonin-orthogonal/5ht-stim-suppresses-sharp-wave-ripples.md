@@ -45,6 +45,11 @@ reproductions:
     date: 2026-04-19
     status: unverified
     notes: ~
+
+discrepancy:
+  type: methodological-gap
+  explanation: >
+    Repo CSV (ripple_freq.csv) contains raw frequency values without baseline subtraction or SERT-vs-WT contrast. Paper figure plots delta ripple frequency after subtracting baseline and comparing SERT to WT, showing net suppression. The preprocessing pipeline is not reproduced from the deposited CSV alone.
 ---
 
 The ripple-suppression result is the cleanest single-modality evidence for the state-switch hypothesis because ripples have a tight, well-characterized state association: they occur during quiet wakefulness and slow-wave sleep, and are suppressed by arousing inputs. Demonstrating that 5-HT stimulation alone is sufficient to suppress them positions DRN serotonin as a candidate driver of the SWR-suppression circuit, consistent with the broader literature on neuromodulator gating of hippocampal offline replay. Note that the hippocampus has weak direct serotonergic input from DRN; the discussion attributes the rapid hippocampal effect to indirect routing through median raphe.

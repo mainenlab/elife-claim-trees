@@ -58,6 +58,11 @@ reproductions:
       likely reflects a different phase coding or data subsetting in the "behavioral_expectancy_clean.csv"
       (not deposited on OSF) vs behaviordata_final.csv we used. The qualitative claim (CS++ > CS+- >
       CS-+ > CS--, p<0.0001, all phases significant) is fully reproduced.
+
+discrepancy:
+  type: data-gap
+  explanation: >
+    OSF behavioral data download returns HTTP 500. When previously accessible, CS type hierarchy was confirmed (CS++ > CS+- > CS-+ > CS--) but exact p-value could not be reproduced due to mixed-effects model differences.
 ---
 
 During acquisition, CS++ ≈ CS+- and CS-+ ≈ CS-- (post-hoc Wilcoxon, Bonferroni-corrected), consistent with the fact that contingency change has not yet occurred. This equivalence is the expected pattern, not a failure of discrimination — it validates the reversal design by showing participants treated the two CS+ types identically before the reversal phase. The interaction effect (F=29.45, p<0.001) captures the phase-specific differentiation of cue types.

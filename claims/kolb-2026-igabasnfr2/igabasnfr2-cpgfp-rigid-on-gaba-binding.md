@@ -74,6 +74,11 @@ reproductions:
       or CE-align). The comparison 9D57 vs 6DGV with cpGFP as anchor is reproducible in
       principle but requires a proper sequence-independent structural aligner to handle the
       sequence divergence correctly.
+
+discrepancy:
+  type: data-gap
+  explanation: >
+    RMSD comparison requires the undeposited apo (GABA-free) crystal structure. Only the GABA-bound structure (PDB 9D57) is publicly available.
 ---
 
 This structural finding has direct mechanistic implications the paper explicitly flags as a design insight: because cpGFP does not rearrange, the fluorescence mechanism in iGABASnFR2 is distinct from GCaMP, where calcium-driven calmodulin rearrangement at the cpGFP interface is a key source of ΔF/F. The paper suggests this difference "indicates a potential strategy to further enhance performance" — i.e., engineering the cpGFP interface to respond more strongly to the Venus flytrap closure is an unexploited design axis.

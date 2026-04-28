@@ -41,6 +41,7 @@ type Claim = {
   verifyRow?: { paperValue: string; reproduced: string; result: string } | null;
   scriptSource?: string | null;
   log_output?: string | null;
+  discrepancy?: { type: string; explanation: string } | null;
 };
 
 type Props = {
@@ -105,10 +106,30 @@ function verificationBanner(status: string): { bg: string; border: string; text:
     label: 'Verified by code',
     detail: 'We ran a verification script against the deposited data and reproduced this result.',
   };
-  if (status === 'failed') return {
+  if (status === 'verified:partial') return {
+    bg: '#f0fdf4', border: '#bbf7d0', text: '#166534', icon: '~',
+    label: 'Partially verified',
+    detail: 'The verification script reproduced part of this claim. See discrepancy details below.',
+  };
+  if (status === 'verified:with-nuance') return {
+    bg: '#f0fdf4', border: '#bbf7d0', text: '#166534', icon: '~',
+    label: 'Verified with nuance',
+    detail: 'The result was reproduced but with minor differences worth noting.',
+  };
+  if (status === 'verified:interpretive') return {
+    bg: '#f0fdf4', border: '#d1fae5', text: '#166534', icon: '✓',
+    label: 'Verified by reasoning',
+    detail: 'This interpretive claim was confirmed by examining the evidence structure, not by running code.',
+  };
+  if (status === 'verified:direction-and-trend') return {
+    bg: '#f0fdf4', border: '#d1fae5', text: '#166534', icon: '~',
+    label: 'Direction confirmed',
+    detail: 'The direction and trend match the paper; exact values differ.',
+  };
+  if (status === 'failed' || status === 'failed:mismatch') return {
     bg: '#fef2f2', border: '#fecaca', text: '#991b1b', icon: '✗',
-    label: 'Verification failed',
-    detail: 'The verification script ran but could not reproduce this result from the deposited data.',
+    label: 'Result mismatch',
+    detail: 'The verification script ran on the deposited data and produced a different result than the paper reports.',
   };
   if (status === 'unverified:code-error') return {
     bg: '#fffbeb', border: '#fde68a', text: '#92400e', icon: '!',
@@ -129,6 +150,16 @@ function verificationBanner(status: string): { bg: string; border: string; text:
     bg: '#f9fafb', border: '#e5e7eb', text: '#6b7280', icon: '—',
     label: 'No verification code',
     detail: 'No verification script has been written for this claim yet.',
+  };
+  if (status === 'unverified:partial' || status.startsWith('partial')) return {
+    bg: '#fffbeb', border: '#fde68a', text: '#92400e', icon: '~',
+    label: 'Partially assessed',
+    detail: 'Verification was started but is incomplete.',
+  };
+  if (status === 'N/A') return {
+    bg: '#f9fafb', border: '#e5e7eb', text: '#6b7280', icon: '—',
+    label: 'Not applicable',
+    detail: 'This claim is not the kind that can be verified by running code.',
   };
   return {
     bg: '#f9fafb', border: '#e5e7eb', text: '#6b7280', icon: '?',
@@ -245,6 +276,7 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
   const origFigSrc = claim.originalFigureUrl || claim.figureUrl;
   const hasVerifyRow = !!claim.verifyRow;
   const hasScriptSource = !!claim.scriptSource;
+  const hasDiscrepancy = !!claim.discrepancy;
 
   return (
     <>
@@ -330,6 +362,24 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
               </div>
             )}
           </div>
+
+          {/* DISCREPANCY — when verification found a gap */}
+          {hasDiscrepancy && (
+            <div className={`drawer-discrepancy ${
+              claim.discrepancy!.type === 'genuine-mismatch' ? 'discrepancy-mismatch' :
+              claim.discrepancy!.type === 'data-gap' ? 'discrepancy-data' :
+              'discrepancy-method'
+            }`}>
+              <div className="drawer-discrepancy-header">
+                <span className="drawer-discrepancy-type">
+                  {claim.discrepancy!.type === 'genuine-mismatch' ? 'Result mismatch' :
+                   claim.discrepancy!.type === 'data-gap' ? 'Data not available' :
+                   'Analysis pipeline differs'}
+                </span>
+              </div>
+              <p className="drawer-discrepancy-text">{claim.discrepancy!.explanation}</p>
+            </div>
+          )}
 
           {/* FIGURE COMPARISON — original vs reproduced */}
           {hasFigurePair && (
@@ -680,6 +730,44 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
         }
         .result-pass { }
         .result-other { opacity: 0.8; }
+
+        /* ── Discrepancy block ── */
+        .drawer-discrepancy {
+          border-radius: 6px;
+          padding: 0.7rem 0.85rem;
+          margin: 0 0 1rem;
+          border-left: 3px solid;
+        }
+        .discrepancy-mismatch {
+          background: #fef2f2;
+          border-left-color: #ef4444;
+        }
+        .discrepancy-data {
+          background: #f9fafb;
+          border-left-color: #9ca3af;
+        }
+        .discrepancy-method {
+          background: #fffbeb;
+          border-left-color: #f59e0b;
+        }
+        .drawer-discrepancy-header {
+          margin-bottom: 0.3rem;
+        }
+        .drawer-discrepancy-type {
+          font-size: 0.75rem;
+          font-weight: 600;
+          text-transform: uppercase;
+          letter-spacing: 0.04em;
+        }
+        .discrepancy-mismatch .drawer-discrepancy-type { color: #991b1b; }
+        .discrepancy-data .drawer-discrepancy-type { color: #6b7280; }
+        .discrepancy-method .drawer-discrepancy-type { color: #92400e; }
+        .drawer-discrepancy-text {
+          font-size: 0.78rem;
+          line-height: 1.55;
+          color: #374151;
+          margin: 0;
+        }
 
         /* ── Figure comparison ── */
         .drawer-figures {

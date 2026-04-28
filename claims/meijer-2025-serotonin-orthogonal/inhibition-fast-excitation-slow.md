@@ -46,6 +46,11 @@ reproductions:
     date: 2026-04-20
     status: unverified
     notes: ~
+
+discrepancy:
+  type: methodological-gap
+  explanation: >
+    Paper reports r=0.61, p=0.028 across 13 regions. Script finds r=0.09, p=0.70 across 19 regions. The discrepancy is likely different region grouping (fine vs paper-level targets) and possibly different neuron inclusion criteria for reliable latency estimates.
 ---
 
 The latency-sign correlation is structurally interesting because it suggests that the rapid inhibitory effect cannot be a simple monosynaptic 5-HT₁A-mediated hyperpolarization in regions like cortex (which are ~10–20 ms from DRN by direct projection but show slow excitation), but is more consistent with rapid inhibition being routed through indirect circuits — possibly via cortical interneurons or via fast subcortical loops. The paper uses this observation as motivation for the narrow-spiking-interneuron analysis (Supp Fig 3), which then rules out the obvious candidate (rapid recruitment of fast-spiking interneurons). The remaining candidates — multi-synaptic loops, rapid 5-HT₃-receptor-mediated effects on subsets of neurons, indirect routing through median raphe for hippocampus — are discussed but not directly tested.

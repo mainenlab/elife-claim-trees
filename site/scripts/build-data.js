@@ -165,6 +165,7 @@ for (const paperSlug of readdirSync(claimsRoot).sort()) {
       shortClaim: (fm.shortClaim || '').trim() || null,
       epistemic: fm.epistemic || 'unknown',
       status,
+      discrepancy: fm.discrepancy || null,
       'claim-type': fm['claim-type'] || 'empirical',
       isAssessment: isAssessment(slug, fm),
       requires,
