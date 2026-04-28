@@ -44,17 +44,23 @@ const roleStyle: Record<string, string> = {
   scope:          'bg-slate-50 text-slate-600 border-slate-200',
 };
 
-// Status dot color — simplified palette
-function statusDot(status: string): { color: string; label: string } {
+// Status dot color — role-aware palette
+function statusDot(status: string, role: string | null): { color: string; label: string } {
   if (status === 'verified') return { color: '#22c55e', label: STATUS_LABEL[status] ?? status };
   if (status?.startsWith('verified:')) return { color: '#86efac', label: STATUS_LABEL[status] ?? status };
   if (status === 'failed' || status?.startsWith('unverified:code-error') || status?.startsWith('unverified:compute-infeasible')) {
     return { color: '#f59e0b', label: STATUS_LABEL[status] ?? status };
   }
+  // Role-based colors for claims that don't get code verification
+  if (status === 'unknown' || !status) {
+    if (role === 'hypothesis' || role === 'prediction') return { color: '#60a5fa', label: role };
+    if (role === 'literature-context') return { color: '#a78bfa', label: 'cited claim' };
+    if (role === 'synthesis' || role === 'interpretation') return { color: '#60a5fa', label: role };
+  }
   return { color: '#9ca3af', label: STATUS_LABEL[status] ?? status ?? 'unknown' };
 }
 
-const dot = statusDot(claim.status);
+const dot = statusDot(claim.status, claim.role);
 const claimText = (claim.displayClaim?.trim()) || claim.claim;
 const hasCode = !!claim.script;
 const hasFigure = !!claim.figureUrl;

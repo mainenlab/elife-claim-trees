@@ -43,7 +43,7 @@ function shortLabel(slug: string): string {
 
 // Custom node renderer
 function ClaimNode({ data }: { data: any }) {
-  const color = nodeColor(data.status);
+  const color = nodeColor(data.status, data.role);
   const isAssessment = data.isAssessment;
 
   return (
@@ -240,17 +240,19 @@ function DAGInner({ claims, paperSlug }: Props) {
           <Background color="#f3f4f6" gap={20} />
           <Controls />
           <MiniMap
-            nodeColor={(n) => nodeColor((n.data as any)?.status ?? 'unknown')}
+            nodeColor={(n) => nodeColor((n.data as any)?.status ?? 'unknown', (n.data as any)?.role)}
             style={{ background: '#f9fafb' }}
           />
           <Panel position="top-left">
             <div className="bg-white border border-gray-200 rounded-lg p-3 text-xs shadow-sm space-y-1.5">
               <div className="font-semibold text-gray-700 mb-1">Status</div>
               {[
-                ['#22c55e', 'Verified'],
-                ['#eab308', 'Unverified (clear path)'],
-                ['#ef4444', 'Failed'],
-                ['#9ca3af', 'Unverified: no data/code'],
+                ['#22c55e', 'Verified by code'],
+                ['#86efac', 'Partially verified'],
+                ['#ef4444', 'Failed / mismatch'],
+                ['#60a5fa', 'Hypothesis / prediction / synthesis'],
+                ['#a78bfa', 'Cited claim (literature)'],
+                ['#9ca3af', 'Unverified'],
                 ['#f97316', 'Code error / compute'],
               ].map(([color, label]) => (
                 <div key={label} className="flex items-center gap-1.5">
@@ -290,8 +292,8 @@ function DAGInner({ claims, paperSlug }: Props) {
             <div className="flex flex-wrap gap-1.5">
               <span
                 className="inline-block px-2 py-0.5 rounded text-xs font-medium"
-                style={{ background: nodeColor(selected.status) + '22', color: '#111', border: `1px solid ${nodeColor(selected.status)}` }}
-              >{selected.status}</span>
+                style={{ background: nodeColor(selected.status, selected.role) + '22', color: '#111', border: `1px solid ${nodeColor(selected.status, selected.role)}` }}
+              >{selected.status === 'unknown' ? selected.role : selected.status}</span>
               <span className="inline-block px-2 py-0.5 rounded text-xs font-medium bg-gray-100 text-gray-700">
                 {selected.epistemic}
               </span>

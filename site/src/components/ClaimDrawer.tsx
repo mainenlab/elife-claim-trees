@@ -100,21 +100,63 @@ const EDGES: { key: keyof Claim; label: string; desc: string }[] = [
   { key: 'scopes', label: 'Scopes', desc: 'qualifies:' },
 ];
 
-function verificationBanner(status: string): { bg: string; border: string; text: string; icon: string; label: string; detail: string } {
+function verificationBanner(status: string, role?: string | null): { bg: string; border: string; text: string; icon: string; label: string; detail: string } {
+  // --- Role-based defaults for claims that don't get code verification ---
+  // Hypotheses, predictions, literature-context, and synthesis claims are
+  // assessed by their argumentative role, not by running code.
+  if (status === 'unknown' || !status) {
+    if (role === 'hypothesis') return {
+      bg: '#eff6ff', border: '#bfdbfe', text: '#1e40af', icon: 'H',
+      label: 'Manuscript hypothesis',
+      detail: 'This is an organizing hypothesis stated by the paper. It is assessed by whether its predictions are supported, not by running code.',
+    };
+    if (role === 'prediction') return {
+      bg: '#eff6ff', border: '#bfdbfe', text: '#1e40af', icon: 'P',
+      label: 'Derived prediction',
+      detail: 'This prediction is deductively derived from a hypothesis. It is tested by the empirical claims linked via "tests" edges.',
+    };
+    if (role === 'literature-context') return {
+      bg: '#faf5ff', border: '#e9d5ff', text: '#6b21a8', icon: '↗',
+      label: 'Cited claim',
+      detail: 'This claim is inherited from prior literature. Its status depends on the cited paper\'s own evidence, not on this paper\'s data.',
+    };
+    if (role === 'synthesis' || role === 'interpretation') return {
+      bg: '#eff6ff', border: '#bfdbfe', text: '#1e40af', icon: 'S',
+      label: 'Interpretive claim',
+      detail: 'This synthesis or interpretation integrates multiple empirical findings. Its warrant comes from the claims it draws on, not from a single verification.',
+    };
+    if (role === 'scope') return {
+      bg: '#f9fafb', border: '#e5e7eb', text: '#6b7280', icon: '◻',
+      label: 'Scope declaration',
+      detail: 'This claim declares a boundary condition on the paper\'s findings. It is confirmed by reading the methods, not by running code.',
+    };
+    // Default for unknown empirical/control/methodological
+    return {
+      bg: '#f9fafb', border: '#e5e7eb', text: '#6b7280', icon: '?',
+      label: 'Not yet assessed',
+      detail: 'This claim has not been through the verification process.',
+    };
+  }
+
+  // --- Code-executed verification statuses ---
   if (status === 'verified') return {
     bg: '#f0fdf4', border: '#bbf7d0', text: '#166534', icon: '✓',
-    label: 'Verified by code',
-    detail: 'We ran a verification script against the deposited data and reproduced this result.',
+    label: (role === 'scope' || role === 'methodological')
+      ? 'Confirmed by inspection'
+      : 'Verified by code',
+    detail: (role === 'scope' || role === 'methodological')
+      ? 'Confirmed by reading the deposited code, methods text, or data records.'
+      : 'A verification script ran against the deposited data and reproduced this result.',
   };
   if (status === 'verified:partial') return {
-    bg: '#f0fdf4', border: '#bbf7d0', text: '#166534', icon: '~',
+    bg: '#f0fdf4', border: '#d1fae5', text: '#166534', icon: '~',
     label: 'Partially verified',
-    detail: 'The verification script reproduced part of this claim. See discrepancy details below.',
+    detail: 'A subset of this claim was verified against deposited data; the remainder is documented in notes.',
   };
   if (status === 'verified:with-nuance') return {
-    bg: '#f0fdf4', border: '#bbf7d0', text: '#166534', icon: '~',
+    bg: '#fffbeb', border: '#fde68a', text: '#92400e', icon: '~',
     label: 'Verified with nuance',
-    detail: 'The result was reproduced but with minor differences worth noting.',
+    detail: 'Direction or trend matches; magnitude or significance differs from the paper. Discrepancy documented.',
   };
   if (status === 'verified:interpretive') return {
     bg: '#f0fdf4', border: '#d1fae5', text: '#166534', icon: '✓',
@@ -126,11 +168,15 @@ function verificationBanner(status: string): { bg: string; border: string; text:
     label: 'Direction confirmed',
     detail: 'The direction and trend match the paper; exact values differ.',
   };
+
+  // --- Failure ---
   if (status === 'failed' || status === 'failed:mismatch') return {
     bg: '#fef2f2', border: '#fecaca', text: '#991b1b', icon: '✗',
     label: 'Result mismatch',
     detail: 'The verification script ran on the deposited data and produced a different result than the paper reports.',
   };
+
+  // --- Unverified with reason ---
   if (status === 'unverified:code-error') return {
     bg: '#fffbeb', border: '#fde68a', text: '#92400e', icon: '!',
     label: 'Code error',
@@ -151,30 +197,22 @@ function verificationBanner(status: string): { bg: string; border: string; text:
     label: 'No verification code',
     detail: 'No verification script has been written for this claim yet.',
   };
-  if (status === 'verified:partial') return {
-    bg: '#f0fdf4', border: '#d1fae5', text: '#166534', icon: '~',
-    label: 'Partially verified',
-    detail: 'A subset of this claim was verified against deposited data; the remainder is documented in notes.',
-  };
-  if (status === 'verified:with-nuance') return {
-    bg: '#fffbeb', border: '#fde68a', text: '#92400e', icon: '~',
-    label: 'Verified with nuance',
-    detail: 'Direction or trend matches; magnitude or significance differs from the paper. Discrepancy documented.',
-  };
-  if (status === 'unverified:partial' || status.startsWith('partial')) return {
-    bg: '#fffbeb', border: '#fde68a', text: '#92400e', icon: '~',
-    label: 'Partially assessed',
-    detail: 'Verification was started but is incomplete.',
+  if (status === 'unverified' || status === 'unverified:partial' || status.startsWith('partial')) return {
+    bg: '#f9fafb', border: '#e5e7eb', text: '#6b7280', icon: '○',
+    label: 'Unverified',
+    detail: 'This empirical claim has not yet been verified against deposited data.',
   };
   if (status === 'N/A') return {
     bg: '#f9fafb', border: '#e5e7eb', text: '#6b7280', icon: '—',
     label: 'Not applicable',
     detail: 'This claim is not the kind that can be verified by running code.',
   };
+
+  // --- Fallback ---
   return {
     bg: '#f9fafb', border: '#e5e7eb', text: '#6b7280', icon: '?',
-    label: 'Not yet assessed',
-    detail: 'This claim has not been through the verification process.',
+    label: status,
+    detail: 'Status not recognized — see notes for details.',
   };
 }
 
@@ -277,7 +315,7 @@ export default function ClaimDrawer({ allClaims, paperSlug, baseUrl }: Props) {
   const claimText = (claim.displayClaim?.trim()) || claim.claim;
   const original = claim.displayClaim && claim.displayClaim.trim() !== claim.claim ? claim.claim : null;
   const dotColor = statusDotColor(claim.status);
-  const banner = verificationBanner(claim.status);
+  const banner = verificationBanner(claim.status, claim.role);
 
   const hasCode = !!claim.script;
   const hasOrigFigure = !!(claim.originalFigureUrl || claim.figureUrl);
