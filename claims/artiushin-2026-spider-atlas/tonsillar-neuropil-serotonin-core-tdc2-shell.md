@@ -46,7 +46,7 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:no-data
+    status: unverified
     notes: >
       Results: "resemble a division of compartments, most notably in the ovoid regions where
       serotonin is found in an internal, core pattern, with octopaminergic/tyraminergic signal

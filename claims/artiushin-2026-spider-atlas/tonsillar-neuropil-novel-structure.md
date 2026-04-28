@@ -33,7 +33,7 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:no-data
+    status: unverified
     notes: >
       Observational anatomical claim — requires inspecting the 3D atlas volumes. BIL data required. Not yet executed.
 ---

@@ -1,7 +1,7 @@
 ---
 uuid: 9713afa8-c74b-413e-916e-b8ff811ca2ea
 slug: interprets-williams-2008-peripheral-spillover
-doi: ~
+doi: 10.1038/nn.2218
 claim: >
   Williams et al. (2008, Nature Neuroscience) reported that foveal primary visual cortex
   carries information about stimuli presented at peripheral locations, a result they

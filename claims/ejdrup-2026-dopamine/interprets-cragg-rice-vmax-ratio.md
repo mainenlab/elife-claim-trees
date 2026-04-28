@@ -1,7 +1,7 @@
 ---
 uuid: 39079ccf-d87a-4e0b-83a9-a01369e54836
 slug: interprets-cragg-rice-vmax-ratio
-doi: ~
+doi: 10.1016/j.tins.2004.03.011
 claim: >
   Prior voltammetry and DAT-binding literature — notably Cragg & Rice (2004, TINS) and
   Kennedy and colleagues on in vivo fast-scan measurements — established a roughly 3:1

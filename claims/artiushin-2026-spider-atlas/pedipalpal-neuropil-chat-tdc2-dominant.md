@@ -41,7 +41,7 @@ assertions:
 reproductions:
   - agent: mainen-z
     date: 2026-03-30
-    status: unverified:no-data
+    status: unverified
     notes: >
       Results text directly states: "Immunoreactivity for ChAT (acetylcholine) and TDC2
       (octopamine/tyramine) is strongest among the antisera tested for the PdN." Optical
