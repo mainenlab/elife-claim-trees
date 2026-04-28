@@ -36,8 +36,17 @@ const stageLabel: Record<string, string> = {
                 {stage && <span class="italic"> · {stage}</span>}
                 {p.doi && <span> · DOI: {p.doi}</span>}
               </div>
-              <div class="text-xs text-gray-500">
+              <div class="text-xs text-gray-500 flex flex-wrap gap-x-3">
                 <span>{p.claimCount} claims</span>
+                {(p as any).verificationLevel && (p as any).verificationLevel !== 'unknown' && (
+                  <span class={`font-medium ${
+                    (p as any).verificationLevel === 'unverified' ? 'text-gray-400' :
+                    (p as any).verificationLevel === 'L1' ? 'text-blue-500' :
+                    (p as any).verificationLevel === 'L2' ? 'text-green-600' :
+                    (p as any).verificationLevel === 'L3' ? 'text-green-600' :
+                    (p as any).verificationLevel === 'L4' ? 'text-green-700' : 'text-gray-400'
+                  }`}>{(p as any).verificationLevel}: {(p as any).verificationLabel}</span>
+                )}
               </div>
             </div>
           </a>

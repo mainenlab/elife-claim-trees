@@ -131,6 +131,28 @@ const tabs = [
           </a>
         )}
       </div>
+
+      <!-- Verification level -->
+      {(paperData as any).verificationLevel && (
+        <div class="mt-4 px-3 py-2 rounded-md border text-xs" style={`
+          background: ${(paperData as any).verificationLevel === 'unverified' ? '#f9fafb' :
+                        (paperData as any).verificationLevel === 'L1' ? '#eff6ff' :
+                        (paperData as any).verificationLevel === 'L2' ? '#f0fdf4' :
+                        (paperData as any).verificationLevel === 'L3' ? '#f0fdf4' :
+                        (paperData as any).verificationLevel === 'L4' ? '#ecfdf5' : '#f9fafb'};
+          border-color: ${(paperData as any).verificationLevel === 'unverified' ? '#e5e7eb' :
+                          (paperData as any).verificationLevel === 'L1' ? '#bfdbfe' :
+                          (paperData as any).verificationLevel === 'L2' ? '#bbf7d0' :
+                          (paperData as any).verificationLevel === 'L3' ? '#bbf7d0' :
+                          (paperData as any).verificationLevel === 'L4' ? '#86efac' : '#e5e7eb'};
+        `}>
+          <span class="font-semibold">{(paperData as any).verificationLevel}</span>
+          <span class="mx-1">·</span>
+          <span class="font-medium">{(paperData as any).verificationLabel}</span>
+          <span class="mx-1">—</span>
+          <span class="text-gray-600">{(paperData as any).verificationDetail}</span>
+        </div>
+      )}
     </div>
 
     <!-- Paper summary: three labeled paragraphs (hypotheses/subject, claims, inferences).
