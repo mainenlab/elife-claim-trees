@@ -47,6 +47,7 @@ const roleStyle: Record<string, string> = {
 // Status dot color — simplified palette
 function statusDot(status: string): { color: string; label: string } {
   if (status === 'verified') return { color: '#22c55e', label: STATUS_LABEL[status] ?? status };
+  if (status?.startsWith('verified:')) return { color: '#86efac', label: STATUS_LABEL[status] ?? status };
   if (status === 'failed' || status?.startsWith('unverified:code-error') || status?.startsWith('unverified:compute-infeasible')) {
     return { color: '#f59e0b', label: STATUS_LABEL[status] ?? status };
   }

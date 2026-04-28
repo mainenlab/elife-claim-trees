@@ -151,6 +151,16 @@ function verificationBanner(status: string): { bg: string; border: string; text:
     label: 'No verification code',
     detail: 'No verification script has been written for this claim yet.',
   };
+  if (status === 'verified:partial') return {
+    bg: '#f0fdf4', border: '#d1fae5', text: '#166534', icon: '~',
+    label: 'Partially verified',
+    detail: 'A subset of this claim was verified against deposited data; the remainder is documented in notes.',
+  };
+  if (status === 'verified:with-nuance') return {
+    bg: '#fffbeb', border: '#fde68a', text: '#92400e', icon: '~',
+    label: 'Verified with nuance',
+    detail: 'Direction or trend matches; magnitude or significance differs from the paper. Discrepancy documented.',
+  };
   if (status === 'unverified:partial' || status.startsWith('partial')) return {
     bg: '#fffbeb', border: '#fde68a', text: '#92400e', icon: '~',
     label: 'Partially assessed',
