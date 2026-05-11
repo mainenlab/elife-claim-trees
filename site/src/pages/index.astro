@@ -15,9 +15,9 @@ const verifiedCount = allClaims.filter(c => c.status.startsWith('verified')).len
 
     <!-- Hero -->
     <div class="mb-16">
-      <h1 class="text-4xl font-semibold text-gray-900 tracking-tight mb-3">eLife Claim Trees</h1>
-      <p class="text-xl text-gray-500 mb-6">Panel-level claim graphs for reproducibility</p>
-      <div class="max-w-2xl space-y-4 text-gray-700 leading-relaxed">
+      <h1 class="text-4xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight mb-3">eLife Claim Trees</h1>
+      <p class="text-xl text-gray-500 dark:text-gray-400 mb-6">Panel-level claim graphs for reproducibility</p>
+      <div class="max-w-2xl space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
         <p>
           Science is organized around stories. A paper is a narrative artifact designed to convince a human reader.
           AI is a different reader — it needs structure it can reason over, verify, and connect to other structure.
@@ -30,13 +30,13 @@ const verifiedCount = allClaims.filter(c => c.status.startsWith('verified')).len
         </p>
       </div>
       <div class="mt-6 flex gap-3 flex-wrap">
-        <a href={url('/papers')} class="inline-flex items-center gap-1.5 px-4 py-2 bg-gray-900 text-white text-sm font-medium rounded-lg hover:bg-gray-700 no-underline">
+        <a href={url('/papers')} class="inline-flex items-center gap-1.5 px-4 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm font-medium rounded-lg hover:bg-gray-700 dark:hover:bg-gray-300 no-underline">
           Browse papers →
         </a>
-        <a href={url('/methodology')} class="inline-flex items-center gap-1.5 px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 no-underline">
+        <a href={url('/methodology')} class="inline-flex items-center gap-1.5 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 no-underline">
           Read methodology
         </a>
-        <a href="https://github.com/zmainen/elife-claim-trees" class="inline-flex items-center gap-1.5 px-4 py-2 border border-gray-300 text-gray-700 text-sm font-medium rounded-lg hover:bg-gray-50 no-underline" target="_blank">
+        <a href="https://github.com/zmainen/elife-claim-trees" class="inline-flex items-center gap-1.5 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 no-underline" target="_blank">
           GitHub ↗
         </a>
       </div>
@@ -44,18 +44,18 @@ const verifiedCount = allClaims.filter(c => c.status.startsWith('verified')).len
 
     <!-- Corpus stats -->
     <div class="mb-16">
-      <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-5">Corpus</h2>
+      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-5">Corpus</h2>
       <div class="grid grid-cols-3 gap-4 mb-8">
-        <div class="bg-gray-50 rounded-xl p-5">
-          <div class="text-3xl font-semibold text-gray-900">{papers.length}</div>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">{papers.length}</div>
           <div class="text-sm text-gray-500 mt-1">papers</div>
         </div>
-        <div class="bg-gray-50 rounded-xl p-5">
-          <div class="text-3xl font-semibold text-gray-900">{totalClaims}</div>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">{totalClaims}</div>
           <div class="text-sm text-gray-500 mt-1">claims</div>
         </div>
-        <div class="bg-green-50 rounded-xl p-5">
-          <div class="text-3xl font-semibold text-green-700">{verifiedCount}</div>
+        <div class="bg-green-50 dark:bg-green-900/20 rounded-xl p-5">
+          <div class="text-3xl font-semibold text-green-700 dark:text-green-400">{verifiedCount}</div>
           <div class="text-sm text-gray-500 mt-1">verified by code</div>
         </div>
       </div>
@@ -63,27 +63,27 @@ const verifiedCount = allClaims.filter(c => c.status.startsWith('verified')).len
 
     <!-- Resources -->
     <div class="mb-16">
-      <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-5">Resources</h2>
+      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-5">Resources</h2>
       <div class="space-y-3">
-        <a href={url('/docs')} class="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group">
+        <a href={url('/docs')} class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-gray-400 dark:hover:border-gray-500 hover:shadow-sm transition-all no-underline group">
           <div class="flex-shrink-0 w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center text-amber-700 font-semibold text-xs">DOC</div>
           <div>
-            <div class="text-sm font-medium text-gray-900 group-hover:text-amber-700 transition-colors">Documentation</div>
-            <div class="text-xs text-gray-500">Methodology, architecture, CLI usage, validation results, API reference</div>
+            <div class="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">Documentation</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">Methodology, architecture, CLI usage, validation results, API reference</div>
           </div>
         </a>
-        <a href="/elife-claim-trees/presentation-overview.pdf" class="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group" target="_blank">
+        <a href="/elife-claim-trees/presentation-overview.pdf" class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-gray-400 dark:hover:border-gray-500 hover:shadow-sm transition-all no-underline group" target="_blank">
           <div class="flex-shrink-0 w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 font-semibold text-xs">PDF</div>
           <div>
-            <div class="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors">Presentation — Overview</div>
-            <div class="text-xs text-gray-500">Claim-level science: the vision, the pipeline, and where eLife fits (27 slides)</div>
+            <div class="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">Presentation — Overview</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">Claim-level science: the vision, the pipeline, and where eLife fits (27 slides)</div>
           </div>
         </a>
-        <a href="/elife-claim-trees/presentation-detailed.pdf" class="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group" target="_blank">
+        <a href="/elife-claim-trees/presentation-detailed.pdf" class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-gray-400 dark:hover:border-gray-500 hover:shadow-sm transition-all no-underline group" target="_blank">
           <div class="flex-shrink-0 w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 font-semibold text-xs">PDF</div>
           <div>
-            <div class="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors">Presentation — Detailed</div>
-            <div class="text-xs text-gray-500">Full technical detail: 8-step methodology, per-paper validation, cost projections (52 slides)</div>
+            <div class="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">Presentation — Detailed</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">Full technical detail: 8-step methodology, per-paper validation, cost projections (52 slides)</div>
           </div>
         </a>
       </div>
@@ -91,7 +91,7 @@ const verifiedCount = allClaims.filter(c => c.status.startsWith('verified')).len
 
     <!-- Papers grid -->
     <div>
-      <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-5">Papers</h2>
+      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-5">Papers</h2>
       <div class="grid sm:grid-cols-2 gap-4">
         {papers.map(p => {
           const v = p.claims.filter((c: any) => c.status.startsWith('verified')).length;
@@ -104,13 +104,13 @@ const verifiedCount = allClaims.filter(c => c.status.startsWith('verified')).len
                   <span class="flex-shrink-0 text-[10px] font-semibold text-green-800 bg-green-50 border border-green-200 px-1.5 py-0.5 rounded whitespace-nowrap">✓</span>
                 )}
               </div>
-              <div class="text-xs text-gray-500 mb-3">
+              <div class="text-xs text-gray-500 dark:text-gray-400 mb-3">
                 {p.authors.join(', ')} · {(p as any).journal}
                 {(p as any).stage && (p as any).stage !== 'published' && (
                   <span class="italic"> · {{preprint:'preprint',revision:'under review',draft:'draft'}[(p as any).stage]}</span>
                 )}
               </div>
-              <div class="text-xs text-gray-500">
+              <div class="text-xs text-gray-500 dark:text-gray-400">
                 {p.claimCount} claims
               </div>
             </a>

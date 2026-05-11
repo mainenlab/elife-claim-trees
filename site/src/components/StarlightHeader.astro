@@ -5,6 +5,7 @@
 // plus the search and theme toggle off to the right.
 
 import Search from '@astrojs/starlight/components/Search.astro';
+import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -18,7 +19,6 @@ const isActive = (path: string) =>
     : pathname.startsWith(path);
 ---
 
-<script is:inline>document.documentElement.dataset.theme = 'light';</script>
 <div class="site-nav-wrapper">
   <nav class="site-nav">
     <div class="site-nav-inner">
@@ -31,6 +31,7 @@ const isActive = (path: string) =>
       <div class="site-nav-actions">
         <Search {...Astro.props} />
         <SocialIcons {...Astro.props} />
+        <ThemeSelect {...Astro.props} />
       </div>
     </div>
   </nav>
@@ -112,5 +113,35 @@ const isActive = (path: string) =>
   .site-nav-actions :global(button:hover) {
     background: #f9fafb;
     color: #111827;
+  }
+
+  /* Dark mode */
+  :root[data-theme='dark'] .site-nav-wrapper {
+    background: #0f0f0f;
+    border-bottom-color: #1f2937;
+  }
+  :root[data-theme='dark'] .site-brand {
+    color: #f3f4f6;
+  }
+  :root[data-theme='dark'] .site-brand:hover {
+    color: #d1d5db;
+  }
+  :root[data-theme='dark'] .site-nav-link {
+    color: #9ca3af;
+  }
+  :root[data-theme='dark'] .site-nav-link:hover {
+    color: #d1d5db;
+  }
+  :root[data-theme='dark'] .site-nav-link.active {
+    color: #f3f4f6;
+  }
+  :root[data-theme='dark'] .site-nav-actions :global(button) {
+    border-color: #374151;
+    background: #0f0f0f;
+    color: #9ca3af;
+  }
+  :root[data-theme='dark'] .site-nav-actions :global(button:hover) {
+    background: #1a1a1a;
+    color: #f3f4f6;
   }
 </style>

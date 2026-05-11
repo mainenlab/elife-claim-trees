@@ -1,9 +1,14 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where(.dark, .dark *));
+
 @layer base {
   html {
     font-family: Inter, system-ui, -apple-system, sans-serif;
     @apply bg-white text-gray-900 antialiased;
+  }
+  html.dark {
+    @apply bg-[#0f0f0f] text-gray-100;
   }
 }
 

@@ -19,6 +19,15 @@ const url = (path: string) => `${base}${path}/`;
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script is:inline>
+    // Sync with Starlight's theme preference (stored as 'starlight-theme')
+    (function() {
+      var stored = localStorage.getItem('starlight-theme');
+      var theme = stored || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+      document.documentElement.dataset.theme = theme;
+      if (theme === 'dark') document.documentElement.classList.add('dark');
+    })();
+  </script>
 <style>
   .badge {
     display: inline-flex;
@@ -39,20 +48,38 @@ const url = (path: string) => `${base}${path}/`;
   .badge-gap        { background: #7f1d1d; color: #fca5a5; border: 1px solid #991b1b; }
   .badge-structural { background: #374151; color: #9ca3af; border: 1px solid #4b5563; }
   .badge-pending    { background: #f3f4f6; color: #6b7280; border: 1px solid #d1d5db; }
+
+  /* Dark mode overrides for non-Tailwind elements */
+  :root[data-theme='dark'] .badge-pending {
+    background: #1f2937; color: #9ca3af; border-color: #374151;
+  }
 </style>
 </head>
-<body class="min-h-screen bg-white">
-  <nav class="border-b border-gray-100 bg-white sticky top-0 z-40">
+<body class="min-h-screen bg-white dark:bg-[#0f0f0f] text-gray-900 dark:text-gray-100 transition-colors">
+  <nav class="border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-[#0f0f0f] sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-12 flex items-center gap-6">
-      <a href={url('')} class="font-semibold text-gray-900 no-underline hover:text-gray-700 text-sm">eLife Claim Trees</a>
-      <a href={url('/papers')} class="text-sm text-gray-500 no-underline hover:text-gray-700">Papers</a>
-      <a href={url('/methodology')} class="text-sm text-gray-500 no-underline hover:text-gray-700">Methodology</a>
-      <a href={url('/findings')} class="text-sm text-gray-500 no-underline hover:text-gray-700">Findings</a>
-      <a href={url('/docs')} class="text-sm text-gray-500 no-underline hover:text-gray-700">Docs</a>
+      <a href={url('')} class="font-semibold text-gray-900 dark:text-gray-100 no-underline hover:text-gray-700 dark:hover:text-gray-300 text-sm">eLife Claim Trees</a>
+      <a href={url('/papers')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Papers</a>
+      <a href={url('/methodology')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Methodology</a>
+      <a href={url('/findings')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Findings</a>
+      <a href={url('/docs')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Docs</a>
+      <div class="flex-1"></div>
+      <button id="theme-toggle" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-sm cursor-pointer" aria-label="Toggle theme">
+        <span class="dark:hidden">&#9790;</span>
+        <span class="hidden dark:inline">&#9788;</span>
+      </button>
     </div>
   </nav>
   <main>
     <slot />
   </main>
+  <script is:inline>
+    document.getElementById('theme-toggle')?.addEventListener('click', function() {
+      var isDark = document.documentElement.classList.toggle('dark');
+      var theme = isDark ? 'dark' : 'light';
+      document.documentElement.dataset.theme = theme;
+      localStorage.setItem('starlight-theme', theme);
+    });
+  </script>
 </body>
 </html>
