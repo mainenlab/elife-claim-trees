@@ -1,0 +1,156 @@
+---
+title: The pipeline at a glance
+description: How a paper becomes a claim graph — the eight-step pipeline from PDF to corpus, with each phase's purpose, model, and acceptance criterion.
+---
+
+import { Aside } from '@astrojs/starlight/components';
+
+The pipeline takes one input — a DOI — and produces one output — a directory of validated claim files in the elife-claim-trees corpus schema. Between those two endpoints, eight steps run in sequence, each with a defined purpose, a defined output, and (for the LLM-driven steps) a defined model and prompt.
+
+This page is the diagram everything else in the architecture section refers back to. Open it once, recognize the shape, then dive into the per-step pages for detail.
+
+## The pipeline
+
+```
+                        ┌─────────────────┐
+                        │   eLife DOI     │
+                        │   (input)       │
+                        └────────┬────────┘
+                                 │
+                       ┌─────────▼─────────┐
+                       │ Step 1 — Prepare  │  prepare.py
+                       │  fetch PDF, slice │  pdfplumber + heuristic regex
+                       │  abstract /       │  no LLM call
+                       │  results /        │
+                       │  captions /       │
+                       │  methods          │
+                       └─────────┬─────────┘
+                                 │
+                                 │ PreparedPaper
+                                 │
+              ┌──────────────────┼──────────────────┐
+              │                  │                  │
+       ┌──────▼──────┐    ┌──────▼──────┐    ┌──────▼──────┐
+       │  Step 3a    │    │  Step 3b    │    │  Step 3c    │   (Step 2 — abstract scan
+       │  Results-   │    │  Caption-   │    │  Structure- │    folded into Step 3a)
+       │  reader     │    │  reader     │    │  reader     │
+       │             │    │             │    │             │
+       │  Sonnet 4.6 │    │  Sonnet 4.6 │    │  Sonnet 4.6 │
+       │  reads      │    │  reads      │    │  reads      │
+       │  abstract + │    │  figure     │    │  methods +  │
+       │  results    │    │  captions   │    │  supplements│
+       └──────┬──────┘    └──────┬──────┘    └──────┬──────┘
+              │ list of           │ list of           │ list of
+              │ candidate         │ candidate         │ candidate
+              │ claims            │ claims            │ claims
+              │                   │                   │
+              └──────────────┬────┴──────────────────┘
+                             │
+                  ┌──────────▼──────────┐
+                  │  Step 4 — Reconcile │  reconcile.py
+                  │  semantic match     │  Opus 4.6
+                  │  across three lists │
+                  │  → DraftClaimTable  │
+                  └──────────┬──────────┘
+                             │
+                             │ DraftClaimTable
+                             │ (high / contested / single-source per claim)
+                             │
+                  ┌──────────▼──────────────────────────┐
+                  │  Step 4.5 — External Reviewer       │  external_review.py
+                  │  ★ HAAK extension to the methodology │  Opus 4.6
+                  │  recovers hypothesis & prediction   │  (only when
+                  │  layers from prose                  │   --review-mode=external)
+                  │  fixes role / panel / lit-context   │
+                  └──────────┬──────────────────────────┘
+                             │
+                             │ Revised DraftClaimTable
+                             │
+                  ┌──────────▼──────────┐
+                  │  Step 5 — Review    │  review.py
+                  │  human gate         │  no LLM call
+                  │  (interactive /     │  ($EDITOR opens YAML;
+                  │  external /         │   external mode skips
+                  │  auto-approve /     │   to write directly)
+                  │  dry-run)           │
+                  └──────────┬──────────┘
+                             │
+                             │ Approved DraftClaimTable
+                             │
+              ┌──────────────┼──────────────┐
+              │              │              │
+       ┌──────▼─────┐  ┌─────▼──────┐  ┌────▼──────┐
+       │  Step 6    │  │  Step 7    │  │ verify-   │  verify_refs.py
+       │  Map edges │  │  Write     │  │ refs      │  CrossRef API
+       │  (currently│  │  claim     │  │ resolves  │  no LLM call
+       │  scaffolded│  │  files     │  │ DOIs for  │
+       │  — empty   │  │  + index   │  │ literature│
+       │  edge      │  │  .md       │  │ -context  │
+       │  sections) │  │            │  │ claims    │
+       └────────────┘  └─────┬──────┘  └───────────┘
+                             │
+                             │
+                  ┌──────────▼──────────┐
+                  │  /corpus/<slug>/    │
+                  │   index.md          │
+                  │   <claim-1>.md      │
+                  │   <claim-2>.md      │
+                  │   ...               │
+                  │  (output)           │
+                  └─────────────────────┘
+```
+
+## The eight steps, named
+
+The methodology document — `docs/method.md` § 3 in the corpus repo — names eight steps. The CLI implements all eight, plus an external-reviewer pass between Step 4 and Step 5 that the methodology doc doesn't anticipate but that empirically lifts role-classification accuracy from 65% to 96% on auto-approve runs (see [validation results](/docs/validation/results/)).
+
+| Step | Name | What it does | Model / API | Output |
+|:-----|:-----|:-------------|:------------|:-------|
+| 1 | Prepare | Fetch PDF from eLife CDN; slice into abstract / results / captions / methods; map figure structure | none (`pdfplumber` + regex) | `PreparedPaper` |
+| 2 | Abstract scan | Identify 2-4 top-level claims (folded into Step 3a; the dedicated call is reserved for future iteration) | Sonnet 4.6 | candidate slugs |
+| 3 | Three independent extractions | Three agents read partitioned slices independently (Results / Caption / Structure) | Sonnet 4.6 × 3 | three `AgentExtraction` lists |
+| 4 | Reconciliation | Semantic alignment across the three lists; produce confidence-tagged draft | Opus 4.6 | `DraftClaimTable` |
+| **4.5** | **External reviewer** ★ | **Recover hypothesis / prediction / control layers from the paper's argument structure** | **Opus 4.6** | **revised `DraftClaimTable`** |
+| 5 | Review gate | Human reviews and edits draft (or skipped in `external` / `auto-approve`) | none | approved draft |
+| 6 | Dependency mapping | Typed edges between claims (currently scaffolded — emits empty edge sections) | none | annotated draft |
+| 7 | Write claim files | UUID per claim, frontmatter + body, paper index | none | `<corpus>/<slug>/*.md` |
+| 8 | Verification | Re-run paper's analysis on deposited code/data | per-paper `verify.py` (out of CLI scope) | `reproductions[]` updates |
+| — | `verify-refs` | CrossRef DOI lookup for literature-context claims; anti-hallucination check | CrossRef HTTP API | claim frontmatter `doi:` updated |
+
+<Aside type="note">
+  Steps 1, 6, 7, and `verify-refs` make zero LLM calls. Steps 2 and 8 are
+  partially or fully outside the CLI's scope. The pipeline's LLM cost is in
+  Steps 3, 4, and 4.5 — three Sonnet calls plus one or two Opus calls per
+  paper.
+</Aside>
+
+## Per-paper budget
+
+For a typical eLife paper (~30 pages, ~30-50 reference claims):
+
+| Phase | Wall time | Cost (Sonnet 4.6 + Opus 4.6 mix) |
+|:------|:----------|:-------------------------------|
+| Step 1 (prepare) | ~10 s (cached: under 1s) | $0 |
+| Steps 2-3 (three extractions) | ~3-5 min | ~$3-4 |
+| Step 4 (reconcile) | ~1-2 min | ~$1 |
+| Step 4.5 (external review) | ~2-5 min | ~$1-2 |
+| Steps 5-7 (review + write) | under 1s (auto-approve) | $0 |
+| `verify-refs` | ~1s per cited paper | $0 (CrossRef is free) |
+| **Total per paper, with external review** | **~10-15 min** | **~$5-7** |
+
+A 100-paper corpus with external review: roughly **$500-700 and 17-25 hours sequential**. Parallelization at the shell level is straightforward; constrained mainly by your Vertex AI rate quota.
+
+## What the diagram intentionally elides
+
+- **Caching.** The PDF cache (`~/.cache/elife-extract/`) means a re-run on the same DOI skips Step 1's fetch.
+- **Streaming.** All LLM calls use streaming (the Anthropic SDK requires it for outputs that may exceed 10 minutes; we use it unconditionally for safety).
+- **Retries.** `extract` retries on rate-limit errors with exponential backoff; the per-call max is two retries before raising.
+- **Schema validation.** Every wire-format JSON is validated through Pydantic between steps. A schema-invalid output from one agent halts the pipeline rather than corrupting downstream state.
+- **Audit trail.** Every step's output is persisted: `out/draft-<slug>.json`, `out/agents-<slug>.json` (per-agent raw outputs), `out/draft-<slug>.reviewed.json` (post-Step-4.5). All three survive the run for inspection.
+
+## Where to go from here
+
+- The [three-agent partition](/docs/architecture/three-agent-partition/) explains *why* three independent readers and what each is positioned to extract.
+- The [external reviewer](/docs/architecture/external-reviewer/) explains why Step 4.5 exists and what it does that the prose-level extraction can't.
+- The [review gate](/docs/architecture/review-gate/) explains the four review modes and when each is right for your operational shape.
+- [Validation results](/docs/validation/results/) shows the empirical performance of this pipeline on the 10 public eLife papers in the curated corpus.
