@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import json
 import logging
+import os
 import sys
 import time
 import uuid
@@ -24,9 +25,21 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
 
-# Add the extract package to the path
-EXTRACT_DIR = Path(__file__).resolve().parent.parent
-sys.path.insert(0, str(EXTRACT_DIR / "home/collabs/elife/claim-trees/extract"))
+# Add the extract package to the path — works from HAAK repo or standalone
+API_DIR = Path(__file__).resolve().parent
+for candidate in [
+    API_DIR / "elife_extract",                                          # standalone deploy
+    API_DIR.parent / "home/collabs/elife/claim-trees/extract",         # HAAK repo
+]:
+    if (candidate / "elife_extract").is_dir() or candidate.name == "elife_extract":
+        sys.path.insert(0, str(candidate if candidate.name != "elife_extract" else candidate.parent))
+        break
+else:
+    # Last resort: assume elife_extract is importable from current PYTHONPATH
+    pass
+
+# Prompts directory — configurable via env var
+PROMPTS_DIR = Path(os.environ.get("ELIFE_PROMPTS_DIR", "")).resolve() if os.environ.get("ELIFE_PROMPTS_DIR") else None
 
 # Lazy imports — these pull in anthropic SDK etc.
 _pipeline_ready = False
@@ -140,7 +153,18 @@ async def extract(req: ExtractRequest):
             cfg.model_structure = req.model_extract
             cfg.model_reconcile = req.model_reconcile
             cfg.review_mode = "external"
-            cfg.prompts_dir = EXTRACT_DIR / "home/collabs/elife/claim-trees/extract/prompts"
+            # Find prompts dir
+            if PROMPTS_DIR and PROMPTS_DIR.is_dir():
+                cfg.prompts_dir = PROMPTS_DIR
+            else:
+                # Try relative to this file in HAAK repo layout
+                for p in [
+                    API_DIR / "prompts",
+                    API_DIR.parent / "home/collabs/elife/claim-trees/extract/prompts",
+                ]:
+                    if p.is_dir():
+                        cfg.prompts_dir = p
+                        break
             cfg.output_dir = Path("/tmp/elife-extract-api")
             cfg.output_dir.mkdir(parents=True, exist_ok=True)
 

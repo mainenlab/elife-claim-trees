@@ -79,8 +79,8 @@ const url = (path: string) => `${base}${path}/`;
 
   <script is:inline>
     const API_URL = window.location.hostname === 'localhost'
-      ? 'http://localhost:8080'
-      : 'https://elife-extract-api.fly.dev';  // production URL — update when deployed
+      ? 'http://localhost:8081'
+      : 'https://elife-claim-trees-api.fly.dev';
 
     const btn = document.getElementById('extract-btn');
     const progressDiv = document.getElementById('progress');
