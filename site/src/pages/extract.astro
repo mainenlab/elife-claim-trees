@@ -1,0 +1,242 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const url = (path: string) => `${base}${path}/`;
+---
+
+<Layout title="Extract claims">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+
+    <h1 class="text-3xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight mb-3">Extract claims from a paper</h1>
+    <p class="text-gray-500 dark:text-gray-400 mb-8">
+      Paste an eLife DOI and your Anthropic API key. The pipeline runs three extraction agents,
+      reconciles their output, and produces a structured claim graph. Takes ~10-15 minutes; costs ~$7 in API calls.
+    </p>
+
+    <!-- Form -->
+    <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-6 mb-8">
+      <div class="space-y-4">
+        <div>
+          <label for="doi" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">eLife DOI</label>
+          <input
+            type="text"
+            id="doi"
+            placeholder="10.7554/eLife.95562"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400"
+          />
+        </div>
+        <div>
+          <label for="api-key" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Anthropic API key</label>
+          <input
+            type="password"
+            id="api-key"
+            placeholder="sk-ant-..."
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400"
+          />
+          <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">
+            Your key is sent to the extraction server over HTTPS, used for this extraction only, and discarded immediately after. It is never stored or logged.
+          </p>
+        </div>
+        <button
+          id="extract-btn"
+          class="px-4 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm font-medium rounded-lg hover:bg-gray-700 dark:hover:bg-gray-300 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          Extract claims
+        </button>
+      </div>
+    </div>
+
+    <!-- Progress -->
+    <div id="progress" class="hidden mb-8">
+      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">Progress</h2>
+      <div id="progress-log" class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div id="results" class="hidden">
+      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">Results</h2>
+
+      <!-- Stats -->
+      <div id="result-stats" class="grid grid-cols-3 gap-4 mb-6">
+      </div>
+
+      <!-- Claim list -->
+      <div id="claim-list" class="space-y-3 mb-8">
+      </div>
+
+      <!-- Downloads -->
+      <div id="downloads" class="space-y-3">
+      </div>
+    </div>
+
+    <!-- Error -->
+    <div id="error" class="hidden p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-sm text-red-700 dark:text-red-300">
+    </div>
+
+  </div>
+
+  <script is:inline>
+    const API_URL = window.location.hostname === 'localhost'
+      ? 'http://localhost:8080'
+      : 'https://elife-extract-api.fly.dev';  // production URL — update when deployed
+
+    const btn = document.getElementById('extract-btn');
+    const progressDiv = document.getElementById('progress');
+    const progressLog = document.getElementById('progress-log');
+    const resultsDiv = document.getElementById('results');
+    const errorDiv = document.getElementById('error');
+
+    btn.addEventListener('click', async () => {
+      const doi = document.getElementById('doi').value.trim();
+      const apiKey = document.getElementById('api-key').value.trim();
+
+      if (!doi || !apiKey) {
+        showError('Please enter both a DOI and an API key.');
+        return;
+      }
+
+      // Reset UI
+      btn.disabled = true;
+      btn.textContent = 'Extracting...';
+      progressDiv.classList.remove('hidden');
+      progressLog.innerHTML = '';
+      resultsDiv.classList.add('hidden');
+      errorDiv.classList.add('hidden');
+
+      try {
+        const response = await fetch(API_URL + '/extract', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ doi, api_key: apiKey }),
+        });
+
+        if (!response.ok) {
+          throw new Error(`Server error: ${response.status}`);
+        }
+
+        const reader = response.body.getReader();
+        const decoder = new TextDecoder();
+        let buffer = '';
+
+        while (true) {
+          const { done, value } = await reader.read();
+          if (done) break;
+
+          buffer += decoder.decode(value, { stream: true });
+          const lines = buffer.split('\n');
+          buffer = lines.pop() || '';
+
+          for (const line of lines) {
+            if (!line.startsWith('data: ')) continue;
+            try {
+              const event = JSON.parse(line.slice(6));
+              handleEvent(event);
+            } catch (e) {
+              // skip malformed events
+            }
+          }
+        }
+      } catch (e) {
+        showError(e.message);
+      } finally {
+        btn.disabled = false;
+        btn.textContent = 'Extract claims';
+      }
+    });
+
+    function handleEvent(event) {
+      // Add to progress log
+      const stepColors = {
+        prepare: 'text-gray-600 dark:text-gray-400',
+        extract: 'text-amber-700 dark:text-amber-400',
+        reconcile: 'text-blue-700 dark:text-blue-400',
+        review: 'text-purple-700 dark:text-purple-400',
+        done: 'text-green-700 dark:text-green-400',
+        error: 'text-red-700 dark:text-red-400',
+      };
+      const color = stepColors[event.step] || 'text-gray-600';
+      const entry = document.createElement('div');
+      entry.className = color;
+      entry.innerHTML = `<span class="font-medium">${event.step}:</span> ${event.message}`;
+      progressLog.appendChild(entry);
+      progressLog.scrollTop = progressLog.scrollHeight;
+
+      if (event.step === 'done' && event.article) {
+        renderResults(event.article);
+      }
+      if (event.step === 'error') {
+        showError(event.message);
+      }
+    }
+
+    function renderResults(article) {
+      resultsDiv.classList.remove('hidden');
+
+      const claims = article.children || [];
+      const nRels = claims.reduce((s, c) => s + (c.relations || []).length, 0);
+
+      // Stats
+      const statsDiv = document.getElementById('result-stats');
+      statsDiv.innerHTML = `
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">${claims.length}</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">claims</div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">${nRels}</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">typed relations</div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">${new Set(claims.map(c => c.role)).size}</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">roles used</div>
+        </div>
+      `;
+
+      // Claim list
+      const listDiv = document.getElementById('claim-list');
+      const roleBadgeColor = {
+        hypothesis: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
+        prediction: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+        empirical: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
+        control: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
+        scope: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300',
+        methodological: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400',
+        synthesis: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
+        interpretation: 'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300',
+        'literature-context': 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
+      };
+      listDiv.innerHTML = claims.map(c => {
+        const text = (c.children || []).map(ch => ch.value || '').join(' ');
+        const badge = roleBadgeColor[c.role] || 'bg-gray-100 text-gray-800';
+        const panel = c.panel ? `<span class="text-xs text-gray-400 ml-2">${c.panel.join(', ')}</span>` : '';
+        const rels = (c.relations || []).length;
+        const relBadge = rels ? `<span class="text-xs text-gray-400 ml-2">${rels} edges</span>` : '';
+        return `<div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+          <div class="flex items-center gap-2 mb-1">
+            <span class="text-xs font-medium px-1.5 py-0.5 rounded ${badge}">${c.role}</span>
+            ${panel}${relBadge}
+          </div>
+          <div class="text-sm text-gray-700 dark:text-gray-300">${text}</div>
+        </div>`;
+      }).join('');
+
+      // Download
+      const blob = new Blob([JSON.stringify(article, null, 2)], { type: 'application/json' });
+      const downloadUrl = URL.createObjectURL(blob);
+      const downloadsDiv = document.getElementById('downloads');
+      downloadsDiv.innerHTML = `
+        <a href="${downloadUrl}" download="${article.identifier}.oxa.json"
+           class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 no-underline">
+          Download OXA JSON
+        </a>
+      `;
+    }
+
+    function showError(msg) {
+      errorDiv.textContent = msg;
+      errorDiv.classList.remove('hidden');
+    }
+  </script>
+</Layout>
