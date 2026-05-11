@@ -89,6 +89,36 @@ Six remaining failures are subtler patterns the iteration didn't catch — impli
 
 **The discipline matters more than the result.** The 14-point gain on kammer is meaningful, but the more important outcome is the demonstration that prompt iteration can be measured. Future prompt changes have a clear path: change → run `evaluate` → measure → ship or revert.
 
+
+
+## Corpus-wide confirmation (v2 sweep)
+
+After the kammer single-paper iteration validated the prompt change, a full
+10-paper sweep (`evaluate --all --review-mode external` with the iterated
+prompt) confirmed the change is a net win across the corpus.
+
+| Metric | v1 baseline (4-bias reviewer) | **v2 (7-bias reviewer)** | Δ |
+|:-------|:------------------------------:|:------------------------:|:--:|
+| Recovery (mean / median) | 95.3% / 98.0% | **96.9% / 100.0%** | +1.6 / +2.0 |
+| Role (mean / median) | 78.1% / 76.4% | **83.1% / 84.3%** | **+5.0 / +7.9** |
+| Panel (mean / median) | 54.7% / 53.1% | **60.9% / 58.6%** | +6.2 / +5.5 |
+
+Material per-paper deltas:
+- **kammer**: role 57% → **82%** (+25), panel 52% → **91%** (+39) — the targeted iteration delivered, beyond expectations
+- **headley**: panel 54% → **81%** (+27) — the bias-5/6/7 rules unexpectedly helped panel here
+- **rozak**: role 65% → 55% (-10) — the only material regression; methods paper, the new control-recognition rule over-applies
+- **kolb**: role 75% → 70% (-5) — small regression, similar pattern
+
+The pattern is clear: targeted iteration on a known failure mode generalizes
+across the corpus, with predictable trade-offs (a paper structurally similar
+to the failure mode helps; a paper structurally different may regress slightly).
+This is the iteration discipline working as designed — every change validated
+empirically before deployment, deltas inscribed for the worklog.
+
+Cost of the v2 confirmation sweep: ~$100. The v1 → v2 transition is recommended
+as the new default; rozak and kolb regressions are documented for future targeted
+iteration via `--prompt-variant`.
+
 ## When to iterate vs accept
 
 The validation result is a signal, not a verdict. Three reasonable responses to a metric below threshold:
