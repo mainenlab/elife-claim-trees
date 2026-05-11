@@ -3,17 +3,102 @@ import Layout from '../layouts/Layout.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const url = (path: string) => `${base}${path}/`;
+---
 
-const oxaExample = `{
+<Layout title="Standards">
+  <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
+
+    <h1 class="text-3xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight mb-8">A Claim node for scientific documents</h1>
+
+    <!-- The ecosystem -->
+    <div class="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed mb-10">
+      <p>
+        The open scientific publishing ecosystem is converging on a shared set of standards. <a href="https://oxa.dev" class="text-amber-700 dark:text-amber-400 hover:underline" target="_blank">OXA</a> (Open Exchange Architecture) defines how to represent a scientific document — its sections, figures, math, code, and metadata — as typed JSON nodes. <a href="https://sparontologies.github.io/cito/current/cito.html" class="text-amber-700 dark:text-amber-400 hover:underline" target="_blank">CiTO</a> (Citation Typing Ontology) defines 40+ typed relationships between documents — supports, extends, disagrees with, uses method from. <a href="https://discoursegraphs.com" class="text-amber-700 dark:text-amber-400 hover:underline" target="_blank">Discourse Graphs</a> defines how to represent scientific knowledge as a graph of Questions, Claims, Evidence, and Sources.
+      </p>
+      <p>
+        OXA is backed by Curvenote, Stencila, eLife, and others. CiTO is the standard vocabulary in the SPAR (Semantic Publishing and Referencing) ecosystem. Discourse Graphs is an active academic project with formal OWL semantics and JSON-LD exports.
+      </p>
+    </div>
+
+    <!-- The gap -->
+    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">The gap</h2>
+    <div class="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed mb-10">
+      <p>
+        None of these standards can represent the individual claims a scientific paper makes.
+      </p>
+      <p>
+        OXA defines headings, paragraphs, images, code blocks, and citations — but not the propositions those elements are arguing for. CiTO types the relationships between <em>papers</em> — but not between the claims <em>within</em> a paper. Discourse Graphs defines Claim and Evidence nodes — but as a manual note-taking ontology, not as elements embedded in published documents.
+      </p>
+      <p>
+        What's missing is a <strong>Claim node</strong>: a typed, addressable element within a scientific document that carries a proposition, a role in the argument (hypothesis, empirical result, prediction, control), an anchor to a specific figure panel, and typed edges to other claims.
+      </p>
+    </div>
+
+    <!-- The proposal -->
+    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">What we propose</h2>
+    <div class="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
+      <p>
+        We are drafting an <a href="https://oxa.dev" class="text-amber-700 dark:text-amber-400 hover:underline" target="_blank">OXA RFC</a> to add a <code>Claim</code> node type to the specification. A Claim is a block-level OXA node — the same kind of element as a Heading or a Code block — with three additions:
+      </p>
+    </div>
+
+    <div class="space-y-6 mb-10">
+      <!-- Role -->
+      <div class="border-l-2 border-amber-300 dark:border-amber-700 pl-4">
+        <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">A role</h3>
+        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+          Nine values describing the claim's function in the paper's argument. This vocabulary extends Stencila's existing Claim types (which cover theorems and proofs) into empirical science:
+        </p>
+        <div class="flex flex-wrap gap-2 text-xs">
+          <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300">hypothesis</span>
+          <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300">prediction</span>
+          <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300">empirical</span>
+          <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300">control</span>
+          <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300">scope</span>
+          <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300">methodological</span>
+          <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300">synthesis</span>
+          <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300">interpretation</span>
+          <span class="px-2 py-1 bg-gray-100 dark:bg-gray-800 rounded text-gray-700 dark:text-gray-300">literature-context</span>
+        </div>
+      </div>
+
+      <!-- Panel anchor -->
+      <div class="border-l-2 border-amber-300 dark:border-amber-700 pl-4">
+        <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">A panel anchor</h3>
+        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed">
+          Which figure panel(s) the claim is grounded in. Panels are the natural unit of reproducible science: one panel, one computation, one result.
+        </p>
+      </div>
+
+      <!-- Typed edges -->
+      <div class="border-l-2 border-amber-300 dark:border-amber-700 pl-4">
+        <h3 class="font-semibold text-gray-900 dark:text-gray-100 mb-1">Typed edges to other claims</h3>
+        <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+          Following the same pattern OXA uses for citations (RFC0005), each edge carries a relation type from the CiTO vocabulary. Six of our 14 edge types map directly to CiTO. Eight require extensions — defined as CiTO subproperties so that standard queries still find them:
+        </p>
+        <div class="grid grid-cols-2 gap-x-6 gap-y-1 text-xs text-gray-600 dark:text-gray-400">
+          <div><span class="text-green-700 dark:text-green-400 font-medium">CiTO:</span> supports, extends, qualifies, disagreesWith, usesMethodIn, citesAsSourceDocument</div>
+          <div><span class="text-amber-700 dark:text-amber-400 font-medium">New:</span> tests, entails, requires, scopes, interprets, rulesOut, replicates, contradicts</div>
+        </div>
+        <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">
+          The gap is telling — CiTO covers the social relations between papers but misses the logical relations within arguments. Those missing types are what makes a claim graph different from a citation graph.
+        </p>
+      </div>
+    </div>
+
+    <!-- Example -->
+    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">What it looks like</h2>
+    <p class="text-sm text-gray-700 dark:text-gray-300 leading-relaxed mb-3">
+      A hypothesis from <a href={url('/papers/headley-2026-inhibitory-rhythms')} class="text-amber-700 dark:text-amber-400 hover:underline">Headley 2026</a>, expressed as an OXA Claim node:
+    </p>
+    <pre class="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-xs text-gray-700 dark:text-gray-300 overflow-x-auto leading-relaxed mb-3"><code>{`{
   "type": "Claim",
   "identifier": "hypothesis-distinct-compartmental-roles",
   "role": "hypothesis",
-  "epistemicStrength": "moderate",
   "children": [{
     "type": "Text",
     "value": "Perisomatic and distal dendritic inhibition serve
-      distinct computational roles in regulating
-      neuronal output."
+      distinct computational roles in regulating neuronal output."
   }],
   "relations": [
     { "xref": "prediction-distal-dendritic-spike-mechanism",
@@ -21,179 +106,46 @@ const oxaExample = `{
     { "xref": "prediction-beta-optimal-distal",
       "relationType": "claimrel:entails" }
   ]
-}`;
+}`}</code></pre>
 
-const dgExample = `{
-  "@id": ".../hypothesis-distinct-compartmental-roles",
-  "@type": "dg:Claim",
-  "dg:content": "Perisomatic and distal dendritic
-    inhibition serve distinct computational roles
-    in regulating neuronal output.",
-  "dg:role": "hypothesis"
-}`;
----
-
-<Layout title="Standards alignment">
-  <div class="max-w-4xl mx-auto px-4 sm:px-6 py-16">
-
-    <div class="mb-12">
-      <h1 class="text-3xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight mb-3">Standards alignment</h1>
-      <p class="text-lg text-gray-500 dark:text-gray-400 mb-6">How claim-level structure connects to the open scientific publishing ecosystem</p>
-    </div>
-
-    <!-- Reasoning -->
-    <div class="mb-12 max-w-3xl space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed">
+    <!-- The evidence -->
+    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mt-10 mb-3">The evidence</h2>
+    <div class="space-y-4 text-gray-700 dark:text-gray-300 leading-relaxed mb-6">
       <p>
-        A claim graph is only as useful as the systems that can consume it. If claims are locked in a custom format, they reach the tools we build and nothing else. If they speak the same language as the standards the ecosystem is converging on, they become part of the infrastructure.
-      </p>
-      <p>
-        Three standards matter here. <strong>OXA</strong> (Open Exchange Architecture) is the emerging shared schema for scientific documents — backed by Curvenote, Stencila, eLife, and others. <strong>CiTO</strong> (Citation Typing Ontology) is the most widely adopted vocabulary for typed citation relationships. <strong>Discourse Graphs</strong> defines an ontology for structured scientific knowledge (Question / Claim / Evidence / Source) with formal OWL semantics.
-      </p>
-      <p>
-        We adopt OXA as the native format for claims, use CiTO for edge types where it covers our needs, extend CiTO with 8 subproperties for claim-specific relationships it lacks, and produce Discourse Graphs JSON-LD as an interoperability export. The result: claims from this corpus can be consumed by any OXA-aware tool, queried via standard CiTO SPARQL, and integrated into Discourse Graphs knowledge bases.
+        This isn't a speculative proposal. We have expressed the full 10-paper eLife corpus — 231 claims, 503 typed relations — in this format. All 9 roles and 14 edge types are represented. The claims are also exported as <a href="https://discoursegraphs.com" class="text-amber-700 dark:text-amber-400 hover:underline" target="_blank">Discourse Graphs</a> JSON-LD for knowledge-graph interoperability.
       </p>
     </div>
 
-    <!-- OXA -->
-    <div class="mb-14">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">OXA — native format</h2>
-      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-        <a href="https://oxa.dev" class="hover:underline" target="_blank">oxa.dev</a> — Open Exchange Architecture, CC-BY-4.0
-      </p>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        Each claim is an OXA node: a typed JSON object with inline content (the proposition), a role, panel anchors, and typed relations to other claims. The structure follows OXA's RFC patterns — the same node model used for headings, paragraphs, images, and citations. We are drafting an OXA RFC to propose <code>Claim</code> as a first-class node type in the specification.
-      </p>
-      <pre class="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-xs text-gray-700 dark:text-gray-300 overflow-x-auto leading-relaxed mb-3"><code>{oxaExample}</code></pre>
-      <a href="/elife-claim-trees/exports/headley.oxa.json" class="inline-flex items-center gap-1.5 text-sm text-amber-700 dark:text-amber-400 hover:underline" target="_blank">
-        Download: Headley 2026, full paper in OXA format (26 claims) &rarr;
-      </a>
-    </div>
-
-    <!-- CiTO + extensions -->
-    <div class="mb-14">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">CiTO — edge vocabulary</h2>
-      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-        <a href="https://sparontologies.github.io/cito/current/cito.html" class="hover:underline" target="_blank">SPAR Ontologies</a> — Citation Typing Ontology, CC-BY-4.0
-      </p>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        CiTO defines 40+ typed citation relationships. Six of our 14 edge types map directly to CiTO properties.
-        The remaining eight are defined as CiTO subproperties in a claim-relations vocabulary — preserving entailment
-        so that any SPARQL query for <code>cito:cites</code> also retrieves our edges.
-      </p>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        The gap is telling: CiTO covers the <em>social</em> relations between papers (agrees, disagrees, credits, reviews)
-        but misses the <em>logical</em> relations within arguments (requires, tests, entails, scopes). Those five missing types
-        are exactly what makes a claim graph different from a citation graph.
-      </p>
-
-      <div class="grid sm:grid-cols-2 gap-x-8 gap-y-0.5 text-sm mb-4">
-        <div class="py-1.5 border-b border-gray-100 dark:border-gray-800">
-          <code class="text-xs bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 px-1 py-0.5 rounded">cito</code>
-          <strong class="ml-1">supports</strong> · <strong>extends</strong> · <strong>qualifies</strong>
-        </div>
-        <div class="py-1.5 border-b border-gray-100 dark:border-gray-800">
-          <code class="text-xs bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 px-1 py-0.5 rounded">cito</code>
-          <strong class="ml-1">disagreesWith</strong> · <strong>usesMethodIn</strong> · <strong>citesAsSourceDocument</strong>
-        </div>
-        <div class="py-1.5 border-b border-gray-100 dark:border-gray-800">
-          <code class="text-xs bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 px-1 py-0.5 rounded">ext</code>
-          <strong class="ml-1">tests</strong> · <strong>entails</strong> · <strong>requires</strong> · <strong>scopes</strong>
-        </div>
-        <div class="py-1.5 border-b border-gray-100 dark:border-gray-800">
-          <code class="text-xs bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 px-1 py-0.5 rounded">ext</code>
-          <strong class="ml-1">interprets</strong> · <strong>rulesOut</strong> · <strong>replicates</strong> · <strong>contradicts</strong>
-        </div>
+    <div class="grid grid-cols-3 gap-4 mb-8">
+      <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+        <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">231</div>
+        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">claims</div>
       </div>
-      <a href="/elife-claim-trees/exports/claim-relations.ttl" class="inline-flex items-center gap-1.5 text-sm text-amber-700 dark:text-amber-400 hover:underline" target="_blank">
-        Download: claim-relations.ttl (OWL vocabulary) &rarr;
-      </a>
-    </div>
-
-    <!-- Discourse Graphs -->
-    <div class="mb-14">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-1">Discourse Graphs — interoperability export</h2>
-      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
-        <a href="https://discoursegraphs.com" class="hover:underline" target="_blank">discoursegraphs.com</a> — Joel Chan, University of Maryland
-      </p>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        Discourse Graphs defines a four-type ontology for scientific knowledge: Question, Claim, Evidence, Source. Our claims map to this ontology: hypotheses and predictions become DG Claims, empirical results become DG Evidence, literature-context claims become DG Sources. The JSON-LD export makes our corpus queryable by any tool that speaks the DG ontology.
-      </p>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        The mapping is lossy in one direction — DG's relation vocabulary (supports / opposes / addresses / interpretedAs) is smaller than ours. We carry the original CiTO relation type alongside the DG mapping so no information is lost.
-      </p>
-      <pre class="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-xs text-gray-700 dark:text-gray-300 overflow-x-auto leading-relaxed mb-3"><code>{dgExample}</code></pre>
-      <a href="/elife-claim-trees/exports/headley.dg.jsonld" class="inline-flex items-center gap-1.5 text-sm text-amber-700 dark:text-amber-400 hover:underline" target="_blank">
-        Download: Headley 2026, Discourse Graphs JSON-LD &rarr;
-      </a>
-    </div>
-
-    <!-- Claim roles reference -->
-    <div class="mb-14">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">The 9 claim roles</h2>
-      <p class="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
-        Every claim carries a <strong>role</strong> — its rhetorical function in the paper's argument.
-        This vocabulary extends Stencila's existing Claim types (which cover formal/mathematical claims like theorems and proofs) into empirical science.
-      </p>
-      <div class="grid sm:grid-cols-3 gap-3 text-sm">
-        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
-          <div class="font-medium text-gray-900 dark:text-gray-100">hypothesis</div>
-          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">The paper's central bet — often implicit</div>
-        </div>
-        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
-          <div class="font-medium text-gray-900 dark:text-gray-100">prediction</div>
-          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Testable consequence of a hypothesis</div>
-        </div>
-        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
-          <div class="font-medium text-gray-900 dark:text-gray-100">empirical</div>
-          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Measured result, panel-grounded</div>
-        </div>
-        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
-          <div class="font-medium text-gray-900 dark:text-gray-100">control</div>
-          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Rules out an alternative explanation</div>
-        </div>
-        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
-          <div class="font-medium text-gray-900 dark:text-gray-100">scope</div>
-          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Boundary condition on other claims</div>
-        </div>
-        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
-          <div class="font-medium text-gray-900 dark:text-gray-100">methodological</div>
-          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Capability of the apparatus</div>
-        </div>
-        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
-          <div class="font-medium text-gray-900 dark:text-gray-100">synthesis</div>
-          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Integrates multiple results</div>
-        </div>
-        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
-          <div class="font-medium text-gray-900 dark:text-gray-100">interpretation</div>
-          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Reframes through theory</div>
-        </div>
-        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
-          <div class="font-medium text-gray-900 dark:text-gray-100">literature-context</div>
-          <div class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">Cited prior result</div>
-        </div>
+      <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+        <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">503</div>
+        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">typed relations</div>
+      </div>
+      <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+        <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">10</div>
+        <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">eLife papers</div>
       </div>
     </div>
 
-    <!-- Corpus stats -->
-    <div class="mb-14">
-      <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">The corpus in standards-aligned format</h2>
-      <div class="grid grid-cols-3 gap-4 mb-4">
-        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
-          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">231</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">claims</div>
-        </div>
-        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
-          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">503</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">typed relations</div>
-        </div>
-        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
-          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">10</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">eLife papers</div>
-        </div>
-      </div>
-      <p class="text-sm text-gray-500 dark:text-gray-400">
-        All 10 eLife papers in the curated corpus, expressed as OXA-native JSON with CiTO-mapped edges. All 9 roles and 14 edge types represented.
-      </p>
+    <!-- Downloads -->
+    <h2 class="text-xl font-semibold text-gray-900 dark:text-gray-100 mb-3">Downloads</h2>
+    <div class="space-y-3 mb-8">
+      <a href="/elife-claim-trees/exports/headley.oxa.json" class="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-all no-underline group" target="_blank">
+        <code class="text-xs text-amber-700 dark:text-amber-400">JSON</code>
+        <span class="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100">Headley 2026 — OXA format (26 claims)</span>
+      </a>
+      <a href="/elife-claim-trees/exports/headley.dg.jsonld" class="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-all no-underline group" target="_blank">
+        <code class="text-xs text-blue-700 dark:text-blue-400">JSONLD</code>
+        <span class="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100">Headley 2026 — Discourse Graphs export</span>
+      </a>
+      <a href="/elife-claim-trees/exports/claim-relations.ttl" class="flex items-center gap-3 p-3 border border-gray-200 dark:border-gray-700 rounded-lg hover:border-gray-400 dark:hover:border-gray-500 transition-all no-underline group" target="_blank">
+        <code class="text-xs text-green-700 dark:text-green-400">TTL</code>
+        <span class="text-sm text-gray-700 dark:text-gray-300 group-hover:text-gray-900 dark:group-hover:text-gray-100">Claim-relations OWL vocabulary (8 CiTO extensions)</span>
+      </a>
     </div>
 
   </div>
