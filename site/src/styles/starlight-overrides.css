@@ -43,20 +43,38 @@
   --sl-color-gray-7: #e5e7eb;
 }
 
-/* Dark mode — preserve readability but stay grayscale */
+/* Dark mode — force light appearance to match the rest of the site */
 :root[data-theme='dark'] {
-  --sl-color-bg: #0a0a0a;
-  --sl-color-bg-nav: #0a0a0a;
-  --sl-color-bg-sidebar: #0a0a0a;
-  --sl-color-bg-inline-code: #1f2937;
-  --sl-color-text: #f9fafb;
-  --sl-color-text-accent: #e5e7eb;
-  --sl-color-hairline: #1f2937;
-  --sl-color-hairline-light: #1f2937;
-  --sl-color-hairline-shade: #374151;
-  --sl-color-accent: #f9fafb;
-  --sl-color-accent-high: #ffffff;
-  --sl-color-accent-low: #1f2937;
+  --sl-color-bg: #ffffff;
+  --sl-color-bg-nav: #ffffff;
+  --sl-color-bg-sidebar: #ffffff;
+  --sl-color-bg-inline-code: #f3f4f6;
+  --sl-color-bg-accent: #f9fafb;
+  --sl-color-text: #111827;
+  --sl-color-text-accent: #1f2937;
+  --sl-color-text-invert: #ffffff;
+  --sl-color-white: #111827;
+  --sl-color-hairline: #f3f4f6;
+  --sl-color-hairline-light: #f3f4f6;
+  --sl-color-hairline-shade: #e5e7eb;
+  --sl-color-accent: #1f2937;
+  --sl-color-accent-high: #111827;
+  --sl-color-accent-low: #f3f4f6;
+  --sl-color-gray-1: #111827;
+  --sl-color-gray-2: #1f2937;
+  --sl-color-gray-3: #374151;
+  --sl-color-gray-4: #6b7280;
+  --sl-color-gray-5: #9ca3af;
+  --sl-color-gray-6: #d1d5db;
+  --sl-color-gray-7: #e5e7eb;
+  --sl-color-black: #ffffff;
+}
+
+/* Force code blocks to light background regardless of theme */
+:root[data-theme='dark'] .expressive-code,
+:root[data-theme='dark'] .expressive-code pre {
+  background: #f9fafb !important;
+  color: #1f2937 !important;
 }
 
 /* ── Header — match the existing site's thin sticky nav (h-12) ────────── */

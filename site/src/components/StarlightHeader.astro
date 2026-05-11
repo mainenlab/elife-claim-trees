@@ -5,7 +5,6 @@
 // plus the search and theme toggle off to the right.
 
 import Search from '@astrojs/starlight/components/Search.astro';
-import ThemeSelect from '@astrojs/starlight/components/ThemeSelect.astro';
 import SocialIcons from '@astrojs/starlight/components/SocialIcons.astro';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
@@ -19,6 +18,7 @@ const isActive = (path: string) =>
     : pathname.startsWith(path);
 ---
 
+<script is:inline>document.documentElement.dataset.theme = 'light';</script>
 <div class="site-nav-wrapper">
   <nav class="site-nav">
     <div class="site-nav-inner">
@@ -31,7 +31,6 @@ const isActive = (path: string) =>
       <div class="site-nav-actions">
         <Search {...Astro.props} />
         <SocialIcons {...Astro.props} />
-        <ThemeSelect {...Astro.props} />
       </div>
     </div>
   </nav>
