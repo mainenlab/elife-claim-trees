@@ -1,17 +1,151 @@
 ---
-title: Subcommands
-description: (Stub — full content coming as part of the documentation rollout.)
+title: The five subcommands
+description: Reference for extract, write, verify-refs, run, evaluate. What each does, common flags, when to use which.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-<Aside type="caution" title="Stub page">
-  This page is a placeholder. Full content is being written as part of the
-  documentation rollout. The sidebar structure is in place so the site
-  navigation works; deep-dive content arrives over the coming days.
+The CLI exposes five subcommands. They compose in a stable order: `extract` produces a draft, `write` consumes a draft and produces claim files, `verify-refs` operates on claim files, `run` chains the first three for batch use, and `evaluate` is the round-trip benchmarking harness.
 
-  See the [Overview](/docs/overview/what-this-is/),
-  [Pipeline architecture](/docs/architecture/pipeline/), or
-  [The external reviewer](/docs/architecture/external-reviewer/) for
-  what's available now.
-</Aside>
+## `extract` — steps 1-4
+
+```bash
+elife-extract extract \
+  --doi 10.7554/eLife.95562 \
+  --corpus-dir <path> \
+  --output-dir <path>
+```
+
+Fetches the paper PDF, slices into agent inputs, runs the three extraction agents, reconciles. Writes `draft-<slug>.json` and `agents-<slug>.json` to `--output-dir`. **No claim files are written.**
+
+| Flag | Meaning | Default |
+|:-----|:--------|:--------|
+| `--doi` (required) | eLife paper DOI (e.g., `10.7554/eLife.95562`) | — |
+| `--corpus-dir` | Required (read-only at this phase, used downstream) | env `ELIFE_CORPUS_DIR` |
+| `--output-dir` | Where draft JSON lands | env `ELIFE_EXTRACT_OUTPUT`, then `./out` |
+| `--paper-slug` | Override slug derived from DOI | derived from PDF metadata |
+| `--prompt-variant` | Named directory under `prompts/<variant>/` | `default` |
+| `--reconcile-strategy` | `confidence-tagged` / `union` / `intersection-only` / `majority-vote` | `confidence-tagged` |
+| `--max-claims` | Hard cap on per-paper claim count (cost control) | unlimited |
+| `--no-retry-on-thin` | Disable retrying agents whose output looks thin | retry enabled |
+| `--model-results` | Override Results-reader model | `claude-sonnet-4-6` |
+| `--model-caption` | Override Caption-reader model | `claude-sonnet-4-6` |
+| `--model-structure` | Override Structure-reader model | `claude-sonnet-4-6` |
+| `--model-reconcile` | Override reconciliation model | `claude-opus-4-6` |
+| `--vertex-project` | GCP project | `cr-mainen` |
+| `--vertex-region` | Vertex region | `europe-west1` |
+
+Cost: ~$4-5. Time: ~5 min.
+
+## `write` — steps 5-7
+
+```bash
+elife-extract write \
+  --draft <path>/draft-<slug>.json \
+  --corpus-dir <path> \
+  --review-mode interactive
+```
+
+Loads the draft, runs the chosen review mode, then writes per-claim `.md` files into `<corpus-dir>/<slug>/`.
+
+| Flag | Meaning | Default |
+|:-----|:--------|:--------|
+| `--draft` (required) | Path to the draft JSON from `extract` | — |
+| `--corpus-dir` (required) | Where claim files land | env `ELIFE_CORPUS_DIR` |
+| `--review-mode` | `interactive` / `external` / `auto-approve` / `dry-run` | `interactive` |
+
+The four review modes have very different cost/quality profiles. See [review modes — when to use each](/docs/cli/review-modes/) for the operational decision tree.
+
+Cost: $0 (`auto-approve`, `dry-run`, `interactive`) or ~$2 (`external`). Time: &lt;1s (auto-approve), ~5 min (external), variable (interactive based on analyst time).
+
+## `verify-refs` — CrossRef DOI resolution
+
+```bash
+elife-extract verify-refs \
+  --paper <slug> \
+  --corpus-dir <path>
+```
+
+For each `role: literature-context` claim in `<corpus-dir>/<slug>/`, queries CrossRef. Two paths:
+
+- **confirm**: claim already has a `doi:` at top-level frontmatter (per the schema for literature-context claims). CrossRef confirms the DOI resolves to a real paper (anti-hallucination check).
+- **found**: no DOI yet. Extract Author (Year) hints from claim text and slug; query CrossRef; write the highest-scoring match (score > 15) back to top-level `doi:`.
+
+| Flag | Meaning | Default |
+|:-----|:--------|:--------|
+| `--paper` | Single paper slug. Omit to sweep entire corpus. | none (sweeps all) |
+| `--corpus-dir` (required) | Where claim files live | env `ELIFE_CORPUS_DIR` |
+| `--dry-run` | Show resolutions without writing back | write enabled |
+
+Cost: $0 (CrossRef is free, polite mailto). Time: ~1s per cited paper.
+
+## `run` — composed shorthand
+
+```bash
+elife-extract run \
+  --doi 10.7554/eLife.95562 \
+  --corpus-dir <path>
+```
+
+Chains `extract` + `write --review-mode auto-approve` + `verify-refs`. Useful for tests, demos, and unattended batch runs where curator-quality output isn't needed.
+
+**Note:** `run` defaults to `--review-mode auto-approve`, not `external`. For bulk operation with the Opus reviewer, run `extract` and `write --review-mode external` separately, or use `evaluate` (which exposes `--review-mode`).
+
+| Flag | Meaning | Default |
+|:-----|:--------|:--------|
+| `--doi` (required) | eLife paper DOI | — |
+| `--corpus-dir` (required) | Where claim files land | env `ELIFE_CORPUS_DIR` |
+| `--paper-slug` | Override slug | derived |
+| `--max-claims` | Hard cap on claims | unlimited |
+| `--reconcile-strategy` | Reconciliation strategy | `confidence-tagged` |
+| (model flags) | Per-agent model overrides | as in `extract` |
+
+Cost: ~$5 (extract) + $0 (auto-approve write) = ~$5. Time: ~5-7 min.
+
+## `evaluate` — round-trip scoring
+
+```bash
+elife-extract evaluate \
+  --reference-dir <path-to-curated-corpus> \
+  --work-dir <path> \
+  --paper headley-2026-inhibitory-rhythms \
+  --review-mode external
+```
+
+For each named (or all) paper in the reference corpus, runs the full pipeline, scores the CLI output against the reference (claim recovery, panel agreement, role agreement, match quality), and produces a per-paper scorecard. After all papers, renders an aggregate scorecard with mean/median per metric.
+
+| Flag | Meaning | Default |
+|:-----|:--------|:--------|
+| `--reference-dir` (required) | Path to curated reference corpus (e.g., `~/Projects/mainenlab/elife-claim-trees/claims/`) | — |
+| `--work-dir` (required) | Where per-paper artifacts and scorecards land | — |
+| `--paper` / `--papers` / `--all` | Single paper slug, comma-separated list, or all paper-dirs | none (one required) |
+| `--review-mode` | `auto-approve` / `external` | `external` |
+| `--skip-existing` | Skip papers that already have a scorecard.json | re-runs |
+| (model flags) | Per-agent model overrides | as in `extract` |
+
+Use `evaluate` to validate prompt iterations, model substitutions, or new review modes empirically before deployment. See [the iteration discipline](/docs/validation/iteration/) for the workflow.
+
+Cost: ~$10 per paper (extract + review + matcher). Time: ~15-20 min per paper sequential.
+
+## Subcommand composition
+
+The five subcommands compose into a few standard operational shapes:
+
+| Operation | Command sequence |
+|:----------|:-----------------|
+| Curated single-paper extraction | `extract` → analyst review → `write --review-mode interactive` → `verify-refs` |
+| Bulk batch with Opus review | per paper: `extract` → `write --review-mode external` → `verify-refs` |
+| Test/demo run | `run --doi <DOI>` (auto-approve all the way through) |
+| Validate prompt change | `evaluate --all` (compares to baseline scorecard) |
+| Inspect without writing | `extract` → `write --review-mode dry-run` |
+
+## Implementation references
+
+- `elife_extract/cli.py` — argparse definition; ~300 lines
+- Each subcommand handler is ~30-100 lines
+
+## Next steps
+
+- [Review modes — when to use each](/docs/cli/review-modes/) — the operational decision for `write`
+- [Configuration reference](/docs/reference/config/) — every env var and flag in detail
+- [Batch operation](/docs/cli/batch/) — running on many papers

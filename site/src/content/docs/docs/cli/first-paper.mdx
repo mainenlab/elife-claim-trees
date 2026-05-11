@@ -1,17 +1,204 @@
 ---
-title: First Paper
-description: (Stub — full content coming as part of the documentation rollout.)
+title: First paper walkthrough
+description: Concrete commands from a clean install to a populated claim-files directory. Headley 2026 walked through with terminal output at each step.
 ---
 
 import { Aside } from '@astrojs/starlight/components';
 
-<Aside type="caution" title="Stub page">
-  This page is a placeholder. Full content is being written as part of the
-  documentation rollout. The sidebar structure is in place so the site
-  navigation works; deep-dive content arrives over the coming days.
+This page is the operational counterpart to [the quick demo](/docs/overview/quick-demo/). The demo explains what's happening conceptually; this page is the commands you type and the output you see. By the end, you have 87 claim files written into your corpus directory and a sense for what each subcommand does.
 
-  See the [Overview](/docs/overview/what-this-is/),
-  [Pipeline architecture](/docs/architecture/pipeline/), or
-  [The external reviewer](/docs/architecture/external-reviewer/) for
-  what's available now.
-</Aside>
+We use Headley 2026 (DOI: `10.7554/eLife.95562`) as the example.
+
+## Step 0 — Set up directories
+
+```bash
+mkdir -p /tmp/my-corpus/{out,claims}
+cd /tmp/my-corpus
+```
+
+`out/` will hold the JSON intermediates (the reconciled draft, the reviewer-revised draft, raw agent outputs). `claims/` is the corpus root where claim files land.
+
+## Step 1 — Extract
+
+```bash
+elife-extract extract \
+  --doi 10.7554/eLife.95562 \
+  --corpus-dir ./claims \
+  --output-dir ./out
+```
+
+This runs Steps 1-4 of the methodology: PDF fetch, slice into agent inputs, three Sonnet extractions, Opus reconciliation. **No claim files are written yet.**
+
+You should see something like:
+
+```
+=== Step 1 — Prepare ===
+  doi    = 10.7554/eLife.95562
+  slug   = headley-2024-spatially-targeted-inhibitory
+  title  = Spatially targeted inhibitory rhythms
+  path   = pdf
+  slices = abstract:7184c results:88354c captions:87918c methods:26173c
+  panels = 37 detected
+
+=== Steps 2-3 — Three-agent extraction ===
+  Results-reader   (claude-sonnet-4-6)
+  Caption-reader   (claude-sonnet-4-6)
+  Structure-reader (claude-sonnet-4-6)
+  vertex: project=cr-mainen region=europe-west1
+
+  results-reader   →  48 candidate claim(s)
+  caption-reader   →  47 candidate claim(s)
+  structure-reader →  17 candidate claim(s)
+
+=== Step 4 — Reconciliation (claude-opus-4-6) ===
+  draft has 76 claim(s):
+    high             34
+    contested         5
+    single-source    37
+
+=== Output ===
+  draft  → ./out/draft-headley-2024-spatially-targeted-inhibitory.json
+  agents → ./out/agents-headley-2024-spatially-targeted-inhibitory.json
+  Next: elife-extract write --draft ./out/draft-... --corpus-dir ./claims
+```
+
+Wall time: ~5 minutes. API cost: ~$4-5.
+
+The `out/draft-*.json` is the reconciled draft — 76 claims tagged with confidence, sources, and per-agent evidence quotes. The `out/agents-*.json` is the raw per-agent output for debugging (rarely needed but preserved for audit).
+
+## Step 2 — Write (with external review)
+
+```bash
+elife-extract write \
+  --draft ./out/draft-headley-2024-spatially-targeted-inhibitory.json \
+  --corpus-dir ./claims \
+  --review-mode external
+```
+
+This runs Step 4.5 (external Opus reviewer) and Steps 5-7 (review gate, edge mapping, write).
+
+```
+=== Step 5 — Review gate (external) ===
+  draft = ./out/draft-headley-2024-spatially-targeted-inhibitory.json
+  paper = headley-2024-spatially-targeted-inhibitory (10.7554/eLife.95562)
+  claims = 76 (per-agent: results=48 caption=47 structure=17)
+
+  external reviewer: re-fetching paper context for 10.7554/eLife.95562...
+  external reviewer: calling claude-opus-4-6...
+  external review: 76 -> 86 claims after revision
+  revised draft saved: ./out/draft-headley-2024-spatially-targeted-inhibitory.reviewed.json
+
+=== Steps 6-7 — Write claim files ===
+  corpus_dir = ./claims
+  paper_dir  = ./claims/headley-2024-spatially-targeted-inhibitory
+  wrote 87 files:
+    headley-2024-spatially-targeted-inhibitory/all-results-derive-single-cell-compartmental.md
+    headley-2024-spatially-targeted-inhibitory/cell-morphology-single-morphological-reconstruction.md
+    headley-2024-spatially-targeted-inhibitory/index.md
+    ...
+```
+
+Wall time: ~5 minutes (mostly the Opus reviewer + write). API cost: ~$2.
+
+## Step 3 — Verify references
+
+```bash
+elife-extract verify-refs \
+  --paper headley-2024-spatially-targeted-inhibitory \
+  --corpus-dir ./claims \
+  --dry-run
+```
+
+The `--dry-run` flag shows resolutions without writing back. Drop it to commit verified DOIs to claim frontmatter.
+
+```
+=== verify-refs (paper=headley-2024-spatially-targeted-inhibitory, dry_run=True) ===
+  corpus_dir = ./claims
+
+  [✓ confirmed] headley-.../interprets-pv-gamma-sst-beta-associations  doi=10.1038/nature08002
+      Jessica A. Cardin et al. — Driving fast-spiking cells induces gamma rhythm and controls sensory responses
+
+=== Summary (1 literature-context claim(s)) ===
+  confirmed          1
+  resolution rate    100.0% (1/1)
+```
+
+CrossRef is free. Wall time: ~1s per cited paper.
+
+## Step 4 — Inspect what you have
+
+```bash
+ls ./claims/headley-2024-spatially-targeted-inhibitory/ | head
+```
+
+```
+all-results-derive-single-cell-compartmental.md
+beta-bidirectional-dendritic-control.md
+beta-frequency-inhibition-optimally-matched-timescale.md
+ca2-spike-occurrence-correlated-coupling.md
+distal-dendritic-inhibition-decreased-nmda.md
+... (and 82 more)
+index.md
+```
+
+Open one to see the schema-conformant frontmatter:
+
+```bash
+head -25 ./claims/headley-2024-spatially-targeted-inhibitory/all-results-derive-single-cell-compartmental.md
+```
+
+```yaml
+---
+uuid: 9007e470-87e4-42f7-99a4-cfd05dcdf38f
+slug: all-results-derive-single-cell-compartmental
+doi: '~'
+claim: >
+  All results derive from a single-cell compartmental model of one L5 pyramidal
+  tract neuron (adapted from Hay et al., 2011 / Egger et al., 2020), not from
+  network simulations or experimental recordings.
+claim-type: assessment
+role: scope
+concepts: []
+priority: '2026-05-10'
+epistemic: tentative
+belongings: []
+assertions:
+- paper-slug: headley-2024-spatially-targeted-inhibitory
+  doi: 10.7554/eLife.95562
+  panel: null
+  confidence: tentative
+reproductions: []
+---
+```
+
+The body of the file (after the `---`) holds extraction notes and per-agent evidence quotes for audit.
+
+## All in one shot
+
+For repeatable batch operation, the four steps compose:
+
+```bash
+elife-extract run \
+  --doi 10.7554/eLife.95562 \
+  --corpus-dir ./claims
+```
+
+The `run` subcommand chains `extract` + `write --review-mode auto-approve` + `verify-refs`. Note: `run` defaults to **auto-approve**, not external. For bulk operation with the reviewer pass, run `extract` and `write --review-mode external` separately, or use `evaluate` (see [batch operation](/docs/cli/batch/)).
+
+## Total cost and time
+
+| Step | Wall time | API cost |
+|:-----|:----------|:---------|
+| extract (PDF fetch + 3 Sonnet + Opus reconcile) | ~5 min | ~$4-5 |
+| write --review-mode external (Opus reviewer + write) | ~5 min | ~$2 |
+| verify-refs (CrossRef API) | ~1s per cited paper | $0 |
+| **Total** | **~10-15 min** | **~$6-7** |
+
+If you ran `run` (auto-approve) instead, drop the reviewer cost and time: **~$5, ~5-7 min total** but lower role-classification quality.
+
+## Common things to do next
+
+- Process more papers — see [batch operation](/docs/cli/batch/)
+- Validate your install end-to-end — see [evaluate against the curated reference](/docs/contributing/validation/)
+- Tune the model selection — see [cost and performance](/docs/cli/cost/)
+- Hand the claim files to a curator for the high-value review — see [the review gate](/docs/architecture/review-gate/)
