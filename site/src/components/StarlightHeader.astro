@@ -27,6 +27,7 @@ const isActive = (path: string) =>
       <a href={url('/methodology')} class={`site-nav-link ${isActive('/methodology') ? 'active' : ''}`}>Methodology</a>
       <a href={url('/findings')} class={`site-nav-link ${isActive('/findings') ? 'active' : ''}`}>Findings</a>
       <a href={url('/docs')} class={`site-nav-link ${isActive('/docs') ? 'active' : ''}`}>Docs</a>
+      <a href={url('/demo')} class={`site-nav-link ${isActive('/demo') ? 'active' : ''}`}>Demo</a>
       <div class="site-nav-spacer"></div>
       <div class="site-nav-actions">
         <Search {...Astro.props} />

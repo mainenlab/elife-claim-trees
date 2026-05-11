@@ -1,0 +1,287 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const base = import.meta.env.BASE_URL.replace(/\/$/, '');
+const url = (path: string) => `${base}${path}/`;
+
+// Example claims from Headley 2026 in different formats
+const yamlExample = `---
+uuid: eb2cf2aa-aba7-4b26-9ba2-c3589add004d
+slug: hypothesis-distinct-compartmental-roles
+claim: >
+  Perisomatic and distal dendritic inhibition serve
+  distinct computational roles in layer 5 pyramidal
+  neurons.
+claim-type: hypothesis
+role: hypothesis
+epistemic: hypothesis
+entails:
+  - prediction-perisomatic-threshold-mechanism
+  - prediction-distal-dendritic-spike-mechanism
+---`;
+
+const oxaExample = `{
+  "type": "Claim",
+  "identifier": "hypothesis-distinct-compartmental-roles",
+  "role": "hypothesis",
+  "epistemicStrength": "moderate",
+  "children": [
+    {
+      "type": "Text",
+      "value": "Perisomatic and distal dendritic inhibition
+        serve distinct computational roles in regulating
+        neuronal output."
+    }
+  ],
+  "relations": [
+    {
+      "xref": "prediction-distal-dendritic-spike-mechanism",
+      "relationType": "claimrel:entails"
+    },
+    {
+      "xref": "prediction-beta-optimal-distal",
+      "relationType": "claimrel:entails"
+    }
+  ]
+}`;
+
+const dgExample = `{
+  "@id": "https://elife-claim-trees.org/papers/headley/
+    hypothesis-distinct-compartmental-roles",
+  "@type": "dg:Claim",
+  "dg:content": "Perisomatic and distal dendritic
+    inhibition serve distinct computational roles
+    in regulating neuronal output.",
+  "dg:role": "hypothesis"
+}`;
+---
+
+<Layout title="Ecosystem Demo">
+  <div class="max-w-5xl mx-auto px-4 sm:px-6 py-16">
+
+    <div class="mb-12">
+      <h1 class="text-3xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight mb-3">Ecosystem integration demo</h1>
+      <p class="text-lg text-gray-500 dark:text-gray-400 mb-6">How claim-trees connects to the open scientific publishing ecosystem</p>
+      <p class="text-gray-700 dark:text-gray-300 leading-relaxed max-w-3xl">
+        This page demonstrates the pipeline from paper to structured claims across three standards:
+        the pipeline's native OXA format, the CiTO citation ontology for typed edges, and
+        Discourse Graphs JSON-LD for knowledge-graph interoperability.
+      </p>
+    </div>
+
+    <!-- Pipeline flow -->
+    <div class="mb-16">
+      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-6">Pipeline</h2>
+      <div class="grid grid-cols-5 gap-3 text-center text-sm mb-8">
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
+          <div class="font-semibold text-gray-900 dark:text-gray-100 mb-1">JATS-XML</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Structured input from eLife</div>
+        </div>
+        <div class="flex items-center justify-center text-gray-300 dark:text-gray-600 text-xl">&rarr;</div>
+        <div class="bg-amber-50 dark:bg-amber-900/20 rounded-xl p-4 border border-amber-200 dark:border-amber-800">
+          <div class="font-semibold text-amber-900 dark:text-amber-200 mb-1">3 agents + reviewer</div>
+          <div class="text-xs text-amber-700 dark:text-amber-400">Extract, reconcile, review</div>
+        </div>
+        <div class="flex items-center justify-center text-gray-300 dark:text-gray-600 text-xl">&rarr;</div>
+        <div class="bg-green-50 dark:bg-green-900/20 rounded-xl p-4 border border-green-200 dark:border-green-800">
+          <div class="font-semibold text-green-900 dark:text-green-200 mb-1">OXA claims</div>
+          <div class="text-xs text-green-700 dark:text-green-400">CiTO edges, 9 roles</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Three formats -->
+    <div class="mb-16">
+      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-6">One claim, three formats</h2>
+      <p class="text-gray-700 dark:text-gray-300 mb-6 leading-relaxed">
+        The same hypothesis from <a href={url('/papers/headley-2026-inhibitory-rhythms')} class="text-amber-700 dark:text-amber-400 hover:underline">Headley 2026</a>,
+        represented in the original corpus format (YAML frontmatter), the OXA-native format (JSON with CiTO edges),
+        and the Discourse Graphs export (JSON-LD).
+      </p>
+
+      <div class="grid lg:grid-cols-3 gap-4">
+        <div>
+          <div class="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wider mb-2">Original (YAML frontmatter)</div>
+          <pre class="bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-700 rounded-lg p-4 text-xs text-gray-700 dark:text-gray-300 overflow-x-auto leading-relaxed"><code>{yamlExample}</code></pre>
+          <p class="text-xs text-gray-500 dark:text-gray-400 mt-2">Custom schema, custom edge names, markdown files</p>
+        </div>
+        <div>
+          <div class="text-xs font-semibold text-amber-700 dark:text-amber-400 uppercase tracking-wider mb-2">OXA-native (JSON)</div>
+          <pre class="bg-amber-50/50 dark:bg-amber-900/10 border border-amber-200 dark:border-amber-800 rounded-lg p-4 text-xs text-gray-700 dark:text-gray-300 overflow-x-auto leading-relaxed"><code>{oxaExample}</code></pre>
+          <p class="text-xs text-amber-700 dark:text-amber-400 mt-2">Standards-aligned: OXA nodes, CiTO/claimrel edges</p>
+        </div>
+        <div>
+          <div class="text-xs font-semibold text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-2">Discourse Graphs (JSON-LD)</div>
+          <pre class="bg-blue-50/50 dark:bg-blue-900/10 border border-blue-200 dark:border-blue-800 rounded-lg p-4 text-xs text-gray-700 dark:text-gray-300 overflow-x-auto leading-relaxed"><code>{dgExample}</code></pre>
+          <p class="text-xs text-blue-700 dark:text-blue-400 mt-2">Knowledge-graph interoperable: Q/C/E/S ontology</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Roles -->
+    <div class="mb-16">
+      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-6">The 9 claim roles</h2>
+      <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+        Every claim carries a <strong>role</strong> — its rhetorical function in the paper's argument.
+        The role determines what edges the claim can carry and where it sits in the argument structure.
+      </p>
+      <div class="grid sm:grid-cols-3 gap-3 text-sm">
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+          <div class="font-medium text-gray-900 dark:text-gray-100">hypothesis</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">The paper's central bet — often implicit</div>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+          <div class="font-medium text-gray-900 dark:text-gray-100">prediction</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Testable consequence of a hypothesis</div>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+          <div class="font-medium text-gray-900 dark:text-gray-100">empirical</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Measured result, panel-grounded</div>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+          <div class="font-medium text-gray-900 dark:text-gray-100">control</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Rules out an alternative explanation</div>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+          <div class="font-medium text-gray-900 dark:text-gray-100">scope</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Boundary condition on other claims</div>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+          <div class="font-medium text-gray-900 dark:text-gray-100">methodological</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Capability of the apparatus</div>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+          <div class="font-medium text-gray-900 dark:text-gray-100">synthesis</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Integrates multiple results</div>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+          <div class="font-medium text-gray-900 dark:text-gray-100">interpretation</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Reframes through theory</div>
+        </div>
+        <div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
+          <div class="font-medium text-gray-900 dark:text-gray-100">literature-context</div>
+          <div class="text-xs text-gray-500 dark:text-gray-400">Cited prior result</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Edge types -->
+    <div class="mb-16">
+      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-6">Typed edges (CiTO + extensions)</h2>
+      <p class="text-gray-700 dark:text-gray-300 mb-4 leading-relaxed">
+        Claims link to each other via typed relations. Six use standard <a href="https://sparontologies.github.io/cito/current/cito.html" class="text-amber-700 dark:text-amber-400 hover:underline" target="_blank">CiTO</a> vocabulary;
+        eight are extensions defined as CiTO subproperties for entailment compatibility.
+      </p>
+      <div class="grid sm:grid-cols-2 gap-x-8 gap-y-1 text-sm">
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 px-1.5 py-0.5 rounded">cito</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>supports</strong> — factual or intellectual support</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 px-1.5 py-0.5 rounded">cito</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>extends</strong> — builds on</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 px-1.5 py-0.5 rounded">cito</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>qualifies</strong> — places conditions upon</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 px-1.5 py-0.5 rounded">cito</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>disagreesWith</strong> — dissociates</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 px-1.5 py-0.5 rounded">cito</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>usesMethodIn</strong> — enables method</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-green-50 dark:bg-green-900/20 text-green-800 dark:text-green-300 px-1.5 py-0.5 rounded">cito</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>citesAsSourceDocument</strong> — derived from</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 px-1.5 py-0.5 rounded">ext</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>tests</strong> — empirical test (outcome-neutral)</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 px-1.5 py-0.5 rounded">ext</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>entails</strong> — logical entailment</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 px-1.5 py-0.5 rounded">ext</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>requires</strong> — logical prerequisite</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 px-1.5 py-0.5 rounded">ext</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>scopes</strong> — delimits applicability</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 px-1.5 py-0.5 rounded">ext</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>interprets</strong> — theoretical reframing</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 px-1.5 py-0.5 rounded">ext</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>rulesOut</strong> — eliminates hypothesis</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 px-1.5 py-0.5 rounded">ext</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>replicates</strong> — empirical replication</span>
+        </div>
+        <div class="flex items-baseline gap-2 py-1.5 border-b border-gray-100 dark:border-gray-800">
+          <code class="text-xs bg-amber-50 dark:bg-amber-900/20 text-amber-800 dark:text-amber-300 px-1.5 py-0.5 rounded">ext</code>
+          <span class="text-gray-700 dark:text-gray-300"><strong>contradicts</strong> — incompatible findings</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Corpus stats -->
+    <div class="mb-16">
+      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-6">Corpus in OXA format</h2>
+      <div class="grid grid-cols-3 gap-4 mb-6">
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">327</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">claims migrated</div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">610</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">typed relations</div>
+        </div>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
+          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">13</div>
+          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">papers</div>
+        </div>
+      </div>
+      <p class="text-sm text-gray-500 dark:text-gray-400">
+        The full curated corpus, migrated from YAML frontmatter to OXA-native JSON with CiTO-mapped edges.
+        Zero information loss. All 9 roles and 14 edge types represented.
+      </p>
+    </div>
+
+    <!-- Standards alignment -->
+    <div class="mb-16">
+      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-6">Standards alignment</h2>
+      <div class="space-y-3">
+        <a href="https://oxa.dev" class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-gray-400 dark:hover:border-gray-500 transition-all no-underline group" target="_blank">
+          <div class="flex-shrink-0 w-8 h-8 bg-amber-50 dark:bg-amber-900/20 rounded-lg flex items-center justify-center text-amber-700 dark:text-amber-300 font-semibold text-xs">OXA</div>
+          <div>
+            <div class="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-amber-700 dark:group-hover:text-amber-400 transition-colors">Open Exchange Architecture</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">Claims are native OXA nodes — Claim RFC proposed</div>
+          </div>
+        </a>
+        <a href="https://sparontologies.github.io/cito/current/cito.html" class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-gray-400 dark:hover:border-gray-500 transition-all no-underline group" target="_blank">
+          <div class="flex-shrink-0 w-8 h-8 bg-green-50 dark:bg-green-900/20 rounded-lg flex items-center justify-center text-green-700 dark:text-green-300 font-semibold text-xs">CiTO</div>
+          <div>
+            <div class="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-green-700 dark:group-hover:text-green-400 transition-colors">Citation Typing Ontology</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">6 exact CiTO matches + 8 extensions as subproperties</div>
+          </div>
+        </a>
+        <a href="https://discoursegraphs.com" class="flex items-center gap-3 p-4 border border-gray-200 dark:border-gray-700 rounded-xl hover:border-gray-400 dark:hover:border-gray-500 transition-all no-underline group" target="_blank">
+          <div class="flex-shrink-0 w-8 h-8 bg-blue-50 dark:bg-blue-900/20 rounded-lg flex items-center justify-center text-blue-700 dark:text-blue-300 font-semibold text-xs">DG</div>
+          <div>
+            <div class="text-sm font-medium text-gray-900 dark:text-gray-100 group-hover:text-blue-700 dark:group-hover:text-blue-400 transition-colors">Discourse Graphs</div>
+            <div class="text-xs text-gray-500 dark:text-gray-400">JSON-LD export compatible with Q/C/E/S ontology</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</Layout>
