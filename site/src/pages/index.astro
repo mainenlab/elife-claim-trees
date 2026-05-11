@@ -65,18 +65,25 @@ const verifiedCount = allClaims.filter(c => c.status.startsWith('verified')).len
     <div class="mb-16">
       <h2 class="text-sm font-semibold text-gray-500 uppercase tracking-widest mb-5">Resources</h2>
       <div class="space-y-3">
-        <a href="/elife-claim-trees/haak-overview.pdf" class="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group" target="_blank">
-          <div class="flex-shrink-0 w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 font-semibold text-xs">PDF</div>
+        <a href={url('/docs')} class="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group">
+          <div class="flex-shrink-0 w-8 h-8 bg-amber-50 rounded-lg flex items-center justify-center text-amber-700 font-semibold text-xs">DOC</div>
           <div>
-            <div class="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors">HAAK Platform Overview</div>
-            <div class="text-xs text-gray-500">Institutional intelligence architecture</div>
+            <div class="text-sm font-medium text-gray-900 group-hover:text-amber-700 transition-colors">Documentation</div>
+            <div class="text-xs text-gray-500">Methodology, architecture, CLI usage, validation results, API reference</div>
           </div>
         </a>
-        <a href="/elife-claim-trees/elife-feedback.pdf" class="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group" target="_blank">
+        <a href="/elife-claim-trees/presentation-overview.pdf" class="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group" target="_blank">
           <div class="flex-shrink-0 w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 font-semibold text-xs">PDF</div>
           <div>
-            <div class="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors">Technical Report (eLife)</div>
-            <div class="text-xs text-gray-500">Claim graph method and findings for eLife corpus</div>
+            <div class="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors">Presentation — Overview</div>
+            <div class="text-xs text-gray-500">Claim-level science: the vision, the pipeline, and where eLife fits (27 slides)</div>
+          </div>
+        </a>
+        <a href="/elife-claim-trees/presentation-detailed.pdf" class="flex items-center gap-3 p-4 border border-gray-200 rounded-xl hover:border-gray-400 hover:shadow-sm transition-all no-underline group" target="_blank">
+          <div class="flex-shrink-0 w-8 h-8 bg-blue-50 rounded-lg flex items-center justify-center text-blue-600 font-semibold text-xs">PDF</div>
+          <div>
+            <div class="text-sm font-medium text-gray-900 group-hover:text-blue-700 transition-colors">Presentation — Detailed</div>
+            <div class="text-xs text-gray-500">Full technical detail: 8-step methodology, per-paper validation, cost projections (52 slides)</div>
           </div>
         </a>
       </div>

@@ -20,7 +20,7 @@ export default defineConfig({
       customCss: ['./src/styles/starlight-overrides.css'],
       // Match the existing site's nav style: minimal, tight.
       components: {
-        // Use defaults; theme via CSS overrides keeps the integration light.
+        Header: './src/components/StarlightHeader.astro',
       },
       sidebar: [
         {
