@@ -77,7 +77,7 @@ app.add_middleware(
 
 class ExtractRequest(BaseModel):
     doi: str
-    api_key: str
+    api_key: str = ""  # empty = use Vertex (internal); non-empty = Anthropic direct
     model_extract: str = "claude-sonnet-4-6"
     model_reconcile: str = "claude-opus-4-6"
 
@@ -144,10 +144,13 @@ async def extract(req: ExtractRequest):
 
     def generate():
         try:
-            # Build config with user's API key
+            # Build config — Anthropic direct if key provided, Vertex if not
             cfg = Config()
-            cfg.anthropic_api_key = req.api_key
-            cfg.backend = "anthropic"
+            if req.api_key:
+                cfg.anthropic_api_key = req.api_key
+                cfg.backend = "anthropic"
+            else:
+                cfg.backend = "vertex"  # uses GOOGLE_APPLICATION_CREDENTIALS on the server
             cfg.model_results = req.model_extract
             cfg.model_caption = req.model_extract
             cfg.model_structure = req.model_extract

@@ -27,15 +27,15 @@ const url = (path: string) => `${base}${path}/`;
           />
         </div>
         <div>
-          <label for="api-key" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Anthropic API key</label>
+          <label for="api-key" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Anthropic API key <span class="font-normal text-gray-400">(optional)</span></label>
           <input
             type="password"
             id="api-key"
-            placeholder="sk-ant-..."
+            placeholder="sk-ant-... (leave empty for demo)"
             class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400"
           />
           <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">
-            Your key is sent to the extraction server over HTTPS, used for this extraction only, and discarded immediately after. It is never stored or logged.
+            Leave empty to use the project's API quota (limited, for demos). Or enter your own key — it is used for this extraction only and never stored.
           </p>
         </div>
         <button
@@ -92,8 +92,8 @@ const url = (path: string) => `${base}${path}/`;
       const doi = document.getElementById('doi').value.trim();
       const apiKey = document.getElementById('api-key').value.trim();
 
-      if (!doi || !apiKey) {
-        showError('Please enter both a DOI and an API key.');
+      if (!doi) {
+        showError('Please enter a DOI.');
         return;
       }
 
