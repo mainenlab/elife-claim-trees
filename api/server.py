@@ -84,15 +84,23 @@ app.add_middleware(
 
 # Mount review endpoints
 from review import router as review_router
+from llm import PROVIDER_MODELS
 app.include_router(review_router)
 
 
 class ExtractRequest(BaseModel):
     doi: str
-    api_key: str = ""       # empty = use Vertex (requires demo_token)
-    demo_token: str = ""    # required when api_key is empty
+    api_key: str = ""
+    demo_token: str = ""
+    provider: str = "anthropic"  # anthropic, openai, google, openrouter, vertex
     model_extract: str = "claude-sonnet-4-6"
     model_reconcile: str = "claude-opus-4-6"
+
+
+@app.get("/providers")
+def list_providers():
+    """List available providers and their models."""
+    return PROVIDER_MODELS
 
 
 def _build_oxa_claim(claim: dict) -> dict:
@@ -143,6 +151,89 @@ def _build_oxa_claim(claim: dict) -> dict:
     if claim.get("confidence"):
         node["metadata"] = {"confidence": claim["confidence"]}
     return node
+
+
+def _run_agent_litellm(agent_name, paper, cfg, provider, api_key, model):
+    """Run an extraction agent via litellm (for non-Anthropic providers)."""
+    from elife_extract.agents import slice_for_agent, load_prompt, parse_json_response
+    from elife_extract.schema import AgentExtraction, CandidateClaim
+    from llm import call_llm
+
+    system_prompt = load_prompt(agent_name, cfg)
+    paper_slice = slice_for_agent(agent_name, paper)
+
+    if not paper_slice.strip() or len(paper_slice) < 200:
+        return AgentExtraction(agent=agent_name, paper_slug=paper.paper_slug, model=model, claims=[])
+
+    raw = call_llm(
+        provider=provider, api_key=api_key, model=model,
+        system=system_prompt, user_message=paper_slice, max_tokens=32768,
+    )
+    parsed = parse_json_response(raw)
+    if not isinstance(parsed, list):
+        raise ValueError(f"agent={agent_name} returned non-list JSON")
+    claims = [CandidateClaim(**c) for c in parsed]
+    return AgentExtraction(agent=agent_name, paper_slug=paper.paper_slug, model=model, claims=claims)
+
+
+def _reconcile_litellm(results_ext, caption_ext, structure_ext, cfg, provider, api_key, model, paper_doi, paper_title):
+    """Run reconciliation via litellm."""
+    from elife_extract.reconcile import load_reconciler_prompt, _format_agent_input
+    from elife_extract.agents import parse_json_response
+    from elife_extract.schema import DraftClaimTable, ReconciledClaim
+    from llm import call_llm
+
+    system_prompt = load_reconciler_prompt(cfg)
+    user_message = (
+        f"# Paper: {paper_title or 'unknown'}\nDOI: {paper_doi}\n"
+        f"Slug: {results_ext.paper_slug}\n\n"
+        f"{_format_agent_input(results_ext)}\n\n"
+        f"{_format_agent_input(caption_ext)}\n\n"
+        f"{_format_agent_input(structure_ext)}\n\n"
+        f"Reconcile these three agent outputs into a single confidence-tagged "
+        f"draft claim table per the schema in your instructions. Return JSON only."
+    )
+
+    raw = call_llm(
+        provider=provider, api_key=api_key, model=model,
+        system=system_prompt, user_message=user_message, max_tokens=32768,
+    )
+    parsed = parse_json_response(raw)
+    if isinstance(parsed, dict):
+        claims_list = parsed.get("claims", [])
+    elif isinstance(parsed, list):
+        claims_list = parsed
+    else:
+        raise ValueError(f"Reconciler returned unexpected type: {type(parsed)}")
+    claims = [ReconciledClaim(**c) for c in claims_list]
+    return DraftClaimTable(paper_slug=results_ext.paper_slug, claims=claims)
+
+
+def _external_review_litellm(paper, draft, cfg, provider, api_key, model):
+    """Run external review via litellm."""
+    from elife_extract.external_review import load_reviewer_prompt, _format_paper_context
+    from elife_extract.agents import parse_json_response
+    from elife_extract.schema import DraftClaimTable, ReconciledClaim
+    from llm import call_llm
+
+    system_prompt = load_reviewer_prompt(cfg)
+    paper_context = _format_paper_context(paper)
+    draft_json = draft.model_dump_json()
+    user_message = f"{paper_context}\n\n---\n\nDraft claim table:\n{draft_json}\n\nReview and revise. Return the full revised claim table as JSON."
+
+    raw = call_llm(
+        provider=provider, api_key=api_key, model=model,
+        system=system_prompt, user_message=user_message, max_tokens=32768,
+    )
+    parsed = parse_json_response(raw)
+    if isinstance(parsed, dict):
+        claims_list = parsed.get("claims", [])
+    elif isinstance(parsed, list):
+        claims_list = parsed
+    else:
+        claims_list = draft.claims
+    claims = [ReconciledClaim(**c) for c in claims_list]
+    return DraftClaimTable(paper_slug=draft.paper_slug, claims=claims, config_snapshot=draft.config_snapshot)
 
 
 @app.get("/health")
@@ -197,30 +288,44 @@ async def extract(req: ExtractRequest):
             paper = prepare(req.doi, input_format="jats")
             yield f"data: {json.dumps({'step': 'prepare', 'message': f'Parsed: {paper.title}', 'slug': paper.paper_slug, 'figures': len(paper.figure_captions), 'panels': len(paper.panel_ids)})}\n\n"
 
+            # Determine if we use litellm or native SDK
+            use_litellm = req.provider not in ("anthropic", "vertex")
+            provider = req.provider
+
             # Steps 2-3: Three-agent extraction (one at a time with progress)
-            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 1/3: Results-reader (reads abstract + results prose)...'})}\n\n"
-            results_ext = run_agent("results", paper, cfg)
-            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 1/3: Results-reader → {len(results_ext.claims)} claims'})}\n\n"
-
-            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 2/3: Caption-reader (reads figure captions panel by panel)...'})}\n\n"
-            caption_ext = run_agent("caption", paper, cfg)
-            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 2/3: Caption-reader → {len(caption_ext.claims)} claims'})}\n\n"
-
-            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 3/3: Structure-reader (reads methods + supplements)...'})}\n\n"
-            structure_ext = run_agent("structure", paper, cfg)
-            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 3/3: Structure-reader → {len(structure_ext.claims)} claims'})}\n\n"
+            for i, (agent_name, agent_desc) in enumerate([
+                ("results", "Results-reader (reads abstract + results prose)"),
+                ("caption", "Caption-reader (reads figure captions panel by panel)"),
+                ("structure", "Structure-reader (reads methods + supplements)"),
+            ], 1):
+                yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent {i}/3: {agent_desc}...'})}\n\n"
+                if use_litellm:
+                    ext = _run_agent_litellm(agent_name, paper, cfg, provider, req.api_key, req.model_extract)
+                else:
+                    ext = run_agent(agent_name, paper, cfg)
+                agent_short = agent_desc.split(" (")[0]
+                yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent {i}/3: {agent_short} → {len(ext.claims)} claims'})}\n\n"
+                if i == 1: results_ext = ext
+                elif i == 2: caption_ext = ext
+                else: structure_ext = ext
 
             n_candidates = len(results_ext.claims) + len(caption_ext.claims) + len(structure_ext.claims)
             yield f"data: {json.dumps({'step': 'extract', 'message': f'Total: {n_candidates} candidate claims from 3 agents'})}\n\n"
 
             # Step 4: Reconciliation
-            yield f"data: {json.dumps({'step': 'reconcile', 'message': 'Reconciling — Opus merging 3 agent outputs...'})}\n\n"
-            draft = reconcile_step(results_ext, caption_ext, structure_ext, cfg, paper_doi=paper.doi, paper_title=paper.title)
+            yield f"data: {json.dumps({'step': 'reconcile', 'message': f'Reconciling — merging 3 agent outputs ({provider})...'})}\n\n"
+            if use_litellm:
+                draft = _reconcile_litellm(results_ext, caption_ext, structure_ext, cfg, provider, req.api_key, req.model_reconcile, paper.doi, paper.title)
+            else:
+                draft = reconcile_step(results_ext, caption_ext, structure_ext, cfg, paper_doi=paper.doi, paper_title=paper.title)
             yield f"data: {json.dumps({'step': 'reconcile', 'message': f'Reconciled to {len(draft.claims)} claims'})}\n\n"
 
             # Step 4.5: External review
             yield f"data: {json.dumps({'step': 'review', 'message': 'Running external reviewer...'})}\n\n"
-            reviewed = external_review(paper, draft, cfg)
+            if use_litellm:
+                reviewed = _external_review_litellm(paper, draft, cfg, provider, req.api_key, req.model_reconcile)
+            else:
+                reviewed = external_review(paper, draft, cfg)
             yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewed: {len(reviewed.claims)} claims after revision'})}\n\n"
 
             # Build OXA output
@@ -261,6 +366,7 @@ async def extract_file(
     file: UploadFile = File(...),
     api_key: str = Form(""),
     demo_token: str = Form(""),
+    provider: str = Form("anthropic"),
     model_extract: str = Form("claude-sonnet-4-6"),
     model_reconcile: str = Form("claude-opus-4-6"),
 ):
@@ -379,30 +485,43 @@ async def extract_file(
 
             yield f"data: {json.dumps({'step': 'prepare', 'message': f'Parsed: {paper.title or filename}', 'slug': paper.paper_slug, 'figures': len(paper.figure_captions), 'panels': len(paper.panel_ids)})}\n\n"
 
+            # Determine if we use litellm or native SDK
+            use_litellm = provider not in ("anthropic", "vertex")
+
             # Steps 2-3: Three-agent extraction (one at a time with progress)
-            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 1/3: Results-reader (reads abstract + results prose)...'})}\n\n"
-            results_ext = run_agent("results", paper, cfg)
-            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 1/3: Results-reader → {len(results_ext.claims)} claims'})}\n\n"
-
-            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 2/3: Caption-reader (reads figure captions panel by panel)...'})}\n\n"
-            caption_ext = run_agent("caption", paper, cfg)
-            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 2/3: Caption-reader → {len(caption_ext.claims)} claims'})}\n\n"
-
-            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 3/3: Structure-reader (reads methods + supplements)...'})}\n\n"
-            structure_ext = run_agent("structure", paper, cfg)
-            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 3/3: Structure-reader → {len(structure_ext.claims)} claims'})}\n\n"
+            for i, (agent_name, agent_desc) in enumerate([
+                ("results", "Results-reader (reads abstract + results prose)"),
+                ("caption", "Caption-reader (reads figure captions panel by panel)"),
+                ("structure", "Structure-reader (reads methods + supplements)"),
+            ], 1):
+                yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent {i}/3: {agent_desc}...'})}\n\n"
+                if use_litellm:
+                    ext = _run_agent_litellm(agent_name, paper, cfg, provider, api_key, model_extract)
+                else:
+                    ext = run_agent(agent_name, paper, cfg)
+                agent_short = agent_desc.split(" (")[0]
+                yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent {i}/3: {agent_short} → {len(ext.claims)} claims'})}\n\n"
+                if i == 1: results_ext = ext
+                elif i == 2: caption_ext = ext
+                else: structure_ext = ext
 
             n_candidates = len(results_ext.claims) + len(caption_ext.claims) + len(structure_ext.claims)
             yield f"data: {json.dumps({'step': 'extract', 'message': f'Total: {n_candidates} candidate claims from 3 agents'})}\n\n"
 
             # Step 4: Reconciliation
-            yield f"data: {json.dumps({'step': 'reconcile', 'message': 'Reconciling — Opus merging 3 agent outputs...'})}\n\n"
-            draft = reconcile_step(results_ext, caption_ext, structure_ext, cfg, paper_doi=paper.doi, paper_title=paper.title)
+            yield f"data: {json.dumps({'step': 'reconcile', 'message': f'Reconciling — merging 3 agent outputs ({provider})...'})}\n\n"
+            if use_litellm:
+                draft = _reconcile_litellm(results_ext, caption_ext, structure_ext, cfg, provider, api_key, model_reconcile, paper.doi, paper.title)
+            else:
+                draft = reconcile_step(results_ext, caption_ext, structure_ext, cfg, paper_doi=paper.doi, paper_title=paper.title)
             yield f"data: {json.dumps({'step': 'reconcile', 'message': f'Reconciled to {len(draft.claims)} claims'})}\n\n"
 
             # Step 4.5: External review
             yield f"data: {json.dumps({'step': 'review', 'message': 'Running external reviewer...'})}\n\n"
-            reviewed = external_review(paper, draft, cfg)
+            if use_litellm:
+                reviewed = _external_review_litellm(paper, draft, cfg, provider, api_key, model_reconcile)
+            else:
+                reviewed = external_review(paper, draft, cfg)
             yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewed: {len(reviewed.claims)} claims'})}\n\n"
 
             # Build OXA output
