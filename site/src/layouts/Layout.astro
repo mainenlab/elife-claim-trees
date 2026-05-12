@@ -58,20 +58,43 @@ const url = (path: string) => `${base}${path}/`;
 <body class="min-h-screen bg-white dark:bg-[#0f0f0f] text-gray-900 dark:text-gray-100 transition-colors">
   <nav class="border-b border-gray-100 dark:border-gray-800 bg-white dark:bg-[#0f0f0f] sticky top-0 z-40">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 h-12 flex items-center gap-6">
-      <a href={url('')} class="font-semibold text-gray-900 dark:text-gray-100 no-underline hover:text-gray-700 dark:hover:text-gray-300 text-sm">eLife Claim Trees</a>
-      <a href={url('/papers')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Papers</a>
-      <a href={url('/methodology')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Methodology</a>
-      <a href={url('/findings')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Findings</a>
-      <a href={url('/docs')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Docs</a>
-      <a href={url('/standards')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Standards</a>
-      <a href={url('/extract')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Extract</a>
+      <a href={url('')} class="font-semibold text-gray-900 dark:text-gray-100 no-underline hover:text-gray-700 dark:hover:text-gray-300 text-sm flex-shrink-0">Claims</a>
+      <!-- Desktop nav -->
+      <div class="hidden md:flex items-center gap-6">
+        <a href={url('/papers')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Papers</a>
+        <a href={url('/methodology')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Methodology</a>
+        <a href={url('/findings')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Findings</a>
+        <a href={url('/docs')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Docs</a>
+        <a href={url('/standards')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Standards</a>
+        <a href={url('/extract')} class="text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200">Extract</a>
+      </div>
       <div class="flex-1"></div>
       <button id="theme-toggle" class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 text-sm cursor-pointer" aria-label="Toggle theme">
         <span class="dark:hidden">&#9790;</span>
         <span class="hidden dark:inline">&#9788;</span>
       </button>
+      <!-- Hamburger -->
+      <button id="menu-toggle" class="md:hidden text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-200 cursor-pointer" aria-label="Menu">
+        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
+        </svg>
+      </button>
+    </div>
+    <!-- Mobile nav -->
+    <div id="mobile-menu" class="hidden md:hidden border-t border-gray-100 dark:border-gray-800 bg-white dark:bg-[#0f0f0f] px-4 py-3 space-y-2">
+      <a href={url('/papers')} class="block text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200 py-1">Papers</a>
+      <a href={url('/methodology')} class="block text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200 py-1">Methodology</a>
+      <a href={url('/findings')} class="block text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200 py-1">Findings</a>
+      <a href={url('/docs')} class="block text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200 py-1">Docs</a>
+      <a href={url('/standards')} class="block text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200 py-1">Standards</a>
+      <a href={url('/extract')} class="block text-sm text-gray-500 dark:text-gray-400 no-underline hover:text-gray-700 dark:hover:text-gray-200 py-1">Extract</a>
     </div>
   </nav>
+  <script is:inline>
+    document.getElementById('menu-toggle')?.addEventListener('click', function() {
+      document.getElementById('mobile-menu')?.classList.toggle('hidden');
+    });
+  </script>
   <main>
     <slot />
   </main>

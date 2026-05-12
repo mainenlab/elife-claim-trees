@@ -22,13 +22,13 @@ const isActive = (path: string) =>
 <div class="site-nav-wrapper">
   <nav class="site-nav">
     <div class="site-nav-inner">
-      <a href={url('')} class="site-brand">eLife Claim Trees</a>
-      <a href={url('/papers')} class={`site-nav-link ${isActive('/papers') ? 'active' : ''}`}>Papers</a>
-      <a href={url('/methodology')} class={`site-nav-link ${isActive('/methodology') ? 'active' : ''}`}>Methodology</a>
-      <a href={url('/findings')} class={`site-nav-link ${isActive('/findings') ? 'active' : ''}`}>Findings</a>
-      <a href={url('/docs')} class={`site-nav-link ${isActive('/docs') ? 'active' : ''}`}>Docs</a>
-      <a href={url('/standards')} class={`site-nav-link ${isActive('/standards') ? 'active' : ''}`}>Standards</a>
-      <a href={url('/extract')} class={`site-nav-link ${isActive('/extract') ? 'active' : ''}`}>Extract</a>
+      <a href={url('')} class="site-brand">Claims</a>
+      <a href={url('/papers')} class={`site-nav-link site-nav-desktop ${isActive('/papers') ? 'active' : ''}`}>Papers</a>
+      <a href={url('/methodology')} class={`site-nav-link site-nav-desktop ${isActive('/methodology') ? 'active' : ''}`}>Methodology</a>
+      <a href={url('/findings')} class={`site-nav-link site-nav-desktop ${isActive('/findings') ? 'active' : ''}`}>Findings</a>
+      <a href={url('/docs')} class={`site-nav-link site-nav-desktop ${isActive('/docs') ? 'active' : ''}`}>Docs</a>
+      <a href={url('/standards')} class={`site-nav-link site-nav-desktop ${isActive('/standards') ? 'active' : ''}`}>Standards</a>
+      <a href={url('/extract')} class={`site-nav-link site-nav-desktop ${isActive('/extract') ? 'active' : ''}`}>Extract</a>
       <div class="site-nav-spacer"></div>
       <div class="site-nav-actions">
         <Search {...Astro.props} />
@@ -91,6 +91,12 @@ const isActive = (path: string) =>
 
   .site-nav-spacer {
     flex: 1;
+  }
+
+  @media (max-width: 768px) {
+    .site-nav-desktop {
+      display: none;
+    }
   }
 
   .site-nav-actions {
