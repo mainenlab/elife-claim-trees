@@ -48,10 +48,10 @@ _pipeline_ready = False
 def _ensure_pipeline():
     global _pipeline_ready
     if not _pipeline_ready:
-        global prepare, run_all_agents, reconcile_step, external_review
-        global Config, reset_client, migrate_claims
+        global prepare, run_agent, reconcile_step, external_review
+        global Config, reset_client
         from elife_extract.prepare import prepare
-        from elife_extract.agents import run_all_agents, reset_client
+        from elife_extract.agents import run_agent, reset_client
         from elife_extract.reconcile import reconcile as reconcile_step
         from elife_extract.external_review import external_review
         from elife_extract.config import Config
@@ -197,15 +197,25 @@ async def extract(req: ExtractRequest):
             paper = prepare(req.doi, input_format="jats")
             yield f"data: {json.dumps({'step': 'prepare', 'message': f'Parsed: {paper.title}', 'slug': paper.paper_slug, 'figures': len(paper.figure_captions), 'panels': len(paper.panel_ids)})}\n\n"
 
-            # Steps 2-3: Three-agent extraction
-            yield f"data: {json.dumps({'step': 'extract', 'message': 'Running Results-reader...', 'agent': 1, 'total': 3})}\n\n"
-            agents_output = run_all_agents(paper, cfg)
-            n_candidates = sum(len(a.claims) for a in agents_output)
-            yield f"data: {json.dumps({'step': 'extract', 'message': f'Extracted {n_candidates} candidate claims from 3 agents', 'agent': 3, 'total': 3})}\n\n"
+            # Steps 2-3: Three-agent extraction (one at a time with progress)
+            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 1/3: Results-reader (reads abstract + results prose)...'})}\n\n"
+            results_ext = run_agent("results", paper, cfg)
+            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 1/3: Results-reader → {len(results_ext.claims)} claims'})}\n\n"
+
+            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 2/3: Caption-reader (reads figure captions panel by panel)...'})}\n\n"
+            caption_ext = run_agent("caption", paper, cfg)
+            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 2/3: Caption-reader → {len(caption_ext.claims)} claims'})}\n\n"
+
+            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 3/3: Structure-reader (reads methods + supplements)...'})}\n\n"
+            structure_ext = run_agent("structure", paper, cfg)
+            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 3/3: Structure-reader → {len(structure_ext.claims)} claims'})}\n\n"
+
+            n_candidates = len(results_ext.claims) + len(caption_ext.claims) + len(structure_ext.claims)
+            yield f"data: {json.dumps({'step': 'extract', 'message': f'Total: {n_candidates} candidate claims from 3 agents'})}\n\n"
 
             # Step 4: Reconciliation
-            yield f"data: {json.dumps({'step': 'reconcile', 'message': 'Reconciling claims...'})}\n\n"
-            draft = reconcile_step(agents_output[0], agents_output[1], agents_output[2], cfg, paper_doi=paper.doi, paper_title=paper.title)
+            yield f"data: {json.dumps({'step': 'reconcile', 'message': 'Reconciling — Opus merging 3 agent outputs...'})}\n\n"
+            draft = reconcile_step(results_ext, caption_ext, structure_ext, cfg, paper_doi=paper.doi, paper_title=paper.title)
             yield f"data: {json.dumps({'step': 'reconcile', 'message': f'Reconciled to {len(draft.claims)} claims'})}\n\n"
 
             # Step 4.5: External review
@@ -369,15 +379,25 @@ async def extract_file(
 
             yield f"data: {json.dumps({'step': 'prepare', 'message': f'Parsed: {paper.title or filename}', 'slug': paper.paper_slug, 'figures': len(paper.figure_captions), 'panels': len(paper.panel_ids)})}\n\n"
 
-            # Steps 2-3: Three-agent extraction
-            yield f"data: {json.dumps({'step': 'extract', 'message': 'Running three extraction agents...'})}\n\n"
-            agents_output = run_all_agents(paper, cfg)
-            n_candidates = sum(len(a.claims) for a in agents_output)
-            yield f"data: {json.dumps({'step': 'extract', 'message': f'Extracted {n_candidates} candidates from 3 agents'})}\n\n"
+            # Steps 2-3: Three-agent extraction (one at a time with progress)
+            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 1/3: Results-reader (reads abstract + results prose)...'})}\n\n"
+            results_ext = run_agent("results", paper, cfg)
+            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 1/3: Results-reader → {len(results_ext.claims)} claims'})}\n\n"
+
+            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 2/3: Caption-reader (reads figure captions panel by panel)...'})}\n\n"
+            caption_ext = run_agent("caption", paper, cfg)
+            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 2/3: Caption-reader → {len(caption_ext.claims)} claims'})}\n\n"
+
+            yield f"data: {json.dumps({'step': 'extract', 'message': 'Agent 3/3: Structure-reader (reads methods + supplements)...'})}\n\n"
+            structure_ext = run_agent("structure", paper, cfg)
+            yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent 3/3: Structure-reader → {len(structure_ext.claims)} claims'})}\n\n"
+
+            n_candidates = len(results_ext.claims) + len(caption_ext.claims) + len(structure_ext.claims)
+            yield f"data: {json.dumps({'step': 'extract', 'message': f'Total: {n_candidates} candidate claims from 3 agents'})}\n\n"
 
             # Step 4: Reconciliation
-            yield f"data: {json.dumps({'step': 'reconcile', 'message': 'Reconciling claims...'})}\n\n"
-            draft = reconcile_step(agents_output[0], agents_output[1], agents_output[2], cfg, paper_doi=paper.doi, paper_title=paper.title)
+            yield f"data: {json.dumps({'step': 'reconcile', 'message': 'Reconciling — Opus merging 3 agent outputs...'})}\n\n"
+            draft = reconcile_step(results_ext, caption_ext, structure_ext, cfg, paper_doi=paper.doi, paper_title=paper.title)
             yield f"data: {json.dumps({'step': 'reconcile', 'message': f'Reconciled to {len(draft.claims)} claims'})}\n\n"
 
             # Step 4.5: External review
