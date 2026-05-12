@@ -48,12 +48,12 @@ _pipeline_ready = False
 def _ensure_pipeline():
     global _pipeline_ready
     if not _pipeline_ready:
-        global prepare, run_all_agents, reconcile_step, run_external_review
+        global prepare, run_all_agents, reconcile_step, external_review
         global Config, reset_client, migrate_claims
         from elife_extract.prepare import prepare
         from elife_extract.agents import run_all_agents, reset_client
         from elife_extract.reconcile import reconcile as reconcile_step
-        from elife_extract.external_review import run_external_review
+        from elife_extract.external_review import external_review
         from elife_extract.config import Config
         _pipeline_ready = True
 
@@ -210,7 +210,7 @@ async def extract(req: ExtractRequest):
 
             # Step 4.5: External review
             yield f"data: {json.dumps({'step': 'review', 'message': 'Running external reviewer...'})}\n\n"
-            reviewed = run_external_review(draft, paper, cfg)
+            reviewed = external_review(draft, paper, cfg)
             yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewed: {len(reviewed.claims)} claims after revision'})}\n\n"
 
             # Build OXA output
@@ -382,7 +382,7 @@ async def extract_file(
 
             # Step 4.5: External review
             yield f"data: {json.dumps({'step': 'review', 'message': 'Running external reviewer...'})}\n\n"
-            reviewed = run_external_review(draft, paper, cfg)
+            reviewed = external_review(draft, paper, cfg)
             yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewed: {len(reviewed.claims)} claims'})}\n\n"
 
             # Build OXA output
