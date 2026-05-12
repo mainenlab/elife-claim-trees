@@ -1,108 +1,126 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import ReviewTab from '../components/ReviewTab.tsx';
 
 const base = import.meta.env.BASE_URL.replace(/\/$/, '');
 const url = (path: string) => `${base}${path}/`;
 ---
 
-<Layout title="Extract claims">
+<Layout title="Extract & Review">
   <div class="max-w-3xl mx-auto px-4 sm:px-6 py-16">
 
-    <h1 class="text-3xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight mb-3">Extract claims from a paper</h1>
-    <p class="text-gray-500 dark:text-gray-400 mb-8">
-      Upload a manuscript (PDF or Word) or paste an eLife DOI. The pipeline extracts structured claims,
-      reconciles them, and produces a claim graph. Takes ~10-15 minutes; costs ~$7 in API calls.
+    <h1 class="text-3xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight mb-3">Extract & Review</h1>
+    <p class="text-gray-500 dark:text-gray-400 mb-6">
+      Upload a manuscript or paste an eLife DOI. Extract structured claims, then optionally review them with persona-grounded reviewers.
     </p>
 
-    <!-- Form -->
-    <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-6 mb-8">
-      <div class="space-y-4">
-        <!-- Input mode toggle -->
-        <div class="flex gap-2 mb-2">
-          <button id="mode-file" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer">Upload file</button>
-          <button id="mode-doi" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">eLife DOI</button>
-        </div>
+    <!-- Tabs -->
+    <div class="flex gap-4 border-b border-gray-200 dark:border-gray-700 mb-6">
+      <button id="tab-extract" class="pb-2 text-sm font-semibold text-gray-900 dark:text-gray-100 border-b-2 border-gray-900 dark:border-gray-100 cursor-pointer">Extract</button>
+      <button id="tab-review" class="pb-2 text-sm font-semibold text-gray-400 dark:text-gray-500 border-b-2 border-transparent hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer">Review</button>
+    </div>
 
+    <!-- ═══ Extract tab ═══ -->
+    <div id="panel-extract">
+
+      <!-- Input mode toggle -->
+      <div class="flex gap-2 mb-4">
+        <button id="mode-file" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer">Upload file</button>
+        <button id="mode-doi" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">eLife DOI</button>
+      </div>
+
+      <div class="space-y-4">
         <!-- File upload -->
         <div id="file-input">
-          <label for="file-upload" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Manuscript (PDF or DOCX)</label>
-          <input
-            type="file"
-            id="file-upload"
-            accept=".pdf,.docx,.doc"
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-gray-100 dark:file:bg-gray-700 file:text-gray-700 dark:file:text-gray-300 file:cursor-pointer"
-          />
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Manuscript (PDF or DOCX)</label>
+          <input type="file" id="file-upload" accept=".pdf,.docx,.doc"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-gray-100 dark:file:bg-gray-700 file:text-gray-700 dark:file:text-gray-300 file:cursor-pointer" />
         </div>
 
-        <!-- DOI input (hidden by default) -->
+        <!-- DOI input -->
         <div id="doi-input" class="hidden">
-          <label for="doi" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">eLife DOI</label>
-          <input
-            type="text"
-            id="doi"
-            placeholder="10.7554/eLife.95562"
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400"
-          />
+          <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">eLife DOI</label>
+          <input type="text" id="doi" placeholder="10.7554/eLife.95562"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400" />
         </div>
-        <div>
-          <label for="api-key" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Anthropic API key <span class="font-normal text-gray-400">(optional)</span></label>
-          <input
-            type="password"
-            id="api-key"
-            placeholder="sk-ant-... (leave empty for demo)"
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400"
-          />
-          <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">
-            Enter your own Anthropic key, or leave empty and use a demo token below.
-          </p>
+
+        <!-- Auth -->
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Anthropic API key <span class="font-normal text-gray-400">(optional)</span></label>
+            <input type="password" id="api-key" placeholder="sk-ant-..."
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Demo token <span class="font-normal text-gray-400">(if no API key)</span></label>
+            <input type="password" id="demo-token" placeholder="demo token"
+              class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400" />
+          </div>
         </div>
-        <div id="demo-token-group">
-          <label for="demo-token" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Demo token <span class="font-normal text-gray-400">(if no API key)</span></label>
-          <input
-            type="password"
-            id="demo-token"
-            placeholder="demo token"
-            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400"
-          />
-          <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">
-            Uses the project's Vertex AI quota. Ask the project team for a token.
-          </p>
-        </div>
-        <button
-          id="extract-btn"
-          class="px-4 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm font-medium rounded-lg hover:bg-gray-700 dark:hover:bg-gray-300 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
-        >
+
+        <button id="extract-btn"
+          class="px-4 py-2 bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 text-sm font-medium rounded-lg hover:bg-gray-700 dark:hover:bg-gray-300 transition-colors cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed">
           Extract claims
         </button>
       </div>
+
+      <!-- Progress -->
+      <div id="progress" class="hidden mt-6">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Progress</h3>
+        <div id="progress-log" class="space-y-1 text-sm text-gray-700 dark:text-gray-300"></div>
+      </div>
+
+      <!-- Results -->
+      <div id="results" class="hidden mt-6">
+        <div id="result-stats" class="grid grid-cols-3 gap-4 mb-4"></div>
+        <div id="claim-list" class="space-y-2 mb-4"></div>
+        <div id="downloads" class="flex gap-3 flex-wrap"></div>
+      </div>
+
+      <!-- Error -->
+      <div id="error" class="hidden mt-4 p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-sm text-red-700 dark:text-red-300"></div>
     </div>
 
-    <!-- Progress -->
-    <div id="progress" class="hidden mb-8">
-      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">Progress</h2>
-      <div id="progress-log" class="space-y-2 text-sm text-gray-700 dark:text-gray-300">
-      </div>
-    </div>
+    <!-- ═══ Review tab ═══ -->
+    <div id="panel-review" class="hidden">
+      <p class="text-sm text-gray-500 dark:text-gray-400 mb-4">
+        Upload a manuscript to extract and review, or paste previously extracted claims (OXA JSON).
+      </p>
 
-    <!-- Results -->
-    <div id="results" class="hidden">
-      <h2 class="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-widest mb-4">Results</h2>
-
-      <!-- Stats -->
-      <div id="result-stats" class="grid grid-cols-3 gap-4 mb-6">
+      <!-- Review input mode -->
+      <div class="flex gap-2 mb-4">
+        <button id="review-mode-file" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer">Upload manuscript</button>
+        <button id="review-mode-json" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">Paste claims JSON</button>
       </div>
 
-      <!-- Claim list -->
-      <div id="claim-list" class="space-y-3 mb-8">
+      <!-- File for review -->
+      <div id="review-file-input" class="mb-4">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Manuscript (PDF or DOCX)</label>
+        <input type="file" id="review-file-upload" accept=".pdf,.docx,.doc"
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-gray-100 dark:file:bg-gray-700 file:text-gray-700 dark:file:text-gray-300 file:cursor-pointer" />
+        <p class="text-xs text-gray-400 mt-1">Claims will be extracted first (~15 min), then review runs on the extracted claims.</p>
       </div>
 
-      <!-- Downloads -->
-      <div id="downloads" class="space-y-3">
+      <!-- JSON paste -->
+      <div id="review-json-input" class="hidden mb-4">
+        <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Claims JSON (OXA format)</label>
+        <textarea id="review-json" rows="6" placeholder='Paste OXA article JSON or drag the .oxa.json file here...'
+          class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400 font-mono"></textarea>
       </div>
-    </div>
 
-    <!-- Error -->
-    <div id="error" class="hidden p-4 bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 rounded-lg text-sm text-red-700 dark:text-red-300">
+      <!-- Review component — mounts with empty claims; JS updates via JSON paste or extraction -->
+      <ReviewTab
+        client:load
+        claims={[]}
+        paperTitle=""
+        abstract=""
+      />
+
+      <!-- Review progress (for file upload → extract → review flow) -->
+      <div id="review-extract-progress" class="hidden mt-4">
+        <h3 class="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-2">Extracting claims...</h3>
+        <div id="review-extract-log" class="space-y-1 text-sm text-gray-700 dark:text-gray-300"></div>
+      </div>
     </div>
 
   </div>
@@ -112,33 +130,64 @@ const url = (path: string) => `${base}${path}/`;
       ? 'http://localhost:8081'
       : 'https://console.haak.world/elife-extract';
 
+    // ── Tab switching ──────────────────────────────────────────
+    const tabExtract = document.getElementById('tab-extract');
+    const tabReview = document.getElementById('tab-review');
+    const panelExtract = document.getElementById('panel-extract');
+    const panelReview = document.getElementById('panel-review');
+    const activeTab = 'pb-2 text-sm font-semibold text-gray-900 dark:text-gray-100 border-b-2 border-gray-900 dark:border-gray-100 cursor-pointer';
+    const inactiveTab = 'pb-2 text-sm font-semibold text-gray-400 dark:text-gray-500 border-b-2 border-transparent hover:text-gray-600 dark:hover:text-gray-300 cursor-pointer';
+
+    tabExtract.addEventListener('click', () => {
+      tabExtract.className = activeTab;
+      tabReview.className = inactiveTab;
+      panelExtract.classList.remove('hidden');
+      panelReview.classList.add('hidden');
+    });
+    tabReview.addEventListener('click', () => {
+      tabReview.className = activeTab;
+      tabExtract.className = inactiveTab;
+      panelReview.classList.remove('hidden');
+      panelExtract.classList.add('hidden');
+    });
+
+    // ── Extract: input mode toggle ─────────────────────────────
+    let inputMode = 'file';
+    document.getElementById('mode-file').addEventListener('click', () => {
+      inputMode = 'file';
+      document.getElementById('mode-file').className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer';
+      document.getElementById('mode-doi').className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer';
+      document.getElementById('file-input').classList.remove('hidden');
+      document.getElementById('doi-input').classList.add('hidden');
+    });
+    document.getElementById('mode-doi').addEventListener('click', () => {
+      inputMode = 'doi';
+      document.getElementById('mode-doi').className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer';
+      document.getElementById('mode-file').className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer';
+      document.getElementById('doi-input').classList.remove('hidden');
+      document.getElementById('file-input').classList.add('hidden');
+    });
+
+    // ── Review: input mode toggle ──────────────────────────────
+    document.getElementById('review-mode-file').addEventListener('click', () => {
+      document.getElementById('review-mode-file').className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer';
+      document.getElementById('review-mode-json').className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer';
+      document.getElementById('review-file-input').classList.remove('hidden');
+      document.getElementById('review-json-input').classList.add('hidden');
+    });
+    document.getElementById('review-mode-json').addEventListener('click', () => {
+      document.getElementById('review-mode-json').className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer';
+      document.getElementById('review-mode-file').className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer';
+      document.getElementById('review-json-input').classList.remove('hidden');
+      document.getElementById('review-file-input').classList.add('hidden');
+    });
+
+    // ── Extract: run ───────────────────────────────────────────
     const btn = document.getElementById('extract-btn');
     const progressDiv = document.getElementById('progress');
     const progressLog = document.getElementById('progress-log');
     const resultsDiv = document.getElementById('results');
     const errorDiv = document.getElementById('error');
-
-    // Mode toggle
-    let inputMode = 'file';
-    const modeFile = document.getElementById('mode-file');
-    const modeDoi = document.getElementById('mode-doi');
-    const fileInput = document.getElementById('file-input');
-    const doiInput = document.getElementById('doi-input');
-
-    modeFile.addEventListener('click', () => {
-      inputMode = 'file';
-      modeFile.className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer';
-      modeDoi.className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer';
-      fileInput.classList.remove('hidden');
-      doiInput.classList.add('hidden');
-    });
-    modeDoi.addEventListener('click', () => {
-      inputMode = 'doi';
-      modeDoi.className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer';
-      modeFile.className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer';
-      doiInput.classList.remove('hidden');
-      fileInput.classList.add('hidden');
-    });
 
     btn.addEventListener('click', async () => {
       const doi = document.getElementById('doi').value.trim();
@@ -147,20 +196,10 @@ const url = (path: string) => `${base}${path}/`;
       const fileEl = document.getElementById('file-upload');
       const uploadFile = fileEl?.files?.[0];
 
-      if (inputMode === 'doi' && !doi) {
-        showError('Please enter a DOI.');
-        return;
-      }
-      if (inputMode === 'file' && !uploadFile) {
-        showError('Please select a PDF or DOCX file.');
-        return;
-      }
-      if (!apiKey && !demoToken) {
-        showError('Enter an Anthropic API key or a demo token.');
-        return;
-      }
+      if (inputMode === 'doi' && !doi) return showError('Please enter a DOI.');
+      if (inputMode === 'file' && !uploadFile) return showError('Please select a file.');
+      if (!apiKey && !demoToken) return showError('Enter an API key or demo token.');
 
-      // Reset UI
       btn.disabled = true;
       btn.textContent = 'Extracting...';
       progressDiv.classList.remove('hidden');
@@ -175,10 +214,7 @@ const url = (path: string) => `${base}${path}/`;
           formData.append('file', uploadFile);
           formData.append('api_key', apiKey);
           formData.append('demo_token', demoToken);
-          response = await fetch(API_URL + '/extract-file', {
-            method: 'POST',
-            body: formData,
-          });
+          response = await fetch(API_URL + '/extract-file', { method: 'POST', body: formData });
         } else {
           response = await fetch(API_URL + '/extract', {
             method: 'POST',
@@ -186,128 +222,109 @@ const url = (path: string) => `${base}${path}/`;
             body: JSON.stringify({ doi, api_key: apiKey, demo_token: demoToken }),
           });
         }
-
-        if (!response.ok) {
-          throw new Error(`Server error: ${response.status}`);
-        }
-
-        const reader = response.body.getReader();
-        const decoder = new TextDecoder();
-        let buffer = '';
-
-        while (true) {
-          const { done, value } = await reader.read();
-          if (done) break;
-
-          buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split('\n');
-          buffer = lines.pop() || '';
-
-          for (const line of lines) {
-            if (!line.startsWith('data: ')) continue;
-            try {
-              const event = JSON.parse(line.slice(6));
-              handleEvent(event);
-            } catch (e) {
-              // skip malformed events
-            }
-          }
-        }
-      } catch (e) {
-        showError(e.message);
-      } finally {
-        btn.disabled = false;
-        btn.textContent = 'Extract claims';
-      }
+        if (!response.ok) throw new Error(`Server error: ${response.status}`);
+        await processSSE(response, progressLog, (article) => {
+          renderResults(article);
+          window.__extractedClaims = article;
+        });
+      } catch (e) { showError(e.message); }
+      finally { btn.disabled = false; btn.textContent = 'Extract claims'; }
     });
 
-    function handleEvent(event) {
-      // Add to progress log
-      const stepColors = {
-        prepare: 'text-gray-600 dark:text-gray-400',
-        extract: 'text-amber-700 dark:text-amber-400',
-        reconcile: 'text-blue-700 dark:text-blue-400',
-        review: 'text-purple-700 dark:text-purple-400',
-        done: 'text-green-700 dark:text-green-400',
-        error: 'text-red-700 dark:text-red-400',
-      };
-      const color = stepColors[event.step] || 'text-gray-600';
-      const entry = document.createElement('div');
-      entry.className = color;
-      entry.innerHTML = `<span class="font-medium">${event.step}:</span> ${event.message}`;
-      progressLog.appendChild(entry);
-      progressLog.scrollTop = progressLog.scrollHeight;
-
-      if (event.step === 'done' && event.article) {
-        renderResults(event.article);
-      }
-      if (event.step === 'error') {
-        showError(event.message);
+    // ── SSE processor (shared) ─────────────────────────────────
+    async function processSSE(response, logEl, onDone) {
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      let buffer = '';
+      while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        buffer += decoder.decode(value, { stream: true });
+        const lines = buffer.split('\n');
+        buffer = lines.pop() || '';
+        for (const line of lines) {
+          if (!line.startsWith('data: ')) continue;
+          try {
+            const event = JSON.parse(line.slice(6));
+            if (event.message) {
+              const entry = document.createElement('div');
+              const colors = { prepare: 'text-gray-500', extract: 'text-amber-700 dark:text-amber-400', reconcile: 'text-blue-700 dark:text-blue-400', review: 'text-purple-700 dark:text-purple-400', done: 'text-green-700 dark:text-green-400', error: 'text-red-700 dark:text-red-400' };
+              entry.className = colors[event.step] || 'text-gray-500';
+              entry.textContent = event.message;
+              logEl.appendChild(entry);
+            }
+            if (event.step === 'done' && event.article) onDone(event.article);
+            if (event.step === 'error') showError(event.message);
+          } catch {}
+        }
       }
     }
 
+    // ── Render results ─────────────────────────────────────────
+    const roleBadgeColor = {
+      hypothesis: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
+      prediction: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
+      empirical: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
+      control: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
+      scope: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300',
+      methodological: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400',
+      synthesis: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
+      interpretation: 'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300',
+      'literature-context': 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
+    };
+
     function renderResults(article) {
       resultsDiv.classList.remove('hidden');
-
       const claims = article.children || [];
       const nRels = claims.reduce((s, c) => s + (c.relations || []).length, 0);
 
-      // Stats
-      const statsDiv = document.getElementById('result-stats');
-      statsDiv.innerHTML = `
-        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
-          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">${claims.length}</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">claims</div>
+      document.getElementById('result-stats').innerHTML = `
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
+          <div class="text-2xl font-semibold text-gray-900 dark:text-gray-100">${claims.length}</div>
+          <div class="text-xs text-gray-500 mt-1">claims</div>
         </div>
-        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
-          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">${nRels}</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">typed relations</div>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
+          <div class="text-2xl font-semibold text-gray-900 dark:text-gray-100">${nRels}</div>
+          <div class="text-xs text-gray-500 mt-1">relations</div>
         </div>
-        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-5">
-          <div class="text-3xl font-semibold text-gray-900 dark:text-gray-100">${new Set(claims.map(c => c.role)).size}</div>
-          <div class="text-sm text-gray-500 dark:text-gray-400 mt-1">roles used</div>
+        <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
+          <div class="text-2xl font-semibold text-gray-900 dark:text-gray-100">${new Set(claims.map(c => c.role)).size}</div>
+          <div class="text-xs text-gray-500 mt-1">roles</div>
         </div>
       `;
 
-      // Claim list
-      const listDiv = document.getElementById('claim-list');
-      const roleBadgeColor = {
-        hypothesis: 'bg-purple-100 text-purple-800 dark:bg-purple-900/30 dark:text-purple-300',
-        prediction: 'bg-blue-100 text-blue-800 dark:bg-blue-900/30 dark:text-blue-300',
-        empirical: 'bg-green-100 text-green-800 dark:bg-green-900/30 dark:text-green-300',
-        control: 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900/30 dark:text-yellow-300',
-        scope: 'bg-gray-100 text-gray-800 dark:bg-gray-800 dark:text-gray-300',
-        methodological: 'bg-gray-100 text-gray-700 dark:bg-gray-800 dark:text-gray-400',
-        synthesis: 'bg-indigo-100 text-indigo-800 dark:bg-indigo-900/30 dark:text-indigo-300',
-        interpretation: 'bg-pink-100 text-pink-800 dark:bg-pink-900/30 dark:text-pink-300',
-        'literature-context': 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
-      };
-      listDiv.innerHTML = claims.map(c => {
+      document.getElementById('claim-list').innerHTML = claims.map(c => {
         const text = (c.children || []).map(ch => ch.value || '').join(' ');
         const badge = roleBadgeColor[c.role] || 'bg-gray-100 text-gray-800';
-        const panel = c.panel ? `<span class="text-xs text-gray-400 ml-2">${c.panel.join(', ')}</span>` : '';
-        const rels = (c.relations || []).length;
-        const relBadge = rels ? `<span class="text-xs text-gray-400 ml-2">${rels} edges</span>` : '';
         return `<div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
           <div class="flex items-center gap-2 mb-1">
             <span class="text-xs font-medium px-1.5 py-0.5 rounded ${badge}">${c.role}</span>
-            ${panel}${relBadge}
+            ${c.panel ? `<span class="text-xs text-gray-400">${c.panel.join(', ')}</span>` : ''}
           </div>
           <div class="text-sm text-gray-700 dark:text-gray-300">${text}</div>
         </div>`;
       }).join('');
 
-      // Download
       const blob = new Blob([JSON.stringify(article, null, 2)], { type: 'application/json' });
-      const downloadUrl = URL.createObjectURL(blob);
-      const downloadsDiv = document.getElementById('downloads');
-      downloadsDiv.innerHTML = `
-        <a href="${downloadUrl}" download="${article.identifier}.oxa.json"
-           class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm font-medium rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 no-underline">
+      document.getElementById('downloads').innerHTML = `
+        <a href="${URL.createObjectURL(blob)}" download="${article.identifier}.oxa.json"
+           class="inline-flex items-center gap-2 px-4 py-2 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 text-sm rounded-lg hover:bg-gray-50 dark:hover:bg-gray-800 no-underline">
           Download OXA JSON
         </a>
+        <button onclick="switchToReview()" class="inline-flex items-center gap-2 px-4 py-2 bg-amber-600 text-white text-sm rounded-lg hover:bg-amber-700 cursor-pointer">
+          Review these claims &rarr;
+        </button>
       `;
     }
+
+    // ── Switch to review with extracted claims ──────────────────
+    window.switchToReview = function() {
+      tabReview.click();
+      if (window.__extractedClaims) {
+        document.getElementById('review-json').value = JSON.stringify(window.__extractedClaims, null, 2);
+        document.getElementById('review-mode-json').click();
+      }
+    };
 
     function showError(msg) {
       errorDiv.textContent = msg;
