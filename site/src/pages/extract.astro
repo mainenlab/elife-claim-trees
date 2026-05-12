@@ -10,14 +10,32 @@ const url = (path: string) => `${base}${path}/`;
 
     <h1 class="text-3xl font-semibold text-gray-900 dark:text-gray-100 tracking-tight mb-3">Extract claims from a paper</h1>
     <p class="text-gray-500 dark:text-gray-400 mb-8">
-      Paste an eLife DOI and your Anthropic API key. The pipeline runs three extraction agents,
-      reconciles their output, and produces a structured claim graph. Takes ~10-15 minutes; costs ~$7 in API calls.
+      Upload a manuscript (PDF or Word) or paste an eLife DOI. The pipeline extracts structured claims,
+      reconciles them, and produces a claim graph. Takes ~10-15 minutes; costs ~$7 in API calls.
     </p>
 
     <!-- Form -->
     <div class="border border-gray-200 dark:border-gray-700 rounded-xl p-6 mb-8">
       <div class="space-y-4">
-        <div>
+        <!-- Input mode toggle -->
+        <div class="flex gap-2 mb-2">
+          <button id="mode-file" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer">Upload file</button>
+          <button id="mode-doi" class="text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer">eLife DOI</button>
+        </div>
+
+        <!-- File upload -->
+        <div id="file-input">
+          <label for="file-upload" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Manuscript (PDF or DOCX)</label>
+          <input
+            type="file"
+            id="file-upload"
+            accept=".pdf,.docx,.doc"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 file:mr-3 file:py-1 file:px-3 file:rounded file:border-0 file:text-xs file:font-medium file:bg-gray-100 dark:file:bg-gray-700 file:text-gray-700 dark:file:text-gray-300 file:cursor-pointer"
+          />
+        </div>
+
+        <!-- DOI input (hidden by default) -->
+        <div id="doi-input" class="hidden">
           <label for="doi" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">eLife DOI</label>
           <input
             type="text"
@@ -100,13 +118,41 @@ const url = (path: string) => `${base}${path}/`;
     const resultsDiv = document.getElementById('results');
     const errorDiv = document.getElementById('error');
 
+    // Mode toggle
+    let inputMode = 'file';
+    const modeFile = document.getElementById('mode-file');
+    const modeDoi = document.getElementById('mode-doi');
+    const fileInput = document.getElementById('file-input');
+    const doiInput = document.getElementById('doi-input');
+
+    modeFile.addEventListener('click', () => {
+      inputMode = 'file';
+      modeFile.className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer';
+      modeDoi.className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer';
+      fileInput.classList.remove('hidden');
+      doiInput.classList.add('hidden');
+    });
+    modeDoi.addEventListener('click', () => {
+      inputMode = 'doi';
+      modeDoi.className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 cursor-pointer';
+      modeFile.className = 'text-xs px-3 py-1.5 rounded-lg font-medium bg-gray-100 dark:bg-gray-800 text-gray-600 dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 cursor-pointer';
+      doiInput.classList.remove('hidden');
+      fileInput.classList.add('hidden');
+    });
+
     btn.addEventListener('click', async () => {
       const doi = document.getElementById('doi').value.trim();
       const apiKey = document.getElementById('api-key').value.trim();
       const demoToken = document.getElementById('demo-token').value.trim();
+      const fileEl = document.getElementById('file-upload');
+      const uploadFile = fileEl?.files?.[0];
 
-      if (!doi) {
+      if (inputMode === 'doi' && !doi) {
         showError('Please enter a DOI.');
+        return;
+      }
+      if (inputMode === 'file' && !uploadFile) {
+        showError('Please select a PDF or DOCX file.');
         return;
       }
       if (!apiKey && !demoToken) {
@@ -123,11 +169,23 @@ const url = (path: string) => `${base}${path}/`;
       errorDiv.classList.add('hidden');
 
       try {
-        const response = await fetch(API_URL + '/extract', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ doi, api_key: apiKey, demo_token: demoToken }),
-        });
+        let response;
+        if (inputMode === 'file' && uploadFile) {
+          const formData = new FormData();
+          formData.append('file', uploadFile);
+          formData.append('api_key', apiKey);
+          formData.append('demo_token', demoToken);
+          response = await fetch(API_URL + '/extract-file', {
+            method: 'POST',
+            body: formData,
+          });
+        } else {
+          response = await fetch(API_URL + '/extract', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ doi, api_key: apiKey, demo_token: demoToken }),
+          });
+        }
 
         if (!response.ok) {
           throw new Error(`Server error: ${response.status}`);

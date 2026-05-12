@@ -20,7 +20,7 @@ import time
 import uuid
 from pathlib import Path
 
-from fastapi import FastAPI, HTTPException
+from fastapi import FastAPI, File, Form, HTTPException, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -238,6 +238,179 @@ async def extract(req: ExtractRequest):
         finally:
             # Discard the API key by resetting the client
             reset_client()
+
+    return StreamingResponse(
+        generate(),
+        media_type="text/event-stream",
+        headers={"Cache-Control": "no-cache", "X-Accel-Buffering": "no"},
+    )
+
+
+@app.post("/extract-file")
+async def extract_file(
+    file: UploadFile = File(...),
+    api_key: str = Form(""),
+    demo_token: str = Form(""),
+    model_extract: str = Form("claude-sonnet-4-6"),
+    model_reconcile: str = Form("claude-opus-4-6"),
+):
+    """Extract claims from an uploaded PDF or DOCX file."""
+    _ensure_pipeline()
+
+    # Save uploaded file
+    upload_dir = Path("/tmp/elife-extract-api/uploads")
+    upload_dir.mkdir(parents=True, exist_ok=True)
+    filename = file.filename or "upload"
+    save_path = upload_dir / filename
+    content = await file.read()
+    save_path.write_bytes(content)
+
+    def generate():
+        try:
+            # Build config
+            cfg = Config()
+            if api_key:
+                cfg.anthropic_api_key = api_key
+                cfg.backend = "anthropic"
+            else:
+                if not DEMO_TOKENS:
+                    raise ValueError("Vertex backend not configured")
+                if demo_token not in DEMO_TOKENS:
+                    raise ValueError("Invalid or missing demo token")
+                cfg.backend = "vertex"
+            cfg.model_results = model_extract
+            cfg.model_caption = model_extract
+            cfg.model_structure = model_extract
+            cfg.model_reconcile = model_reconcile
+            cfg.review_mode = "external"
+            if PROMPTS_DIR and PROMPTS_DIR.is_dir():
+                cfg.prompts_dir = PROMPTS_DIR
+            else:
+                for p in [
+                    API_DIR / "prompts",
+                    API_DIR.parent / "home/collabs/elife/claim-trees/extract/prompts",
+                ]:
+                    if p.is_dir():
+                        cfg.prompts_dir = p
+                        break
+            cfg.output_dir = Path("/tmp/elife-extract-api")
+            cfg.output_dir.mkdir(parents=True, exist_ok=True)
+            reset_client()
+
+            # Parse the file
+            yield f"data: {json.dumps({'step': 'prepare', 'message': f'Parsing {filename}...'})}\n\n"
+
+            suffix = save_path.suffix.lower()
+            if suffix == ".pdf":
+                from elife_extract.prepare import extract_text, slice_sections, extract_figure_captions
+                from elife_extract.prepare import captions_text_block, guess_metadata, derive_slug
+                from elife_extract.prepare import PreparedPaper
+
+                full_text = extract_text(save_path)
+                sections = slice_sections(full_text)
+                captions = extract_figure_captions(full_text)
+                title, authors, year = guess_metadata(full_text)
+                slug = derive_slug(authors, year, title)
+
+                paper = PreparedPaper(
+                    doi="uploaded",
+                    article_id="0",
+                    paper_slug=slug,
+                    title=title,
+                    authors=authors,
+                    abstract=sections.get("abstract", ""),
+                    results_text=sections.get("results", full_text[:50000]),
+                    captions_text=captions_text_block(captions),
+                    methods_text=sections.get("methods", ""),
+                    extraction_path="pdf",
+                    extraction_path_note=f"Uploaded: {filename}",
+                    figure_captions=captions,
+                )
+            elif suffix in (".docx", ".doc"):
+                # Extract text from DOCX via python-docx
+                try:
+                    import docx
+                    doc = docx.Document(str(save_path))
+                    full_text = "\n".join(p.text for p in doc.paragraphs)
+                except ImportError:
+                    # Fallback: try pandoc
+                    import subprocess
+                    result = subprocess.run(
+                        ["pandoc", str(save_path), "-t", "plain"],
+                        capture_output=True, text=True, timeout=30,
+                    )
+                    full_text = result.stdout
+
+                from elife_extract.prepare import slice_sections, extract_figure_captions
+                from elife_extract.prepare import captions_text_block, guess_metadata, derive_slug
+                from elife_extract.prepare import PreparedPaper
+
+                sections = slice_sections(full_text)
+                captions = extract_figure_captions(full_text)
+                title, authors, year = guess_metadata(full_text)
+                slug = derive_slug(authors, year, title)
+
+                paper = PreparedPaper(
+                    doi="uploaded",
+                    article_id="0",
+                    paper_slug=slug,
+                    title=title,
+                    authors=authors,
+                    abstract=sections.get("abstract", ""),
+                    results_text=sections.get("results", full_text[:50000]),
+                    captions_text=captions_text_block(captions),
+                    methods_text=sections.get("methods", ""),
+                    extraction_path="pdf",
+                    extraction_path_note=f"Uploaded DOCX: {filename}",
+                    figure_captions=captions,
+                )
+            else:
+                raise ValueError(f"Unsupported file type: {suffix}. Upload PDF or DOCX.")
+
+            yield f"data: {json.dumps({'step': 'prepare', 'message': f'Parsed: {paper.title or filename}', 'slug': paper.paper_slug, 'figures': len(paper.figure_captions), 'panels': len(paper.panel_ids)})}\n\n"
+
+            # Steps 2-3: Three-agent extraction
+            yield f"data: {json.dumps({'step': 'extract', 'message': 'Running three extraction agents...'})}\n\n"
+            agents_output = run_all_agents(paper, cfg)
+            n_candidates = sum(len(a.claims) for a in agents_output)
+            yield f"data: {json.dumps({'step': 'extract', 'message': f'Extracted {n_candidates} candidates from 3 agents'})}\n\n"
+
+            # Step 4: Reconciliation
+            yield f"data: {json.dumps({'step': 'reconcile', 'message': 'Reconciling claims...'})}\n\n"
+            draft = reconcile_step(agents_output, paper, cfg)
+            yield f"data: {json.dumps({'step': 'reconcile', 'message': f'Reconciled to {len(draft.claims)} claims'})}\n\n"
+
+            # Step 4.5: External review
+            yield f"data: {json.dumps({'step': 'review', 'message': 'Running external reviewer...'})}\n\n"
+            reviewed = run_external_review(draft, paper, cfg)
+            yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewed: {len(reviewed.claims)} claims'})}\n\n"
+
+            # Build OXA output
+            oxa_claims = [_build_oxa_claim(c.model_dump()) for c in reviewed.claims]
+
+            article = {
+                "type": "Article",
+                "identifier": paper.paper_slug,
+                "metadata": {
+                    "title": paper.title,
+                    "authors": paper.authors,
+                    "source": filename,
+                },
+                "children": oxa_claims,
+            }
+
+            yield f"data: {json.dumps({'step': 'done', 'message': f'Complete: {len(oxa_claims)} claims', 'article': article})}\n\n"
+
+        except Exception as e:
+            logger.exception("File extraction failed")
+            yield f"data: {json.dumps({'step': 'error', 'message': str(e)})}\n\n"
+        finally:
+            reset_client()
+            # Clean up uploaded file
+            try:
+                save_path.unlink(missing_ok=True)
+            except Exception:
+                pass
 
     return StreamingResponse(
         generate(),
