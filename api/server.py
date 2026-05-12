@@ -329,9 +329,23 @@ async def extract(req: ExtractRequest):
             yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewed: {len(reviewed.claims)} claims after revision'})}\n\n"
 
             # Build OXA output
-            oxa_claims = []
-            for c in reviewed.claims:
-                oxa_claims.append(_build_oxa_claim(c.model_dump()))
+            oxa_claims = [_build_oxa_claim(c.model_dump()) for c in reviewed.claims]
+
+            # Step 6: Infer edges between claims
+            yield f"data: {json.dumps({'step': 'edges', 'message': f'Inferring relationships between {len(oxa_claims)} claims...'})}\n\n"
+            from infer_edges import infer_edges, apply_edges
+            if use_litellm:
+                from llm import call_llm as _call
+                def llm_fn(sys, usr, mdl):
+                    return _call(provider=provider, api_key=req.api_key, model=mdl, system=sys, user_message=usr)
+            else:
+                def llm_fn(sys, usr, mdl):
+                    client = get_client(cfg)
+                    resp = client.messages.create(model=mdl, max_tokens=8192, system=sys, messages=[{"role": "user", "content": usr}])
+                    return resp.content[0].text
+            edges = infer_edges(oxa_claims, call_llm_fn=llm_fn, model=cfg.model_reconcile)
+            oxa_claims = apply_edges(oxa_claims, edges)
+            yield f"data: {json.dumps({'step': 'edges', 'message': f'Found {len(edges)} relationships between claims'})}\n\n"
 
             article = {
                 "type": "Article",
@@ -344,7 +358,7 @@ async def extract(req: ExtractRequest):
                 "children": oxa_claims,
             }
 
-            yield f"data: {json.dumps({'step': 'done', 'message': f'Complete: {len(oxa_claims)} claims', 'article': article})}\n\n"
+            yield f"data: {json.dumps({'step': 'done', 'message': f'Complete: {len(oxa_claims)} claims, {len(edges)} relationships', 'article': article})}\n\n"
 
         except Exception as e:
             logger.exception("Extraction failed")
@@ -527,6 +541,23 @@ async def extract_file(
             # Build OXA output
             oxa_claims = [_build_oxa_claim(c.model_dump()) for c in reviewed.claims]
 
+            # Step 6: Infer edges
+            yield f"data: {json.dumps({'step': 'edges', 'message': f'Inferring relationships between {len(oxa_claims)} claims...'})}\n\n"
+            from infer_edges import infer_edges, apply_edges
+            use_litellm = provider not in ("anthropic", "vertex")
+            if use_litellm:
+                from llm import call_llm as _call
+                def llm_fn(sys, usr, mdl):
+                    return _call(provider=provider, api_key=api_key, model=mdl, system=sys, user_message=usr)
+            else:
+                def llm_fn(sys, usr, mdl):
+                    client = get_client(cfg)
+                    resp = client.messages.create(model=mdl, max_tokens=8192, system=sys, messages=[{"role": "user", "content": usr}])
+                    return resp.content[0].text
+            edges = infer_edges(oxa_claims, call_llm_fn=llm_fn, model=cfg.model_reconcile)
+            oxa_claims = apply_edges(oxa_claims, edges)
+            yield f"data: {json.dumps({'step': 'edges', 'message': f'Found {len(edges)} relationships between claims'})}\n\n"
+
             article = {
                 "type": "Article",
                 "identifier": paper.paper_slug,
@@ -538,7 +569,7 @@ async def extract_file(
                 "children": oxa_claims,
             }
 
-            yield f"data: {json.dumps({'step': 'done', 'message': f'Complete: {len(oxa_claims)} claims', 'article': article})}\n\n"
+            yield f"data: {json.dumps({'step': 'done', 'message': f'Complete: {len(oxa_claims)} claims, {len(edges)} relationships', 'article': article})}\n\n"
 
         except Exception as e:
             logger.exception("File extraction failed")
