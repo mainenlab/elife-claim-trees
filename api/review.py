@@ -256,9 +256,10 @@ def _claims_context(claims: list[dict], abstract: str = "") -> str:
 
 
 @router.get("/personas")
-def list_personas():
-    """List available reviewer personas."""
-    personas = _list_personas()
+def list_personas(demo_token: str = ""):
+    """List available reviewer personas. Personified only with valid demo token."""
+    show_personified = demo_token and demo_token in DEMO_TOKENS
+    personas = _list_personas() if show_personified else []
     return {
         "personified": [p for p in personas if p.get("type") == "personified"],
         "generic": [

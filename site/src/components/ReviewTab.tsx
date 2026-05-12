@@ -90,13 +90,14 @@ export default function ReviewTab({ claims, paperTitle, abstract }: Props) {
   const [searchFilter, setSearchFilter] = useState('');
   const chatEndRef = useRef<HTMLDivElement>(null);
 
-  // Load personas on mount
+  // Load personas — what you see depends on your token/key
   useEffect(() => {
-    fetch(`${API_URL}/review/personas`)
+    const tokenParam = demoToken ? `?demo_token=${encodeURIComponent(demoToken)}` : '';
+    fetch(`${API_URL}/review/personas${tokenParam}`)
       .then(r => r.json())
       .then(d => setPersonas({ personified: d.personified || [], generic: d.generic || [] }))
       .catch(() => {});
-  }, []);
+  }, [demoToken]);
 
   // Auto-scroll chat
   useEffect(() => {
@@ -294,8 +295,8 @@ export default function ReviewTab({ claims, paperTitle, abstract }: Props) {
           </div>
         )}
 
-        {/* Personified */}
-        <div>
+        {/* Personified — only shown when token grants access */}
+        {personas.personified.length > 0 && <div>
           <div className="flex items-center justify-between mb-2">
             <h3 className="text-sm font-semibold text-gray-700 dark:text-gray-300">Personified reviewers</h3>
             <input type="text" placeholder="Filter..." value={searchFilter} onChange={e => setSearchFilter(e.target.value)}
@@ -334,7 +335,7 @@ export default function ReviewTab({ claims, paperTitle, abstract }: Props) {
               <p className="text-xs text-gray-400 mt-1">{filteredPersonified.length - 30} more — refine your filter</p>
             )}
           </div>
-        </div>
+        </div>}
 
         {/* Generic */}
         <div>
