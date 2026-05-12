@@ -357,7 +357,7 @@ async def run_review(req: RunReviewRequest):
                 name = reviewer.get("name", slug)
                 rtype = reviewer.get("type", "generic")
 
-                yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewer {i+1}/{len(req.reviewers)}: {name}...', 'reviewer': slug})}\n\n"
+                yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewer {i+1}/{len(req.reviewers)}: {name} reading claims and writing review...'})}\n\n"
 
                 # Build system prompt
                 if rtype == "personified":
@@ -401,10 +401,12 @@ async def run_review(req: RunReviewRequest):
                     "review": review_text,
                 })
 
-                yield f"data: {json.dumps({'step': 'review', 'message': f'{name} complete', 'reviewer': slug})}\n\n"
+                # Count words as a rough quality indicator
+                word_count = len(review_text.split())
+                yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewer {i+1}/{len(req.reviewers)}: {name} — done ({word_count} words)'})}\n\n"
 
             # Phase 2: Editor synthesis
-            yield f"data: {json.dumps({'step': 'synthesis', 'message': 'Editor synthesizing reviews...'})}\n\n"
+            yield f"data: {json.dumps({'step': 'synthesis', 'message': f'Editor reading {len(reviews)} reviews and synthesizing...'})}\n\n"
 
             all_reviews = "\n\n---\n\n".join(
                 f"REVIEWER: {r['name']}\n\n{r['review']}" for r in reviews
@@ -443,6 +445,8 @@ async def run_review(req: RunReviewRequest):
                 messages=[{"role": "user", "content": editor_msg}],
             )
             synthesis_text = response.content[0].text
+
+            yield f"data: {json.dumps({'step': 'synthesis', 'message': 'Editor synthesis complete — parsing concerns...'})}\n\n"
 
             # Try to parse JSON
             synthesis = {}

@@ -239,10 +239,48 @@ const url = (path: string) => `${base}${path}/`;
       'literature-context': 'bg-orange-100 text-orange-800 dark:bg-orange-900/30 dark:text-orange-300',
     };
 
+    const roleTooltips = {
+      hypothesis: 'The paper\'s central bet — often implicit, not stated directly in the prose',
+      prediction: 'A testable consequence deduced from a hypothesis',
+      empirical: 'A measured or computed result, grounded in a figure panel',
+      control: 'An empirical result whose function is to rule out an alternative explanation',
+      scope: 'A boundary condition on other claims ("all results come from...")',
+      methodological: 'A capability or analytical decision of the apparatus',
+      synthesis: 'Integrates multiple empirical results into one higher-order statement',
+      interpretation: 'Reframes results through a theoretical lens — maps to broader theory',
+      'literature-context': 'A cited prior result the paper depends on but did not produce',
+    };
+
+    const edgeTooltips = {
+      'cito:supports': 'Provides factual or intellectual support',
+      'cito:extends': 'Builds on facts, ideas, or understandings',
+      'cito:qualifies': 'Places conditions upon',
+      'cito:disagreesWith': 'Dissociates with — results that separate variables',
+      'cito:usesMethodIn': 'Uses a method from this claim',
+      'cito:citesAsSourceDocument': 'Derived from this claim',
+      'claimrel:requires': 'Logically depends on this claim as a prerequisite',
+      'claimrel:tests': 'Submits this claim to empirical test',
+      'claimrel:entails': 'Logically entails this claim (deductive)',
+      'claimrel:interprets': 'Offers a theoretical reading of this claim',
+      'claimrel:scopes': 'Delimits the domain of applicability',
+      'claimrel:rulesOut': 'Eliminates this claim as a viable hypothesis',
+      'claimrel:replicates': 'Empirically replicates this finding',
+      'claimrel:contradicts': 'Presents findings incompatible with this claim',
+    };
+
+    function edgeLabel(relType) {
+      return relType.split(':').pop().replace(/([A-Z])/g, ' $1').trim().toLowerCase();
+    }
+
+    // Group claims by role in a meaningful order
+    const roleOrder = ['hypothesis', 'prediction', 'empirical', 'control', 'scope', 'methodological', 'synthesis', 'interpretation', 'literature-context'];
+
     function renderResults(article, apiKey, demoToken) {
       resultsDiv.classList.remove('hidden');
       const claims = article.children || [];
       const nRels = claims.reduce((s, c) => s + (c.relations || []).length, 0);
+      const claimMap = {};
+      claims.forEach(c => { claimMap[c.identifier] = c; });
 
       document.getElementById('result-stats').innerHTML = `
         <div class="bg-gray-50 dark:bg-gray-800/50 rounded-xl p-4">
@@ -259,17 +297,56 @@ const url = (path: string) => `${base}${path}/`;
         </div>
       `;
 
-      document.getElementById('claim-list').innerHTML = claims.map(c => {
-        const text = (c.children || []).map(ch => ch.value || '').join(' ');
-        const badge = roleBadgeColor[c.role] || 'bg-gray-100 text-gray-800';
-        return `<div class="border border-gray-200 dark:border-gray-700 rounded-lg p-3">
-          <div class="flex items-center gap-2 mb-1">
-            <span class="text-xs font-medium px-1.5 py-0.5 rounded ${badge}">${c.role}</span>
-            ${c.panel ? '<span class="text-xs text-gray-400">' + c.panel.join(', ') + '</span>' : ''}
-          </div>
-          <div class="text-sm text-gray-700 dark:text-gray-300">${text}</div>
-        </div>`;
-      }).join('');
+      // Group claims by role
+      const grouped = {};
+      claims.forEach(c => {
+        const r = c.role || 'other';
+        if (!grouped[r]) grouped[r] = [];
+        grouped[r].push(c);
+      });
+
+      let html = '';
+      for (const role of roleOrder) {
+        const group = grouped[role];
+        if (!group || group.length === 0) continue;
+        const badge = roleBadgeColor[role] || 'bg-gray-100 text-gray-800';
+        const tip = roleTooltips[role] || '';
+
+        html += `<div class="mb-6">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="text-xs font-semibold px-2 py-0.5 rounded ${badge} cursor-help" title="${tip}">${role}</span>
+            <span class="text-xs text-gray-400">${group.length}</span>
+          </div>`;
+
+        for (const c of group) {
+          const text = (c.children || []).map(ch => ch.value || '').join(' ');
+          const rels = c.relations || [];
+          const panelHtml = c.panel ? `<span class="text-[10px] text-gray-400 ml-1">${c.panel.join(', ')}</span>` : '';
+
+          let relsHtml = '';
+          if (rels.length > 0) {
+            relsHtml = '<div class="mt-1.5 flex flex-wrap gap-1">';
+            for (const r of rels) {
+              const label = edgeLabel(r.relationType);
+              const tip = edgeTooltips[r.relationType] || r.relationType;
+              const targetClaim = claimMap[r.xref];
+              const targetText = targetClaim
+                ? (targetClaim.children || []).map(ch => ch.value || '').join(' ').slice(0, 60)
+                : r.xref;
+              relsHtml += `<span class="text-[10px] px-1.5 py-0.5 rounded bg-gray-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400 cursor-help" title="${tip}: ${targetText}...">${label} → ${r.xref.slice(0, 25)}</span>`;
+            }
+            relsHtml += '</div>';
+          }
+
+          html += `<div class="border border-gray-100 dark:border-gray-800 rounded-lg p-2.5 mb-1.5">
+            <div class="text-sm text-gray-700 dark:text-gray-300">${text}${panelHtml}</div>
+            ${relsHtml}
+          </div>`;
+        }
+        html += '</div>';
+      }
+
+      document.getElementById('claim-list').innerHTML = html;
 
       const blob = new Blob([JSON.stringify(article, null, 2)], { type: 'application/json' });
       document.getElementById('downloads').innerHTML = `
