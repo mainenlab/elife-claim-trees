@@ -205,12 +205,12 @@ async def extract(req: ExtractRequest):
 
             # Step 4: Reconciliation
             yield f"data: {json.dumps({'step': 'reconcile', 'message': 'Reconciling claims...'})}\n\n"
-            draft = reconcile_step(agents_output, paper, cfg)
+            draft = reconcile_step(agents_output[0], agents_output[1], agents_output[2], cfg, paper_doi=paper.doi, paper_title=paper.title)
             yield f"data: {json.dumps({'step': 'reconcile', 'message': f'Reconciled to {len(draft.claims)} claims'})}\n\n"
 
             # Step 4.5: External review
             yield f"data: {json.dumps({'step': 'review', 'message': 'Running external reviewer...'})}\n\n"
-            reviewed = external_review(draft, paper, cfg)
+            reviewed = external_review(paper, draft, cfg)
             yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewed: {len(reviewed.claims)} claims after revision'})}\n\n"
 
             # Build OXA output
@@ -377,12 +377,12 @@ async def extract_file(
 
             # Step 4: Reconciliation
             yield f"data: {json.dumps({'step': 'reconcile', 'message': 'Reconciling claims...'})}\n\n"
-            draft = reconcile_step(agents_output, paper, cfg)
+            draft = reconcile_step(agents_output[0], agents_output[1], agents_output[2], cfg, paper_doi=paper.doi, paper_title=paper.title)
             yield f"data: {json.dumps({'step': 'reconcile', 'message': f'Reconciled to {len(draft.claims)} claims'})}\n\n"
 
             # Step 4.5: External review
             yield f"data: {json.dumps({'step': 'review', 'message': 'Running external reviewer...'})}\n\n"
-            reviewed = external_review(draft, paper, cfg)
+            reviewed = external_review(paper, draft, cfg)
             yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewed: {len(reviewed.claims)} claims'})}\n\n"
 
             # Build OXA output
