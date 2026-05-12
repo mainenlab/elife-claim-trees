@@ -6,6 +6,7 @@ import AbstractAlignment from '../../components/AbstractAlignment.astro';
 import ArgumentFromGraph from '../../components/ArgumentFromGraph.astro';
 import PaperTabs from '../../components/PaperTabs.astro';
 import ClaimDrawer from '../../components/ClaimDrawer.tsx';
+import ReviewTab from '../../components/ReviewTab.tsx';
 import corpus from '../../data/claims.json';
 import paperSummaries from '../../data/paper-summaries.json';
 
@@ -102,6 +103,7 @@ const tabs = [
   { id: 'structure', label: 'Claims' },
   ...(abstractMapping ? [{ id: 'abstract', label: 'Abstract \u2194 claims' }] : []),
   ...(synthesisBlock ? [{ id: 'argument', label: 'Argument from graph' }] : []),
+  { id: 'review', label: 'Review' },
 ];
 ---
 
@@ -254,6 +256,16 @@ const tabs = [
         <ArgumentFromGraph synthesis={synthesisBlock} version={synthesisVersion} claimsBySlug={claimsBySlug} />
       </div>
     )}
+
+    <!-- Tab: Review -->
+    <div class="paper-tab-panel" data-tab-id="review" data-tab-active="false">
+      <ReviewTab
+        client:load
+        claims={paperData.claims}
+        paperTitle={paperData.title}
+        abstract={paperData.claims.filter((c: any) => c.role === 'hypothesis').map((c: any) => c.claim).join(' ') || paperData.title}
+      />
+    </div>
 
   </div>
 
