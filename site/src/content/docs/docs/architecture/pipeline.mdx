@@ -102,7 +102,7 @@ This page is the diagram everything else in the architecture section refers back
 
 ## The eight steps, named
 
-The methodology document — `docs/method.md` § 3 in the corpus repo — names eight steps. The CLI implements all eight, plus an external-reviewer pass between Step 4 and Step 5 that the methodology doc doesn't anticipate but that empirically lifts role-classification accuracy from 65% to 96% on auto-approve runs (see [validation results](/docs/validation/results/)).
+The methodology document — `docs/method.md` § 3 in the corpus repo — names eight steps. The CLI implements all eight, plus an external-reviewer pass between Step 4 and Step 5 that the methodology doc doesn't anticipate but that empirically lifts role-classification accuracy from 65% to 96% on auto-approve runs (see [validation results](/elife-claim-trees/docs/validation/results/)).
 
 | Step | Name | What it does | Model / API | Output |
 |:-----|:-----|:-------------|:------------|:-------|
@@ -150,7 +150,7 @@ A 100-paper corpus with external review: roughly **$500-700 and 17-25 hours sequ
 
 ## Where to go from here
 
-- The [three-agent partition](/docs/architecture/three-agent-partition/) explains *why* three independent readers and what each is positioned to extract.
-- The [external reviewer](/docs/architecture/external-reviewer/) explains why Step 4.5 exists and what it does that the prose-level extraction can't.
-- The [review gate](/docs/architecture/review-gate/) explains the four review modes and when each is right for your operational shape.
-- [Validation results](/docs/validation/results/) shows the empirical performance of this pipeline on the 10 public eLife papers in the curated corpus.
+- The [three-agent partition](/elife-claim-trees/docs/architecture/three-agent-partition/) explains *why* three independent readers and what each is positioned to extract.
+- The [external reviewer](/elife-claim-trees/docs/architecture/external-reviewer/) explains why Step 4.5 exists and what it does that the prose-level extraction can't.
+- The [review gate](/elife-claim-trees/docs/architecture/review-gate/) explains the four review modes and when each is right for your operational shape.
+- [Validation results](/elife-claim-trees/docs/validation/results/) shows the empirical performance of this pipeline on the 10 public eLife papers in the curated corpus.

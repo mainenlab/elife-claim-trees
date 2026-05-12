@@ -5,7 +5,7 @@ description: Concrete commands from a clean install to a populated claim-files d
 
 import { Aside } from '@astrojs/starlight/components';
 
-This page is the operational counterpart to [the quick demo](/docs/overview/quick-demo/). The demo explains what's happening conceptually; this page is the commands you type and the output you see. By the end, you have 87 claim files written into your corpus directory and a sense for what each subcommand does.
+This page is the operational counterpart to [the quick demo](/elife-claim-trees/docs/overview/quick-demo/). The demo explains what's happening conceptually; this page is the commands you type and the output you see. By the end, you have 87 claim files written into your corpus directory and a sense for what each subcommand does.
 
 We use Headley 2026 (DOI: `10.7554/eLife.95562`) as the example.
 
@@ -183,7 +183,7 @@ elife-extract run \
   --corpus-dir ./claims
 ```
 
-The `run` subcommand chains `extract` + `write --review-mode auto-approve` + `verify-refs`. Note: `run` defaults to **auto-approve**, not external. For bulk operation with the reviewer pass, run `extract` and `write --review-mode external` separately, or use `evaluate` (see [batch operation](/docs/cli/batch/)).
+The `run` subcommand chains `extract` + `write --review-mode auto-approve` + `verify-refs`. Note: `run` defaults to **auto-approve**, not external. For bulk operation with the reviewer pass, run `extract` and `write --review-mode external` separately, or use `evaluate` (see [batch operation](/elife-claim-trees/docs/cli/batch/)).
 
 ## Total cost and time
 
@@ -198,7 +198,7 @@ If you ran `run` (auto-approve) instead, drop the reviewer cost and time: **~$5,
 
 ## Common things to do next
 
-- Process more papers — see [batch operation](/docs/cli/batch/)
-- Validate your install end-to-end — see [evaluate against the curated reference](/docs/contributing/validation/)
-- Tune the model selection — see [cost and performance](/docs/cli/cost/)
-- Hand the claim files to a curator for the high-value review — see [the review gate](/docs/architecture/review-gate/)
+- Process more papers — see [batch operation](/elife-claim-trees/docs/cli/batch/)
+- Validate your install end-to-end — see [evaluate against the curated reference](/elife-claim-trees/docs/contributing/validation/)
+- Tune the model selection — see [cost and performance](/elife-claim-trees/docs/cli/cost/)
+- Hand the claim files to a curator for the high-value review — see [the review gate](/elife-claim-trees/docs/architecture/review-gate/)

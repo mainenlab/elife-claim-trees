@@ -23,43 +23,43 @@ import { Card, CardGrid } from '@astrojs/starlight/components';
   <Card title="Overview" icon="rocket">
     Five-minute orientation. What the system does, how it relates to the eLife claim-trees methodology, when to use it.
 
-    [Read overview →](/docs/overview/what-this-is/)
+    [Read overview →](/elife-claim-trees/docs/overview/what-this-is/)
   </Card>
 
   <Card title="Architecture" icon="setting">
     Pipeline diagram, the three-agent partition, reconciliation, the external reviewer pass, and the review gate.
 
-    [See architecture →](/docs/architecture/pipeline/)
+    [See architecture →](/elife-claim-trees/docs/architecture/pipeline/)
   </Card>
 
   <Card title="Using the CLI" icon="laptop">
     Install, configure, run on your first paper, scale to your corpus. Cost and performance characteristics.
 
-    [Get started →](/docs/cli/install/)
+    [Get started →](/elife-claim-trees/docs/cli/install/)
   </Card>
 
   <Card title="Validation" icon="approve-check-circle">
     Round-trip methodology. Per-paper and aggregate scorecards from the 10-paper public eLife corpus.
 
-    [See results →](/docs/validation/results/)
+    [See results →](/elife-claim-trees/docs/validation/results/)
   </Card>
 
   <Card title="Reference" icon="open-book">
     Configuration reference, the 9 roles, the 14 edge types, the prompts, the API.
 
-    [Browse reference →](/docs/reference/config/)
+    [Browse reference →](/elife-claim-trees/docs/reference/config/)
   </Card>
 
   <Card title="For contributors" icon="pencil">
     Code structure, prompt-variant authoring, validation discipline, design decisions.
 
-    [Contribute →](/docs/contributing/code-structure/)
+    [Contribute →](/elife-claim-trees/docs/contributing/code-structure/)
   </Card>
 </CardGrid>
 
 ## What this is
 
-A working implementation of the eight-step claim-induction methodology described in [`docs/method.md`](/method/). Given an eLife paper DOI, the system fetches the paper, runs three independent extraction agents on partitioned slices of the prose, reconciles the agents into a draft claim table, optionally runs an Opus structural-inference pass to recover the deductive layer, and writes claim files in the corpus schema — with CrossRef DOI verification for cited references.
+A working implementation of the eight-step claim-induction methodology described in [`docs/method.md`](/elife-claim-trees/method/). Given an eLife paper DOI, the system fetches the paper, runs three independent extraction agents on partitioned slices of the prose, reconciles the agents into a draft claim table, optionally runs an Opus structural-inference pass to recover the deductive layer, and writes claim files in the corpus schema — with CrossRef DOI verification for cited references.
 
 It is built as a Python CLI (`elife-extract`) with a stable command surface, a Pydantic-validated wire format, and a round-trip evaluation harness for measuring the impact of any change against the curated reference corpus. Every architectural decision is documented; every prompt is in version control; every empirical claim about performance is backed by a per-paper scorecard you can re-run.
 
@@ -67,4 +67,4 @@ It is built as a Python CLI (`elife-extract`) with a stable command surface, a P
 
 This documentation is for the people who will operate the system, integrate it with eLife's editorial infrastructure, and extend it as the methodology evolves. It assumes Python familiarity, a working knowledge of the LLM tooling stack (Anthropic via Vertex AI), and access to the elife-claim-trees corpus or your own corpus following the same schema.
 
-If you are looking for the methodology rather than the implementation, see [`docs/method.md`](/method/) in the corpus repo. If you are looking for the per-paper claim graphs, see [`/papers/`](/papers/).
+If you are looking for the methodology rather than the implementation, see [`docs/method.md`](/elife-claim-trees/method/) in the corpus repo. If you are looking for the per-paper claim graphs, see [`/papers/`](/elife-claim-trees/papers/).

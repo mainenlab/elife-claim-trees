@@ -44,14 +44,14 @@ On the 10 public eLife papers in the curated reference corpus, the system in `--
 | Role agreement | 78% | 76% | ≥ 75% | ✅ |
 | Panel agreement | 55% | 53% | ≥ 90% | ❌ |
 
-Recovery is the load-bearing metric — every reference claim has a corresponding extraction. Role agreement clears its threshold; the persistent panel miss is a documented limitation (multi-panel claims like `panel: fig4, fig5` get scored as panel-mismatch when the CLI emits a single-panel claim with the same content). See [validation results](/docs/validation/results/) for the per-paper breakdown.
+Recovery is the load-bearing metric — every reference claim has a corresponding extraction. Role agreement clears its threshold; the persistent panel miss is a documented limitation (multi-panel claims like `panel: fig4, fig5` get scored as panel-mismatch when the CLI emits a single-panel claim with the same content). See [validation results](/elife-claim-trees/docs/validation/results/) for the per-paper breakdown.
 
 <Aside type="tip">
   The system is built so that **every prompt change can be measured**. The
   `evaluate` subcommand re-runs the pipeline on the curated corpus and produces
   an aggregate scorecard. This makes prompt iteration a discipline, not an
   experiment — change → re-run → diff aggregate → decide. The kammer iteration
-  ([57% → 71% role on a single targeted prompt change](/docs/validation/iteration/))
+  ([57% → 71% role on a single targeted prompt change](/elife-claim-trees/docs/validation/iteration/))
   is the canonical worked example.
 </Aside>
 
@@ -64,7 +64,7 @@ Recovery is the load-bearing metric — every reference claim has a correspondin
 
 ## Where to go next
 
-- [Quick demo — one paper end to end](/docs/overview/quick-demo/) — see the system run on Headley 2026
-- [The pipeline at a glance](/docs/architecture/pipeline/) — the architecture diagram
-- [Install and configure](/docs/cli/install/) — get it running on your infrastructure
-- [The 10-paper sweep results](/docs/validation/results/) — the empirical case
+- [Quick demo — one paper end to end](/elife-claim-trees/docs/overview/quick-demo/) — see the system run on Headley 2026
+- [The pipeline at a glance](/elife-claim-trees/docs/architecture/pipeline/) — the architecture diagram
+- [Install and configure](/elife-claim-trees/docs/cli/install/) — get it running on your infrastructure
+- [The 10-paper sweep results](/elife-claim-trees/docs/validation/results/) — the empirical case

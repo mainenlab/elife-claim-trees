@@ -54,7 +54,7 @@ Loads the draft, runs the chosen review mode, then writes per-claim `.md` files 
 | `--corpus-dir` (required) | Where claim files land | env `ELIFE_CORPUS_DIR` |
 | `--review-mode` | `interactive` / `external` / `auto-approve` / `dry-run` | `interactive` |
 
-The four review modes have very different cost/quality profiles. See [review modes — when to use each](/docs/cli/review-modes/) for the operational decision tree.
+The four review modes have very different cost/quality profiles. See [review modes — when to use each](/elife-claim-trees/docs/cli/review-modes/) for the operational decision tree.
 
 Cost: $0 (`auto-approve`, `dry-run`, `interactive`) or ~$2 (`external`). Time: &lt;1s (auto-approve), ~5 min (external), variable (interactive based on analyst time).
 
@@ -123,7 +123,7 @@ For each named (or all) paper in the reference corpus, runs the full pipeline, s
 | `--skip-existing` | Skip papers that already have a scorecard.json | re-runs |
 | (model flags) | Per-agent model overrides | as in `extract` |
 
-Use `evaluate` to validate prompt iterations, model substitutions, or new review modes empirically before deployment. See [the iteration discipline](/docs/validation/iteration/) for the workflow.
+Use `evaluate` to validate prompt iterations, model substitutions, or new review modes empirically before deployment. See [the iteration discipline](/elife-claim-trees/docs/validation/iteration/) for the workflow.
 
 Cost: ~$10 per paper (extract + review + matcher). Time: ~15-20 min per paper sequential.
 
@@ -146,6 +146,6 @@ The five subcommands compose into a few standard operational shapes:
 
 ## Next steps
 
-- [Review modes — when to use each](/docs/cli/review-modes/) — the operational decision for `write`
-- [Configuration reference](/docs/reference/config/) — every env var and flag in detail
-- [Batch operation](/docs/cli/batch/) — running on many papers
+- [Review modes — when to use each](/elife-claim-trees/docs/cli/review-modes/) — the operational decision for `write`
+- [Configuration reference](/elife-claim-trees/docs/reference/config/) — every env var and flag in detail
+- [Batch operation](/elife-claim-trees/docs/cli/batch/) — running on many papers

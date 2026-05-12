@@ -63,7 +63,7 @@ The load-bearing metric. Recovery is "did the CLI find every claim the curator e
 
 **Panel agreement** = (# matched claims with `panel_match: true`) / (# matched claims)
 
-For matched claims (recovery numerator), did the CLI assign the same panel as the curator? Multi-panel reference claims (`panel: fig4, fig5`) often score panel-mismatch when the CLI emits a single-panel claim with the same content; this is the [documented panel limitation](/docs/validation/limitations/).
+For matched claims (recovery numerator), did the CLI assign the same panel as the curator? Multi-panel reference claims (`panel: fig4, fig5`) often score panel-mismatch when the CLI emits a single-panel claim with the same content; this is the [documented panel limitation](/elife-claim-trees/docs/validation/limitations/).
 
 **Role agreement** = (# matched claims with `role_match: true`) / (# matched claims)
 
@@ -100,7 +100,7 @@ The `evaluate` subcommand is the validation harness for **any change you propose
 3. Re-run `evaluate --all` with the change.
 4. Diff aggregate scorecards. Recovery and role both up (or one up and the other holds): the change is a net win. Either drops materially: the change is a regression.
 
-The kammer iteration is the canonical worked example — see [iteration discipline](/docs/validation/iteration/) for the case study.
+The kammer iteration is the canonical worked example — see [iteration discipline](/elife-claim-trees/docs/validation/iteration/) for the case study.
 
 ## Cost of validation
 
@@ -118,6 +118,6 @@ This is the cost of the discipline — every prompt change validated empirically
 
 ## Next steps
 
-- [The 10-paper sweep results](/docs/validation/results/) — the empirical case for the system
-- [Known limitations](/docs/validation/limitations/) — what the metrics tell us is hard
-- [Iteration discipline](/docs/validation/iteration/) — kammer prompt iteration as a worked example
+- [The 10-paper sweep results](/elife-claim-trees/docs/validation/results/) — the empirical case for the system
+- [Known limitations](/elife-claim-trees/docs/validation/limitations/) — what the metrics tell us is hard
+- [Iteration discipline](/elife-claim-trees/docs/validation/iteration/) — kammer prompt iteration as a worked example

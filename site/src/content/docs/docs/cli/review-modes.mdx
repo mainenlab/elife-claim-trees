@@ -7,7 +7,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 The `write` subcommand's `--review-mode` flag determines what happens at Step 5 of the methodology. Four modes, each appropriate for a different operational shape. This page is the decision tree.
 
-For the architectural rationale (why a review gate exists at all), see [the review gate](/docs/architecture/review-gate/).
+For the architectural rationale (why a review gate exists at all), see [the review gate](/elife-claim-trees/docs/architecture/review-gate/).
 
 ## The four modes at a glance
 
@@ -83,7 +83,7 @@ Cost: ~$7 per paper × N. Time: ~15 min per paper sequential (or fewer with para
 
 For 100 papers: ~$700, ~25 hours sequential. For 1000 papers: ~$7K, ~10 days sequential or ~3 days with 3-way parallelism.
 
-Output: ~78% role agreement on average (matches the [10-paper sweep](/docs/validation/results/)). For peer-review augmentation, this quality is sufficient — reviewers see structured claims, citations are anti-hallucination-checked, the schema is consistent.
+Output: ~78% role agreement on average (matches the [10-paper sweep](/elife-claim-trees/docs/validation/results/)). For peer-review augmentation, this quality is sufficient — reviewers see structured claims, citations are anti-hallucination-checked, the schema is consistent.
 
 ### Operational shape 3 — Test, demo, or batch where you'll review the .md files manually
 
@@ -138,6 +138,6 @@ If you're processing 10 papers and only spot-checking a sample, `external` is th
 
 ## Next steps
 
-- [Batch operation](/docs/cli/batch/) — running on many papers efficiently
-- [Cost and performance](/docs/cli/cost/) — per-step / per-model breakdown
-- [The external reviewer](/docs/architecture/external-reviewer/) — full design of the Opus pass
+- [Batch operation](/elife-claim-trees/docs/cli/batch/) — running on many papers efficiently
+- [Cost and performance](/elife-claim-trees/docs/cli/cost/) — per-step / per-model breakdown
+- [The external reviewer](/elife-claim-trees/docs/architecture/external-reviewer/) — full design of the Opus pass

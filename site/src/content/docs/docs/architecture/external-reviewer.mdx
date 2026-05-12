@@ -56,7 +56,7 @@ The reviewer is **not** allowed to delete claims (downgrade to `notes` if you th
   The reviewer prompt is the largest of the five prompts in the system —
   ~250 lines, including a worked Headley-shaped example showing what
   hypothesis-prediction-empirical surfacing looks like in practice. See
-  [the prompts reference](/docs/reference/prompts/) for the full text.
+  [the prompts reference](/elife-claim-trees/docs/reference/prompts/) for the full text.
 </Aside>
 
 ## Why Opus
@@ -80,7 +80,7 @@ The same paper, three pipeline configurations, scored against the 26-claim curat
 
 v3's role agreement *exceeds* the 75% threshold by a wide margin. The 30-point gain is concentrated in the prediction (6/6 surfaced and correctly classified) and hypothesis (2/2 surfaced) categories — exactly the failure modes the prompt targets.
 
-The 10-paper sweep across the public eLife corpus confirms the result generalizes — see [validation results](/docs/validation/results/) for per-paper detail.
+The 10-paper sweep across the public eLife corpus confirms the result generalizes — see [validation results](/elife-claim-trees/docs/validation/results/) for per-paper detail.
 
 ## What the reviewer doesn't fix
 
@@ -102,7 +102,7 @@ Not always. Three cases where `--review-mode auto-approve` (no reviewer) is the 
 
 ## Where to go from here
 
-- The full reviewer prompt is at [the prompts reference](/docs/reference/prompts/)
-- [The 10-paper sweep results](/docs/validation/results/) shows how the reviewer performs across the corpus
-- [The iteration discipline](/docs/validation/iteration/) walks through the kammer prompt iteration that added Biases 5, 6, and 7
-- [Review modes — when to use each](/docs/cli/review-modes/) compares the four review options
+- The full reviewer prompt is at [the prompts reference](/elife-claim-trees/docs/reference/prompts/)
+- [The 10-paper sweep results](/elife-claim-trees/docs/validation/results/) shows how the reviewer performs across the corpus
+- [The iteration discipline](/elife-claim-trees/docs/validation/iteration/) walks through the kammer prompt iteration that added Biases 5, 6, and 7
+- [Review modes — when to use each](/elife-claim-trees/docs/cli/review-modes/) compares the four review options

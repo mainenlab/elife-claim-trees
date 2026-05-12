@@ -7,7 +7,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 This page is the system in action. We pick one paper — Headley et al. 2026, "Spatially targeted inhibitory rhythms differentially affect neuronal integration" — and walk through the entire pipeline, showing what each phase produces and what the final corpus directory looks like.
 
-You can run this exact sequence yourself once you have the CLI [installed and configured](/docs/cli/install/). Total wall time: ~15 minutes. Total cost: ~$7 in mixed Sonnet 4.6 and Opus 4.6 calls via Vertex AI.
+You can run this exact sequence yourself once you have the CLI [installed and configured](/elife-claim-trees/docs/cli/install/). Total wall time: ~15 minutes. Total cost: ~$7 in mixed Sonnet 4.6 and Opus 4.6 calls via Vertex AI.
 
 ## The input
 
@@ -64,7 +64,7 @@ Each candidate carries:
 - `confidence` — high or tentative (the agent's self-assessment)
 - `notes` — flags or alternative readings
 
-See [the three-agent partition](/docs/architecture/three-agent-partition/) for why the partition is structured this way.
+See [the three-agent partition](/elife-claim-trees/docs/architecture/three-agent-partition/) for why the partition is structured this way.
 
 ## Step 4 — Reconciliation
 
@@ -100,7 +100,7 @@ elife-extract write \
   --review-mode external
 ```
 
-Four review modes are available. For this demo we pick `external` — an Opus pass that recovers the deductive structure (hypotheses, predictions) the prose-level extraction systematically misses. See [the review gate](/docs/architecture/review-gate/) for when to use which mode.
+Four review modes are available. For this demo we pick `external` — an Opus pass that recovers the deductive structure (hypotheses, predictions) the prose-level extraction systematically misses. See [the review gate](/elife-claim-trees/docs/architecture/review-gate/) for when to use which mode.
 
 ```
 === Step 5 — Review gate (external) ===
@@ -115,7 +115,7 @@ Four review modes are available. For this demo we pick `external` — an Opus pa
 
 The reviewer added 10 claims to the 76-claim draft: 1 hypothesis (the paper's organising bet, surfaced explicitly for the first time) and 6 predictions (the deductive expectations Headley implicitly tests through its modelling), plus 3 revisions to existing claims (role corrections — `synthesis` to `interpretation`, etc.).
 
-This is the **structural-inference** step. The Results-reader correctly extracted what's in the prose; what was missing was the implicit deductive scaffolding the curator infers from the modelling decisions. Opus reads the paper holistically and recovers it. See [the external reviewer](/docs/architecture/external-reviewer/) for the design rationale.
+This is the **structural-inference** step. The Results-reader correctly extracted what's in the prose; what was missing was the implicit deductive scaffolding the curator infers from the modelling decisions. Opus reads the paper holistically and recovers it. See [the external reviewer](/elife-claim-trees/docs/architecture/external-reviewer/) for the design rationale.
 
 ## Steps 6-7 — Write claim files
 
@@ -220,7 +220,7 @@ Compare this to the curated reference at `~/Projects/mainenlab/elife-claim-trees
 
 ## Next steps
 
-- See the [pipeline diagram](/docs/architecture/pipeline/) for the architectural overview
-- Read the [external reviewer page](/docs/architecture/external-reviewer/) — that's the system's most novel decision
-- Try it yourself via the [install guide](/docs/cli/install/)
-- Look at the [validation results](/docs/validation/results/) for how the same pipeline performs across the 10-paper public eLife corpus
+- See the [pipeline diagram](/elife-claim-trees/docs/architecture/pipeline/) for the architectural overview
+- Read the [external reviewer page](/elife-claim-trees/docs/architecture/external-reviewer/) — that's the system's most novel decision
+- Try it yourself via the [install guide](/elife-claim-trees/docs/cli/install/)
+- Look at the [validation results](/elife-claim-trees/docs/validation/results/) for how the same pipeline performs across the 10-paper public eLife corpus

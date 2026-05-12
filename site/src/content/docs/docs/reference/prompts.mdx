@@ -7,7 +7,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 The prompts are the most load-bearing artifact in the system. Five files; ~1500 lines of prompt text total. They specify what each agent reads, how each should think about the task, what failure modes to avoid, and what output schema to produce.
 
-This page is the reference for what's in each prompt and where it lives. For the design rationale, see [the three-agent partition](/docs/architecture/three-agent-partition/) and [the external reviewer](/docs/architecture/external-reviewer/). For authoring variants, see [adding a prompt variant](/docs/contributing/prompt-variant/).
+This page is the reference for what's in each prompt and where it lives. For the design rationale, see [the three-agent partition](/elife-claim-trees/docs/architecture/three-agent-partition/) and [the external reviewer](/elife-claim-trees/docs/architecture/external-reviewer/). For authoring variants, see [adding a prompt variant](/elife-claim-trees/docs/contributing/prompt-variant/).
 
 ## Prompt files
 
@@ -114,7 +114,7 @@ cp prompts/results-reader.md prompts/<variant-name>/
 elife-extract extract --doi <DOI> --prompt-variant <variant-name>
 ```
 
-Validate via `evaluate --prompt-variant <variant-name>` before deployment. See [adding a prompt variant](/docs/contributing/prompt-variant/) for the full workflow.
+Validate via `evaluate --prompt-variant <variant-name>` before deployment. See [adding a prompt variant](/elife-claim-trees/docs/contributing/prompt-variant/) for the full workflow.
 
 ## Implementation references
 
@@ -124,6 +124,6 @@ Validate via `evaluate --prompt-variant <variant-name>` before deployment. See [
 
 ## Next steps
 
-- [The three-agent partition](/docs/architecture/three-agent-partition/) — design rationale for the three extraction prompts
-- [The external reviewer](/docs/architecture/external-reviewer/) — design rationale for the reviewer prompt
-- [Adding a prompt variant](/docs/contributing/prompt-variant/) — workflow for authoring and testing variants
+- [The three-agent partition](/elife-claim-trees/docs/architecture/three-agent-partition/) — design rationale for the three extraction prompts
+- [The external reviewer](/elife-claim-trees/docs/architecture/external-reviewer/) — design rationale for the reviewer prompt
+- [Adding a prompt variant](/elife-claim-trees/docs/contributing/prompt-variant/) — workflow for authoring and testing variants

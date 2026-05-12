@@ -7,7 +7,7 @@ import { Aside } from '@astrojs/starlight/components';
 
 This page reports the system's empirical performance on the 10 public eLife papers in the curated reference corpus. Two full sweeps have run; v2 (with the iterated reviewer prompt incorporating Biases 5-7) is the current baseline.
 
-For the methodology behind these numbers, see [how we measure quality](/docs/validation/methodology/). For the iteration that produced v2, see [iteration discipline](/docs/validation/iteration/).
+For the methodology behind these numbers, see [how we measure quality](/elife-claim-trees/docs/validation/methodology/). For the iteration that produced v2, see [iteration discipline](/elife-claim-trees/docs/validation/iteration/).
 
 ## Aggregate metrics — current baseline (v2)
 
@@ -23,7 +23,7 @@ Sweep ran 2026-05-11 with Sonnet 4.6 × 3 extraction agents, Opus 4.6 reconciler
 
 **Role classification clears its threshold** by 8 points on the mean and 9 points on the median. The external reviewer's structural-inference pass converts what would be a failure mode in `auto-approve` mode (~65% role agreement) into a strongly passing result.
 
-**Panel assignment improved from v1 (54.7% → 60.9%)** but still fails the 90% threshold. The improvement came from the iterated reviewer's better handling of multi-panel claims; the residual failure is the [documented multi-panel collapse problem](/docs/validation/limitations/).
+**Panel assignment improved from v1 (54.7% → 60.9%)** but still fails the 90% threshold. The improvement came from the iterated reviewer's better handling of multi-panel claims; the residual failure is the [documented multi-panel collapse problem](/elife-claim-trees/docs/validation/limitations/).
 
 ## Delta from v1 baseline
 
@@ -35,7 +35,7 @@ The v2 iteration added Biases 5-7 to the external reviewer prompt (hypothesis pr
 | Role (mean / median) | 78.1% / 76.4% | **83.1% / 84.3%** | **+5.0 / +7.9** |
 | Panel (mean / median) | 54.7% / 53.1% | **60.9% / 58.6%** | +6.2 / +5.5 |
 
-The iterated prompt is a measurable net win on every aggregate metric. See [iteration discipline](/docs/validation/iteration/) for how v2 was developed and validated.
+The iterated prompt is a measurable net win on every aggregate metric. See [iteration discipline](/elife-claim-trees/docs/validation/iteration/) for how v2 was developed and validated.
 
 ## Per-paper detail (v2)
 
@@ -61,7 +61,7 @@ The iterated prompt is a measurable net win on every aggregate metric. See [iter
 - **rozak** role 65% → 55% (-10 points). Methods paper; the iterated reviewer's stricter control-recognition rule may over-apply on a paper that doesn't have the typical hypothesis-test structure.
 - **kolb** role 75% → 70% (-5 points). Similar pattern, less material.
 
-These are the residual failures the iteration trades for the corpus-wide gains. Targeted prompt iteration (per [iteration discipline](/docs/validation/iteration/)) on either paper could close these without regressing the rest of the corpus.
+These are the residual failures the iteration trades for the corpus-wide gains. Targeted prompt iteration (per [iteration discipline](/elife-claim-trees/docs/validation/iteration/)) on either paper could close these without regressing the rest of the corpus.
 
 **Recovery distribution:** 87-100%, with 5 of 10 papers at 100%. The 87% (rozak) and 88% (artiushin) are the lowest; both are unusual paper structures (rozak is a deep-learning methods paper; artiushin is an observational atlas).
 
@@ -75,7 +75,7 @@ These are the residual failures the iteration trades for the corpus-wide gains. 
 
 **The external reviewer is doing real work.** Without it (auto-approve mode on the same papers), role agreement averages ~65%. With it, **83%** (mean, v2). The 18-point average lift comes from the structural-inference work the prose-level extraction systematically misses.
 
-**The iteration discipline works.** The Phase F kammer iteration (single-paper test, +14 points on role) generalized to a +5 point average across the corpus, with the largest individual gain (+25 points) on the targeted paper itself. This is the canonical worked example of the [iteration discipline](/docs/validation/iteration/).
+**The iteration discipline works.** The Phase F kammer iteration (single-paper test, +14 points on role) generalized to a +5 point average across the corpus, with the largest individual gain (+25 points) on the targeted paper itself. This is the canonical worked example of the [iteration discipline](/elife-claim-trees/docs/validation/iteration/).
 
 **Recovery is robust.** Even on the lowest-recovery paper (rozak, 87%), the CLI surfaces 20 of 23 reference claims. Misses cluster in papers where the curated reference includes claims requiring deep methodological audit beyond what the Structure-reader agent attempts.
 
@@ -136,6 +136,6 @@ Wall time: ~85 minutes sequential. Could run in 30-40 minutes with 3-way shell-l
 
 ## Next steps
 
-- [Known limitations](/docs/validation/limitations/) — the panel issue, the role-lag papers, what's outside scope
-- [Iteration discipline](/docs/validation/iteration/) — kammer prompt iteration as a worked example
-- [Cost and performance](/docs/cli/cost/) — projecting these per-paper numbers to corpus scale
+- [Known limitations](/elife-claim-trees/docs/validation/limitations/) — the panel issue, the role-lag papers, what's outside scope
+- [Iteration discipline](/elife-claim-trees/docs/validation/iteration/) — kammer prompt iteration as a worked example
+- [Cost and performance](/elife-claim-trees/docs/cli/cost/) — projecting these per-paper numbers to corpus scale

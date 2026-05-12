@@ -26,7 +26,7 @@ Every claim has these fields in its YAML frontmatter:
 | `doi` | string or `~` | For literature-context claims, the cited paper's DOI. For other roles, `~` (claims aren't yet citable units). |
 | `claim` | string | The declarative sentence stating the proposition. Active voice. Quantitative where the result is quantitative. |
 | `claim-type` | enum | The epistemic character of the proposition. One of `empirical`, `interpretive`, `existence`, `synthesis`, `assessment`. |
-| `role` | enum | The rhetorical function the claim serves in the paper's argument. One of 9 values (see [the 9 roles](/docs/reference/roles/)). |
+| `role` | enum | The rhetorical function the claim serves in the paper's argument. One of 9 values (see [the 9 roles](/elife-claim-trees/docs/reference/roles/)). |
 | `concepts` | list | Controlled domain terms (e.g., `[dopamine-transporter, clearance, dorsal-striatum]`). Filled at review. |
 | `priority` | date | When the claim was first registered. Set to today's date at write time. |
 | `epistemic` | enum | `strong` / `moderate` / `weak` / `contested` — the analyst's overall assessment of evidentiary support. |
@@ -41,7 +41,7 @@ Every claim has these fields in its YAML frontmatter:
 
 ## Edge fields (typed relationships between claims)
 
-Edges are top-level keys whose value is a list of target claim slugs. The methodology defines 14 edge types — see [the 14 edge types](/docs/reference/edges/) for the full list. The most common:
+Edges are top-level keys whose value is a list of target claim slugs. The methodology defines 14 edge types — see [the 14 edge types](/elife-claim-trees/docs/reference/edges/) for the full list. The most common:
 
 | Edge | Meaning |
 |:-----|:--------|
@@ -145,6 +145,6 @@ These are the places where the analyst's review value is highest. The CLI does t
 ## Where to read more
 
 - `docs/method.md` § 4 in the corpus repo — the canonical schema specification
-- [The 9 roles](/docs/reference/roles/) — each role's definition, signal phrases, and edge patterns
-- [The 14 edge types](/docs/reference/edges/) — the full edge inventory with reasoning forms
-- [What the curator does, what the system does](/docs/methodology/division-of-labor/) — the human/system division of labor
+- [The 9 roles](/elife-claim-trees/docs/reference/roles/) — each role's definition, signal phrases, and edge patterns
+- [The 14 edge types](/elife-claim-trees/docs/reference/edges/) — the full edge inventory with reasoning forms
+- [What the curator does, what the system does](/elife-claim-trees/docs/methodology/division-of-labor/) — the human/system division of labor

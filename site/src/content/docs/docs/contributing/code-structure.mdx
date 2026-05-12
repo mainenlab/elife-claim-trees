@@ -5,7 +5,7 @@ description: Where each piece of the system lives. Module-by-module organization
 
 import { Aside } from '@astrojs/starlight/components';
 
-This page is the orientation for someone who will read or modify the source. For the public API, see [API reference](/docs/reference/api/). For the operational behavior, see the architecture pages.
+This page is the orientation for someone who will read or modify the source. For the public API, see [API reference](/elife-claim-trees/docs/reference/api/). For the operational behavior, see the architecture pages.
 
 ## Repository layout
 
@@ -98,7 +98,7 @@ A few places where the code is more concrete than a "production" Python package 
 - **No dependency injection.** The Vertex client is cached as a module-level global; the prompt loader reads from a hardcoded path relative to `__file__`. Both are fine for a single-tenant CLI; would need DI for embedding in a multi-tenant service.
 - **Minimal logging.** Each subcommand prints progress to stderr; no structured logging, no metrics emission. Sufficient for the current use case; adopt a logging framework when the operational surface grows.
 
-These are explicit tradeoffs, not oversights. See [design decisions](/docs/contributing/design-decisions/) for the rationale.
+These are explicit tradeoffs, not oversights. See [design decisions](/elife-claim-trees/docs/contributing/design-decisions/) for the rationale.
 
 ## Where the docs live
 
@@ -128,7 +128,7 @@ If you add a function that needs unit testing (e.g., complex slug derivation log
 Three common extension points:
 
 - **New CLI subcommand:** add a `cmd_<name>(args)` handler in `cli.py`, declare its argparse subparser in `build_parser()`, set `func=cmd_<name>` on the subparser, implement the handler logic in a new module under `elife_extract/`. See `cmd_evaluate` for a worked example.
-- **New prompt variant:** see [adding a prompt variant](/docs/contributing/prompt-variant/).
+- **New prompt variant:** see [adding a prompt variant](/elife-claim-trees/docs/contributing/prompt-variant/).
 - **New review mode:** add the mode name to the `--review-mode` choices in `cli.py`, add a branch in `cmd_write` that handles the new mode, implement the mode logic (likely in `review.py` or a new module). See the `external` mode for a worked example.
 
 ## Implementation references
@@ -139,6 +139,6 @@ Three common extension points:
 
 ## Next steps
 
-- [Adding a prompt variant](/docs/contributing/prompt-variant/) — the most common extension
-- [Running validation](/docs/contributing/validation/) — how to use `evaluate` to validate changes
-- [Design decisions](/docs/contributing/design-decisions/) — ADR-style record of why the code looks the way it does
+- [Adding a prompt variant](/elife-claim-trees/docs/contributing/prompt-variant/) — the most common extension
+- [Running validation](/elife-claim-trees/docs/contributing/validation/) — how to use `evaluate` to validate changes
+- [Design decisions](/elife-claim-trees/docs/contributing/design-decisions/) — ADR-style record of why the code looks the way it does

@@ -23,7 +23,7 @@ For the methodology's own description, see `docs/method.md` § 4.2 in the corpus
 - "we tested the hypothesis that"
 - "the central question is whether"
 
-**Typical claim-type.** `hypothesis` (when the schema allows) or `assessment`. The methodology specifies `claim-type: hypothesis` for these claims; see [methodology/schema](/docs/methodology/schema/) for the schema's official type vocabulary.
+**Typical claim-type.** `hypothesis` (when the schema allows) or `assessment`. The methodology specifies `claim-type: hypothesis` for these claims; see [methodology/schema](/elife-claim-trees/docs/methodology/schema/) for the schema's official type vocabulary.
 
 **Edges carried.** A hypothesis carries `entails:` edges to its predictions. It does not itself carry empirical content; it does not carry `requires:` to empirical claims (predictions do that).
 
@@ -192,7 +192,7 @@ For the methodology's own description, see `docs/method.md` § 4.2 in the corpus
 
 ## How the system assigns roles
 
-The three extraction agents each assign a provisional role from the prose-level evidence they see. The reconciler may revise based on cross-agent disagreements (with guidance to preserve role distinctions when agents surface different roles for related claims). The external reviewer (Step 4.5) further revises to recover roles the prose extraction systematically misses (`hypothesis`, `prediction`, `control` per the [bias rules](/docs/architecture/external-reviewer/)).
+The three extraction agents each assign a provisional role from the prose-level evidence they see. The reconciler may revise based on cross-agent disagreements (with guidance to preserve role distinctions when agents surface different roles for related claims). The external reviewer (Step 4.5) further revises to recover roles the prose extraction systematically misses (`hypothesis`, `prediction`, `control` per the [bias rules](/elife-claim-trees/docs/architecture/external-reviewer/)).
 
 Final role assignment is the analyst's call at Step 5. The methodology says: "Step 5 is where the schema's role labels are first assigned definitively, because role-assignment requires the analyst's judgment about what kind of work each claim is doing in the paper's argument."
 
@@ -204,6 +204,6 @@ Final role assignment is the analyst's call at Step 5. The methodology says: "St
 
 ## Next steps
 
-- [The 14 edge types](/docs/reference/edges/) — edges that connect claims of different roles
-- [The claim schema](/docs/methodology/schema/) — where roles fit in the full claim file
-- [The external reviewer](/docs/architecture/external-reviewer/) — how Step 4.5 handles role revision
+- [The 14 edge types](/elife-claim-trees/docs/reference/edges/) — edges that connect claims of different roles
+- [The claim schema](/elife-claim-trees/docs/methodology/schema/) — where roles fit in the full claim file
+- [The external reviewer](/elife-claim-trees/docs/architecture/external-reviewer/) — how Step 4.5 handles role revision

@@ -27,7 +27,7 @@ This page situates the system in the methodology's framework. For the canonical 
 
 The system is faithful to all eight steps. It also extends the methodology in two ways:
 
-**Step 4.5 is new.** The methodology was designed for a curator-and-agents loop — Step 5 review is a hard human gate. The system runs in environments without a curator (batch operation, integration handoffs, eLife-scale corpus extraction). The external reviewer pass substitutes for the curator at the review gate, producing curator-quality role classifications without requiring per-paper analyst time. See [the external reviewer](/docs/architecture/external-reviewer/) for the design rationale and empirical justification.
+**Step 4.5 is new.** The methodology was designed for a curator-and-agents loop — Step 5 review is a hard human gate. The system runs in environments without a curator (batch operation, integration handoffs, eLife-scale corpus extraction). The external reviewer pass substitutes for the curator at the review gate, producing curator-quality role classifications without requiring per-paper analyst time. See [the external reviewer](/elife-claim-trees/docs/architecture/external-reviewer/) for the design rationale and empirical justification.
 
 **Step 6 is scaffolded but not full.** The methodology calls for the analyst to map dependency edges between claims at write time. The CLI emits claim files with empty edge sections; the analyst populates them. A future LLM-suggestion pass for edge inference is plausible but unimplemented.
 
@@ -48,6 +48,6 @@ A few places where the implementation makes choices the methodology doc doesn't 
 ## Where to read more
 
 - `docs/method.md` § 3.3 for the canonical methodology document
-- [The pipeline at a glance](/docs/architecture/pipeline/) for the system's mapping of each step
-- [The claim schema](/docs/methodology/schema/) for the data model the system produces
-- [What the curator does, what the system does](/docs/methodology/division-of-labor/) for the human-vs-LLM division of labor
+- [The pipeline at a glance](/elife-claim-trees/docs/architecture/pipeline/) for the system's mapping of each step
+- [The claim schema](/elife-claim-trees/docs/methodology/schema/) for the data model the system produces
+- [What the curator does, what the system does](/elife-claim-trees/docs/methodology/division-of-labor/) for the human-vs-LLM division of labor
