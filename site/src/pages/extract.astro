@@ -35,7 +35,19 @@ const url = (path: string) => `${base}${path}/`;
             class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400"
           />
           <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">
-            Leave empty to use the project's API quota (limited, for demos). Or enter your own key — it is used for this extraction only and never stored.
+            Enter your own Anthropic key, or leave empty and use a demo token below.
+          </p>
+        </div>
+        <div id="demo-token-group">
+          <label for="demo-token" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-1">Demo token <span class="font-normal text-gray-400">(if no API key)</span></label>
+          <input
+            type="password"
+            id="demo-token"
+            placeholder="demo token"
+            class="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 placeholder-gray-400"
+          />
+          <p class="text-xs text-gray-400 dark:text-gray-500 mt-1">
+            Uses the project's Vertex AI quota. Ask the project team for a token.
           </p>
         </div>
         <button
@@ -91,9 +103,14 @@ const url = (path: string) => `${base}${path}/`;
     btn.addEventListener('click', async () => {
       const doi = document.getElementById('doi').value.trim();
       const apiKey = document.getElementById('api-key').value.trim();
+      const demoToken = document.getElementById('demo-token').value.trim();
 
       if (!doi) {
         showError('Please enter a DOI.');
+        return;
+      }
+      if (!apiKey && !demoToken) {
+        showError('Enter an Anthropic API key or a demo token.');
         return;
       }
 
@@ -109,7 +126,7 @@ const url = (path: string) => `${base}${path}/`;
         const response = await fetch(API_URL + '/extract', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ doi, api_key: apiKey }),
+          body: JSON.stringify({ doi, api_key: apiKey, demo_token: demoToken }),
         });
 
         if (!response.ok) {

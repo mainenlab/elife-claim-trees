@@ -61,6 +61,14 @@ def _ensure_pipeline():
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
 
+# Vertex access control — simple token whitelist
+# Set ELIFE_EXTRACT_DEMO_TOKENS as comma-separated tokens in the environment
+# When no API key is provided, the request must include a valid demo token
+DEMO_TOKENS = set(
+    t.strip() for t in os.environ.get("ELIFE_EXTRACT_DEMO_TOKENS", "").split(",")
+    if t.strip()
+)
+
 app = FastAPI(
     title="eLife Claim Trees — Extraction API",
     description="Extract structured claim graphs from eLife papers",
@@ -77,7 +85,8 @@ app.add_middleware(
 
 class ExtractRequest(BaseModel):
     doi: str
-    api_key: str = ""  # empty = use Vertex (internal); non-empty = Anthropic direct
+    api_key: str = ""       # empty = use Vertex (requires demo_token)
+    demo_token: str = ""    # required when api_key is empty
     model_extract: str = "claude-sonnet-4-6"
     model_reconcile: str = "claude-opus-4-6"
 
@@ -150,7 +159,12 @@ async def extract(req: ExtractRequest):
                 cfg.anthropic_api_key = req.api_key
                 cfg.backend = "anthropic"
             else:
-                cfg.backend = "vertex"  # uses GOOGLE_APPLICATION_CREDENTIALS on the server
+                # Vertex requires a valid demo token
+                if not DEMO_TOKENS:
+                    raise ValueError("Vertex backend not configured (no demo tokens set)")
+                if req.demo_token not in DEMO_TOKENS:
+                    raise ValueError("Invalid or missing demo token for Vertex access")
+                cfg.backend = "vertex"
             cfg.model_results = req.model_extract
             cfg.model_caption = req.model_extract
             cfg.model_structure = req.model_extract
