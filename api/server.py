@@ -82,6 +82,10 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+# Mount review endpoints
+from review import router as review_router
+app.include_router(review_router)
+
 
 class ExtractRequest(BaseModel):
     doi: str
