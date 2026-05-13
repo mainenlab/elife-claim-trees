@@ -225,10 +225,6 @@ const url = (path: string) => `${base}${path}/`;
       const selectedModel = document.getElementById('model-select').value;
 
       if (!file) return showError('Please select a file.');
-      if (!apiKey && !demoToken) {
-        document.getElementById('settings').open = true;
-        return showError('Enter an API key or demo token in Settings.');
-      }
 
       btn.disabled = true;
       btn.textContent = 'Extracting...';
