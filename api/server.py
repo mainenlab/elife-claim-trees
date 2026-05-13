@@ -290,12 +290,14 @@ def _run_agent_streaming(agent_name, paper, cfg, yield_fn):
             now = time.time()
             if token_count - last_report >= 100:
                 last_report = token_count
-                # Show a meaningful preview — skip JSON/code fence preamble
-                clean = full_text_so_far.lstrip('` \n').lstrip('json').lstrip('[\n {')
-                # Find first "claim" value
-                claim_match = re.search(r'"claim":\s*"([^"]{20,80})', full_text_so_far)
-                preview = claim_match.group(1) if claim_match else clean[:80].replace('\n', ' ').strip()
-                yield_fn(f"  [{token_count} tokens] {preview}...")
+                # Show the latest claim being generated
+                claim_matches = list(re.finditer(r'"claim":\s*"([^"]{10,})', full_text_so_far))
+                n_claims = len(claim_matches)
+                if claim_matches:
+                    latest = claim_matches[-1].group(1)[:70]
+                    yield_fn(f"  claim {n_claims}: {latest}...")
+                else:
+                    yield_fn(f"  generating... ({token_count} tokens)")
                 last_heartbeat = now
             elif now - last_heartbeat >= 10:
                 yield_fn(f"  [{token_count} tokens, {int(now - last_heartbeat)}s since last update...]")
@@ -343,8 +345,11 @@ def _reconcile_streaming(results_ext, caption_ext, structure_ext, cfg, paper_doi
             token_count += len(text.split())
             if token_count - last_report >= 150:
                 last_report = token_count
-                preview = full_text_so_far[:60].replace('\n', ' ').strip()
-                yield_fn(f"  [{token_count} tokens] {preview}...")
+                claim_matches = list(re.finditer(r'"claim":\s*"([^"]{10,})', full_text_so_far))
+                if claim_matches:
+                    yield_fn(f"  merging claim {len(claim_matches)}: {claim_matches[-1].group(1)[:50]}...")
+                else:
+                    yield_fn(f"  processing... ({token_count} tokens)")
 
     raw = full_text_so_far
     yield_fn(f"  reconciliation complete (~{token_count} tokens)")
@@ -387,8 +392,11 @@ def _external_review_streaming(paper, draft, cfg, yield_fn):
             token_count += len(text.split())
             if token_count - last_report >= 150:
                 last_report = token_count
-                preview = full_text_so_far[:60].replace('\n', ' ').strip()
-                yield_fn(f"  [{token_count} tokens] {preview}...")
+                claim_matches = list(re.finditer(r'"claim":\s*"([^"]{10,})', full_text_so_far))
+                if claim_matches:
+                    yield_fn(f"  merging claim {len(claim_matches)}: {claim_matches[-1].group(1)[:50]}...")
+                else:
+                    yield_fn(f"  processing... ({token_count} tokens)")
 
     raw = full_text_so_far
     yield_fn(f"  review complete (~{token_count} tokens)")
