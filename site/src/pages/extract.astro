@@ -141,11 +141,47 @@ const url = (path: string) => `${base}${path}/`;
       }
     });
 
-    function log(msg, color) {
-      const el = document.createElement('div');
-      el.className = color || 'text-gray-500 dark:text-gray-400';
-      el.textContent = msg;
-      consoleLog.appendChild(el);
+    let currentDetails = null;
+    let currentStep = null;
+
+    function log(msg, color, step) {
+      const isStreamToken = msg.startsWith('  ');
+      if (isStreamToken && currentDetails) {
+        // Append streaming line to current foldable section
+        const line = document.createElement('div');
+        line.className = 'text-[11px] text-gray-400 dark:text-gray-500 font-mono';
+        line.textContent = msg;
+        currentDetails.querySelector('.stream-lines').appendChild(line);
+        // Update the summary with token count
+        const match = msg.match(/\[(\d+) tokens\]/);
+        if (match) {
+          currentDetails.querySelector('.token-count').textContent = ` (${match[1]} tokens)`;
+        }
+        consoleLog.scrollTop = consoleLog.scrollHeight;
+        return;
+      }
+
+      // New step — close previous details if any
+      if (step && step !== currentStep) {
+        currentStep = step;
+        currentDetails = document.createElement('details');
+        currentDetails.className = 'mb-1';
+        const summary = document.createElement('summary');
+        summary.className = `cursor-pointer text-sm ${color || 'text-gray-500'}`;
+        summary.innerHTML = `${msg}<span class="token-count text-xs text-gray-400 ml-1"></span>`;
+        currentDetails.appendChild(summary);
+        const streamLines = document.createElement('div');
+        streamLines.className = 'stream-lines ml-4 mt-1 max-h-32 overflow-y-auto';
+        currentDetails.appendChild(streamLines);
+        consoleLog.appendChild(currentDetails);
+      } else {
+        // Non-streaming, non-step message (like "complete" lines)
+        const el = document.createElement('div');
+        el.className = `text-sm ${color || 'text-gray-500 dark:text-gray-400'}`;
+        el.textContent = msg;
+        consoleLog.appendChild(el);
+        currentDetails = null;
+      }
       consoleLog.scrollTop = consoleLog.scrollHeight;
     }
 
@@ -213,7 +249,7 @@ const url = (path: string) => `${base}${path}/`;
                 done: 'text-green-700 dark:text-green-400',
                 error: 'text-red-600 dark:text-red-400',
               };
-              if (event.message) log(event.message, colors[event.step]);
+              if (event.message) log(event.message, colors[event.step], event.step);
               if (event.step === 'done' && event.article) renderResults(event.article, apiKey, demoToken);
               if (event.step === 'error') showError(event.message);
             } catch {}

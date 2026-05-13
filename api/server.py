@@ -22,7 +22,7 @@ import time
 import uuid
 from pathlib import Path
 
-from fastapi import FastAPI, File, Form, HTTPException, UploadFile
+from fastapi import FastAPI, File, Form, HTTPException, Request, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.responses import StreamingResponse
 from pydantic import BaseModel
@@ -63,13 +63,29 @@ def _ensure_pipeline():
 logging.basicConfig(level=logging.INFO, format="%(asctime)s %(levelname)s: %(message)s")
 logger = logging.getLogger(__name__)
 
-# Vertex access control — simple token whitelist
-# Set ELIFE_EXTRACT_DEMO_TOKENS as comma-separated tokens in the environment
-# When no API key is provided, the request must include a valid demo token
+# Vertex access control — token whitelist + IP whitelist
 DEMO_TOKENS = set(
     t.strip() for t in os.environ.get("ELIFE_EXTRACT_DEMO_TOKENS", "").split(",")
     if t.strip()
 )
+# IPs that don't need a token (comma-separated in env var)
+WHITELISTED_IPS = set(
+    ip.strip() for ip in os.environ.get("ELIFE_EXTRACT_WHITELIST_IPS", "").split(",")
+    if ip.strip()
+)
+
+
+def _is_authorized(api_key: str, demo_token: str, request) -> bool:
+    """Check if the request is authorized for Vertex access."""
+    if api_key:
+        return True  # Using their own key
+    if demo_token and demo_token in DEMO_TOKENS:
+        return True
+    # Check IP whitelist
+    client_ip = request.headers.get("x-real-ip", request.headers.get("x-forwarded-for", "")).split(",")[0].strip()
+    if client_ip and client_ip in WHITELISTED_IPS:
+        return True
+    return False
 
 app = FastAPI(
     title="eLife Claim Trees — Extraction API",
@@ -259,6 +275,7 @@ def _run_agent_streaming(agent_name, paper, cfg, yield_fn):
     text_chunks = []
     token_count = 0
     last_report = 0
+    full_text_so_far = ""
 
     with client.messages.stream(
         model=model, max_tokens=32768, system=system_prompt,
@@ -266,15 +283,16 @@ def _run_agent_streaming(agent_name, paper, cfg, yield_fn):
     ) as stream:
         for text in stream.text_stream:
             text_chunks.append(text)
+            full_text_so_far += text
             token_count += len(text.split())
             if token_count - last_report >= 100:
                 last_report = token_count
-                # Show a snippet of what's being generated
-                recent = "".join(text_chunks[-20:]).strip()[-80:]
-                yield_fn(f"  ...{recent}")
+                # Show beginning of response (first 80 chars) + token count
+                preview = full_text_so_far[:80].replace('\n', ' ').strip()
+                yield_fn(f"  [{token_count} tokens] {preview}...")
 
-    raw = "".join(text_chunks)
-    yield_fn(f"  response complete ({len(raw)} chars)")
+    raw = full_text_so_far
+    yield_fn(f"  complete ({len(raw)} chars, ~{token_count} tokens)")
 
     parsed = parse_json_response(raw)
     if not isinstance(parsed, list):
@@ -303,6 +321,7 @@ def _reconcile_streaming(results_ext, caption_ext, structure_ext, cfg, paper_doi
     text_chunks = []
     token_count = 0
     last_report = 0
+    full_text_so_far = ""
 
     with client.messages.stream(
         model=cfg.model_reconcile, max_tokens=32768, system=system_prompt,
@@ -310,14 +329,15 @@ def _reconcile_streaming(results_ext, caption_ext, structure_ext, cfg, paper_doi
     ) as stream:
         for text in stream.text_stream:
             text_chunks.append(text)
+            full_text_so_far += text
             token_count += len(text.split())
             if token_count - last_report >= 150:
                 last_report = token_count
-                recent = "".join(text_chunks[-15:]).strip()[-60:]
-                yield_fn(f"  ...{recent}")
+                preview = full_text_so_far[:60].replace('\n', ' ').strip()
+                yield_fn(f"  [{token_count} tokens] {preview}...")
 
-    raw = "".join(text_chunks)
-    yield_fn(f"  reconciliation complete ({len(raw)} chars)")
+    raw = full_text_so_far
+    yield_fn(f"  reconciliation complete (~{token_count} tokens)")
 
     parsed = parse_json_response(raw)
     if isinstance(parsed, dict):
@@ -345,6 +365,7 @@ def _external_review_streaming(paper, draft, cfg, yield_fn):
     text_chunks = []
     token_count = 0
     last_report = 0
+    full_text_so_far = ""
 
     with client.messages.stream(
         model=cfg.model_reconcile, max_tokens=32768, system=system_prompt,
@@ -352,14 +373,15 @@ def _external_review_streaming(paper, draft, cfg, yield_fn):
     ) as stream:
         for text in stream.text_stream:
             text_chunks.append(text)
+            full_text_so_far += text
             token_count += len(text.split())
             if token_count - last_report >= 150:
                 last_report = token_count
-                recent = "".join(text_chunks[-15:]).strip()[-60:]
-                yield_fn(f"  ...{recent}")
+                preview = full_text_so_far[:60].replace('\n', ' ').strip()
+                yield_fn(f"  [{token_count} tokens] {preview}...")
 
-    raw = "".join(text_chunks)
-    yield_fn(f"  review complete ({len(raw)} chars)")
+    raw = full_text_so_far
+    yield_fn(f"  review complete (~{token_count} tokens)")
 
     parsed = parse_json_response(raw)
     if isinstance(parsed, dict):
@@ -378,23 +400,20 @@ def health():
 
 
 @app.post("/extract")
-async def extract(req: ExtractRequest):
+async def extract(req: ExtractRequest, request: "Request"):
     """Run the full pipeline and stream progress via SSE."""
     _ensure_pipeline()
 
     def generate():
         try:
-            # Build config — Anthropic direct if key provided, Vertex if not
+            # Build config — check auth
             cfg = Config()
             if req.api_key:
                 cfg.anthropic_api_key = req.api_key
                 cfg.backend = "anthropic"
             else:
-                # Vertex requires a valid demo token
-                if not DEMO_TOKENS:
-                    raise ValueError("Vertex backend not configured (no demo tokens set)")
-                if req.demo_token not in DEMO_TOKENS:
-                    raise ValueError("Invalid or missing demo token for Vertex access")
+                if not _is_authorized(req.api_key, req.demo_token, request):
+                    raise ValueError("Not authorized — provide an API key, demo token, or connect from a whitelisted IP")
                 cfg.backend = "vertex"
             cfg.model_results = req.model_extract
             cfg.model_caption = req.model_extract
@@ -513,6 +532,7 @@ async def extract(req: ExtractRequest):
 
 @app.post("/extract-file")
 async def extract_file(
+    request: Request,
     file: UploadFile = File(...),
     api_key: str = Form(""),
     demo_token: str = Form(""),
@@ -539,10 +559,8 @@ async def extract_file(
                 cfg.anthropic_api_key = api_key
                 cfg.backend = "anthropic"
             else:
-                if not DEMO_TOKENS:
-                    raise ValueError("Vertex backend not configured")
-                if demo_token not in DEMO_TOKENS:
-                    raise ValueError("Invalid or missing demo token")
+                if not _is_authorized(api_key, demo_token, request):
+                    raise ValueError("Not authorized — provide an API key, demo token, or connect from a whitelisted IP")
                 cfg.backend = "vertex"
             cfg.model_results = model_extract
             cfg.model_caption = model_extract
