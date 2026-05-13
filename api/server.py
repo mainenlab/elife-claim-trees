@@ -275,6 +275,7 @@ def _run_agent_streaming(agent_name, paper, cfg, yield_fn):
     text_chunks = []
     token_count = 0
     last_report = 0
+    last_heartbeat = time.time()
     full_text_so_far = ""
 
     with client.messages.stream(
@@ -285,11 +286,15 @@ def _run_agent_streaming(agent_name, paper, cfg, yield_fn):
             text_chunks.append(text)
             full_text_so_far += text
             token_count += len(text.split())
+            now = time.time()
             if token_count - last_report >= 100:
                 last_report = token_count
-                # Show beginning of response (first 80 chars) + token count
                 preview = full_text_so_far[:80].replace('\n', ' ').strip()
                 yield_fn(f"  [{token_count} tokens] {preview}...")
+                last_heartbeat = now
+            elif now - last_heartbeat >= 10:
+                yield_fn(f"  [{token_count} tokens, {int(now - last_heartbeat)}s since last update...]")
+                last_heartbeat = now
 
     raw = full_text_so_far
     yield_fn(f"  complete ({len(raw)} chars, ~{token_count} tokens)")
@@ -682,10 +687,17 @@ async def extract_file(
                             error_holder[0] = e
                     t = threading.Thread(target=run_in_thread)
                     t.start()
+                    last_hb = time.time()
                     while t.is_alive():
-                        t.join(timeout=0.5)
+                        t.join(timeout=1.0)
+                        got_msg = False
                         while not q.empty():
                             yield q.get()
+                            got_msg = True
+                            last_hb = time.time()
+                        if not got_msg and time.time() - last_hb >= 10:
+                            yield f"data: {json.dumps({'step': 'heartbeat', 'message': 'still working...'})}\n\n"
+                            last_hb = time.time()
                     while not q.empty():
                         yield q.get()
                     if error_holder[0]:

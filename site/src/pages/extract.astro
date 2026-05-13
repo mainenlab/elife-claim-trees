@@ -71,6 +71,9 @@ const url = (path: string) => `${base}${path}/`;
     <!-- Console -->
     <div id="console" class="hidden mt-6">
       <div id="console-log" class="border border-gray-200 dark:border-gray-700 rounded-lg p-4 bg-gray-50 dark:bg-gray-800/50 max-h-48 overflow-y-auto space-y-0.5 text-sm font-mono"></div>
+      <div id="stale-warning" class="hidden mt-2 p-2 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded text-xs text-yellow-700 dark:text-yellow-300">
+        No response for 30 seconds — the server may be processing a large request or the connection may have dropped.
+      </div>
     </div>
 
     <!-- Error -->
@@ -143,6 +146,29 @@ const url = (path: string) => `${base}${path}/`;
 
     let currentDetails = null;
     let currentStep = null;
+    let lastEventTime = Date.now();
+    let staleTimer = null;
+
+    function startStaleDetection() {
+      lastEventTime = Date.now();
+      document.getElementById('stale-warning').classList.add('hidden');
+      if (staleTimer) clearInterval(staleTimer);
+      staleTimer = setInterval(() => {
+        if (Date.now() - lastEventTime > 30000) {
+          document.getElementById('stale-warning').classList.remove('hidden');
+        }
+      }, 5000);
+    }
+
+    function stopStaleDetection() {
+      if (staleTimer) { clearInterval(staleTimer); staleTimer = null; }
+      document.getElementById('stale-warning').classList.add('hidden');
+    }
+
+    function onEvent() {
+      lastEventTime = Date.now();
+      document.getElementById('stale-warning').classList.add('hidden');
+    }
 
     function log(msg, color, step) {
       const isStreamToken = msg.startsWith('  ');
@@ -210,6 +236,7 @@ const url = (path: string) => `${base}${path}/`;
       consoleLog.innerHTML = '';
       resultsDiv.classList.add('hidden');
       errorDiv.classList.add('hidden');
+      startStaleDetection();
 
       try {
         const formData = new FormData();
@@ -249,6 +276,8 @@ const url = (path: string) => `${base}${path}/`;
                 done: 'text-green-700 dark:text-green-400',
                 error: 'text-red-600 dark:text-red-400',
               };
+              onEvent();
+              if (event.step === 'heartbeat') continue;  // heartbeat — reset timer but don't display
               if (event.message) log(event.message, colors[event.step], event.step);
               if (event.step === 'done' && event.article) renderResults(event.article, apiKey, demoToken);
               if (event.step === 'error') showError(event.message);
@@ -260,6 +289,7 @@ const url = (path: string) => `${base}${path}/`;
       } finally {
         btn.disabled = false;
         btn.textContent = 'Extract claims';
+        stopStaleDetection();
       }
     });
 
