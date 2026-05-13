@@ -289,7 +289,11 @@ def _run_agent_streaming(agent_name, paper, cfg, yield_fn):
             now = time.time()
             if token_count - last_report >= 100:
                 last_report = token_count
-                preview = full_text_so_far[:80].replace('\n', ' ').strip()
+                # Show a meaningful preview — skip JSON/code fence preamble
+                clean = full_text_so_far.lstrip('` \n').lstrip('json').lstrip('[\n {')
+                # Find first "claim" value
+                claim_match = re.search(r'"claim":\s*"([^"]{20,80})', full_text_so_far)
+                preview = claim_match.group(1) if claim_match else clean[:80].replace('\n', ' ').strip()
                 yield_fn(f"  [{token_count} tokens] {preview}...")
                 last_heartbeat = now
             elif now - last_heartbeat >= 10:
