@@ -15,7 +15,9 @@ from __future__ import annotations
 import json
 import logging
 import os
+import queue
 import sys
+import threading
 import time
 import uuid
 from pathlib import Path
@@ -234,6 +236,140 @@ def _external_review_litellm(paper, draft, cfg, provider, api_key, model):
         claims_list = draft.claims
     claims = [ReconciledClaim(**c) for c in claims_list]
     return DraftClaimTable(paper_slug=draft.paper_slug, claims=claims, config_snapshot=draft.config_snapshot)
+
+
+def _run_agent_streaming(agent_name, paper, cfg, yield_fn):
+    """Run an extraction agent with streaming progress via yield_fn.
+
+    yield_fn(msg) emits an SSE event. Called every ~500 tokens with
+    a snippet of the output so far.
+    """
+    from elife_extract.agents import slice_for_agent, load_prompt, parse_json_response, get_client
+    from elife_extract.schema import AgentExtraction, CandidateClaim
+
+    model = {"results": cfg.model_results, "caption": cfg.model_caption, "structure": cfg.model_structure}[agent_name]
+    system_prompt = load_prompt(agent_name, cfg)
+    paper_slice = slice_for_agent(agent_name, paper)
+
+    if not paper_slice.strip() or len(paper_slice) < 200:
+        yield_fn(f"  skipped (slice too short: {len(paper_slice)} chars)")
+        return AgentExtraction(agent=agent_name, paper_slug=paper.paper_slug, model=model, claims=[])
+
+    client = get_client(cfg)
+    text_chunks = []
+    token_count = 0
+    last_report = 0
+
+    with client.messages.stream(
+        model=model, max_tokens=32768, system=system_prompt,
+        messages=[{"role": "user", "content": paper_slice}],
+    ) as stream:
+        for text in stream.text_stream:
+            text_chunks.append(text)
+            token_count += len(text.split())
+            if token_count - last_report >= 100:
+                last_report = token_count
+                # Show a snippet of what's being generated
+                recent = "".join(text_chunks[-20:]).strip()[-80:]
+                yield_fn(f"  ...{recent}")
+
+    raw = "".join(text_chunks)
+    yield_fn(f"  response complete ({len(raw)} chars)")
+
+    parsed = parse_json_response(raw)
+    if not isinstance(parsed, list):
+        raise ValueError(f"agent={agent_name} returned non-list JSON")
+    claims = [CandidateClaim(**c) for c in parsed]
+    return AgentExtraction(agent=agent_name, paper_slug=paper.paper_slug, model=model, claims=claims)
+
+
+def _reconcile_streaming(results_ext, caption_ext, structure_ext, cfg, paper_doi, paper_title, yield_fn):
+    """Reconcile with streaming progress."""
+    from elife_extract.reconcile import load_reconciler_prompt, _format_agent_input
+    from elife_extract.agents import parse_json_response, get_client
+    from elife_extract.schema import DraftClaimTable, ReconciledClaim
+
+    system_prompt = load_reconciler_prompt(cfg)
+    user_message = (
+        f"# Paper: {paper_title or 'unknown'}\nDOI: {paper_doi}\n"
+        f"Slug: {results_ext.paper_slug}\n\n"
+        f"{_format_agent_input(results_ext)}\n\n"
+        f"{_format_agent_input(caption_ext)}\n\n"
+        f"{_format_agent_input(structure_ext)}\n\n"
+        f"Reconcile these three agent outputs into a single confidence-tagged draft claim table. Return JSON only."
+    )
+
+    client = get_client(cfg)
+    text_chunks = []
+    token_count = 0
+    last_report = 0
+
+    with client.messages.stream(
+        model=cfg.model_reconcile, max_tokens=32768, system=system_prompt,
+        messages=[{"role": "user", "content": user_message}],
+    ) as stream:
+        for text in stream.text_stream:
+            text_chunks.append(text)
+            token_count += len(text.split())
+            if token_count - last_report >= 150:
+                last_report = token_count
+                recent = "".join(text_chunks[-15:]).strip()[-60:]
+                yield_fn(f"  ...{recent}")
+
+    raw = "".join(text_chunks)
+    yield_fn(f"  reconciliation complete ({len(raw)} chars)")
+
+    parsed = parse_json_response(raw)
+    if isinstance(parsed, dict):
+        claims_list = parsed.get("claims", [])
+    elif isinstance(parsed, list):
+        claims_list = parsed
+    else:
+        raise ValueError(f"Reconciler returned unexpected type: {type(parsed)}")
+    claims = [ReconciledClaim(**c) for c in claims_list]
+    return DraftClaimTable(paper_slug=results_ext.paper_slug, paper_doi=paper_doi, paper_title=paper_title, claims=claims)
+
+
+def _external_review_streaming(paper, draft, cfg, yield_fn):
+    """External review with streaming progress."""
+    from elife_extract.external_review import load_reviewer_prompt, _format_paper_context
+    from elife_extract.agents import parse_json_response, get_client
+    from elife_extract.schema import DraftClaimTable, ReconciledClaim
+
+    system_prompt = load_reviewer_prompt(cfg)
+    paper_context = _format_paper_context(paper)
+    draft_json = draft.model_dump_json()
+    user_message = f"{paper_context}\n\n---\n\nDraft claim table:\n{draft_json}\n\nReview and revise. Return the full revised claim table as JSON."
+
+    client = get_client(cfg)
+    text_chunks = []
+    token_count = 0
+    last_report = 0
+
+    with client.messages.stream(
+        model=cfg.model_reconcile, max_tokens=32768, system=system_prompt,
+        messages=[{"role": "user", "content": user_message}],
+    ) as stream:
+        for text in stream.text_stream:
+            text_chunks.append(text)
+            token_count += len(text.split())
+            if token_count - last_report >= 150:
+                last_report = token_count
+                recent = "".join(text_chunks[-15:]).strip()[-60:]
+                yield_fn(f"  ...{recent}")
+
+    raw = "".join(text_chunks)
+    yield_fn(f"  review complete ({len(raw)} chars)")
+
+    parsed = parse_json_response(raw)
+    if isinstance(parsed, dict):
+        claims_list = parsed.get("claims", [])
+    elif isinstance(parsed, list):
+        claims_list = parsed
+    else:
+        claims_list = [c.model_dump() for c in draft.claims]
+    claims = [ReconciledClaim(**c) for c in claims_list]
+    return DraftClaimTable(paper_slug=draft.paper_slug, paper_doi=draft.paper_doi, paper_title=draft.paper_title, claims=claims, config_snapshot=draft.config_snapshot)
 
 
 @app.get("/health")
@@ -499,43 +635,99 @@ async def extract_file(
 
             yield f"data: {json.dumps({'step': 'prepare', 'message': f'Parsed: {paper.title or filename}', 'slug': paper.paper_slug, 'figures': len(paper.figure_captions), 'panels': len(paper.panel_ids)})}\n\n"
 
-            # Determine if we use litellm or native SDK
+            # Use streaming agent runners with queue-based progress
             use_litellm = provider not in ("anthropic", "vertex")
+            q = queue.Queue()
 
-            # Steps 2-3: Three-agent extraction (one at a time with progress)
-            for i, (agent_name, agent_desc) in enumerate([
-                ("results", "Results-reader (reads abstract + results prose)"),
-                ("caption", "Caption-reader (reads figure captions panel by panel)"),
-                ("structure", "Structure-reader (reads methods + supplements)"),
-            ], 1):
-                yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent {i}/3: {agent_desc}...'})}\n\n"
+            def emit(step, msg):
+                q.put(f"data: {json.dumps({'step': step, 'message': msg})}\n\n")
+
+            # Steps 2-3: Streaming extraction
+            agents_data = [
+                ("results", "Results-reader"),
+                ("caption", "Caption-reader"),
+                ("structure", "Structure-reader"),
+            ]
+            extractions = []
+            for i, (agent_name, agent_short) in enumerate(agents_data, 1):
+                yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent {i}/3: {agent_short}...'})}\n\n"
                 if use_litellm:
                     ext = _run_agent_litellm(agent_name, paper, cfg, provider, api_key, model_extract)
                 else:
-                    ext = run_agent(agent_name, paper, cfg)
-                agent_short = agent_desc.split(" (")[0]
+                    # Run in thread with streaming callbacks via queue
+                    result_holder = [None]
+                    error_holder = [None]
+                    def run_in_thread(an=agent_name):
+                        try:
+                            result_holder[0] = _run_agent_streaming(an, paper, cfg, lambda msg: emit('extract', msg))
+                        except Exception as e:
+                            error_holder[0] = e
+                    t = threading.Thread(target=run_in_thread)
+                    t.start()
+                    while t.is_alive():
+                        t.join(timeout=0.5)
+                        while not q.empty():
+                            yield q.get()
+                    while not q.empty():
+                        yield q.get()
+                    if error_holder[0]:
+                        raise error_holder[0]
+                    ext = result_holder[0]
                 yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent {i}/3: {agent_short} → {len(ext.claims)} claims'})}\n\n"
-                if i == 1: results_ext = ext
-                elif i == 2: caption_ext = ext
-                else: structure_ext = ext
+                extractions.append(ext)
 
-            n_candidates = len(results_ext.claims) + len(caption_ext.claims) + len(structure_ext.claims)
+            results_ext, caption_ext, structure_ext = extractions
+            n_candidates = sum(len(e.claims) for e in extractions)
             yield f"data: {json.dumps({'step': 'extract', 'message': f'Total: {n_candidates} candidate claims from 3 agents'})}\n\n"
 
-            # Step 4: Reconciliation
-            yield f"data: {json.dumps({'step': 'reconcile', 'message': f'Reconciling — merging 3 agent outputs ({provider})...'})}\n\n"
+            # Step 4: Streaming reconciliation
+            yield f"data: {json.dumps({'step': 'reconcile', 'message': 'Reconciling — merging 3 agent outputs...'})}\n\n"
             if use_litellm:
                 draft = _reconcile_litellm(results_ext, caption_ext, structure_ext, cfg, provider, api_key, model_reconcile, paper.doi, paper.title)
             else:
-                draft = reconcile_step(results_ext, caption_ext, structure_ext, cfg, paper_doi=paper.doi, paper_title=paper.title)
+                result_holder = [None]
+                error_holder = [None]
+                def run_reconcile():
+                    try:
+                        result_holder[0] = _reconcile_streaming(results_ext, caption_ext, structure_ext, cfg, paper.doi, paper.title, lambda msg: emit('reconcile', msg))
+                    except Exception as e:
+                        error_holder[0] = e
+                t = threading.Thread(target=run_reconcile)
+                t.start()
+                while t.is_alive():
+                    t.join(timeout=0.5)
+                    while not q.empty():
+                        yield q.get()
+                while not q.empty():
+                    yield q.get()
+                if error_holder[0]:
+                    raise error_holder[0]
+                draft = result_holder[0]
             yield f"data: {json.dumps({'step': 'reconcile', 'message': f'Reconciled to {len(draft.claims)} claims'})}\n\n"
 
-            # Step 4.5: External review
+            # Step 4.5: Streaming external review
             yield f"data: {json.dumps({'step': 'review', 'message': 'Running external reviewer...'})}\n\n"
             if use_litellm:
                 reviewed = _external_review_litellm(paper, draft, cfg, provider, api_key, model_reconcile)
             else:
-                reviewed = external_review(paper, draft, cfg)
+                result_holder = [None]
+                error_holder = [None]
+                def run_review():
+                    try:
+                        result_holder[0] = _external_review_streaming(paper, draft, cfg, lambda msg: emit('review', msg))
+                    except Exception as e:
+                        error_holder[0] = e
+                t = threading.Thread(target=run_review)
+                t.start()
+                while t.is_alive():
+                    t.join(timeout=0.5)
+                    while not q.empty():
+                        yield q.get()
+                while not q.empty():
+                    yield q.get()
+                if error_holder[0]:
+                    raise error_holder[0]
+                reviewed = result_holder[0]
             yield f"data: {json.dumps({'step': 'review', 'message': f'Reviewed: {len(reviewed.claims)} claims'})}\n\n"
 
             # Build OXA output
@@ -544,19 +736,18 @@ async def extract_file(
             # Step 6: Infer edges
             yield f"data: {json.dumps({'step': 'edges', 'message': f'Inferring relationships between {len(oxa_claims)} claims...'})}\n\n"
             from infer_edges import infer_edges, apply_edges
-            use_litellm = provider not in ("anthropic", "vertex")
             if use_litellm:
                 from llm import call_llm as _call
                 def llm_fn(sys, usr, mdl):
                     return _call(provider=provider, api_key=api_key, model=mdl, system=sys, user_message=usr)
             else:
                 def llm_fn(sys, usr, mdl):
-                    client = get_client(cfg)
-                    resp = client.messages.create(model=mdl, max_tokens=8192, system=sys, messages=[{"role": "user", "content": usr}])
+                    c = get_client(cfg)
+                    resp = c.messages.create(model=mdl, max_tokens=8192, system=sys, messages=[{"role": "user", "content": usr}])
                     return resp.content[0].text
             edges = infer_edges(oxa_claims, call_llm_fn=llm_fn, model=cfg.model_reconcile)
             oxa_claims = apply_edges(oxa_claims, edges)
-            yield f"data: {json.dumps({'step': 'edges', 'message': f'Found {len(edges)} relationships between claims'})}\n\n"
+            yield f"data: {json.dumps({'step': 'edges', 'message': f'Found {len(edges)} relationships'})}\n\n"
 
             article = {
                 "type": "Article",

@@ -56,6 +56,8 @@ interface Props {
   claims: any[];
   paperTitle: string;
   abstract: string;
+  initialApiKey?: string;
+  initialDemoToken?: string;
 }
 
 const sevColor: Record<string, string> = {
@@ -73,13 +75,13 @@ const roleBadgeColor: Record<string, string> = {
 
 // ── Main component ──────────────────────────────────────────────────
 
-export default function ReviewTab({ claims, paperTitle, abstract }: Props) {
+export default function ReviewTab({ claims, paperTitle, abstract, initialApiKey = '', initialDemoToken = '' }: Props) {
   const [phase, setPhase] = useState<'setup' | 'running' | 'results'>('setup');
   const [personas, setPersonas] = useState<{ personified: Persona[]; generic: Persona[] }>({ personified: [], generic: [] });
   const [selectedReviewers, setSelectedReviewers] = useState<Persona[]>([]);
   const [instructions, setInstructions] = useState('elife');
-  const [apiKey, setApiKey] = useState('');
-  const [demoToken, setDemoToken] = useState('');
+  const [apiKey, setApiKey] = useState(initialApiKey);
+  const [demoToken, setDemoToken] = useState(initialDemoToken);
   const [progress, setProgress] = useState<string[]>([]);
   const [error, setError] = useState('');
   const [result, setResult] = useState<ReviewResult | null>(null);
@@ -285,24 +287,18 @@ export default function ReviewTab({ claims, paperTitle, abstract }: Props) {
           </div>
         )}
 
-        {/* Auth */}
-        <div className="grid sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">Anthropic API key (optional)</label>
-            <input type="password" value={apiKey} onChange={e => setApiKey(e.target.value)}
-              placeholder="sk-ant-..." className="w-full px-3 py-1.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100" />
-          </div>
-          <div>
-            <label className="block text-xs font-medium text-gray-500 mb-1">Demo token</label>
-            <input type="password" value={demoToken} onChange={e => setDemoToken(e.target.value)}
-              placeholder="demo token" className="w-full px-3 py-1.5 border border-gray-200 dark:border-gray-700 rounded-lg text-sm bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100" />
-            {personas.personified.length > 0 && (
-              <p className="text-xs text-green-600 dark:text-green-400 mt-1">
-                {personas.personified.length} personified reviewers unlocked
-              </p>
-            )}
-          </div>
-        </div>
+        {/* Auth inherited from extraction settings */}
+        {(apiKey || demoToken) && (
+          <p className="text-xs text-green-600 dark:text-green-400">
+            Using {apiKey ? 'API key' : 'demo token'} from extraction settings
+            {personas.personified.length > 0 && ` — ${personas.personified.length} personified reviewers unlocked`}
+          </p>
+        )}
+        {!apiKey && !demoToken && (
+          <p className="text-xs text-red-600 dark:text-red-400">
+            No API key or demo token — set one in Settings above before running review
+          </p>
+        )}
 
         {/* Instructions */}
         <div>

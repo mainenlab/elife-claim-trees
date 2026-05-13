@@ -376,6 +376,6 @@ const url = (path: string) => `${base}${path}/`;
     if (!reviewRoot) {
       reviewRoot = createRoot(mount);
     }
-    reviewRoot.render(createElement(ReviewTab, { claims, paperTitle: title, abstract: '' }));
+    reviewRoot.render(createElement(ReviewTab, { claims, paperTitle: title, abstract: '', initialApiKey: apiKey, initialDemoToken: demoToken }));
   };
 </script>
