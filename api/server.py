@@ -461,9 +461,10 @@ async def extract(req: ExtractRequest, request: "Request"):
             paper = prepare(req.doi, input_format="jats")
             yield f"data: {json.dumps({'step': 'prepare', 'message': f'Parsed: {paper.title}', 'slug': paper.paper_slug, 'figures': len(paper.figure_captions), 'panels': len(paper.panel_ids)})}\n\n"
 
-            # Determine if we use litellm or native SDK
-            use_litellm = req.provider not in ("anthropic", "vertex")
-            provider = req.provider
+            # Use litellm for non-Anthropic models (including Gemini on Vertex)
+            is_gemini = req.model_extract.startswith("gemini")
+            use_litellm = req.provider not in ("anthropic", "vertex") or is_gemini
+            provider = "vertex" if (req.provider == "vertex" and is_gemini) else req.provider
 
             # Steps 2-3: Three-agent extraction (one at a time with progress)
             for i, (agent_name, agent_desc) in enumerate([
@@ -671,8 +672,11 @@ async def extract_file(
 
             yield f"data: {json.dumps({'step': 'prepare', 'message': f'Parsed: {paper.title or filename}', 'slug': paper.paper_slug, 'figures': len(paper.figure_captions), 'panels': len(paper.panel_ids)})}\n\n"
 
-            # Use streaming agent runners with queue-based progress
-            use_litellm = provider not in ("anthropic", "vertex")
+            # Use litellm for non-Anthropic models (including Gemini on Vertex)
+            is_gemini = model_extract.startswith("gemini")
+            use_litellm = provider not in ("anthropic", "vertex") or is_gemini
+            if provider == "vertex" and is_gemini:
+                provider = "vertex"  # keep as vertex for litellm routing
             q = queue.Queue()
 
             def emit(step, msg):
