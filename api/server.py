@@ -52,9 +52,9 @@ def _ensure_pipeline():
     global _pipeline_ready
     if not _pipeline_ready:
         global prepare, run_agent, reconcile_step, external_review
-        global Config, reset_client
+        global Config, reset_client, get_client
         from elife_extract.prepare import prepare
-        from elife_extract.agents import run_agent, reset_client
+        from elife_extract.agents import run_agent, reset_client, get_client
         from elife_extract.reconcile import reconcile as reconcile_step
         from elife_extract.external_review import external_review
         from elife_extract.config import Config
