@@ -225,7 +225,7 @@ def _reconcile_litellm(results_ext, caption_ext, structure_ext, cfg, provider, a
     else:
         raise ValueError(f"Reconciler returned unexpected type: {type(parsed)}")
     claims = [ReconciledClaim(**c) for c in claims_list]
-    return DraftClaimTable(paper_slug=results_ext.paper_slug, claims=claims)
+    return DraftClaimTable(paper_slug=results_ext.paper_slug, paper_doi=paper_doi, paper_title=paper_title, claims=claims)
 
 
 def _external_review_litellm(paper, draft, cfg, provider, api_key, model):
@@ -252,7 +252,7 @@ def _external_review_litellm(paper, draft, cfg, provider, api_key, model):
     else:
         claims_list = draft.claims
     claims = [ReconciledClaim(**c) for c in claims_list]
-    return DraftClaimTable(paper_slug=draft.paper_slug, claims=claims, config_snapshot=draft.config_snapshot)
+    return DraftClaimTable(paper_slug=draft.paper_slug, paper_doi=draft.paper_doi or "uploaded", paper_title=draft.paper_title, claims=claims, config_snapshot=draft.config_snapshot)
 
 
 def _run_agent_streaming(agent_name, paper, cfg, yield_fn):
@@ -674,9 +674,8 @@ async def extract_file(
 
             # Use litellm for non-Anthropic models (including Gemini on Vertex)
             is_gemini = model_extract.startswith("gemini")
-            use_litellm = provider not in ("anthropic", "vertex") or is_gemini
-            if provider == "vertex" and is_gemini:
-                provider = "vertex"  # keep as vertex for litellm routing
+            active_provider = provider  # capture from outer scope
+            use_litellm = active_provider not in ("anthropic", "vertex") or is_gemini
             q = queue.Queue()
 
             def emit(step, msg):
@@ -692,7 +691,7 @@ async def extract_file(
             for i, (agent_name, agent_short) in enumerate(agents_data, 1):
                 yield f"data: {json.dumps({'step': 'extract', 'message': f'Agent {i}/3: {agent_short}...'})}\n\n"
                 if use_litellm:
-                    ext = _run_agent_litellm(agent_name, paper, cfg, provider, api_key, model_extract)
+                    ext = _run_agent_litellm(agent_name, paper, cfg, active_provider, api_key, model_extract)
                 else:
                     # Run in thread with streaming callbacks via queue
                     result_holder = [None]
@@ -730,7 +729,7 @@ async def extract_file(
             # Step 4: Streaming reconciliation
             yield f"data: {json.dumps({'step': 'reconcile', 'message': 'Reconciling — merging 3 agent outputs...'})}\n\n"
             if use_litellm:
-                draft = _reconcile_litellm(results_ext, caption_ext, structure_ext, cfg, provider, api_key, model_reconcile, paper.doi, paper.title)
+                draft = _reconcile_litellm(results_ext, caption_ext, structure_ext, cfg, active_provider, api_key, model_reconcile, paper.doi, paper.title)
             else:
                 result_holder = [None]
                 error_holder = [None]
@@ -755,7 +754,7 @@ async def extract_file(
             # Step 4.5: Streaming external review
             yield f"data: {json.dumps({'step': 'review', 'message': 'Running external reviewer...'})}\n\n"
             if use_litellm:
-                reviewed = _external_review_litellm(paper, draft, cfg, provider, api_key, model_reconcile)
+                reviewed = _external_review_litellm(paper, draft, cfg, active_provider, api_key, model_reconcile)
             else:
                 result_holder = [None]
                 error_holder = [None]
@@ -786,7 +785,7 @@ async def extract_file(
             if use_litellm:
                 from llm import call_llm as _call
                 def llm_fn(sys, usr, mdl):
-                    return _call(provider=provider, api_key=api_key, model=mdl, system=sys, user_message=usr)
+                    return _call(provider=active_provider, api_key=api_key, model=mdl, system=sys, user_message=usr)
             else:
                 def llm_fn(sys, usr, mdl):
                     c = get_client(cfg)
