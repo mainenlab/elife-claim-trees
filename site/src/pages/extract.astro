@@ -253,31 +253,36 @@ const url = (path: string) => `${base}${path}/`;
         const reader = response.body.getReader();
         const decoder = new TextDecoder();
         let buffer = '';
+        const colors = {
+          prepare: 'text-gray-500 dark:text-gray-400',
+          extract: 'text-amber-700 dark:text-amber-400',
+          reconcile: 'text-blue-700 dark:text-blue-400',
+          review: 'text-purple-700 dark:text-purple-400',
+          edges: 'text-cyan-700 dark:text-cyan-400',
+          done: 'text-green-700 dark:text-green-400',
+          error: 'text-red-600 dark:text-red-400',
+        };
 
         while (true) {
           const { done, value } = await reader.read();
           if (done) break;
           buffer += decoder.decode(value, { stream: true });
-          const lines = buffer.split('\n');
-          buffer = lines.pop() || '';
-          for (const line of lines) {
-            if (!line.startsWith('data: ')) continue;
+          // SSE events are separated by double newline
+          const events = buffer.split('\n\n');
+          buffer = events.pop() || '';
+          for (const eventBlock of events) {
+            const dataLine = eventBlock.split('\n').find(l => l.startsWith('data: '));
+            if (!dataLine) continue;
             try {
-              const event = JSON.parse(line.slice(6));
-              const colors = {
-                prepare: 'text-gray-500 dark:text-gray-400',
-                extract: 'text-amber-700 dark:text-amber-400',
-                reconcile: 'text-blue-700 dark:text-blue-400',
-                review: 'text-purple-700 dark:text-purple-400',
-                done: 'text-green-700 dark:text-green-400',
-                error: 'text-red-600 dark:text-red-400',
-              };
+              const event = JSON.parse(dataLine.slice(6));
               onEvent();
-              if (event.step === 'heartbeat') continue;  // heartbeat — reset timer but don't display
+              if (event.step === 'heartbeat') continue;
               if (event.message) log(event.message, colors[event.step], event.step);
               if (event.step === 'done' && event.article) renderResults(event.article, apiKey, demoToken);
               if (event.step === 'error') showError(event.message);
-            } catch {}
+            } catch (parseErr) {
+              console.error('SSE parse error:', parseErr, dataLine?.slice(0, 200));
+            }
           }
         }
       } catch (e) {
