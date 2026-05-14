@@ -424,7 +424,14 @@ const url = (path: string) => `${base}${path}/`;
       `;
 
       // Mount ReviewTab with the extracted claims
-      window.__mountReview(claims, article.metadata?.title || article.identifier || '', apiKey, demoToken);
+      if (window.__mountReview) {
+        window.__mountReview(claims, article.metadata?.title || article.identifier || '', apiKey, demoToken);
+      } else {
+        console.error('ReviewTab mount function not available');
+      }
+
+      // Scroll to results
+      resultsDiv.scrollIntoView({ behavior: 'smooth' });
     }
   </script>
 </Layout>
